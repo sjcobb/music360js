@@ -1,0 +1,29 @@
+{
+  "name": "music360js",
+  "version": "0.0.0",
+  "description": "https://www.youtube.com/channel/UCo_IXLTK8dtF2qOUCt4l47Q",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjcobb/music360js.git"
+  },
+  "keywords": [
+    "music animation",
+    "data visualization"
+  ],
+  "author": "sjcobb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sjcobb/music360js/issues"
+  },
+  "homepage": "https://github.com/sjcobb/music360js#readme",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "three": "^0.105.2",
+    "tone": "^13.4.9",
+    "webpack": "^4.34.0"
+  }
+}
