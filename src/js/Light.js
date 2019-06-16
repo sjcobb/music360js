@@ -1,0 +1,47 @@
+export default class Light {
+
+    constructor() {
+        // super();
+    }
+
+    addLights(renderer) {
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
+
+        // LIGHTS
+        const ambient = new THREE.AmbientLight(0x888888);
+        scene.add(ambient);
+
+        const light = new THREE.DirectionalLight(0xdddddd);
+        light.position.set(3, 10, 4);
+        light.target.position.set(0, 0, 0);
+        light.castShadow = true;
+
+        const lightSize = 10;
+        light.shadow.camera.near = 1;
+        light.shadow.camera.far = 50;
+        light.shadow.camera.left = light.shadow.camera.bottom = -lightSize;
+        light.shadow.camera.right = light.shadow.camera.top = lightSize;
+
+        light.shadow.mapSize.width = 1024;
+        light.shadow.mapSize.height = 1024;
+
+        this.sun = light;
+        scene.add(light);
+
+        // const fogColor = new THREE.Color(0xffffff);
+        const fogColor = new THREE.Color(0xE5E5E5); 
+        // const fogColor  = new THREE.Color("rgb(255, 0, 0)");
+        scene.background = fogColor;
+
+        // scene.fog = new THREE.Fog(fogColor, 0.0025, 20);
+        // scene.fog = new THREE.Fog(fogColor, 0.0025, 200);
+
+        // scene.fog = new THREE.FogExp2( 0xefd1b5, 0.0025 );
+        // scene.fog = new THREE.FogExp2( 0xE5E5E5, 0.0025 );
+        // scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.002 ); // decimal = densitry
+
+        // scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.002 ); // FINAL
+    }
+
+}

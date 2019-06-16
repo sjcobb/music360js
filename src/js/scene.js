@@ -1,7 +1,14 @@
-// import getInstrumentMappingTemplate from 'map'
+import InstrumentMappings from './InstrumentMappings.js';
+import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
+import Light from './Light.js';
+// import { Light } from './Light.js'; //err
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 /*jshint esversion: 6 */
 // console.clear();
+
+// TODO: import all files using modules
+// https://threejs.org/docs/#manual/en/introduction/Import-via-modules
 
 /***
  *** SCENE SETUP ***
@@ -19,8 +26,10 @@ let globalTimeCount = 2;
 let globalTicks = 0;
 let globalInstrumentCounter = 0;
 
-const globalKeyMappedDefaultObj = getInstrumentMappingTemplate();
-const instr = getInstrumentMappingTemplate();
+const instrument = new InstrumentMappings();
+
+const globalKeyMappedDefaultObj = instrument.getInstrumentMappingTemplate();
+const instr = instrument.getInstrumentMappingTemplate();
 
 //TODO: no globals, setup Webpack or Gulp
 const globalBallTextureWidth = 512;
@@ -105,7 +114,9 @@ window.addEventListener('resize', function() {
 // controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 // https://threejs.org/examples/#misc_controls_fly
-controls = new THREE.FlyControls(camera);
+
+// controls = new THREE.FlyControls(camera);
+const controls = new FlyControls(camera);
 // controls.movementSpeed = 10; //prev
 controls.movementSpeed = 1;
 controls.domElement = renderer.domElement;
@@ -151,7 +162,9 @@ function onTextureLoaded(texture) {
 // TODO: add light rays
 //       https://github.com/mrdoob/three.js/issues/767#issuecomment-471615486
 //       https://jsfiddle.net/q0Lfm165/
-addLights(renderer);
+
+const light = new Light();
+light.addLights(renderer);
 
 let flameActive = false;
 // let flameActive = '';
