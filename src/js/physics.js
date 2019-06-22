@@ -1,4 +1,6 @@
 import globals from './globals.js';
+// import THREEx from './THREEx.js';
+import Helpers from './THREEx.js';
 
 /*
  *** PHYSICS ***
@@ -23,6 +25,7 @@ export default class Physics {
     addBody(sphere = true, xPosition = 5.5, options = 'Z', timeout = 0) {
         // console.log('addBody -> options: ', options);
         // console.log('addBody -> timeout: ', timeout);
+        // helpers = new Helpers();
 
         const material = new CANNON.Material();
         const body = new CANNON.Body({ mass: 5, material: material });
@@ -38,10 +41,10 @@ export default class Physics {
 
         if (globals.autoScroll === true) {
             if (options.type === 'drum') {
-                xPos = -(globalTicks);
+                xPos = -(globals.ticks);
             } else {
-                xPos = -(globalTicks);
-                globalInstrumentCounter++;
+                xPos = -(globals.ticks);
+                globals.InstrumentCounter++;
             }
         }
 
@@ -63,7 +66,7 @@ export default class Physics {
 
         body.position.set((sphere) ? -xPos : xPos, yPos, zPos);
         // body.position.set((sphere) ? -x : x, y, 0);
-        body.linearDamping = globalDamping;
+        body.linearDamping = globals.damping;
 
         // body.initVelocity.x = 5; // TODO: cause balls to spin and roll off
         // body.angularVelocity.y = 9.5; //crazy spin
@@ -338,6 +341,8 @@ export default class Physics {
     }
 
     shape2Mesh(body, castShadow, receiveShadow, options) {
+        const helpers = new Helpers();
+
         const obj = new THREE.Object3D();
         const material = this.currentMaterial;
         const game = this;
@@ -359,7 +364,7 @@ export default class Physics {
                     if (options.variation === 'striped') {
                         stripedVariation = true;
                     }
-                    const poolTexture = THREEx.createPoolBall.ballTexture(options.ballDesc, stripedVariation, fillStyleMapping, 512);
+                    const poolTexture = helpers.ballTexture(options.ballDesc, stripedVariation, fillStyleMapping, 512);
 
                     const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 });
                     poolBallMaterial.map = poolTexture;

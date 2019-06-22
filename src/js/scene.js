@@ -16,7 +16,7 @@ export const globals = {
     // const globalClock = new THREE.Clock();
     // let globalTimeCount = 2;
 
-    // let globalTicks = 0;
+    // let globals.ticks = 0;
     // let globalInstrumentCounter = 0;
 
     // const instrument = new InstrumentMappings();

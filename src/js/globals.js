@@ -25,6 +25,10 @@ export default {
     triggerAnimationTime: '4:0:0',
     autoStart: false,
     autoScroll: true,
+    ticks: 0,
+    instrumentCounter: 0,
+    damping: 0.01,
+    
 
     // scene = new THREE.Scene();
     //-----INITIAL GLOBAL VARIABLES------//
@@ -33,7 +37,7 @@ export default {
     // const globalClock = new THREE.Clock();
     // let globalTimeCount = 2;
 
-    // let globalTicks = 0;
+    // let globals.ticks = 0;
     // let globalInstrumentCounter = 0;
 
     // const instrument = new InstrumentMappings();

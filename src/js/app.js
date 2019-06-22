@@ -4,10 +4,10 @@ import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 import Light from './Light.js';
 import Fire from './Fire.js';
 import Physics from './Physics.js';
+import Helpers from './THREEx.js';
 
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-/*jshint esversion: 6 */
 // console.clear();
 
 // TODO: import all files using modules
@@ -20,13 +20,14 @@ import Physics from './Physics.js';
  * TODO: update to most recent of both libs
  ***/
 
+// const helpers = new Helpers();
+
 //-----INITIAL GLOBAL VARIABLES------//
 const globalAutoStart = false;
 
 const globalClock = new THREE.Clock();
 let globalTimeCount = 2;
 
-let globalTicks = 0;
 let globalInstrumentCounter = 0;
 
 const instrument = new InstrumentMappings();
@@ -460,14 +461,14 @@ let animate = () => {
 
     //ENABLE HORIZONTAL SCROLL
     if (globalAutoScroll === true) {
-        // globalTicks = Tone.Transport.ticks * 0.014; //old
-        globalTicks += (delta * 5); //PREV
-        // globalTicks += (delta * 22);
+        // globals.ticks = Tone.Transport.ticks * 0.014; //old
+        globals.ticks += (delta * 5); //PREV
+        // globals.ticks += (delta * 22);
         
         if (globalCameraPositionBehind === true) {
-            globals.camera.position.x = globalPosBehindX + (globalTicks);
+            globals.camera.position.x = globalPosBehindX + (globals.ticks);
         } else {
-            globals.camera.position.x = (globalTicks) - 12;
+            globals.camera.position.x = (globals.ticks) - 12;
         }
     }
 
@@ -477,7 +478,7 @@ let animate = () => {
     if (Tone.Transport.seconds > 23 & flameActive === false) {
         console.log('addFire active -> position: ', Tone.Transport.position);
         // flameFirst.addFire();
-        flameFirst.addFire(globalTicks);
+        flameFirst.addFire(globals.ticks);
         flameActive = true;
     }
 
