@@ -11,7 +11,7 @@ import globals from './globals.js';
 document.documentElement.addEventListener(
     "mousedown",
     function() {
-        mouse_IsDown = true;
+        const mouse_IsDown = true;
         if (Tone.context.state !== 'running') {
             Tone.context.resume();
         }

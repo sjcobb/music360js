@@ -5,6 +5,7 @@ import Light from './Light.js';
 import Fire from './Fire.js';
 import Physics from './Physics.js';
 import Helpers from './THREEx.js';
+import Pool from './Pool.js';
 
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
@@ -21,6 +22,7 @@ import Helpers from './THREEx.js';
  ***/
 
 // const helpers = new Helpers();
+// const pool = new Pool();
 
 //-----INITIAL GLOBAL VARIABLES------//
 const globalAutoStart = false;
@@ -31,6 +33,7 @@ let globalTimeCount = 2;
 let globalInstrumentCounter = 0;
 
 const instrument = new InstrumentMappings();
+console.log({instrument});
 
 const globalKeyMappedDefaultObj = instrument.getInstrumentMappingTemplate();
 globals.instr = instrument.getInstrumentMappingTemplate();

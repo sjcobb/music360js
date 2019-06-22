@@ -1,3 +1,5 @@
+import Pool from './Pool.js';
+
 /*
  *** THREEX ***
  * https://github.com/jeromeetienne/threex.poolball *
@@ -8,7 +10,12 @@ export default class Helpers {
 
     constructor() {
         // super();
+        this.pool = new Pool();
     }
+
+    // initHelper() {
+    //     const pool = new Pool();
+    // }
 
     /**
      * Creator for tQuery.PoolBall
@@ -101,8 +108,15 @@ export default class Helpers {
     }
 
     drawPoolBall(canvas, textData, striped, fillStyle) {
+        // const pool = new Pool();
+        // console.log({pool});
+
         var ctx = canvas.getContext('2d');
-        var xtx = this.xCanvasCreate(ctx);
+        // var xtx = this.xCanvasCreate(ctx);
+        
+        // var xtx = this.pool.xCanvasCreate(ctx);
+        var xtx = this.pool.create(ctx);
+
         var w = canvas.width;
         var h = canvas.height;
 
@@ -129,7 +143,8 @@ export default class Helpers {
             // var radiusH = 1.2 * h / 4;
             var radiusW = 1.0 * w / 4;
             var radiusH = 1.5 * h / 4;
-            xtx.fillEllipse(-radiusW / 2, -radiusH / 2, radiusW, radiusH);
+            // xtx.fillEllipse(-radiusW / 2, -radiusH / 2, radiusW, radiusH);
+            this.fillEllipse(-radiusW / 2, -radiusH / 2, radiusW, radiusH, ctx);
             ctx.restore();
 
             // draw text data
@@ -170,18 +185,30 @@ export default class Helpers {
         return texture;
     }
 
+    // https://github.com/sjcobb/music-dojo/blob/develop/bounce/js/threex.js#L177
     xCanvasCreate(ctx) {
+
         var xCanvas = this.xCanvas;
-        return {
-            // TODO: fix err - this.xCanvasFillEllipse is not a function
-            fillEllipse: function(aX, aY, aWidth, aHeight) {
-                return this.xCanvasFillEllipse(ctx, aX, aY, aWidth, aHeight);
-            }
-        };
+
+        // var xCanvas = THREEx.createPoolBall.xCanvas;
+        // return {
+        //     // TODO: fix err - this.xCanvasFillEllipse is not a function
+        //     // fillEllipse: function(aX, aY, aWidth, aHeight) {
+        //     //     return this.xCanvasFillEllipse(ctx, aX, aY, aWidth, aHeight);
+        //     // }
+        // };
+        // const pool = new Pool();
+        // this.pool.fillEllipse(aX, aY, aWidth, aHeight);
+
+        // return this.fillEllipse(aX, aY, aWidth, aHeight);
+    }
+
+    fillEllipse(aX, aY, aWidth, aHeight, ctx) {
+        return this.xCanvasFillEllipse(ctx, aX, aY, aWidth, aHeight);
     }
     
     xCanvasCircle(ctx, aX, aY, aDiameter) {
-        this.ellipse(ctx, aX, aY, aDiameter, aDiameter);
+        this.pool.ellipse(ctx, aX, aY, aDiameter, aDiameter);
     }
 
     xCanvasFillCircle(ctx, aX, aY, aDiameter) {
@@ -214,13 +241,13 @@ export default class Helpers {
 
     xCanvasFillEllipse(ctx, aX, aY, aWidth, aHeight) {
         ctx.beginPath();
-        this.ellipse(ctx, aX, aY, aWidth, aHeight);
+        this.pool.ellipse(ctx, aX, aY, aWidth, aHeight);
         ctx.fill();
     }
 
     xCanvasStrokeEllipse(ctx, aX, aY, aWidth, aHeight) {
         ctx.beginPath();
-        this.ellipse(ctx, aX, aY, aWidth, aHeight);
+        this.pool.ellipse(ctx, aX, aY, aWidth, aHeight);
         ctx.stroke();
     }
 

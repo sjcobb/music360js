@@ -8,6 +8,8 @@ const config = {
     entry: {
         'bundle.js': [
             path.resolve(__dirname, 'src/js/globals.js'),
+            path.resolve(__dirname, 'src/js/Trigger.js'),
+            path.resolve(__dirname, 'src/js/Pool.js'),
             path.resolve(__dirname, 'src/js/Threex.js'),
             path.resolve(__dirname, 'src/js/Physics.js'),
             path.resolve(__dirname, 'src/js/drums.js'),

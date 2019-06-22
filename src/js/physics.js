@@ -1,6 +1,7 @@
 import globals from './globals.js';
 // import THREEx from './THREEx.js';
 import Helpers from './THREEx.js';
+import Trigger from './Trigger.js';
 
 /*
  *** PHYSICS ***
@@ -9,6 +10,8 @@ import Helpers from './THREEx.js';
 export default class Physics {
 
     constructor() {
+        // this.trigger = new Trigger();
+
         // super();
     }
 
@@ -23,6 +26,7 @@ export default class Physics {
     }
 
     addBody(sphere = true, xPosition = 5.5, options = 'Z', timeout = 0) {
+        const trigger = new Trigger();
         // console.log('addBody -> options: ', options);
         // console.log('addBody -> timeout: ', timeout);
         // helpers = new Helpers();
@@ -101,6 +105,8 @@ export default class Physics {
             // console.log('body collide INERTIA: ', ev.body.inertia); //right is NaN, wrong is 0.8333333333333333
             // console.log('contact between two bodies: ', ev.contact);
             // console.log(bodyCollideCount);
+
+            console.log('trigger: ', this.trigger);
             if (options.type === 'drum') {
                 // if (bodyCollideCount <= 1) { //play note two times on collide
                 if (bodyCollideCount <= 0) {
@@ -109,13 +115,13 @@ export default class Physics {
 
                     // if (ev.body.initPosition.x === 0) { 
                     // since ground is stationary at 0, must be hidden contact body above origin drop point
-                    triggerNote(body);
+                    trigger.triggerNote(body);
                     // }
                 }
             } else { //regular spheres
                 if (bodyCollideCount <= 0) { //play note one time on collide
                     // console.log('REGULAR ev: ', ev);
-                    triggerNote(body);
+                    trigger.triggerNote(body);
                 }
             }
 
@@ -140,7 +146,7 @@ export default class Physics {
             sphereRestitution = 0.1;
         }
 
-        if (globalCameraPositionBehind === true) {
+        if (globals.cameraPositionBehind === true) {
             // body.quaternion.x = 11; //sideways spin
             // body.quaternion.y = 11;
             // body.quaternion.z = 0.5;
@@ -369,7 +375,7 @@ export default class Physics {
                     const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 });
                     poolBallMaterial.map = poolTexture;
                     const sphereGeo = new THREE.SphereGeometry(shape.radius, 8, 8);
-                    sphereGeo.name = 'sphereGeo'; //*** important for rotation when globalCameraPositionBehind true
+                    sphereGeo.name = 'sphereGeo'; //*** important for rotation when globals.cameraPositionBehind true
 
                     mesh = new THREE.Mesh(sphereGeo, poolBallMaterial); //prev: material
                     break;
@@ -523,7 +529,7 @@ export default class Physics {
             mesh.quaternion.set(q.x, q.y, q.z, q.w);
 
             if (mesh.geometry) {
-                if (mesh.geometry.name === 'sphereGeo' && globalCameraPositionBehind) {
+                if (mesh.geometry.name === 'sphereGeo' && globals.cameraPositionBehind) {
                     // console.log('sphereGeo debug rotation: ', mesh.rotation);
                     mesh.rotation.set(0, -1.5, 0); //x: more faces downwards, y: correct - around center, z
                 }

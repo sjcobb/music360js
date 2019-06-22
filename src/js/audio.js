@@ -199,8 +199,8 @@ const boleroFireChords = [
 
 const pianoChordsFirstPart = new Tone.Part(function(time, instr) {
     addBody(true, time * globalMultiplierPosX, instr);
-    // addFire(globals.ticks); //old
-    // flameFirst.addFire(globals.ticks);
+    // addFire(globalTicks); //old
+    // flameFirst.addFire(globalTicks);
     // flameActive = false;
 }, boleroFireChords);
 
@@ -329,7 +329,7 @@ function triggerNote(obj) {
             playerRide.start();
         } else if (triggerObj.variation === 'tom-high') {
             playerTomHigh.start();
-            // flameFirst.addFire(globals.ticks);
+            // flameFirst.addFire(globalTicks);
         } else {
             console.log('UNDEF variation - triggerNote() -> triggerObj (drum): ', triggerObj);
             playerHiHat.start();
