@@ -34,9 +34,9 @@ export default class Physics {
         }
 
         let xRand = Math.random() * (15 - 1) + 1; //rdm b/w 1 and 15
-        xPos = xPosition; //TODO: remove xPosition param if not used
+        let xPos = xPosition; //TODO: remove xPosition param if not used
 
-        if (globalAutoScroll === true) {
+        if (globals.autoScroll === true) {
             if (options.type === 'drum') {
                 xPos = -(globalTicks);
             } else {

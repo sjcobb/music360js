@@ -24,6 +24,7 @@ export default {
     instr: {},
     triggerAnimationTime: '4:0:0',
     autoStart: false,
+    autoScroll: true,
 
     // scene = new THREE.Scene();
     //-----INITIAL GLOBAL VARIABLES------//

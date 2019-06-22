@@ -453,12 +453,12 @@ export default class InstrumentMappings {
     getInstrumentMapping(index, obj) {
         // return (obj.userData.opts.moveControl ? false : true);
         // return (value * this.notationConstants[providedUnits].digits);
-        const instrumentMapping = getInstrumentMappingTemplate();
+        const instrumentMapping = this.getInstrumentMappingTemplate();
         return instrumentMapping[obj] ? instrumentMapping[obj] : globalLetterNumArr[index];
     }
     
     getKeyboardMapping(input) {
-        const instrumentMapping = getInstrumentMappingTemplate();
+        const instrumentMapping = this.getInstrumentMappingTemplate();
         for (var key in instrumentMapping) {
             if (instrumentMapping.hasOwnProperty(key)) {
                 if (input === instrumentMapping[key].keyInput) {
@@ -471,7 +471,7 @@ export default class InstrumentMappings {
     }
     
     getNoteMapping(obj) {
-        const instrumentMapping = getInstrumentMappingTemplate();
+        const instrumentMapping = this.getInstrumentMappingTemplate();
         for (var key in instrumentMapping) {
             if (instrumentMapping.hasOwnProperty(key)) {
                 // if (obj.userData.opts.ballDesc === instrumentMapping[key].ballDesc) { //keyInput is preferable to ballDesc since there should not be duplicates 

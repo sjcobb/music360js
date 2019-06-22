@@ -1,6 +1,10 @@
+// https://github.com/johndatserakis/modern-webpack-starter/blob/master/webpack.config.js
+// https://github.com/webpack/webpack-dev-server/blob/master/examples/api/simple/server.js#L16
+// https://medium.com/code-oil/burning-questions-with-answers-to-why-webpack-dev-server-live-reload-does-not-work-6d6390277920
+
 const path = require('path');
 
-module.exports = {
+const config = {
     entry: {
         'bundle.js': [
             path.resolve(__dirname, 'src/js/globals.js'),
@@ -18,5 +22,15 @@ module.exports = {
     output: {
         filename: '[name]',
         path: path.resolve(__dirname, 'dist'),
+    },
+    devServer: {
+        // host: '0.0.0.0',
+        port: 8082,
+        // publicPath: '/assets/',
+        publicPath: '/dist/',
+        watchContentBase: true, //for html
+        historyApiFallback: true
     }
 };
+
+module.exports = config;

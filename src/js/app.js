@@ -364,7 +364,7 @@ function placeStaticPoolBalls() {
         if (i <= 3) {
             //TODO: fix reverse set of letters
             //drops 3 balls on page load, if screen clicked note plays
-            // addBody(true, offsetXCalc, tempObj.ballDesc); 
+            // physics.addBody(true, offsetXCalc, tempObj.ballDesc); 
         }
 
         if (i > 6) {
@@ -512,12 +512,12 @@ window.onload = () => {
             //console.log(`Combination of ctrlKey + ${keyName}`);
         } else {
 
-            let keyMapped = getKeyboardMapping(keyName);
+            let keyMapped = instrument.getKeyboardMapping(keyName);
             // console.log({keyMapped});
 
             switch (keyName) {
                 case ('z'):
-                    // addBody(true, globalDropPosX, keyMapped);
+                    // physics.addBody(true, globalDropPosX, keyMapped);
                     // globalDropPosX -= 1.3;
                     break;
                 default:
@@ -530,7 +530,7 @@ window.onload = () => {
                     instrumentInput.userData.opts.moveControl = activeSwitcher(instrumentInput); //static ball array movement (no physics)
                 } else if (keyName === keyMapped.keyInput) { //*** IMPORTANT ***
                     // console.log({keyMapped});
-                    addBody(true, globalDropPosX, keyMapped);
+                    physics.addBody(true, globalDropPosX, keyMapped);
                     globalDropPosX -= 1.3; //TODO: how to manipulate Y drop position?
                     // console.log('keyMapped: ', event);
                 } else {
