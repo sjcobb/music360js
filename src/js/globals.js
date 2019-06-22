@@ -1,5 +1,7 @@
-// export default class Scene {
-export const globals = {
+// import InstrumentMappings from './InstrumentMappings.js';
+import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
+
+export default {
 
     // constructor() {
     //     // super();
@@ -7,7 +9,21 @@ export const globals = {
     // }
 
     scene: new THREE.Scene(),
-    anotherGlobal: false
+    world: new CANNON.World(),
+    camera: new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000),
+    renderer: new THREE.WebGLRenderer(),
+    // controls: new FlyControls(camera),
+    controls: '',
+    loader: new THREE.TextureLoader(),
+    posBehindX: -30,
+    posBehindZ: 3.8,
+    globalActiveInstrColor: '#9F532A', //red
+    cameraPositionBehind: true,
+    fixedTimeStep: 1.0 / 60.0,
+    configColorAnimate: false,
+    instr: {},
+    triggerAnimationTime: '4:0:0',
+    autoStart: false,
 
     // scene = new THREE.Scene();
     //-----INITIAL GLOBAL VARIABLES------//

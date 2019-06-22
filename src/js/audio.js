@@ -1,7 +1,8 @@
+import globals from './globals.js';
+
 /*
  *** AUDIO ***
  */
-/*jshint esversion: 6 */
 
 //-----TONE------//
 
@@ -87,15 +88,15 @@ const playerTomLow = new Tone.Player("assets/sounds/drum-kits/electronic/tom-low
 var allDrumsPart = new Tone.Part(function(time, instr) {
     addBody(true, time * globalMultiplierPosX, instr);
 }, [
-    ["0:0:0", instr.kickPrimary],
-    ["0:6:0", instr.kickPrimary],
-    ["0:7:0", instr.kickPrimary],
+    ["0:0:0", globals.instr.kickPrimary],
+    ["0:6:0", globals.instr.kickPrimary],
+    ["0:7:0", globals.instr.kickPrimary],
 
-    ["0:10:0", instr.snarePrimary],
+    ["0:10:0", globals.instr.snarePrimary],
 
-    ["0:4:0", instr.crashPrimary],
+    ["0:4:0", globals.instr.crashPrimary],
 
-    ["0:4:0", instr.tomHigh],
+    ["0:4:0", globals.instr.tomHigh],
 ]);
 allDrumsPart.loop = true;
 // allDrumsPart.start("0:0:0");
@@ -105,20 +106,20 @@ var secondVerseDrumsPart = new Tone.Part(function(time, instr) {
     addBody(true, time * globalMultiplierPosX, instr);
 }, [
 
-    ["0:0:0", instr.ridePrimary],
-    ["0:2:0", instr.ridePrimary],
-    ["0:4:0", instr.ridePrimary],
-    ["0:6:0", instr.ridePrimary],
+    ["0:0:0", globals.instr.ridePrimary],
+    ["0:2:0", globals.instr.ridePrimary],
+    ["0:4:0", globals.instr.ridePrimary],
+    ["0:6:0", globals.instr.ridePrimary],
 
-    // ["0:0:0", instr.hiHatOpen],
-    // ["0:2:0", instr.hiHatOpen],
-    // ["0:4:0", instr.hiHatOpen],
-    // ["0:6:0", instr.hiHatOpen],
+    // ["0:0:0", globals.instr.hiHatOpen],
+    // ["0:2:0", globals.instr.hiHatOpen],
+    // ["0:4:0", globals.instr.hiHatOpen],
+    // ["0:6:0", globals.instr.hiHatOpen],
 
-    // ["0:7:0", instr.kickPrimary],
-    // ["0:10:0", instr.snarePrimary],
-    // ["0:4:0", instr.crashPrimary],
-    // ["0:4:0", instr.tomHigh],
+    // ["0:7:0", globals.instr.kickPrimary],
+    // ["0:10:0", globals.instr.snarePrimary],
+    // ["0:4:0", globals.instr.crashPrimary],
+    // ["0:4:0", globals.instr.tomHigh],
 ]);
 secondVerseDrumsPart.loop = 4;
 // secondVerseDrumsPart.start("6:0:0"); //directly after allDrumsPart
@@ -128,20 +129,20 @@ secondVerseDrumsPart.start("7:0:0");
 var introPart = new Tone.Part(function(time, instr) {
     addBody(true, time * globalMultiplierPosX, instr);
 }, [
-    ["0:0:0", instr.hiHatClosed],
-    ["0:2:0", instr.hiHatClosed],
-    ["0:2:3", instr.hiHatClosed],
-    ["0:2:6", instr.hiHatClosed],
-    ["0:2:9", instr.hiHatClosed],
+    ["0:0:0", globals.instr.hiHatClosed],
+    ["0:2:0", globals.instr.hiHatClosed],
+    ["0:2:3", globals.instr.hiHatClosed],
+    ["0:2:6", globals.instr.hiHatClosed],
+    ["0:2:9", globals.instr.hiHatClosed],
 
-    ["0:6:0", instr.hiHatClosed],
-    ["0:6:3", instr.hiHatClosed],
-    ["0:6:6", instr.hiHatClosed],
-    ["0:6:9", instr.hiHatClosed],
-    ["0:10:0", instr.hiHatOpen],
+    ["0:6:0", globals.instr.hiHatClosed],
+    ["0:6:3", globals.instr.hiHatClosed],
+    ["0:6:6", globals.instr.hiHatClosed],
+    ["0:6:9", globals.instr.hiHatClosed],
+    ["0:10:0", globals.instr.hiHatOpen],
 
-    // ["0:10:0", instr.hiHatOpen],
-    // ["0:11:0", instr.hiHatOpen],
+    // ["0:10:0", globals.instr.hiHatOpen],
+    // ["0:11:0", globals.instr.hiHatOpen],
 ]);
 introPart.loop = 6;
 // introPart.start("2:0:0");
@@ -150,19 +151,19 @@ introPart.start("0:0:0");
 var groovePart = new Tone.Part(function(time, instr) {
     addBody(true, time * globalMultiplierPosX, instr);
 }, [
-    ["0:0:0", instr.hiHatClosed],
-    ["0:2:0", instr.hiHatClosed],
-    ["0:3:0", instr.hiHatClosed],
-    ["0:4:0", instr.hiHatOpen],
-    // ["0:1:3", instr.hiHatOpen],
-    // ["0:3:0", instr.hiHatClosed],
+    ["0:0:0", globals.instr.hiHatClosed],
+    ["0:2:0", globals.instr.hiHatClosed],
+    ["0:3:0", globals.instr.hiHatClosed],
+    ["0:4:0", globals.instr.hiHatOpen],
+    // ["0:1:3", globals.instr.hiHatOpen],
+    // ["0:3:0", globals.instr.hiHatClosed],
 
-    ["0:8:0", instr.snarePrimary],
+    ["0:8:0", globals.instr.snarePrimary],
 
-    ["0:6:0", instr.kickPrimary],
+    ["0:6:0", globals.instr.kickPrimary],
 
-    // ["0:10:0", instr.hiHatOpen],
-    // ["0:11:0", instr.hiHatOpen],
+    // ["0:10:0", globals.instr.hiHatOpen],
+    // ["0:11:0", globals.instr.hiHatOpen],
 ]);
 groovePart.loop = 2;
 // groovePart.start("0:0:0");
@@ -172,29 +173,28 @@ groovePart.loop = 2;
 var introPianoPart = new Tone.Part(function(time, instr) {
     addBody(true, time * globalMultiplierPosX, instr);
 }, [
-    ["0:0:0", instr.sphereChordC],
-    ["0:4:0", instr.sphereChordF],
-    ["0:8:0", instr.sphereChordG],
-    ["0:9:0", instr.sphereChordG],
-    // ["0:11:0", instr.sphereChordC],
+    ["0:0:0", globals.instr.sphereChordC],
+    ["0:4:0", globals.instr.sphereChordF],
+    ["0:8:0", globals.instr.sphereChordG],
+    ["0:9:0", globals.instr.sphereChordG],
+    // ["0:11:0", globals.instr.sphereChordC],
 ]);
 introPianoPart.loop = 2;
 // introPianoPart.start("6:0:0");
 
-// const triggerAnimationTime = "4:0:0";
-// flameFirst.addFire(triggerAnimationTime);
+// flameFirst.addFire(globals.triggerAnimationTime);
 
 const boleroFireChords = [
-    ["0:0:0", instr.sphereChordF],
-    ["0:1:0", instr.sphereChordD],
-    ["0:3:0", instr.sphereChordF],
-    ["0:4:0", instr.sphereChordD],
-    // ["0:6:0", instr.sphereChordA],
-    ["0:6:0", instr.sphereChordA3],
-    ["0:7:0", instr.sphereChordF],
-    // ["0:9:0", instr.sphereChordA],
-    ["0:9:0", instr.sphereChordA3],
-    ["0:10:0", instr.sphereChordF],
+    ["0:0:0", globals.instr.sphereChordF],
+    ["0:1:0", globals.instr.sphereChordD],
+    ["0:3:0", globals.instr.sphereChordF],
+    ["0:4:0", globals.instr.sphereChordD],
+    // ["0:6:0", globals.instr.sphereChordA],
+    ["0:6:0", globals.instr.sphereChordA3],
+    ["0:7:0", globals.instr.sphereChordF],
+    // ["0:9:0", globals.instr.sphereChordA],
+    ["0:9:0", globals.instr.sphereChordA3],
+    ["0:10:0", globals.instr.sphereChordF],
 ];
 
 const pianoChordsFirstPart = new Tone.Part(function(time, instr) {
@@ -211,7 +211,7 @@ const pianoChordsSecondPart = new Tone.Part(function(time, instr) {
 pianoChordsFirstPart.loop = 2;
 // pianoChordsFirstPart.start("1:0:0");
 // pianoChordsFirstPart.start("4:0:0");
-pianoChordsFirstPart.start(triggerAnimationTime);
+pianoChordsFirstPart.start(globals.triggerAnimationTime);
 
 pianoChordsSecondPart.loop = 2;
 // pianoChordsSecondPart.start("6:0:0");
@@ -221,76 +221,76 @@ var pianoChordsFinalPart = new Tone.Part(function(time, instr) {
     addBody(true, time * globalMultiplierPosX, instr);
 }, [
 
-    ["0:0:0", instr.sphereChordE],
-    ["0:2:0", instr.sphereChordG],
-    ["0:4:0", instr.sphereChordA3],
-    ["0:5:0", instr.sphereChordA3],
-    ["0:6:0", instr.sphereChordB3],
+    ["0:0:0", globals.instr.sphereChordE],
+    ["0:2:0", globals.instr.sphereChordG],
+    ["0:4:0", globals.instr.sphereChordA3],
+    ["0:5:0", globals.instr.sphereChordA3],
+    ["0:6:0", globals.instr.sphereChordB3],
 
-    // ["0:6:0", instr.sphereChordB3],
-    // ["0:8:0", instr.sphereChordE],
-    // ["0:10:0", instr.sphereChordG],
+    // ["0:6:0", globals.instr.sphereChordB3],
+    // ["0:8:0", globals.instr.sphereChordE],
+    // ["0:10:0", globals.instr.sphereChordG],
 
-    // ["0:1:0", instr.sphereChordE3],
+    // ["0:1:0", globals.instr.sphereChordE3],
 
-    // ["0:3:0", instr.sphereChordG],
-    // ["0:3:0", instr.sphereChordG3],
-    // ["0:4:0", instr.sphereChordE],
-    // ["0:4:0", instr.sphereChordE3],
+    // ["0:3:0", globals.instr.sphereChordG],
+    // ["0:3:0", globals.instr.sphereChordG3],
+    // ["0:4:0", globals.instr.sphereChordE],
+    // ["0:4:0", globals.instr.sphereChordE3],
 
-    // ["0:6:0", instr.sphereChordB],
-    // ["0:6:0", instr.sphereChordB3],
-    // ["0:7:0", instr.sphereChordG1],
-    // ["0:7:0", instr.sphereChordG],
+    // ["0:6:0", globals.instr.sphereChordB],
+    // ["0:6:0", globals.instr.sphereChordB3],
+    // ["0:7:0", globals.instr.sphereChordG1],
+    // ["0:7:0", globals.instr.sphereChordG],
 
-    // ["0:9:0", instr.sphereChordB],
-    // ["0:9:0", instr.sphereChordB3],
-    // ["0:10:0", instr.sphereChordG1],
-    // ["0:10:0", instr.sphereChordG],
-
-    // //
-
-    // ["0:0:0", instr.sphereChordG],
-    // ["0:0:0", instr.sphereChordG3],
-    // ["0:1:0", instr.sphereChordE],
-    // ["0:1:0", instr.sphereChordE3],
-
-    // ["0:3:0", instr.sphereChordG],
-    // ["0:3:0", instr.sphereChordG3],
-    // ["0:4:0", instr.sphereChordE],
-    // ["0:4:0", instr.sphereChordE3],
-
-    // ["0:6:0", instr.sphereChordB],
-    // ["0:6:0", instr.sphereChordB3],
-    // ["0:7:0", instr.sphereChordG1],
-    // ["0:7:0", instr.sphereChordG],
-
-    // ["0:9:0", instr.sphereChordB],
-    // ["0:9:0", instr.sphereChordB3],
-    // ["0:10:0", instr.sphereChordG1],
-    // ["0:10:0", instr.sphereChordG],
+    // ["0:9:0", globals.instr.sphereChordB],
+    // ["0:9:0", globals.instr.sphereChordB3],
+    // ["0:10:0", globals.instr.sphereChordG1],
+    // ["0:10:0", globals.instr.sphereChordG],
 
     // //
 
-    // ["0:0:0", instr.sphereChordB],
-    // ["0:0:0", instr.sphereChordB3],
-    // ["0:1:0", instr.sphereChordG1],
-    // ["0:1:0", instr.sphereChordG],
+    // ["0:0:0", globals.instr.sphereChordG],
+    // ["0:0:0", globals.instr.sphereChordG3],
+    // ["0:1:0", globals.instr.sphereChordE],
+    // ["0:1:0", globals.instr.sphereChordE3],
 
-    // ["0:3:0", instr.sphereChordB],
-    // ["0:3:0", instr.sphereChordB3],
-    // ["0:4:0", instr.sphereChordG1],
-    // ["0:4:0", instr.sphereChordG],
+    // ["0:3:0", globals.instr.sphereChordG],
+    // ["0:3:0", globals.instr.sphereChordG3],
+    // ["0:4:0", globals.instr.sphereChordE],
+    // ["0:4:0", globals.instr.sphereChordE3],
 
-    // ["0:6:0", instr.sphereChordG],
-    // ["0:6:0", instr.sphereChordG3],
-    // ["0:7:0", instr.sphereChordE],
-    // ["0:7:0", instr.sphereChordE3],
+    // ["0:6:0", globals.instr.sphereChordB],
+    // ["0:6:0", globals.instr.sphereChordB3],
+    // ["0:7:0", globals.instr.sphereChordG1],
+    // ["0:7:0", globals.instr.sphereChordG],
 
-    // ["0:9:0", instr.sphereChordG],
-    // ["0:9:0", instr.sphereChordG3],
-    // ["0:10:0", instr.sphereChordE],
-    // ["0:10:0", instr.sphereChordE3],
+    // ["0:9:0", globals.instr.sphereChordB],
+    // ["0:9:0", globals.instr.sphereChordB3],
+    // ["0:10:0", globals.instr.sphereChordG1],
+    // ["0:10:0", globals.instr.sphereChordG],
+
+    // //
+
+    // ["0:0:0", globals.instr.sphereChordB],
+    // ["0:0:0", globals.instr.sphereChordB3],
+    // ["0:1:0", globals.instr.sphereChordG1],
+    // ["0:1:0", globals.instr.sphereChordG],
+
+    // ["0:3:0", globals.instr.sphereChordB],
+    // ["0:3:0", globals.instr.sphereChordB3],
+    // ["0:4:0", globals.instr.sphereChordG1],
+    // ["0:4:0", globals.instr.sphereChordG],
+
+    // ["0:6:0", globals.instr.sphereChordG],
+    // ["0:6:0", globals.instr.sphereChordG3],
+    // ["0:7:0", globals.instr.sphereChordE],
+    // ["0:7:0", globals.instr.sphereChordE3],
+
+    // ["0:9:0", globals.instr.sphereChordG],
+    // ["0:9:0", globals.instr.sphereChordG3],
+    // ["0:10:0", globals.instr.sphereChordE],
+    // ["0:10:0", globals.instr.sphereChordE3],
 
 ]);
 pianoChordsFinalPart.loop = 2;

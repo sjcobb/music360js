@@ -1,9 +1,10 @@
+import globals from './globals.js';
+
 /*
  *** FIRE ***
  */
-/*jshint esversion: 6 */
 
-class Fire {
+export default class Fire {
     
     constructor(fireParam) {
         // https://googlechrome.github.io/samples/classes-es6/
@@ -15,15 +16,15 @@ class Fire {
     }
 
     initFire() {
-        loader.crossOrigin = '';
-        var fireTex = loader.load("./assets/flame/FireOrig.png");
+        globals.loader.crossOrigin = '';
+        var fireTex = globals.loader.load("./assets/flame/FireOrig.png");
         var wireframeMat = new THREE.MeshBasicMaterial({
             color : new THREE.Color(0xffffff),
             wireframe : true
         });
 
-        volumetricFire = new THREE.Fire(fireTex);
-        volumetricFire.position.set(globalPosBehindX + 22, 0, globalPosBehindZ);
+        const volumetricFire = new THREE.Fire(fireTex);
+        volumetricFire.position.set(globals.posBehindX + 22, 0, globals.posBehindZ);
 
         // volumetricFire.scale.set(3, 3.4, 3.0); //width, height, z
         volumetricFire.scale.set(6, 6.8, 6.0); //width, height, z
@@ -39,13 +40,14 @@ class Fire {
 
         // console.log({volumetricFire});
         // scene.add(volumetricFire);
+        globals.scene.add(volumetricFire);
     }
 
     addFire(posX = globalPosBehindX + 22, currentTime) {
         // console.log(this);
         // if (currentTime === this.triggerTime) {
             // console.log('addFire active......');
-            volumetricFire.position.set(posX, 0, globalPosBehindZ);
+            volumetricFire.position.set(posX, 0, globals.posBehindZ);
             scene.add(volumetricFire);
         // }
     }

@@ -1,3 +1,5 @@
+import globals from './globals.js';
+
 export default class Light {
 
     constructor() {
@@ -5,12 +7,16 @@ export default class Light {
     }
 
     addLights(renderer) {
+        // https://stackoverflow.com/a/40416826/7639084
+        // console.log(globals.scene);
+        console.log('GLOBAL VARS: ', globals);
+
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
 
         // LIGHTS
         const ambient = new THREE.AmbientLight(0x888888);
-        scene.add(ambient);
+        globals.scene.add(ambient);
 
         const light = new THREE.DirectionalLight(0xdddddd);
         light.position.set(3, 10, 4);
@@ -27,21 +33,24 @@ export default class Light {
         light.shadow.mapSize.height = 1024;
 
         this.sun = light;
-        scene.add(light);
+        // globals.scene.add(light);
+
+
+        globals.scene.add(light);
 
         // const fogColor = new THREE.Color(0xffffff);
         const fogColor = new THREE.Color(0xE5E5E5); 
         // const fogColor  = new THREE.Color("rgb(255, 0, 0)");
-        scene.background = fogColor;
+        globals.scene.background = fogColor;
 
-        // scene.fog = new THREE.Fog(fogColor, 0.0025, 20);
-        // scene.fog = new THREE.Fog(fogColor, 0.0025, 200);
+        // globals.scene.fog = new THREE.Fog(fogColor, 0.0025, 20);
+        // globals.scene.fog = new THREE.Fog(fogColor, 0.0025, 200);
 
-        // scene.fog = new THREE.FogExp2( 0xefd1b5, 0.0025 );
-        // scene.fog = new THREE.FogExp2( 0xE5E5E5, 0.0025 );
-        // scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.002 ); // decimal = densitry
+        // globals.scene.fog = new THREE.FogExp2( 0xefd1b5, 0.0025 );
+        // globals.scene.fog = new THREE.FogExp2( 0xE5E5E5, 0.0025 );
+        // globals.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.002 ); // decimal = densitry
 
-        // scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.002 ); // FINAL
+        // globals.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.002 ); // FINAL
     }
 
 }

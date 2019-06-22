@@ -2,7 +2,6 @@
  *** THREEX ***
  * https://github.com/jeromeetienne/threex.poolball *
  */
-/*jshint esversion: 6 */
 // console.clear();
 
 var THREEx = THREEx || {};

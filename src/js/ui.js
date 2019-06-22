@@ -1,7 +1,8 @@
+import globals from './globals.js';
+
 /*
  *** USER INTERFACE ***
  */
-/*jshint esversion: 6 */
 
 //-----SETTINGS CONTAINER------//
 
@@ -96,7 +97,7 @@ addShapeId.onclick = (el) => {
     addBody();
 };
 
-if (globalAutoStart === true) {
+if (globals.autoStart === true) {
     setTimeout(function() {
         Tone.Transport.start();
     }, 5000);
