@@ -1,0 +1,37 @@
+{
+  "name": "music360js",
+  "version": "0.0.0",
+  "description": "https://www.youtube.com/channel/UCo_IXLTK8dtF2qOUCt4l47Q",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development",
+    "build": "./node_modules/.bin/webpack --mode development",
+    "build-prod": "./node_modules/.bin/webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "NODE_ENV=development webpack-dev-server --open --hot --display-error-details"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjcobb/music360js.git"
+  },
+  "keywords": [
+    "music animation",
+    "data visualization"
+  ],
+  "author": "sjcobb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sjcobb/music360js/issues"
+  },
+  "homepage": "https://github.com/sjcobb/music360js#readme",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "three": "^0.105.2",
+    "tone": "^13.4.9",
+    "webpack": "^4.34.0",
+    "webpack-dev-server": "^3.7.2"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.4"
+  }
+}
