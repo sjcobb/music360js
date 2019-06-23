@@ -17,6 +17,7 @@ export default {
     loader: new THREE.TextureLoader(),
     posBehindX: -30,
     posBehindZ: 3.8,
+    multiplierPosX: -2.5,
     globalActiveInstrColor: '#9F532A', //red
     cameraPositionBehind: true,
     fixedTimeStep: 1.0 / 60.0,
@@ -28,7 +29,9 @@ export default {
     ticks: 0,
     instrumentCounter: 0,
     damping: 0.01,
-    
+    musicActive: false,
+
+
 
     // scene = new THREE.Scene();
     //-----INITIAL GLOBAL VARIABLES------//

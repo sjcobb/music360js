@@ -1,3 +1,4 @@
+import Tone from 'Tone';
 import globals from './globals.js';
 import InstrumentMappings from './InstrumentMappings.js';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
@@ -516,6 +517,7 @@ window.onload = () => {
             //console.log(`Combination of ctrlKey + ${keyName}`);
         } else {
 
+            // console.log('key... ', instrument);
             let keyMapped = instrument.getKeyboardMapping(keyName);
             // console.log({keyMapped});
 
