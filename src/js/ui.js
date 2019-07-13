@@ -1,4 +1,5 @@
 import globals from './globals.js';
+import Tone from 'tone';
 
 /*
  *** USER INTERFACE ***

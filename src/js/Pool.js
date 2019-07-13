@@ -13,13 +13,7 @@ export default class Pool {
 
     create(ctx) {
         const helpers = new Helpers();
-        console.log({helpers});
-
-        // var xCanvas = THREEx.createPoolBall.xCanvas;
-        // var xCanvas = helpers.create.xCanvas;
-
         var xCanvas = helpers.xCanvasCreate(ctx);
-        console.log({xCanvas});
 
         return {
             fillEllipse: function(aX, aY, aWidth, aHeight) {

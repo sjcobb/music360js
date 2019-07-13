@@ -26,13 +26,12 @@ export default class Physics {
         }
     }
 
-    addBody(sphere = true, xPosition = 5.5, options = 'Z', timeout = 0) {
+    addBody(sphere = true, xPosition = 5.5, options = '', timeout = 0) {
 
-        if (options === 'Z') {
+        if (options === '') {
             const instrument = new InstrumentMappings();
             const defaultInstr = instrument.getInstrumentMappingTemplate();
             options = defaultInstr.hiHatClosed;
-            console.log({options});
         }
         
         const trigger = new Trigger();
@@ -43,6 +42,10 @@ export default class Physics {
         const material = new CANNON.Material();
         const body = new CANNON.Body({ mass: 5, material: material });
         // const body = new CANNON.Body({ mass: 1, material: material }); //no effect
+
+        this.shapes = {};
+        this.shapes.sphere = new CANNON.Sphere(0.5);
+        this.shapes.box = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5));
         if (sphere) {
             body.addShape(this.shapes.sphere);
         } else {
@@ -115,7 +118,6 @@ export default class Physics {
             // console.log('contact between two bodies: ', ev.contact);
             // console.log(bodyCollideCount);
 
-            console.log('trigger: ', this.trigger);
             if (options.type === 'drum') {
                 // if (bodyCollideCount <= 1) { //play note two times on collide
                 if (bodyCollideCount <= 0) {

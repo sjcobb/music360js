@@ -35,7 +35,6 @@ let globalTimeCount = 2;
 let globalInstrumentCounter = 0;
 
 const instrument = new InstrumentMappings();
-console.log({instrument});
 
 const globalKeyMappedDefaultObj = instrument.getInstrumentMappingTemplate();
 globals.instr = instrument.getInstrumentMappingTemplate();
@@ -184,7 +183,6 @@ flameFirst.initFire();
 
 const physics = new Physics();
 physics.initPhysics();
-console.log({physics});
 
 //-----GEOMETRY VARIABLES------//
 let box = new THREE.BoxGeometry(1, 1, 1);
@@ -307,13 +305,10 @@ function addThickStaffLines() {
     // }
     // colors = [1, 0, 0, 1, 0.007812499999999556, 0]
 
-
     // THREE.Line2 ( LineGeometry, LineMaterial )
     var geometry = new THREE.LineGeometry();
     geometry.setPositions(positions);
     geometry.setColors(colors);
-    console.log({ colors });
-    console.log({ positions });
     matLine = new THREE.LineMaterial({
         color: 0xffffff,
         linewidth: 1, // in pixels
@@ -394,7 +389,6 @@ function placeStaticPoolBalls() {
             keyIndex++;
         }
     }
-    // console.log('final poolBalls: ', poolBalls);
 }
 
 function getObjectState(object, objPositionUp, threshold) {
@@ -550,7 +544,7 @@ window.onload = () => {
     animate();
 
     // addBody(sphere = true, xPosition = 5.5, options = 'Z', timeout = 0);
-    physics.addBody();
+    // physics.addBody();
 
 };
 
