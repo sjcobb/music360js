@@ -18,10 +18,13 @@ export default {
     posBehindX: -30,
     posBehindZ: 3.8,
     multiplierPosX: -2.5,
-    globalActiveInstrColor: '#9F532A', //red
+    activeInstrColor: '#9F532A', //red
+    lastColor: '#000000',
     cameraPositionBehind: true,
     fixedTimeStep: 1.0 / 60.0,
-    configColorAnimate: false,
+    // configColorAnimate: false,
+    configColorAnimate: true,
+    groundMeshIncrementer: 0,
     instr: {},
     triggerAnimationTime: '4:0:0',
     autoStart: false,

@@ -121,7 +121,7 @@ export default class Trigger {
 
         if (globals.configColorAnimate === true && triggerObj.color) {
             if (triggerObj.type !== 'drum') {
-                globalActiveInstrColor = triggerObj.color;
+                globals.activeInstrColor = triggerObj.color;
             }
         }
 

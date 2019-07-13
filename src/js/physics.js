@@ -214,7 +214,9 @@ export default class Physics {
         const groundShape = new CANNON.Plane();
         const tempMaterial = new CANNON.Material(); //http://schteppe.github.io/cannon.js/docs/classes/Material.html
         const groundBody = new CANNON.Body({ mass: 0, material: tempMaterial });
+        // console.log({tempMaterial}); // friction: -1, restitution: -1
         // console.log({groundBody});
+
         // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
         groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
 
@@ -361,7 +363,10 @@ export default class Physics {
         const helpers = new Helpers();
 
         const obj = new THREE.Object3D();
-        const material = this.currentMaterial;
+
+        // const material = this.currentMaterial; // TODO: fix floor color by refactoring currentMaterial;
+        const material = new THREE.MeshLambertMaterial({ color: 0x888888 });
+
         const game = this;
         let index = 0;
 
@@ -369,6 +374,7 @@ export default class Physics {
             let mesh;
             let geometry;
             let v0, v1, v2;
+            // let material = {}; // TODO: remove once floor color fixed
 
             switch (shape.type) {
 
@@ -421,11 +427,14 @@ export default class Physics {
                     const tempColor = globals.activeInstrColor;
 
                     const defaultColor = new THREE.Color(tempColor);
+                    // console.log({defaultColor});
+
                     material.color = defaultColor;
 
                     const ground = new THREE.Mesh(geometry, material);
                     ground.scale.set(100, 100, 100);
                     ground.name = 'groundMesh';
+                    // console.log({ground});
 
                     //TODO: use correctly - https://threejs.org/docs/#manual/en/introduction/How-to-update-things
                     // ground.colorsNeedUpdate = true;
@@ -557,6 +566,7 @@ export default class Physics {
     // updateBodies(world) {
     updateBodies() {
 
+        // let globals.lastColor = globals.activeInstrColor;
         if (globals.configColorAnimate === true) {
             //TODO: cleanup nested forEach's
             globals.scene.children.forEach((child) => {
@@ -566,15 +576,22 @@ export default class Physics {
                             child.children.forEach((child) => {
                                 child.children.forEach((child) => {
                                     if (child.name && child.name === 'groundMesh') {
-                                        if (globalGroundMeshIncrementer % 10 === 0) {
+                                        if (globals.groundMeshIncrementer % 10 === 0) {
                                             const tempColor = globals.activeInstrColor.substr(0, 1) === '#' ? globals.activeInstrColor.slice(1, globals.activeInstrColor.length) : 0x191CAC;
                                             const intColor = parseInt('0x' + tempColor, 16);
-                                            if (lastColor !== globals.activeInstrColor) {
+
+                                            if (globals.lastColor !== globals.activeInstrColor) {
                                                 child.material.color = new THREE.Color(intColor);
+
+                                                console.log(child.material); //{r: 1, g: 0.5294117647058824, b: 0.16862745098039217}
+                                                console.log({tempColor}); 
+                                                console.log(globals.lastColor);
                                             }
-                                            lastColor = globals.activeInstrColor;
+
+                                            globals.lastColor = globals.activeInstrColor;
+                        
                                         }
-                                        globalGroundMeshIncrementer++;
+                                        globals.groundMeshIncrementer++;
                                     }
                                 });
                             });
