@@ -43,7 +43,7 @@ export default class Fire {
         globals.scene.add(volumetricFire);
     }
 
-    addFire(posX = globalPosBehindX + 22, currentTime) {
+    addFire(posX = globals.posBehindX + 22, currentTime) {
         // console.log(this);
         // if (currentTime === this.triggerTime) {
             // console.log('addFire active......');

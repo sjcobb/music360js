@@ -17,7 +17,7 @@ export default class Physics {
     }
 
     //-----CANNON INIT------//
-    // let globals.world = new CANNON.World();
+    // globals.world = new CANNON.World();
 
     updatePhysics() {
         // TODO: uncomment debugRenderer after fix scene undef err
@@ -215,31 +215,9 @@ export default class Physics {
         const tempMaterial = new CANNON.Material(); //http://schteppe.github.io/cannon.js/docs/classes/Material.html
         const groundBody = new CANNON.Body({ mass: 0, material: tempMaterial });
         // console.log({tempMaterial}); // friction: -1, restitution: -1
-        // console.log({groundBody});
+        console.log({groundBody});
 
-        // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
         groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-
-        //TODO: rotate ground so balls roll and fall off behind, global var for y rotation so lines also rotate up
-        // groundBody.quaternion.y -= 0.015;
-        // groundBody.quaternion.y = -0.1;
-
-        // var rot = new CANNON.Vec3(1, 0, 0);
-        // var rot = new CANNON.Vec3(0, 0, 1); //sideways
-        // groundBody.quaternion.setFromAxisAngle(rot, Math.PI / 2);
-
-        // groundBody.quaternion.z = -0.5; //weird
-        // groundBody.rotation.z = -0.1; //err
-        // groundBody.initPosition.y = -10000; //no effect
-
-        // groundBody.position.y = -10; //no effect
-
-        // groundBody.position.y = -9000000000000000000; //no effect
-        // groundBody.position.x = -9000000000000000000; //no effect
-
-        // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0.1), -Math.PI / 2); //0.1 z - moves start to later
-        // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2 + 0.5); //woah
-        // console.log({ groundBody });
 
         groundBody.addShape(groundShape);
         globals.world.add(groundBody);
@@ -252,22 +230,21 @@ export default class Physics {
         this.shapes.box = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5));
 
 
-        const material = new CANNON.Material();
         // console.log({material});
-
         // material.color.r = 0;
         // material.color.g = 0;
         // material.color.b = 0.3;
-
-        const body = new CANNON.Body({ mass: 5, material: material });
-
+        // const body = new CANNON.Body({ mass: 5, material: material });
+        
         // console.log(this.groundMaterial);
-
+        
+        const material = new CANNON.Material(); //why both tempMaterial and material needed?
         // const materialGround = new CANNON.ContactMaterial(this.groundMaterial, material, { friction: 0.0, restitution: restitutionValue}); //*** UNCOMMENT TO FIX PERFORMANCE ISSUES WITH TOO MANY groundBody's
         const materialGround = new CANNON.ContactMaterial(tempMaterial, material, { friction: 0.0, restitution: restitutionValue });
-        // console.log({ materialGround });
+
+        console.log({materialGround});
         globals.world.addContactMaterial(materialGround);
-        // console.log('addBody() -> globals.world.contactmaterials: ', globals.world.contactmaterials);
+        console.log('addBody() -> globals.world.contactmaterials: ', globals.world.contactmaterials);
     }
 
     createCannonTrimesh(geometry) {
@@ -408,6 +385,7 @@ export default class Physics {
                     geometry = new THREE.PlaneGeometry(20, 10, 4, 4);
                     mesh = new THREE.Object3D();
 
+                    // TODO: try changing mesh.name to fix no color update
                     mesh.name = 'groundPlane';
                     // geometry.colorsNeedUpdate = true; //no effect
                     // console.log({mesh});
@@ -424,7 +402,9 @@ export default class Physics {
 
                     // const randColor = (Math.random()*0xFFFFFF<<0).toString(16);
                     // const tempColor = parseInt('0x' + randColor); //or options.color
+                    
                     const tempColor = globals.activeInstrColor;
+                    // const tempColor = '#9F532A'; //red
 
                     const defaultColor = new THREE.Color(tempColor);
                     // console.log({defaultColor});
@@ -432,9 +412,9 @@ export default class Physics {
                     material.color = defaultColor;
 
                     const ground = new THREE.Mesh(geometry, material);
-                    ground.scale.set(100, 100, 100);
+                    ground.scale.set(100, 100, 100); // TODO: make ground smaller
                     ground.name = 'groundMesh';
-                    // console.log({ground});
+                    console.log({ground});
 
                     //TODO: use correctly - https://threejs.org/docs/#manual/en/introduction/How-to-update-things
                     // ground.colorsNeedUpdate = true;
@@ -563,12 +543,15 @@ export default class Physics {
         return obj;
     }
 
-    // updateBodies(world) {
-    updateBodies() {
+    // updateBodies() {
+    updateBodies(world) {
+        // globals.lastColor = globals.activeInstrColor; //remove?
 
-        // let globals.lastColor = globals.activeInstrColor;
         if (globals.configColorAnimate === true) {
-            //TODO: cleanup nested forEach's
+
+            //TODO: fix activeInstrColor by simpifying nested forEach calls
+            // console.log('globals.scene.children -> ', globals.scene.children);
+
             globals.scene.children.forEach((child) => {
                 if (child.name && child.name === 'physicsParent') {
                     child.children.forEach((child) => {
@@ -583,8 +566,9 @@ export default class Physics {
                                             if (globals.lastColor !== globals.activeInstrColor) {
                                                 child.material.color = new THREE.Color(intColor);
 
-                                                console.log(child.material); //{r: 1, g: 0.5294117647058824, b: 0.16862745098039217}
+                                                console.log({child}); //{r: 1, g: 0.5294117647058824, b: 0.16862745098039217}
                                                 console.log({tempColor}); 
+                                                console.log({intColor}); 
                                                 console.log(globals.lastColor);
                                             }
 
@@ -601,6 +585,8 @@ export default class Physics {
             });
         }
 
+        // IMPORTANT: cannon.js boilerplate
+        // world.bodies.forEach(function(body) {
         globals.world.bodies.forEach(function(body) {
             if (body.threemesh != undefined) {
                 body.threemesh.position.copy(body.position);

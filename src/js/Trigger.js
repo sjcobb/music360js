@@ -120,6 +120,7 @@ export default class Trigger {
         globals.musicActive = false; //remove?
 
         if (globals.configColorAnimate === true && triggerObj.color) {
+            // console.log("configColorAnimate -> GLOBALS: ", globals);
             if (triggerObj.type !== 'drum') {
                 globals.activeInstrColor = triggerObj.color;
             }

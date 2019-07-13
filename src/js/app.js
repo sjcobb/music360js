@@ -30,21 +30,14 @@ import Trigger from './Trigger.js';
 const globalAutoStart = false;
 
 const globalClock = new THREE.Clock();
-let globalTimeCount = 2;
-
-let globalInstrumentCounter = 0;
 
 const instrument = new InstrumentMappings();
 
-const globalKeyMappedDefaultObj = instrument.getInstrumentMappingTemplate();
 globals.instr = instrument.getInstrumentMappingTemplate();
 
 //TODO: no globals, setup Webpack or Gulp
 const globalBallTextureWidth = 512;
 const globalCollisionThreshold = 4; //prev: 3.4
-
-const globalFixedTimeStep = 1.0 / 60.0;
-const globalDamping = 0.01; //gradually decrease bounce amplitude
 
 let globalDropPosX = 5.5;
 
@@ -52,18 +45,6 @@ const globalLetterNumArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'AA', 'BB', 'CC',
 
 const globalShowStaticRows = false; //true: show row of balls on page load
 
-const globalAutoScroll = true; //increment var in animate() to move horizontally 
-const globalPlayPreset = false; //play song using setInterval (see: archive/20190515_scene.js)
-
-let globalMusicActive = false;
-
-let globalMovementSpeed = 0.005;
-let globalRotation = 0;
-
-let globalCameraPositionBehind = true;
-// let globalPosBehindX = -38; //PREV
-let globalPosBehindX = -30;
-// let globalPosBehindX = -60;
 
 let globalPosBehindY = 2;
 let globalPosBehindZ = 3.8;
@@ -80,8 +61,8 @@ let globalActiveInstrColor = '#9F532A'; //fire temple red dk
 // let globalActiveInstrColor = '#006CFA'; //music wheel IV - medblue
 
 let globalGroundMeshIncrementer = 0;
-// let lastColor = globalActiveInstrColor;
-let lastColor = '#000000';
+let lastColor = globals.activeInstrColor;
+// let lastColor = '#000000';
 
 const globalStaffLineInitZ = 8;
 const globalStaffLineInitDrumZ = -(globalStaffLineInitZ);
@@ -98,7 +79,7 @@ globals.camera.position.set(0, 12, 40);
 globals.camera.lookAt(new THREE.Vector3(0, 1, 0));
 
 if (global.cameraPositionBehind === true) {
-    globals.camera.position.set(globalPosBehindX, globalPosBehindY, globalPosBehindZ);
+    globals.camera.position.set(globals.posBehindX, globalPosBehindY, globalPosBehindZ);
     globals.camera.lookAt(new THREE.Vector3(globalDropPosX - 5, 1, globalPosBehindZ));
 }
 
@@ -459,13 +440,14 @@ let animate = () => {
     */
 
     //ENABLE HORIZONTAL SCROLL
-    if (globalAutoScroll === true) {
+    if (globals.autoScroll === true) {
         // globals.ticks = Tone.Transport.ticks * 0.014; //old
         globals.ticks += (delta * 5); //PREV
         // globals.ticks += (delta * 22);
         
-        if (globalCameraPositionBehind === true) {
-            globals.camera.position.x = globalPosBehindX + (globals.ticks);
+        if (globals.cameraPositionBehind === true) {
+            globals.camera.position.x = globals.posBehindX + (globals.ticks);
+            // console.log(globals.camera);
         } else {
             globals.camera.position.x = (globals.ticks) - 12;
         }

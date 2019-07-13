@@ -111,22 +111,22 @@ if (globals.autoStart === true) {
 }
 
 // setTimeout(function() {
-//     globalCameraPositionBehind = false;
+//     globals.cameraPositionBehind = false;
 //     // camera.position.set(0, 20, 40);
 //     camera.position.set(0, 5, 35);
 //     camera.lookAt(new THREE.Vector3(-1, 1, 10));
 // // }, 54000);
 // }, 2000);
 
-// globalCameraPositionBehind = false;
+// globals.cameraPositionBehind = false;
 // // camera.position.set(0, 5, 35);
 // camera.position.set(0, 5, 35);
 // camera.lookAt(new THREE.Vector3(-1, 1, 10));
 // // camera.lookAt(new THREE.Vector3(-1, 1, 10));
 // setTimeout(function() {
 //     scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.0028 );
-//     globalCameraPositionBehind = true;
-//     camera.position.set(globalPosBehindX, 6, globalPosBehindZ);
+//     globals.cameraPositionBehind = true;
+//     camera.position.set(globals.posBehindX, 6, globalPosBehindZ);
 //     camera.lookAt(new THREE.Vector3(globalDropPosX - 5, 1, globalPosBehindZ));
 // }, 58000);
 // // }, 2000);

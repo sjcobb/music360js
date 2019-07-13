@@ -287,7 +287,7 @@ export default class Helpers {
         var object3d = new THREE.Mesh(geometry, material);
         object3d.rotation.x = -Math.PI / 2;
 
-        // if (globalCameraPositionBehind === true) {
+        // if (globals.cameraPositionBehind === true) {
         //     object3d.rotation.y = 1.0; //no effect
         // }
 
