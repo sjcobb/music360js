@@ -9,7 +9,6 @@ const config = {
         'bundle.js': [
             path.resolve(__dirname, 'node_modules/tone/build/Tone.js'),
             path.resolve(__dirname, 'src/js/globals.js'),
-            path.resolve(__dirname, 'src/js/globals.js'),
             path.resolve(__dirname, 'src/js/Trigger.js'),
             path.resolve(__dirname, 'src/js/Pool.js'),
             path.resolve(__dirname, 'src/js/Threex.js'),

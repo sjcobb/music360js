@@ -2,6 +2,7 @@ import globals from './globals.js';
 // import THREEx from './THREEx.js';
 import Helpers from './THREEx.js';
 import Trigger from './Trigger.js';
+import InstrumentMappings from './InstrumentMappings.js';
 
 /*
  *** PHYSICS ***
@@ -26,6 +27,14 @@ export default class Physics {
     }
 
     addBody(sphere = true, xPosition = 5.5, options = 'Z', timeout = 0) {
+
+        if (options === 'Z') {
+            const instrument = new InstrumentMappings();
+            const defaultInstr = instrument.getInstrumentMappingTemplate();
+            options = defaultInstr.hiHatClosed;
+            console.log({options});
+        }
+        
         const trigger = new Trigger();
         // console.log('addBody -> options: ', options);
         // console.log('addBody -> timeout: ', timeout);

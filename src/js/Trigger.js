@@ -1,5 +1,5 @@
 import Tone from 'tone';
-import { Player, Players, Part, Time } from 'tone';
+import { Transport, Player, Players, Part, Time, Volume } from 'tone';
 
 // import Transport from 'Tone/core/Transport';
 // import Volume from 'Tone/component/Volume';
@@ -7,6 +7,60 @@ import { Player, Players, Part, Time } from 'tone';
 import globals from './globals.js';
 import InstrumentMappings from './InstrumentMappings.js';
 import Physics from './Physics.js';
+
+var polySynth = new Tone.PolySynth(6, Tone.Synth).toMaster();
+polySynth.volume.value = -4;
+polySynth.set("detune", +1200); // octave = 12 semitones of 100 cents each
+
+const bounceSynth = new Tone.Synth();
+bounceSynth.volume.value = 2;
+bounceSynth.toMaster();
+
+var toneSnare = new Tone.NoiseSynth({
+    "volume": -5.0,
+    "envelope": {
+        "attack": 0.001,
+        "decay": 0.2,
+        "sustain": 0
+    },
+    "filterEnvelope": {
+        "attack": 0.001,
+        "decay": 0.1,
+        "sustain": 0
+    }
+}).toMaster();
+
+// const player808HiHat = new Player(`${sampleBaseUrl}/808-hihat-vh.mp3`).toMaster();
+// const playerHiHatOpen = new Tone.Player("./assets/sounds/drum-kits/dubstep/hihat-open.mp3").toMaster(); //PREV
+const playerHiHatOpen = new Player("./assets/sounds/drum-kits/dubstep/hihat-open.mp3").toMaster();
+console.log({playerHiHatOpen});
+
+// const playerHiHat = new Player("./assets/sounds/drum-kits/dubstep/hihat-closed.mp3").toMaster();
+const playerHiHat = new Player("./assets/sounds/drum-kits/dubstep/hihat-closed.mp3").toMaster();
+// playerHiHat.volume.value = 1.5;
+console.log({playerHiHat});
+
+// const playerKick = new Player("./assets/sounds/drum-kits/analog/kick.mp3").toMaster(); //aka dubstep - 808?
+// const playerKick = new Player("./assets/sounds/drum-kits/dubstep/kick.mp3").toMaster(); //aka analog - PREV
+// const playerKick = new Player("./assets/sounds/drum-kits/electronic/kick.mp3").toMaster(); //guitar pluck
+// const playerKick = new Player("./assets/sounds/drum-kits/hiphop/kick.mp3").toMaster(); //boring
+// const playerKick = new Player("./assets/sounds/drum-kits/percussion/kick.mp3").toMaster(); //normal
+// const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vh.mp3").toMaster(); // high
+// const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vm.mp3").toMaster(); // medium
+const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vl.mp3").toMaster(); // low
+
+const playerCrash = new Player("./assets/sounds/drum-kits/hiphop/clap.mp3").toMaster(); //hand clap echo
+// const playerCrash = new Player("./assets/sounds/drum-kits/percussion/clap.mp3").toMaster(); //stick click
+
+// const playerRide = new Player("./assets/sounds/drum-kits/dubstep/ride.wav").toMaster(); //drum stick click
+const playerRide = new Player("./assets/sounds/drum-kits/hiphop/ride.mp3").toMaster(); //cool click pop
+// const playerRide = new Player("./assets/sounds/drum-kits/electronic/ride.mp3").toMaster(); //high tick metal
+// const playerRide = new Player("./assets/sounds/drum-kits/percussion/ride.mp3").toMaster(); //weird low squeak 
+// const playerRide = new Player("./assets/sounds/drum-kits/analog/ride.mp3").toMaster(); // drum stick click
+
+const playerTomHigh = new Player("./assets/sounds/drum-kits/electronic/tom-high.mp3").toMaster();
+const playerTomMid = new Player("./assets/sounds/drum-kits/electronic/tom-mid.mp3").toMaster();
+const playerTomLow = new Player("./assets/sounds/drum-kits/electronic/tom-low.mp3").toMaster();
 
 export default class Trigger {
     constructor() {
@@ -16,8 +70,8 @@ export default class Trigger {
     triggerNote(obj) {
 
         const physics = new Physics();
-        console.log({Tone});
-        console.log({Players});
+        // console.log({Tone});
+        // console.log({Players});
 
         //-----TONE------//
         Tone.Transport.bpm.value = 200;
@@ -26,63 +80,8 @@ export default class Trigger {
         Tone.Transport.setLoopPoints(0, "13m"); //starts over at beginning
         Tone.Transport.loop = true; //TODO: *** clear all addBody objects if Transport loop true
 
-        console.log('Transport...', Tone.Transport);
+        // console.log('Transport...', Tone.Transport);
         //-----INSTRUMENT ASSETS------//
-
-        var polySynth = new Tone.PolySynth(6, Tone.Synth).toMaster();
-        polySynth.volume.value = -4;
-        polySynth.set("detune", +1200); // octave = 12 semitones of 100 cents each
-
-        const bounceSynth = new Tone.Synth();
-        bounceSynth.volume.value = 2;
-        bounceSynth.toMaster();
-
-        var toneSnare = new Tone.NoiseSynth({
-            "volume": -5.0,
-            "envelope": {
-                "attack": 0.001,
-                "decay": 0.2,
-                "sustain": 0
-            },
-            "filterEnvelope": {
-                "attack": 0.001,
-                "decay": 0.1,
-                "sustain": 0
-            }
-        }).toMaster();
-
-        // const player808HiHat = new Player(`${sampleBaseUrl}/808-hihat-vh.mp3`).toMaster();
-        // const playerHiHatOpen = new Tone.Player("./assets/sounds/drum-kits/dubstep/hihat-open.mp3").toMaster(); //PREV
-        const playerHiHatOpen = new Player("./assets/sounds/drum-kits/dubstep/hihat-open.mp3").toMaster();
-        console.log({playerHiHatOpen});
-
-        // const playerHiHat = new Player("./assets/sounds/drum-kits/dubstep/hihat-closed.mp3").toMaster();
-        const playerHiHat = new Player("./assets/sounds/drum-kits/dubstep/hihat-closed.mp3").toMaster();
-        // playerHiHat.volume.value = 1.5;
-        console.log({playerHiHat});
-
-        // const playerKick = new Player("./assets/sounds/drum-kits/analog/kick.mp3").toMaster(); //aka dubstep - 808?
-        // const playerKick = new Player("./assets/sounds/drum-kits/dubstep/kick.mp3").toMaster(); //aka analog - PREV
-        // const playerKick = new Player("./assets/sounds/drum-kits/electronic/kick.mp3").toMaster(); //guitar pluck
-        // const playerKick = new Player("./assets/sounds/drum-kits/hiphop/kick.mp3").toMaster(); //boring
-        // const playerKick = new Player("./assets/sounds/drum-kits/percussion/kick.mp3").toMaster(); //normal
-        // const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vh.mp3").toMaster(); // high
-        // const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vm.mp3").toMaster(); // medium
-        const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vl.mp3").toMaster(); // low
-
-        const playerCrash = new Player("./assets/sounds/drum-kits/hiphop/clap.mp3").toMaster(); //hand clap echo
-        // const playerCrash = new Player("./assets/sounds/drum-kits/percussion/clap.mp3").toMaster(); //stick click
-
-        // const playerRide = new Player("./assets/sounds/drum-kits/dubstep/ride.wav").toMaster(); //drum stick click
-        const playerRide = new Player("./assets/sounds/drum-kits/hiphop/ride.mp3").toMaster(); //cool click pop
-        // const playerRide = new Player("./assets/sounds/drum-kits/electronic/ride.mp3").toMaster(); //high tick metal
-        // const playerRide = new Player("./assets/sounds/drum-kits/percussion/ride.mp3").toMaster(); //weird low squeak 
-        // const playerRide = new Player("./assets/sounds/drum-kits/analog/ride.mp3").toMaster(); // drum stick click
-
-        const playerTomHigh = new Player("./assets/sounds/drum-kits/electronic/tom-high.mp3").toMaster();
-        const playerTomMid = new Player("./assets/sounds/drum-kits/electronic/tom-mid.mp3").toMaster();
-        const playerTomLow = new Player("./assets/sounds/drum-kits/electronic/tom-low.mp3").toMaster();
-
 
         //-----INSTRUMENT PARTS------//
         var allDrumsPart = new Tone.Part(function(time, instr) {

@@ -7,6 +7,7 @@ import Fire from './Fire.js';
 import Physics from './Physics.js';
 import Helpers from './THREEx.js';
 import Pool from './Pool.js';
+import Trigger from './Trigger.js';
 
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
@@ -547,6 +548,10 @@ window.onload = () => {
     }, false);
 
     animate();
+
+    // addBody(sphere = true, xPosition = 5.5, options = 'Z', timeout = 0);
+    physics.addBody();
+
 };
 
 function activeSwitcher(obj) {
