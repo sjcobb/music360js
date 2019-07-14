@@ -27,9 +27,7 @@ import Trigger from './Trigger.js';
 // const pool = new Pool();
 
 //-----INITIAL GLOBAL VARIABLES------//
-const globalAutoStart = false;
-
-const globalClock = new THREE.Clock();
+// const globalClock = new THREE.Clock();
 
 const instrument = new InstrumentMappings();
 
@@ -42,27 +40,6 @@ const globalCollisionThreshold = 4; //prev: 3.4
 let globalDropPosX = 5.5;
 
 const globalLetterNumArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'GG']; //TODO: remove globalLetterNumArr array, only instrumentMapping obj needed
-
-const globalShowStaticRows = false; //true: show row of balls on page load
-
-
-let globalPosBehindY = 2;
-let globalPosBehindZ = 3.8;
-
-let globalConfigColorAnimate = false; //animate color on note trigger (non-drum type)
-
-// let globalActiveInstrColor = '#7cfc00'; //lawn green
-// let globalActiveInstrColor = '#F8041E'; //fire temple red med
-let globalActiveInstrColor = '#9F532A'; //fire temple red dk
-// let globalActiveInstrColor = '#191CAC'; //deepblue
-// let globalActiveInstrColor = '#0018F9'; //music wheel I blue
-// let globalActiveInstrColor = '#C6018B'; //music wheel VI pink
-// let globalActiveInstrColor = '#4B0AA1'; //music wheel V - dkblue
-// let globalActiveInstrColor = '#006CFA'; //music wheel IV - medblue
-
-let globalGroundMeshIncrementer = 0;
-let lastColor = globals.activeInstrColor;
-// let lastColor = '#000000';
 
 const globalStaffLineInitZ = 8;
 const globalStaffLineInitDrumZ = -(globalStaffLineInitZ);
@@ -83,6 +60,10 @@ if (globals.cameraPositionBehind === true) {
     globals.camera.lookAt(new THREE.Vector3(globals.dropPosX - 5, 1, globals.posBehindZ));
 }
 
+if (globals.cameraLookUp === true) {
+    globals.camera.lookAt(new THREE.Vector3(globals.dropPosX - 5, 100, globals.posBehindZ));
+}
+
 globals.renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(globals.renderer.domElement);
 globals.renderer.domElement.id = 'bounce-renderer';
@@ -100,15 +81,11 @@ window.addEventListener('resize', function() {
 // controls = new THREE.OrbitControls(camera, globals.renderer.domElement);
 
 // https://threejs.org/examples/#misc_controls_fly
-
-// // controls = new THREE.FlyControls(camera);
-// const controls = new FlyControls(camera);
-// // controls.movementSpeed = 10; //prev
-
 globals.controls = new FlyControls(globals.camera);
-globals.controls.movementSpeed = 1;
+globals.controls.movementSpeed = 1; //prev: 10
 globals.controls.domElement = globals.renderer.domElement;
-globals.controls.rollSpeed = Math.PI / 24;
+// globals.controls.rollSpeed = Math.PI / 24;
+globals.controls.rollSpeed = Math.PI / 40; /*** IMPORTANT - movement, rotation speed ***/
 globals.controls.autoForward = false;
 globals.controls.dragToLook = true;
 
@@ -197,7 +174,7 @@ obj = new THREE.Mesh(currentShape, currentMesh);
 obj.position.set(-1.5, 0, 0);
 
 const objCenter = new THREE.Mesh(currentShape, currentMesh);
-objCenter.position.set(0, 0, globalPosBehindZ);
+objCenter.position.set(0, 0, globals.posBehindZ);
 
 // globals.scene.add(obj);
 // globals.scene.add(objCenter); //for absolute center reference
@@ -319,7 +296,7 @@ function addThickStaffLines() {
 
 //-----POOL BALLS (STATIC ROW)------//
 const poolBalls = {};
-if (globalShowStaticRows === true) {
+if (globals.showStaticRows === true) {
     placeStaticPoolBalls();
 }
 
@@ -411,13 +388,14 @@ var clock = new THREE.Clock();
 let animate = () => {
     requestAnimationFrame(animate);
 
-    var delta = globalClock.getDelta();
+    var delta = globals.clock.getDelta();
     // console.log('delta: ', delta); //hundreths
+    // TODO: fix logs - why not updating correctly?
     // console.log('ticks: ', Tone.Transport.ticks); //ex. 10 
     // console.log('position: ', Tone.Transport.position); //ex: 0:0:0.124
     // console.log('seconds: ', Tone.Transport.seconds);
 
-    if (globalShowStaticRows === true) {
+    if (globals.showStaticRows === true) {
         for (var key in poolBalls) {
             if (poolBalls.hasOwnProperty(key)) {
                 poolBalls[key].userData.opts.positionUp = getObjectState(poolBalls[key], poolBalls[key].userData.opts.positionUp, globalCollisionThreshold);

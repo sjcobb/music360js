@@ -99,16 +99,22 @@ addShapeId.onclick = (el) => {
 };
 
 if (globals.autoStart === true) {
+    controlsId.classList.toggle('hidden');
     setTimeout(function() {
         Tone.Transport.start();
-    }, 5000);
-    // }, 1000);
-
+    }, 9000);
 } else {
-    // console.log(controlsId.classList);
-    // controlsId.classList.toggle('hidden');
     controlsId.classList.toggle('show');
 }
+
+document.addEventListener("visibilitychange", function() {
+    if (document.hidden){
+        console.log("visibilitychange -> Browser tab is hidden");
+        Tone.Transport.stop();
+    } else {
+        console.log("visibilitychange -> Browser tab is visible");
+    }
+});
 
 // setTimeout(function() {
 //     globals.cameraPositionBehind = false;

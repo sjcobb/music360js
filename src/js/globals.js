@@ -8,6 +8,8 @@ export default {
     autoStart: false,
     camera: new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000),
     cameraPositionBehind: true,
+    cameraLookUp: true,
+    clock: new THREE.Clock(),
     configColorAnimate: true,
     controls: '',
     // controls: new FlyControls(camera),
@@ -26,7 +28,18 @@ export default {
     groundMeshIncrementer: 0,
     renderer: new THREE.WebGLRenderer(),
     scene: new THREE.Scene(),
+    showStaticRows: false,
     ticks: 0,
     triggerAnimationTime: '4:0:0',
     world: new CANNON.World(),
 };
+
+/*** COLOR OPTIONS ***/
+// '#7cfc00'; //lawn green
+// '#F8041E'; //fire temple red med
+// '#9F532A'; //fire temple red dk
+// '#191CAC'; //deepblue
+// '#0018F9'; //music wheel I blue
+// '#C6018B'; //music wheel VI pink
+// '#4B0AA1'; //music wheel V - dkblue
+// '#006CFA'; //music wheel IV - medblue
