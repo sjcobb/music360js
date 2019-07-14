@@ -17,7 +17,8 @@ Tone.Transport.loop = true; //TODO: *** clear all addBody objects if Transport l
 
 //-----SYNTH ASSETS------//
 var polySynth = new Tone.PolySynth(6, Tone.Synth).toMaster();
-polySynth.volume.value = -4;
+// polySynth.volume.value = -4; //prev
+polySynth.volume.value = -8; //just right
 polySynth.set("detune", +1200); // octave = 12 semitones of 100 cents each
 
 const bounceSynth = new Tone.Synth();
@@ -48,11 +49,27 @@ const playerHiHat = new Player("./assets/sounds/drum-kits/dubstep/hihat-closed.m
 // const playerKick = new Player("./assets/sounds/drum-kits/analog/kick.mp3").toMaster(); //aka dubstep - 808?
 // const playerKick = new Player("./assets/sounds/drum-kits/dubstep/kick.mp3").toMaster(); //aka analog - PREV
 // const playerKick = new Player("./assets/sounds/drum-kits/electronic/kick.mp3").toMaster(); //guitar pluck
-// const playerKick = new Player("./assets/sounds/drum-kits/hiphop/kick.mp3").toMaster(); //boring
+const playerKick = new Player("./assets/sounds/drum-kits/hiphop/kick.mp3").toMaster(); //boring, but not distorted
 // const playerKick = new Player("./assets/sounds/drum-kits/percussion/kick.mp3").toMaster(); //normal
 // const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vh.mp3").toMaster(); // high
 // const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vm.mp3").toMaster(); // medium
-const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vl.mp3").toMaster(); // low
+// const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vl.mp3").toMaster(); // low
+// playerKick.volume.value = -6; // -6 broken
+// playerKick.input.value = -4; //err
+// {
+//     onload: Tone.noOp ,
+//     playbackRate: 1 ,
+//     loop: false ,
+//     autostart: false ,
+//     loopStart: 0 ,
+//     loopEnd: 0 ,
+//     reverse: false ,
+//     fadeIn: 0 ,
+//     fadeOut: 0
+// }
+
+console.log({playerKick});
+// input: AudioParam {value: 1, automationRate: "a-rate", defaultValue: 1, minValue: -3.4028234663852886e+38, maxValue: 3.4028234663852886e+38}
 
 const playerCrash = new Player("./assets/sounds/drum-kits/hiphop/clap.mp3").toMaster(); //hand clap echo
 // const playerCrash = new Player("./assets/sounds/drum-kits/percussion/clap.mp3").toMaster(); //stick click
@@ -87,15 +104,16 @@ export default class Trigger {
 
         // TODO: is if else performance causing sound bug?
         if (triggerObj.type === 'drum') {
-            if (triggerObj.variation === 'hihat') {
+            if (triggerObj.variation === 'kick') {
+                console.log('trigger -> playerKick: ', playerKick);
+                playerKick.start();
+                // toneKick.triggerAttackRelease("C2"); //deep
+            } else if (triggerObj.variation === 'hihat') {
                 playerHiHat.start();
             } else if (triggerObj.variation === 'hihat-open') {
                 playerHiHatOpen.start();
             } else if (triggerObj.variation === 'snare') {
                 toneSnare.triggerAttackRelease();
-            } else if (triggerObj.variation === 'kick') {
-                playerKick.start();
-                // toneKick.triggerAttackRelease("C2"); //deep
             } else if (triggerObj.variation === 'crash') {
                 playerCrash.start();
                 // toneCrash.triggerAttackRelease("C4"); //laser

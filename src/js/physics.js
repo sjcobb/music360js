@@ -215,7 +215,7 @@ export default class Physics {
         const tempMaterial = new CANNON.Material(); //http://schteppe.github.io/cannon.js/docs/classes/Material.html
         const groundBody = new CANNON.Body({ mass: 0, material: tempMaterial });
         // console.log({tempMaterial}); // friction: -1, restitution: -1
-        console.log({groundBody});
+        // console.log({groundBody});
 
         groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
 
@@ -242,9 +242,9 @@ export default class Physics {
         // const materialGround = new CANNON.ContactMaterial(this.groundMaterial, material, { friction: 0.0, restitution: restitutionValue}); //*** UNCOMMENT TO FIX PERFORMANCE ISSUES WITH TOO MANY groundBody's
         const materialGround = new CANNON.ContactMaterial(tempMaterial, material, { friction: 0.0, restitution: restitutionValue });
 
-        console.log({materialGround});
+        // console.log({materialGround});
         globals.world.addContactMaterial(materialGround);
-        console.log('addBody() -> globals.world.contactmaterials: ', globals.world.contactmaterials);
+        // console.log('addBody() -> globals.world.contactmaterials: ', globals.world.contactmaterials);
     }
 
     createCannonTrimesh(geometry) {
@@ -414,7 +414,7 @@ export default class Physics {
                     const ground = new THREE.Mesh(geometry, material);
                     ground.scale.set(100, 100, 100); // TODO: make ground smaller
                     ground.name = 'groundMesh';
-                    console.log({ground});
+                    // console.log({ground});
 
                     //TODO: use correctly - https://threejs.org/docs/#manual/en/introduction/How-to-update-things
                     // ground.colorsNeedUpdate = true;
@@ -566,10 +566,10 @@ export default class Physics {
                                             if (globals.lastColor !== globals.activeInstrColor) {
                                                 child.material.color = new THREE.Color(intColor);
 
-                                                console.log({child}); //{r: 1, g: 0.5294117647058824, b: 0.16862745098039217}
-                                                console.log({tempColor}); 
-                                                console.log({intColor}); 
-                                                console.log(globals.lastColor);
+                                                // console.log({child}); //{r: 1, g: 0.5294117647058824, b: 0.16862745098039217}
+                                                // console.log({tempColor}); 
+                                                // console.log({intColor}); 
+                                                // console.log(globals.lastColor);
                                             }
 
                                             globals.lastColor = globals.activeInstrColor;

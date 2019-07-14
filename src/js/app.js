@@ -78,9 +78,9 @@ globals.scene.background = new THREE.Color(0, 0, 0); //prev: 'white'
 globals.camera.position.set(0, 12, 40);
 globals.camera.lookAt(new THREE.Vector3(0, 1, 0));
 
-if (global.cameraPositionBehind === true) {
-    globals.camera.position.set(globals.posBehindX, globalPosBehindY, globalPosBehindZ);
-    globals.camera.lookAt(new THREE.Vector3(globalDropPosX - 5, 1, globalPosBehindZ));
+if (globals.cameraPositionBehind === true) {
+    globals.camera.position.set(globals.posBehindX, globals.posBehindY, globals.posBehindZ);
+    globals.camera.lookAt(new THREE.Vector3(globals.dropPosX - 5, 1, globals.posBehindZ));
 }
 
 globals.renderer.setSize(window.innerWidth, window.innerHeight);
