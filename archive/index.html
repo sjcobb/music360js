@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <title>3D Sheet Music Animation Machine</title>
 
@@ -11,15 +12,21 @@
 
     <link rel="stylesheet" type="text/css" href="css/bounce.css">
     
-    <!-- TODO: import THREE as module -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/13.8.4/Tone.min.js"></script> -->
+
+    <!-- <script src="vendor/three-v102.min.js"></script> -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/104/three.min.js"></script>
+    <!-- <script src="vendor/three-v97.min.js"></script> -->
+
+    <!-- <script src="vendor/Tone_v13-8-4.min.js"></script> --> <!-- PREV -->
 
     <script src="vendor/Cannon/cannon.min.js"></script>
     <script src="vendor/Cannon/CannonDebugRenderer.js"></script>
 
-    <!-- <script src="vendor/FlyControls.js"></script> -->
-    <!-- <script src="vendor/OrbitControls.js"></script> -->
-    
+    <script src="vendor/FlyControls.js"></script>
+    <script src="vendor/OrbitControls.js"></script>
     <!-- <script src="vendor/ObjectLoader.js"></script> -->
 
     <!-- https://github.com/mrdoob/three.js/blob/master/examples/webgl_lines_fat.html -->
@@ -85,7 +92,7 @@
     </div>
 
     <!-- <div id="legend-container" class="hidden"> -->
-    <div id="legend-container" class="pos-top-left animate-in">
+    <div id="legend-container" class="">
         <div class="legend">
             <ul>
                 <li><span id="symbol_1" class="symbol" style="background-color: #0018F9"></span><p>I</p></li>
@@ -99,6 +106,15 @@
         </div>
     </div>
 
+    <!-- <script src="js/threex.js"></script>
+    <script src="js/physics.js"></script>
+    <script src="js/drums.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/fire.js"></script>
+    <script src="js/scene.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/ui.js"></script> -->
+    
     <!-- https://github.com/edwinwebb/three-seed/blob/master/webpack.config.js -->
     <script src="dist/bundle.js"></script>
 

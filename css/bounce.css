@@ -120,6 +120,11 @@ button#bounce {
     left: 0;
     background: rgba(204, 204, 204, 0.6);
 }
+#legend-container.pos-top-left {
+    margin: 0;
+    bottom: auto;
+}
+
 .legend {
     display: inline-block;
     position: relative;
@@ -156,4 +161,17 @@ button#bounce {
     line-height: 20px;
     font-size: 12px;
     color: #fff;
+}
+
+#legend-container.animate-in {
+    opacity: 0;
+    animation: fade-in 2.0s 1;
+    animation-fill-mode: forwards;
+    /*animation-delay: 25s;*/ /* close */
+    animation-delay: 27s;
+} 
+
+@keyframes fade-in {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }

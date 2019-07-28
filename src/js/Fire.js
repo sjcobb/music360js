@@ -1,55 +1,54 @@
-import globals from './globals.js';
+import FireShader from './FireShader.js';
 
-/*
- *** FIRE ***
+/**
+ * see: mattatz / http://github.com/mattatz
+ * Ray tracing based real-time procedural volumetric fire object for three.js
  */
 
+// THREE.Fire = function ( fireTex, color ) {
 export default class Fire {
+
+    constructor() {
+        // super();
+    }
+
+    init() {
+        var fireMaterial = new THREE.ShaderMaterial( {
+            defines         : FireShader.defines,
+            uniforms        : THREE.UniformsUtils.clone( FireShader.uniforms ),
+            vertexShader    : FireShader.vertexShader,
+            fragmentShader  : FireShader.fragmentShader,
+            transparent     : true,
+            depthWrite      : false,
+            depthTest       : false
+        } );
     
-    constructor(fireParam) {
-        // https://googlechrome.github.io/samples/classes-es6/
-        // this.name = 'Polygon';
-        // this.height = height;
-        // this.width = width;
-        // this.volumetricFire = fireParam;
-        this.triggerTime = fireParam;
+        // initialize uniforms 
+    
+        fireTex.magFilter = fireTex.minFilter = THREE.LinearFilter;
+        fireTex.wrapS = fireTex.wrapT = THREE.ClampToEdgeWrapping;
+        
+        fireMaterial.uniforms.fireTex.value = fireTex;
+        fireMaterial.uniforms.color.value = color || new THREE.Color( 0xeeeeee );
+        fireMaterial.uniforms.invModelMatrix.value = new THREE.Matrix4();
+        fireMaterial.uniforms.scale.value = new THREE.Vector3( 1, 1, 1 );
+        fireMaterial.uniforms.seed.value = Math.random() * 19.19;
+    
+        THREE.Mesh.call( this, new THREE.BoxGeometry( 1.0, 1.0, 1.0 ), fireMaterial );
+
+        // THREE.Fire.prototype = Object.create( THREE.Mesh.prototype );
+        // THREE.Fire.prototype.constructor = THREE.Fire;
     }
 
-    initFire() {
-        globals.loader.crossOrigin = '';
-        var fireTex = globals.loader.load("./assets/flame/FireOrig.png");
-        var wireframeMat = new THREE.MeshBasicMaterial({
-            color : new THREE.Color(0xffffff),
-            wireframe : true
-        });
+    // update = function ( time ) {
+    //     var invModelMatrix = this.material.uniforms.invModelMatrix.value;
+    //     this.updateMatrixWorld();
+    //     invModelMatrix.getInverse( this.matrixWorld );
+    //     if( time !== undefined ) {
+    //         this.material.uniforms.time.value = time;
+    //     }
+    //     this.material.uniforms.invModelMatrix.value = invModelMatrix;
+    //     this.material.uniforms.scale.value = this.scale;
+    // };
 
-        const volumetricFire = new THREE.Fire(fireTex);
-        volumetricFire.position.set(globals.posBehindX + 22, 0, globals.posBehindZ);
-
-        // volumetricFire.scale.set(3, 3.4, 3.0); //width, height, z
-        volumetricFire.scale.set(6, 6.8, 6.0); //width, height, z
-
-        // console.log(volumetricFire.material.uniforms);
-        // volumetricFire.material.uniforms.magnitude.value = 0.5; //higher = spaciness
-        // volumetricFire.material.uniforms.lacunarity.value = 0.1;   //lower = more cartoony
-        // volumetricFire.material.uniforms.lacunarity.gain = 0.1;     //more = less height
-
-        var wireframe = new THREE.Mesh(volumetricFire.geometry, wireframeMat.clone());
-        volumetricFire.add(wireframe);
-        wireframe.visible = false;
-
-        // console.log({volumetricFire});
-        // scene.add(volumetricFire);
-        globals.scene.add(volumetricFire);
-    }
-
-    addFire(posX = globalPosBehindX + 22, currentTime) {
-        // console.log(this);
-        // if (currentTime === this.triggerTime) {
-            // console.log('addFire active......');
-            volumetricFire.position.set(posX, 0, globals.posBehindZ);
-            scene.add(volumetricFire);
-        // }
-    }
-
-}
+};

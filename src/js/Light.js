@@ -8,8 +8,6 @@ export default class Light {
 
     addLights(renderer) {
         // https://stackoverflow.com/a/40416826/7639084
-        // console.log(globals.scene);
-        console.log('GLOBAL VARS: ', globals);
 
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap

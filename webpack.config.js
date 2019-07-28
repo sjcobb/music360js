@@ -7,15 +7,20 @@ const path = require('path');
 const config = {
     entry: {
         'bundle.js': [
+            path.resolve(__dirname, 'src/js/Fire.js'),
+            path.resolve(__dirname, 'src/js/FireShader.js'),
+            path.resolve(__dirname, 'node_modules/tone/build/Tone.js'),
             path.resolve(__dirname, 'src/js/globals.js'),
+            path.resolve(__dirname, 'src/js/Trigger.js'),
+            path.resolve(__dirname, 'src/js/Pool.js'),
             path.resolve(__dirname, 'src/js/Threex.js'),
             path.resolve(__dirname, 'src/js/Physics.js'),
             path.resolve(__dirname, 'src/js/drums.js'),
             path.resolve(__dirname, 'src/js/InstrumentMappings.js'),
-            path.resolve(__dirname, 'src/js/Fire.js'),
+            path.resolve(__dirname, 'src/js/Flame.js'),
             path.resolve(__dirname, 'src/js/Light.js'),
             path.resolve(__dirname, 'src/js/app.js'),
-            path.resolve(__dirname, 'src/js/audio.js'),
+            path.resolve(__dirname, 'src/js/Audio.js'),
             path.resolve(__dirname, 'src/js/ui.js')
         ]
     },

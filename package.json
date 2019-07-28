@@ -26,6 +26,7 @@
   "homepage": "https://github.com/sjcobb/music360js#readme",
   "dependencies": {
     "gulp": "^4.0.2",
+    "lodash": "^4.17.15",
     "three": "^0.105.2",
     "tone": "^13.4.9",
     "webpack": "^4.34.0",

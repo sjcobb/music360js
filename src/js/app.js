@@ -1,10 +1,13 @@
+import Tone from 'Tone';
 import globals from './globals.js';
 import InstrumentMappings from './InstrumentMappings.js';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 import Light from './Light.js';
-import Fire from './Fire.js';
+// import Flame from './Flame.js';
 import Physics from './Physics.js';
 import Helpers from './THREEx.js';
+import Pool from './Pool.js';
+import Trigger from './Trigger.js';
 
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
@@ -21,63 +24,22 @@ import Helpers from './THREEx.js';
  ***/
 
 // const helpers = new Helpers();
+// const pool = new Pool();
 
 //-----INITIAL GLOBAL VARIABLES------//
-const globalAutoStart = false;
-
-const globalClock = new THREE.Clock();
-let globalTimeCount = 2;
-
-let globalInstrumentCounter = 0;
+// const globalClock = new THREE.Clock();
 
 const instrument = new InstrumentMappings();
 
-const globalKeyMappedDefaultObj = instrument.getInstrumentMappingTemplate();
 globals.instr = instrument.getInstrumentMappingTemplate();
 
 //TODO: no globals, setup Webpack or Gulp
 const globalBallTextureWidth = 512;
 const globalCollisionThreshold = 4; //prev: 3.4
 
-const globalFixedTimeStep = 1.0 / 60.0;
-const globalDamping = 0.01; //gradually decrease bounce amplitude
-
 let globalDropPosX = 5.5;
 
 const globalLetterNumArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'GG']; //TODO: remove globalLetterNumArr array, only instrumentMapping obj needed
-
-const globalShowStaticRows = false; //true: show row of balls on page load
-
-const globalAutoScroll = true; //increment var in animate() to move horizontally 
-const globalPlayPreset = false; //play song using setInterval (see: archive/20190515_scene.js)
-
-let globalMusicActive = false;
-
-let globalMovementSpeed = 0.005;
-let globalRotation = 0;
-
-let globalCameraPositionBehind = true;
-// let globalPosBehindX = -38; //PREV
-let globalPosBehindX = -30;
-// let globalPosBehindX = -60;
-
-let globalPosBehindY = 2;
-let globalPosBehindZ = 3.8;
-
-let globalConfigColorAnimate = false; //animate color on note trigger (non-drum type)
-
-// let globalActiveInstrColor = '#7cfc00'; //lawn green
-// let globalActiveInstrColor = '#F8041E'; //fire temple red med
-let globalActiveInstrColor = '#9F532A'; //fire temple red dk
-// let globalActiveInstrColor = '#191CAC'; //deepblue
-// let globalActiveInstrColor = '#0018F9'; //music wheel I blue
-// let globalActiveInstrColor = '#C6018B'; //music wheel VI pink
-// let globalActiveInstrColor = '#4B0AA1'; //music wheel V - dkblue
-// let globalActiveInstrColor = '#006CFA'; //music wheel IV - medblue
-
-let globalGroundMeshIncrementer = 0;
-// let lastColor = globalActiveInstrColor;
-let lastColor = '#000000';
 
 const globalStaffLineInitZ = 8;
 const globalStaffLineInitDrumZ = -(globalStaffLineInitZ);
@@ -93,9 +55,13 @@ globals.scene.background = new THREE.Color(0, 0, 0); //prev: 'white'
 globals.camera.position.set(0, 12, 40);
 globals.camera.lookAt(new THREE.Vector3(0, 1, 0));
 
-if (global.cameraPositionBehind === true) {
-    globals.camera.position.set(globalPosBehindX, globalPosBehindY, globalPosBehindZ);
-    globals.camera.lookAt(new THREE.Vector3(globalDropPosX - 5, 1, globalPosBehindZ));
+if (globals.cameraPositionBehind === true) {
+    globals.camera.position.set(globals.posBehindX, globals.posBehindY, globals.posBehindZ);
+    globals.camera.lookAt(new THREE.Vector3(globals.dropPosX - 5, 1, globals.posBehindZ));
+}
+
+if (globals.cameraLookUp === true) {
+    globals.camera.lookAt(new THREE.Vector3(globals.dropPosX - 5, 100, globals.posBehindZ));
 }
 
 globals.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -115,15 +81,11 @@ window.addEventListener('resize', function() {
 // controls = new THREE.OrbitControls(camera, globals.renderer.domElement);
 
 // https://threejs.org/examples/#misc_controls_fly
-
-// // controls = new THREE.FlyControls(camera);
-// const controls = new FlyControls(camera);
-// // controls.movementSpeed = 10; //prev
-
 globals.controls = new FlyControls(globals.camera);
-globals.controls.movementSpeed = 1;
+globals.controls.movementSpeed = 1; //prev: 10
 globals.controls.domElement = globals.renderer.domElement;
-globals.controls.rollSpeed = Math.PI / 24;
+// globals.controls.rollSpeed = Math.PI / 24;
+globals.controls.rollSpeed = Math.PI / 40; /*** IMPORTANT - movement, rotation speed ***/
 globals.controls.autoForward = false;
 globals.controls.dragToLook = true;
 
@@ -169,17 +131,8 @@ function onTextureLoaded(texture) {
 const light = new Light();
 light.addLights(globals.renderer);
 
-let flameActive = false;
-// let flameActive = '';
-// const triggerAnimationTime = "4:0:0";
-let volumetricFire; //TODO: remove after Fire class methods working
-let flameFirst = new Fire(globals.triggerAnimationTime);
-flameFirst.initFire();
-// initFire();
-
 const physics = new Physics();
 physics.initPhysics();
-console.log({physics});
 
 //-----GEOMETRY VARIABLES------//
 let box = new THREE.BoxGeometry(1, 1, 1);
@@ -213,7 +166,7 @@ obj = new THREE.Mesh(currentShape, currentMesh);
 obj.position.set(-1.5, 0, 0);
 
 const objCenter = new THREE.Mesh(currentShape, currentMesh);
-objCenter.position.set(0, 0, globalPosBehindZ);
+objCenter.position.set(0, 0, globals.posBehindZ);
 
 // globals.scene.add(obj);
 // globals.scene.add(objCenter); //for absolute center reference
@@ -302,13 +255,10 @@ function addThickStaffLines() {
     // }
     // colors = [1, 0, 0, 1, 0.007812499999999556, 0]
 
-
     // THREE.Line2 ( LineGeometry, LineMaterial )
     var geometry = new THREE.LineGeometry();
     geometry.setPositions(positions);
     geometry.setColors(colors);
-    console.log({ colors });
-    console.log({ positions });
     matLine = new THREE.LineMaterial({
         color: 0xffffff,
         linewidth: 1, // in pixels
@@ -336,9 +286,25 @@ function addThickStaffLines() {
 }
 // addThickStaffLines();
 
+
+//-----Static Fire Example------//
+let flameActive = false;
+let volumetricFire; //TODO: remove after Flame class methods working
+// let flameFirst = new Flame(globals.triggerAnimationTime);
+// flameFirst.initFire();
+
+globals.loader.crossOrigin = '';
+const fireTex = globals.loader.load("./assets/flame/FireOrig.png");
+volumetricFire = new THREE.Fire(fireTex);
+volumetricFire.position.set(globals.posBehindX + 22, 0, globals.posBehindZ);
+volumetricFire.scale.set(6, 6.8, 6.0); //width, height, z
+volumetricFire.position.set(globals.posBehindX + 20, 0, globals.posBehindZ);
+console.log(volumetricFire);
+globals.scene.add(volumetricFire);
+
 //-----POOL BALLS (STATIC ROW)------//
 const poolBalls = {};
-if (globalShowStaticRows === true) {
+if (globals.showStaticRows === true) {
     placeStaticPoolBalls();
 }
 
@@ -389,7 +355,6 @@ function placeStaticPoolBalls() {
             keyIndex++;
         }
     }
-    // console.log('final poolBalls: ', poolBalls);
 }
 
 function getObjectState(object, objPositionUp, threshold) {
@@ -431,13 +396,14 @@ var clock = new THREE.Clock();
 let animate = () => {
     requestAnimationFrame(animate);
 
-    var delta = globalClock.getDelta();
+    var delta = globals.clock.getDelta();
     // console.log('delta: ', delta); //hundreths
+    // TODO: fix logs - why not updating correctly?
     // console.log('ticks: ', Tone.Transport.ticks); //ex. 10 
     // console.log('position: ', Tone.Transport.position); //ex: 0:0:0.124
     // console.log('seconds: ', Tone.Transport.seconds);
 
-    if (globalShowStaticRows === true) {
+    if (globals.showStaticRows === true) {
         for (var key in poolBalls) {
             if (poolBalls.hasOwnProperty(key)) {
                 poolBalls[key].userData.opts.positionUp = getObjectState(poolBalls[key], poolBalls[key].userData.opts.positionUp, globalCollisionThreshold);
@@ -460,13 +426,14 @@ let animate = () => {
     */
 
     //ENABLE HORIZONTAL SCROLL
-    if (globalAutoScroll === true) {
+    if (globals.autoScroll === true) {
         // globals.ticks = Tone.Transport.ticks * 0.014; //old
         globals.ticks += (delta * 5); //PREV
         // globals.ticks += (delta * 22);
         
-        if (globalCameraPositionBehind === true) {
-            globals.camera.position.x = globalPosBehindX + (globals.ticks);
+        if (globals.cameraPositionBehind === true) {
+            globals.camera.position.x = globals.posBehindX + (globals.ticks);
+            // console.log(globals.camera);
         } else {
             globals.camera.position.x = (globals.ticks) - 12;
         }
@@ -475,11 +442,11 @@ let animate = () => {
     // if (triggerAnimationTime === Tone.Transport.position & flameActive === false) {
     // if (Tone.Transport.position === "5:8:0" & flameActive === false) {
     // if (Tone.Transport.position === "6:5:0" & flameActive === false) {
-    if (Tone.Transport.seconds > 23 & flameActive === false) {
-        console.log('addFire active -> position: ', Tone.Transport.position);
-        // flameFirst.addFire();
-        flameFirst.addFire(globals.ticks);
-        flameActive = true;
+    // if (Tone.Transport.seconds > 23 & flameActive === false) {
+    if (flameActive === false) {
+        // console.log('addFire active -> position: ', Tone.Transport.position);
+        // flameFirst.addFire(globals.ticks);
+        // flameActive = true;
     }
 
     if (Tone.Transport.seconds > 41 && Tone.Transport.seconds < 42) {
@@ -513,6 +480,7 @@ window.onload = () => {
             //console.log(`Combination of ctrlKey + ${keyName}`);
         } else {
 
+            // console.log('key... ', instrument);
             let keyMapped = instrument.getKeyboardMapping(keyName);
             // console.log({keyMapped});
 
@@ -542,6 +510,10 @@ window.onload = () => {
     }, false);
 
     animate();
+
+    // addBody(sphere = true, xPosition = 5.5, options = 'Z', timeout = 0);
+    // physics.addBody();
+
 };
 
 function activeSwitcher(obj) {
