@@ -3,7 +3,7 @@ import globals from './globals.js';
 import InstrumentMappings from './InstrumentMappings.js';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 import Light from './Light.js';
-import Fire from './Fire.js';
+// import Flame from './Flame.js';
 import Physics from './Physics.js';
 import Helpers from './THREEx.js';
 import Pool from './Pool.js';
@@ -130,14 +130,6 @@ function onTextureLoaded(texture) {
 
 const light = new Light();
 light.addLights(globals.renderer);
-
-let flameActive = false;
-// let flameActive = '';
-// const triggerAnimationTime = "4:0:0";
-let volumetricFire; //TODO: remove after Fire class methods working
-let flameFirst = new Fire(globals.triggerAnimationTime);
-flameFirst.initFire();
-// initFire();
 
 const physics = new Physics();
 physics.initPhysics();
@@ -294,6 +286,22 @@ function addThickStaffLines() {
 }
 // addThickStaffLines();
 
+
+//-----Static Fire Example------//
+let flameActive = false;
+let volumetricFire; //TODO: remove after Flame class methods working
+// let flameFirst = new Flame(globals.triggerAnimationTime);
+// flameFirst.initFire();
+
+globals.loader.crossOrigin = '';
+const fireTex = globals.loader.load("./assets/flame/FireOrig.png");
+volumetricFire = new THREE.Fire(fireTex);
+volumetricFire.position.set(globals.posBehindX + 22, 0, globals.posBehindZ);
+volumetricFire.scale.set(6, 6.8, 6.0); //width, height, z
+volumetricFire.position.set(globals.posBehindX + 20, 0, globals.posBehindZ);
+console.log(volumetricFire);
+globals.scene.add(volumetricFire);
+
 //-----POOL BALLS (STATIC ROW)------//
 const poolBalls = {};
 if (globals.showStaticRows === true) {
@@ -434,11 +442,11 @@ let animate = () => {
     // if (triggerAnimationTime === Tone.Transport.position & flameActive === false) {
     // if (Tone.Transport.position === "5:8:0" & flameActive === false) {
     // if (Tone.Transport.position === "6:5:0" & flameActive === false) {
-    if (Tone.Transport.seconds > 23 & flameActive === false) {
-        console.log('addFire active -> position: ', Tone.Transport.position);
-        // flameFirst.addFire();
-        flameFirst.addFire(globals.ticks);
-        flameActive = true;
+    // if (Tone.Transport.seconds > 23 & flameActive === false) {
+    if (flameActive === false) {
+        // console.log('addFire active -> position: ', Tone.Transport.position);
+        // flameFirst.addFire(globals.ticks);
+        // flameActive = true;
     }
 
     if (Tone.Transport.seconds > 41 && Tone.Transport.seconds < 42) {
