@@ -124,6 +124,7 @@ export default class Trigger {
             } else if (triggerObj.variation === 'tom-high') {
                 playerTomHigh.start();
                 // flameFirst.addFire(globals.ticks);
+                console.log(globals.flameArr[0]);
             } else {
                 console.log('UNDEF variation - triggerNote() -> triggerObj (drum): ', triggerObj);
                 playerHiHat.start();

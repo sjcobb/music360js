@@ -12,20 +12,27 @@ import globals from './globals.js';
 
 export default class Flame {
     
-    constructor(fireParam) {
-        this.triggerTime = fireParam;
+    // constructor(fireParam) {
+    constructor() {
+        // this.triggerTime = fireParam;
     }
 
-    initFire() {
-        globals.loader.crossOrigin = '';
-        var fireTex = globals.loader.load("./assets/flame/FireOrig.png");
-
-        // const volumetricFire = new THREE.Fire(fireTex);
-        const volumetricFire = new Fire(fireTex);
-        volumetricFire.position.set(globals.posBehindX + 22, 0, globals.posBehindZ);
+    create() {
+        const fireTex = globals.loader.load("assets/flame/FireOrig.png");
+        const volumetricFire = new THREE.Fire(fireTex);
         volumetricFire.scale.set(6, 6.8, 6.0); //width, height, z
+        volumetricFire.position.set(globals.posBehindX + 30, 3.5, globals.posBehindZ);
+        var wireframeMat = new THREE.MeshBasicMaterial({
+            color : new THREE.Color(0xffffff),
+            wireframe : true
+        });
+        var wireframe = new THREE.Mesh(volumetricFire.geometry, wireframeMat.clone());
         volumetricFire.add(wireframe);
-        globals.scene.add(volumetricFire);
+        wireframe.visible = false;
+
+        globals.flameArr.push(volumetricFire)
+        // globals.scene.add(volumetricFire);
+        globals.scene.add(globals.flameArr[0]);
     }
 
     addFire(posX = globals.posBehindX + 22, currentTime) {

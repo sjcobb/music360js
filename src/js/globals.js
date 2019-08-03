@@ -17,6 +17,7 @@ export default {
     damping: 0.01,
     dropPosX: 5.5,
     fixedTimeStep: 1.0 / 60.0,
+    flameArr: [],
     instr: {},
     instrumentCounter: 0,
     lastColor: '#000000',
