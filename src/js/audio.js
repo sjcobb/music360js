@@ -123,7 +123,8 @@ var animationPart = new Tone.Part(function(time, instr) {
     // ["0:0:0", globals.instr.flameCenter],
     ["0:0:0", globals.instr.flameCenter],
 ]);
-animationPart.start("6:5:0");
+animationPart.start("6:4:3");
+// animationPart.start("0:0:0");
 
 var animationPart2 = new Tone.Part(function(time, instr) {
     physics.addBody(true, time * globals.multiplierPosX, instr);

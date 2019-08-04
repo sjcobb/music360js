@@ -5,7 +5,7 @@ export default {
     activeInstrColor: '#9F532A', //red
     // activeInstrColor: '#0018F9', //music wheel I blue
     autoScroll: true,
-    autoStart: true,
+    autoStart: false,
     autoStartTime: 9000,
     camera: new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000),
     cameraPositionBehind: true,
