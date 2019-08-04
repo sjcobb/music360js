@@ -127,7 +127,7 @@ export default class Trigger {
                 playerRide.start();
             } else if (triggerObj.variation === 'tom-high') {
                 playerTomHigh.start(); // key: 7
-                flameFirst.create(obj.initPosition);
+                // flameFirst.create(obj.initPosition);
             } else {
                 console.log('UNDEF variation - triggerNote() -> triggerObj (drum): ', triggerObj);
                 playerHiHat.start();

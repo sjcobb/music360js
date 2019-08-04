@@ -97,14 +97,20 @@ const boleroFireChords = [
     ["0:10:0", globals.instr.sphereChordF],
 ];
 
+let flameActive = false;
 const pianoChordsFirstPart = new Tone.Part(function(time, instr) {
+    instr.animateFlame = true;
+
     physics.addBody(true, time * globals.multiplierPosX, instr);
     // addFire(globalTicks); //old
     // flameFirst.addFire(globalTicks);
     // flameActive = false;
 
-
-    flameAudio.create({x: time * globals.multiplierPosX});
+    if (flameActive === false) {
+        flameAudio.create({x: time * globals.multiplierPosX});
+        flameActive = true;
+    }
+    
 }, boleroFireChords);
 
 const pianoChordsSecondPart = new Tone.Part(function(time, instr) {

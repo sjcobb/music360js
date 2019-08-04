@@ -4,6 +4,11 @@ import Helpers from './THREEx.js';
 import Trigger from './Trigger.js';
 import InstrumentMappings from './InstrumentMappings.js';
 
+import Flame from './Flame.js';
+
+let flamePhysics = new Flame();
+
+
 /*
  *** PHYSICS ***
  */
@@ -162,6 +167,14 @@ export default class Physics {
             // body.quaternion.y = 11;
             // body.quaternion.z = 0.5;
             // console.log(body); //TODO: rotate adjust HERE!!!
+        }
+
+        if (options.animateFlame === true) {
+            console.log('ANIMATE FLAME');
+            // flamePhysics.create(xPosition); // TODO: rename xPosition and xPos (confusing)
+            // flamePhysics.create(xPos); // TODO: which pos to use???
+            // flamePhysics.create(-(globals.ticks));
+            // options.animateFlame = falsel
         }
 
         // //TODO: can this be removed and moved to initPhysics()???
