@@ -4,6 +4,11 @@ import Helpers from './THREEx.js';
 import Trigger from './Trigger.js';
 import InstrumentMappings from './InstrumentMappings.js';
 
+import Flame from './Flame.js';
+
+let flamePhysics = new Flame();
+
+
 /*
  *** PHYSICS ***
  */
@@ -33,11 +38,8 @@ export default class Physics {
             const defaultInstr = instrument.getInstrumentMappingTemplate();
             options = defaultInstr.hiHatClosed;
         }
-        
+
         const trigger = new Trigger();
-        // console.log('addBody -> options: ', options);
-        // console.log('addBody -> timeout: ', timeout);
-        // helpers = new Helpers();
 
         const material = new CANNON.Material();
         const body = new CANNON.Body({ mass: 5, material: material });
@@ -81,28 +83,32 @@ export default class Physics {
         // zPos = options.originalPosition.z;
 
         body.position.set((sphere) ? -xPos : xPos, yPos, zPos);
-        // body.position.set((sphere) ? -x : x, y, 0);
+
         body.linearDamping = globals.damping;
 
-        // body.initVelocity.x = 5; // TODO: cause balls to spin and roll off
-        // body.angularVelocity.y = 9.5; //crazy spin
-        // body.angularVelocity.y = 1.5; //slow spin
-
-        // body.angularVelocity.z = 15.5; //GREAT
-        // body.angularVelocity.z = 12; 
-        // body.angularVelocity.z = 8; //PREV
         body.angularVelocity.z = 12;
-        // body.angularVelocity.z = 35.5; //too fast
 
-        // body.angularVelocity.x = 0.9; //flips ball
-        // body.angularVelocity.x = 9.9; //WORKS - off to right
-        // body.angularVelocity.z = 0.9; //spins ball
-        // console.log({ body });
+        if (options.type === 'animation') {
+            console.log('addBody -> animation: ', options);
+            
+            // if (globals.flameCounter % 2 === 0) {
+            // if (globals.flameCounter % 3 === 0) {
+            console.log(globals.flameCounter);
+            // if (globals.flameCounter === 4) {
+            // if (globals.flameCounter % 2 === 1) { //is flame is called odd num of times
+            // if (globals.flameCounter === 1) {
+            //     flamePhysics.create({x: -xPos});
+            //     globals.flameCounter = 0;
+            // }
+            flamePhysics.create({x: -xPos});
 
-        setTimeout(function() { //TODO: remove setTimeout param if not needed anymore
+            globals.flameCounter++;
+            return;
+        }
+        
+        // setTimeout(function() { //TODO: remove setTimeout param if not needed anymore
             globals.world.add(body);
-        }, timeout);
-        // globals.world.add(body);
+        // }, timeout);
 
         // if (this.useVisuals) this.helper.this.addVisual(body, (sphere) ? 'sphere' : 'box', true, false);
 
@@ -114,7 +120,7 @@ export default class Physics {
         let bodyCollideCount = 0;
         body.addEventListener('collide', function(ev) {
             // console.log('body collide event: ', ev.body);
-            // console.log('body collide INERTIA: ', ev.body.inertia); //right is NaN, wrong is 0.8333333333333333
+            // console.log('body collide INERTIA: ', ev.body.inertia);
             // console.log('contact between two bodies: ', ev.contact);
             // console.log(bodyCollideCount);
 
@@ -163,15 +169,6 @@ export default class Physics {
             // body.quaternion.z = 0.5;
             // console.log(body); //TODO: rotate adjust HERE!!!
         }
-
-        // //TODO: can this be removed and moved to initPhysics()???
-        // //http://schteppe.github.io/cannon.js/docs/classes/ContactMaterial.html
-        // const materialGround = new CANNON.ContactMaterial(this.groundMaterial, material, { friction: 0.0, restitution: (sphere) ? sphereRestitution : defaultRestitution });
-        // // console.log({materialGround});
-
-        // globals.world.addContactMaterial(materialGround);
-        // console.log('addBody() -> globals.world.contactmaterials: ', globals.world.contactmaterials);
-        // this.initContactMaterial((sphere) ? sphereRestitution : defaultRestitution); //changes ground color but breaks performance
     }
 
     initPhysics() {
@@ -199,13 +196,7 @@ export default class Physics {
         this.groundMaterial = groundMaterial;
 
         // this.animate();
-
-        //TODO: use this.initContactMaterial here and remove from addBody()
-        // this.initContactMaterial(0.8); //no effect
-        // this.initContactMaterial(0.1); //no effect
-
-        this.initContactMaterial(0.3); //PREV
-
+        this.initContactMaterial(0.3);
     }
 
     initContactMaterial(restitutionValue = 0.3) {
@@ -214,8 +205,6 @@ export default class Physics {
         const groundShape = new CANNON.Plane();
         const tempMaterial = new CANNON.Material(); //http://schteppe.github.io/cannon.js/docs/classes/Material.html
         const groundBody = new CANNON.Body({ mass: 0, material: tempMaterial });
-        // console.log({tempMaterial}); // friction: -1, restitution: -1
-        // console.log({groundBody});
 
         groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
 
@@ -229,22 +218,9 @@ export default class Physics {
         this.shapes.sphere = new CANNON.Sphere(0.5);
         this.shapes.box = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5));
 
-
-        // console.log({material});
-        // material.color.r = 0;
-        // material.color.g = 0;
-        // material.color.b = 0.3;
-        // const body = new CANNON.Body({ mass: 5, material: material });
-        
-        // console.log(this.groundMaterial);
-        
         const material = new CANNON.Material(); //why both tempMaterial and material needed?
-        // const materialGround = new CANNON.ContactMaterial(this.groundMaterial, material, { friction: 0.0, restitution: restitutionValue}); //*** UNCOMMENT TO FIX PERFORMANCE ISSUES WITH TOO MANY groundBody's
         const materialGround = new CANNON.ContactMaterial(tempMaterial, material, { friction: 0.0, restitution: restitutionValue });
-
-        // console.log({materialGround});
         globals.world.addContactMaterial(materialGround);
-        // console.log('addBody() -> globals.world.contactmaterials: ', globals.world.contactmaterials);
     }
 
     createCannonTrimesh(geometry) {
@@ -327,11 +303,6 @@ export default class Physics {
             body.threemesh = mesh;
             mesh.castShadow = castShadow;
             mesh.receiveShadow = receiveShadow;
-
-            // console.log({mesh});
-            // mesh.rotation.x = 4.0; //no effect
-            // mesh.rotation.y = -2.0; //no effect
-            // mesh.rotation.z = 2.0; //no effect
             globals.scene.add(mesh);
         }
     }
@@ -388,17 +359,8 @@ export default class Physics {
                     // TODO: try changing mesh.name to fix no color update
                     mesh.name = 'groundPlane';
                     // geometry.colorsNeedUpdate = true; //no effect
-                    // console.log({mesh});
 
                     const submesh = new THREE.Object3D();
-
-                    // console.log({material});
-                    // material.color = '0xffff00'; //err
-
-                    //TODO: set color here or in this.initContactMaterial?
-                    // material.color.r = 0;
-                    // material.color.g = 0;
-                    // material.color.b = 0.3;
 
                     // const randColor = (Math.random()*0xFFFFFF<<0).toString(16);
                     // const tempColor = parseInt('0x' + randColor); //or options.color
@@ -407,23 +369,16 @@ export default class Physics {
                     // const tempColor = '#9F532A'; //red
 
                     const defaultColor = new THREE.Color(tempColor);
-                    // console.log({defaultColor});
-
                     material.color = defaultColor;
 
                     const ground = new THREE.Mesh(geometry, material);
                     ground.scale.set(100, 100, 100); // TODO: make ground smaller
                     ground.name = 'groundMesh';
-                    // console.log({ground});
 
                     //TODO: use correctly - https://threejs.org/docs/#manual/en/introduction/How-to-update-things
                     // ground.colorsNeedUpdate = true;
 
                     submesh.add(ground);
-                    // console.log({ground});
-
-                    // console.log({ground});
-                    // console.log({submesh});
                     mesh.add(submesh);
                     break;
 

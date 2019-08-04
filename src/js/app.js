@@ -3,7 +3,7 @@ import globals from './globals.js';
 import InstrumentMappings from './InstrumentMappings.js';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 import Light from './Light.js';
-// import Flame from './Flame.js';
+import Flame from './Flame.js';
 import Physics from './Physics.js';
 import Helpers from './THREEx.js';
 import Pool from './Pool.js';
@@ -103,6 +103,7 @@ const globalSkyboxTheme = 'mercury';
 var geometry = new THREE.CubeGeometry(1200, 1200, 1200); //prev
 
 var cubeMaterials = [
+    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/flame/FireOrig.png`), side: THREE.DoubleSide }), //front side
     new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/ft.png`), side: THREE.DoubleSide }), //front side
     new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/bk.png`), side: THREE.DoubleSide }), //back side
     new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/up.png`), side: THREE.DoubleSide }), //up side
@@ -288,19 +289,12 @@ function addThickStaffLines() {
 
 
 //-----Static Fire Example------//
-let flameActive = false;
-let volumetricFire; //TODO: remove after Flame class methods working
-// let flameFirst = new Flame(globals.triggerAnimationTime);
-// flameFirst.initFire();
-
 globals.loader.crossOrigin = '';
-const fireTex = globals.loader.load("./assets/flame/FireOrig.png");
-volumetricFire = new THREE.Fire(fireTex);
-volumetricFire.position.set(globals.posBehindX + 22, 0, globals.posBehindZ);
-volumetricFire.scale.set(6, 6.8, 6.0); //width, height, z
-volumetricFire.position.set(globals.posBehindX + 20, 0, globals.posBehindZ);
-console.log(volumetricFire);
-globals.scene.add(volumetricFire);
+
+let flameActive = false;
+// // let flameFirst = new Flame(globals.triggerAnimationTime);
+// let flameFirst = new Flame();
+// // flameFirst.create();
 
 //-----POOL BALLS (STATIC ROW)------//
 const poolBalls = {};
@@ -390,7 +384,7 @@ function moveObject(object, motionActive, positionUp, threshold) {
 // var toneClock = new Tone.Clock(function(time) {
 //     console.log(time);
 // }, 1);
-var clock = new THREE.Clock();
+// var clock = new THREE.Clock();
 
 //-----ANIMATION------//
 let animate = () => {
@@ -402,6 +396,7 @@ let animate = () => {
     // console.log('ticks: ', Tone.Transport.ticks); //ex. 10 
     // console.log('position: ', Tone.Transport.position); //ex: 0:0:0.124
     // console.log('seconds: ', Tone.Transport.seconds);
+    // console.log(globals.ticks);
 
     if (globals.showStaticRows === true) {
         for (var key in poolBalls) {
@@ -454,9 +449,12 @@ let animate = () => {
     }
 
     // TODO: readd after webpack setup
-    // var flameRate = clock.getElapsedTime() * 2.0;
+    var flameRate = globals.clock.getElapsedTime() * 2.0;
     // volumetricFire.update(flameRate);
-
+    if (globals.flameArr.length > 0) {
+        globals.flameArr[0].update(flameRate);
+    }
+    
     physics.updateBodies(globals.world);
     globals.world.step(globals.fixedTimeStep);
 

@@ -7,6 +7,7 @@ import { Transport, Player, Players, Part, Time, Volume } from 'tone';
 import globals from './globals.js';
 import InstrumentMappings from './InstrumentMappings.js';
 import Physics from './Physics.js';
+import Flame from './Flame.js';
 
 //-----TONE------//
 Tone.Transport.bpm.value = 200;
@@ -86,12 +87,15 @@ const playerTomHigh = new Player("./assets/sounds/drum-kits/electronic/tom-high.
 const playerTomMid = new Player("./assets/sounds/drum-kits/electronic/tom-mid.mp3").toMaster();
 const playerTomLow = new Player("./assets/sounds/drum-kits/electronic/tom-low.mp3").toMaster();
 
+let flameFirst = new Flame();
+
 export default class Trigger {
     constructor() {
         // super();
     }
     
     triggerNote(obj) {
+        // console.log({obj});
 
         const physics = new Physics();
 
@@ -122,8 +126,8 @@ export default class Trigger {
             } else if (triggerObj.variation === 'ride') {
                 playerRide.start();
             } else if (triggerObj.variation === 'tom-high') {
-                playerTomHigh.start();
-                // flameFirst.addFire(globals.ticks);
+                playerTomHigh.start(); // key: 7
+                // flameFirst.create(obj.initPosition);
             } else {
                 console.log('UNDEF variation - triggerNote() -> triggerObj (drum): ', triggerObj);
                 playerHiHat.start();

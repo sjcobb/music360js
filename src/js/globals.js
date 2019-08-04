@@ -17,6 +17,8 @@ export default {
     damping: 0.01,
     dropPosX: 5.5,
     fixedTimeStep: 1.0 / 60.0,
+    flameArr: [],
+    flameCounter: 0,
     instr: {},
     instrumentCounter: 0,
     lastColor: '#000000',
@@ -32,6 +34,7 @@ export default {
     showStaticRows: false,
     ticks: 0,
     triggerAnimationTime: '4:0:0',
+    // Transport: Tone.Transport, //TODO: add Transport here for logging ticks and position
     world: new CANNON.World(),
 };
 
