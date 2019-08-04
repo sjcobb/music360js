@@ -102,7 +102,8 @@ if (globals.autoStart === true) {
     controlsId.classList.toggle('hidden');
     setTimeout(function() {
         Tone.Transport.start();
-    }, 9000);
+    }, globals.autoStartTime);
+    // }, 9000);
 } else {
     controlsId.classList.toggle('show');
 }
@@ -111,18 +112,23 @@ document.addEventListener("visibilitychange", function() {
     if (document.hidden){
         console.log("visibilitychange -> Browser tab is hidden");
         Tone.Transport.stop();
+        console.log("Tone.Transport stopped......");
     } else {
         console.log("visibilitychange -> Browser tab is visible");
     }
 });
 
-// setTimeout(function() {
-//     globals.cameraPositionBehind = false;
-//     // camera.position.set(0, 20, 40);
-//     camera.position.set(0, 5, 35);
-//     camera.lookAt(new THREE.Vector3(-1, 1, 10));
-// // }, 54000);
-// }, 2000);
+setTimeout(function() {
+    globals.cameraPositionBehind = false;
+    // globals.camera.position.set(0, 20, 40);
+    // globals.camera.position.set(0, 5, 35);
+    globals.camera.position.set(0, 12, 30);
+    globals.camera.lookAt(new THREE.Vector3(0, 1, 10));
+    // globals.camera.lookAt(new THREE.Vector3(-1, 1, 10));
+// }, globals.autoStartTime + 32000); //globals.autoStartTime = 9000
+}, globals.autoStartTime + 46000); 
+// }, 33000);
+// }, 1000);
 
 // globals.cameraPositionBehind = false;
 // // camera.position.set(0, 5, 35);

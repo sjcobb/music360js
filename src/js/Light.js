@@ -27,12 +27,14 @@ export default class Light {
         light.shadow.camera.left = light.shadow.camera.bottom = -lightSize;
         light.shadow.camera.right = light.shadow.camera.top = lightSize;
 
-        light.shadow.mapSize.width = 1024;
-        light.shadow.mapSize.height = 1024;
+        // light.shadow.mapSize.width = 1024; // prev
+        // light.shadow.mapSize.height = 1024;
+
+        light.shadow.mapSize.width = 0;
+        light.shadow.mapSize.height = 0;
 
         this.sun = light;
         // globals.scene.add(light);
-
 
         globals.scene.add(light);
 
