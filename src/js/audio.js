@@ -95,24 +95,15 @@ const boleroFireChords = [
     ["0:7:0", globals.instr.sphereChordF],
     ["0:9:0", globals.instr.sphereChordA3],
     ["0:10:0", globals.instr.sphereChordF],
+    // ["0:11:0", globals.instr.flameCenter],
 ];
 
 let flameActive = false;
 const pianoChordsFirstPart = new Tone.Part(function(time, instr) {
-    instr.animateFlame = true;
-
     physics.addBody(true, time * globals.multiplierPosX, instr);
-    // addFire(globalTicks); //old
-    // flameFirst.addFire(globalTicks);
-    // flameActive = false;
-
-    if (flameActive === false) {
-        flameAudio.create({x: time * globals.multiplierPosX});
-        flameActive = true;
-    }
-    
 }, boleroFireChords);
 
+// boleroFireChords.push(["0:11:0", globals.instr.flameCenter]);
 const pianoChordsSecondPart = new Tone.Part(function(time, instr) {
     physics.addBody(true, time * globals.multiplierPosX, instr);
 }, boleroFireChords);
@@ -120,15 +111,40 @@ const pianoChordsSecondPart = new Tone.Part(function(time, instr) {
 pianoChordsFirstPart.loop = 2;
 // pianoChordsFirstPart.start("1:0:0");
 // pianoChordsFirstPart.start("4:0:0");
-pianoChordsFirstPart.start(globals.triggerAnimationTime);
+pianoChordsFirstPart.start(globals.triggerAnimationTime); //"4:0:0"
 
 pianoChordsSecondPart.loop = 2;
 // pianoChordsSecondPart.start("6:0:0");
 pianoChordsSecondPart.start("9:0:0");
 
+var animationPart = new Tone.Part(function(time, instr) {
+    physics.addBody(true, time * globals.multiplierPosX, instr);
+}, [
+    // ["0:0:0", globals.instr.flameCenter],
+    ["0:0:0", globals.instr.flameCenter],
+]);
+animationPart.start("6:5:0");
+
+var animationPart2 = new Tone.Part(function(time, instr) {
+    physics.addBody(true, time * globals.multiplierPosX, instr);
+}, [
+    ["0:0:0", globals.instr.flameCenter],
+]);
+// animationPart2.start("10:5:0"); //TODO: add second animation part for fire
+animationPart2.start("11:5:0"); //TODO: add second animation part for fire
+
+// animationPart.start("5:10:0");
+// animationPart.start("6:0:0");
+// var animationEvent = new Tone.Event(function(time, instr){
+// 	physics.addBody(true, time * globals.multiplierPosX, instr);
+// //}, ["0:0:0", globals.instr.flameCenter]);
+// }, [["0:0:0", globals.instr.flameCenter]]); //err: TypeError: Failed to execute 'setValueAtTime' on 'AudioParam': The provided float value is non-finite.
+// animationEvent.start("5:11:0");
+
 var pianoChordsFinalPart = new Tone.Part(function(time, instr) {
     physics.addBody(true, time * globals.multiplierPosX, instr);
 }, [
+    // ["0:0:0", globals.instr.flameCenter], //too soon
     ["0:0:0", globals.instr.sphereChordE],
     ["0:2:0", globals.instr.sphereChordG],
     ["0:4:0", globals.instr.sphereChordA3],

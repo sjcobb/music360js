@@ -18,8 +18,9 @@ export default class Flame {
     }
 
     create(pos) {
-        console.log(pos);
-        console.log(globals.flameArr);
+        // console.log(pos);
+        console.log(globals);
+        // console.log(globals.flameArr);
 
         const fireTex = globals.loader.load("assets/flame/FireOrig.png");
         const volumetricFire = new THREE.Fire(fireTex);

@@ -15,6 +15,12 @@ export default class InstrumentMappings {
     getInstrumentMappingTemplate(movement = 'physics') {
         //const instrumentMapping = {
         return {
+            flameCenter: {
+                type: 'animation',
+                triggerOn: 2,
+                timesTriggered: 0,
+                originalPosition: { x: 0, y: 0, z: -5 }
+            },
             //TODO: originalPosition and offsetMultiplier should have an effect on where ball (or other shapes) are dropped
             hiHatClosed: {
                 ballDesc: 'H',
