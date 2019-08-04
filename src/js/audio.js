@@ -1,6 +1,10 @@
 import globals from './globals.js';
 import Tone from 'tone';
 import Physics from './Physics.js';
+import Flame from './Flame.js';
+
+let flameAudio = new Flame();
+
 /*
  *** AUDIO ***
  */
@@ -98,6 +102,9 @@ const pianoChordsFirstPart = new Tone.Part(function(time, instr) {
     // addFire(globalTicks); //old
     // flameFirst.addFire(globalTicks);
     // flameActive = false;
+
+
+    flameAudio.create({x: time * globals.multiplierPosX});
 }, boleroFireChords);
 
 const pianoChordsSecondPart = new Tone.Part(function(time, instr) {

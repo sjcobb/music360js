@@ -17,11 +17,18 @@ export default class Flame {
         // this.triggerTime = fireParam;
     }
 
-    create() {
+    create(pos) {
+        console.log(pos);
+        console.log(globals.flameArr);
+
         const fireTex = globals.loader.load("assets/flame/FireOrig.png");
         const volumetricFire = new THREE.Fire(fireTex);
         volumetricFire.scale.set(6, 6.8, 6.0); //width, height, z
-        volumetricFire.position.set(globals.posBehindX + 30, 3.5, globals.posBehindZ);
+
+        // volumetricFire.position.set(globals.posBehindX + 30, 3.5, globals.posBehindZ);
+        // volumetricFire.position.set(pos.x, 3.5, globals.posBehindZ);
+        volumetricFire.position.set(pos.x, globals.posBehindY, globals.posBehindZ);
+
         var wireframeMat = new THREE.MeshBasicMaterial({
             color : new THREE.Color(0xffffff),
             wireframe : true
@@ -30,7 +37,8 @@ export default class Flame {
         volumetricFire.add(wireframe);
         wireframe.visible = false;
 
-        globals.flameArr.push(volumetricFire)
+        // globals.flameArr.push(volumetricFire)
+        globals.flameArr = [volumetricFire];
         // globals.scene.add(volumetricFire);
         globals.scene.add(globals.flameArr[0]);
     }

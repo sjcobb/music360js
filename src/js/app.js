@@ -292,25 +292,9 @@ function addThickStaffLines() {
 globals.loader.crossOrigin = '';
 
 let flameActive = false;
-let volumetricFire; //TODO: remove after Flame class methods working
-
-// let flameFirst = new Flame(globals.triggerAnimationTime);
-let flameFirst = new Flame();
-flameFirst.create();
-// flameFirst.initFire();
-
-// const fireTex = globals.loader.load("assets/flame/FireOrig.png");
-// volumetricFire = new THREE.Fire(fireTex);
-// volumetricFire.scale.set(6, 6.8, 6.0); //width, height, z
-// volumetricFire.position.set(globals.posBehindX + 30, 3.5, globals.posBehindZ);
-// var wireframeMat = new THREE.MeshBasicMaterial({
-//     color : new THREE.Color(0xffffff),
-//     wireframe : true
-// });
-// var wireframe = new THREE.Mesh(volumetricFire.geometry, wireframeMat.clone());
-// volumetricFire.add(wireframe);
-// wireframe.visible = false;
-// globals.scene.add(volumetricFire);
+// // let flameFirst = new Flame(globals.triggerAnimationTime);
+// let flameFirst = new Flame();
+// // flameFirst.create();
 
 //-----POOL BALLS (STATIC ROW)------//
 const poolBalls = {};
@@ -466,8 +450,10 @@ let animate = () => {
     // TODO: readd after webpack setup
     var flameRate = globals.clock.getElapsedTime() * 2.0;
     // volumetricFire.update(flameRate);
-    globals.flameArr[0].update(flameRate);
-
+    if (globals.flameArr.length > 0) {
+        globals.flameArr[0].update(flameRate);
+    }
+    
     physics.updateBodies(globals.world);
     globals.world.step(globals.fixedTimeStep);
 
