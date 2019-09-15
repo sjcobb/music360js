@@ -22,6 +22,7 @@ const config = {
             path.resolve(__dirname, 'src/js/Light.js'),
             path.resolve(__dirname, 'src/js/app.js'),
             path.resolve(__dirname, 'src/js/Audio.js'),
+            path.resolve(__dirname, 'src/js/Input.js'),
             path.resolve(__dirname, 'src/js/ui.js')
         ]
     },
