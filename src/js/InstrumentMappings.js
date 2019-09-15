@@ -116,7 +116,7 @@ export default class InstrumentMappings {
                 note: 'A',
                 chord: ['A1', 'C2', 'E2'],
                 // chord: ['A2', 'C3', 'E3'], // a minor 
-                octave: 3,
+                octave: 1,
                 type: 'chord',
                 originalPosition: { x: 0, y: 0, z: 14 } //low
             },
@@ -127,7 +127,7 @@ export default class InstrumentMappings {
                 note: 'B',
                 chord: ['B1', 'D2', 'F2'],
                 // chord: ['B2', 'D3', 'F3'],
-                octave: 3,
+                octave: 1,
                 type: 'chord',
                 originalPosition: { x: 0, y: 0, z: 13 } //low
             },
@@ -137,7 +137,7 @@ export default class InstrumentMappings {
                 keyInput: 'C',
                 note: 'C',
                 chord: ['C2', 'E2', 'A2'],
-                octave: 3,
+                octave: 2,
                 type: 'chord',
                 // originalPosition: { x: 0, y: 0, z: 5 }
                 originalPosition: { x: 0, y: 0, z: 12 } //low
@@ -148,7 +148,7 @@ export default class InstrumentMappings {
                 keyInput: 'V',
                 note: 'D',
                 chord: ['D2', 'F2', 'A2'],
-                octave: 3,
+                octave: 2,
                 type: 'chord',
                 originalPosition: { x: 0, y: 0, z: 11 }
             },
@@ -158,7 +158,7 @@ export default class InstrumentMappings {
                 keyInput: 'B',
                 note: 'E',
                 chord: ['E2', 'G2', 'B2'],
-                octave: 3,
+                octave: 2,
                 type: 'chord',
                 originalPosition: { x: 0, y: 0, z: 10 }
             },
@@ -168,7 +168,7 @@ export default class InstrumentMappings {
                 keyInput: 'N',
                 note: 'F',
                 chord: ['F2', 'A2', 'C3'],
-                octave: 3,
+                octave: 2,
                 type: 'chord',
                 originalPosition: { x: 0, y: 0, z: 9 }
                 // originalPosition: { x: 0, y: 0, z: 2 } //high
@@ -179,7 +179,7 @@ export default class InstrumentMappings {
                 keyInput: 'M',
                 note: 'G',
                 chord: ['G2', 'B2', 'D3'],
-                octave: 3,
+                octave: 2,
                 type: 'chord',
                 // originalPosition: { x: 0, y: 0, z: 1 } //high G
                 originalPosition: { x: 0, y: 0, z: 8 } //low G

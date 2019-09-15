@@ -4,8 +4,10 @@ import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 export default {
     // activeInstrColor: '#9F532A', //ltred
     // activeInstrColor: '#800000', //dkred
-    activeInstrColor: '#8F0000', //medred
+    // activeInstrColor: '#8F0000', //medred
     // activeInstrColor: '#0018F9', //music wheel I blue
+    // activeInstrColor: '#7ec850', //grass green (lt)
+    activeInstrColor: '#567d46', //grass green (md)
     autoScroll: true,
     autoStart: false,
     autoStartTime: 9000,

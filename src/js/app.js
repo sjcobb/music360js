@@ -93,11 +93,11 @@ globals.controls.dragToLook = true;
 // https://github.com/hghazni/Three.js-Skybox/blob/master/js/script.js#L35
 // assets: http://www.custommapmakers.org/skyboxes.php
 
-// const globalSkyboxTheme = 'nightsky';
+const globalSkyboxTheme = 'nightsky';
 // const globalSkyboxTheme = 'hills'; //blurry
 // const globalSkyboxTheme = 'island'; //only unsupported .tga currently
 // const globalSkyboxTheme = 'bluefreeze';
-const globalSkyboxTheme = 'mercury';
+// const globalSkyboxTheme = 'mercury';
 
 // var geometry = new THREE.CubeGeometry(1000, 1000, 1000); //prev
 var geometry = new THREE.CubeGeometry(1200, 1200, 1200); //prev

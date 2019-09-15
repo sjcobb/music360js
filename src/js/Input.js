@@ -34,12 +34,13 @@ WebMidi.enable(err => {
         var input = WebMidi.getInputByName("MPK mini play");
         console.log({input});
 
-        input.addListener('pitchbend', "all", function (e) {
-            console.log("Pitch value: " + e.value); // Pitch value: -0.2528076171875
-        });
-
-        onActiveInputChange(input.id);
-        
+        if (input !== false) {
+            input.addListener('pitchbend', "all", function (e) {
+                console.log("Pitch value: " + e.value); // Pitch value: -0.2528076171875
+            });
+    
+            onActiveInputChange(input.id);
+        }
         // _midiInput: MIDIInput
         // connection: "open"
         // id: "-456726709"
