@@ -491,5 +491,28 @@ export default class InstrumentMappings {
             }
         }
     }
+
+    getInstrByNote(inputNote = 'C4') {
+        const instrumentMapping = this.getInstrumentMappingTemplate();
+        for (var key in instrumentMapping) {
+            if (instrumentMapping.hasOwnProperty(key)) {
+
+                // const instrNote = obj.userData.opts.note + obj.userData.opts.octave;
+                const instrNote = inputNote;
+                // console.log({instrNote});
+                const currNote = instrumentMapping[key].note + instrumentMapping[key].octave;
+                // console.log({currNote});
+                
+                // if (instrNote === inputNote) {
+                if (instrNote === currNote) {
+                    //TODO: are both getNoteMapping and getKeyboardMapping needed?
+                    const instrumentMappedObj = instrumentMapping[key];
+                    // console.log({instrumentMappedObj});
+                    return instrumentMappedObj;
+                }
+    
+            }
+        }
+    }
 }
 

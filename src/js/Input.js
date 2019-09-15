@@ -1,8 +1,18 @@
+import globals from './globals.js';
+import InstrumentMappings from './InstrumentMappings.js';
+// import { note, interval, transpose, distance, midi } from "tonal";
+import * as Tonal from "tonal";
+import * as WebMidi from "webmidi";
+import Physics from './Physics.js';
+
 /*
  *** INPUT - MIDI KEYS MAPPING ***
  * TODO *
  * - use https://github.com/tonaljs/tonal instead of keyCode_to_note
  */
+
+const physics = new Physics();
+const instrument = new InstrumentMappings();
 
 // constants from neural-arpeggiator
 const MIN_NOTE = 48;
@@ -121,15 +131,35 @@ let humanKeyAdds = [],
     humanKeyRemovals = [];
 function humanKeyDown(note, velocity = 0.7) {
     console.log('humanKeyDown -> note: ', note);
+
+    // console.log(Tonal);
+    // console.log(Tonal.Note);
+
+    // let tonalNote = '';
+    // let tonalNote = Tonal.midi.midiToNoteName(note);
+    // let tonalNote = Tonal.note("a4").freq;
+    // let tonalNote = Tonal.Note.midiToFreq(note);
+    let tonalNote = Tonal.Note.fromMidi(note);
+    let tonalFreq = Tonal.Note.midiToFreq(note);
+    // let tonalNote = midiToNoteName(61);
+    console.log('tonalNote: ', tonalNote); // => "Db4");
+    console.log('tonalFreq: ', tonalFreq); // => "Db4");
+
+    // TODO: add getNoteMapping equivalent for getting instrument by note (ex: D4)
+    console.log('MAPPING!', instrument.getInstrByNote(tonalNote));
+    const instrMapped = instrument.getInstrByNote(tonalNote);
+    // physics.addBody(true, globals.dropPosX, '');
+    physics.addBody(true, globals.dropPosX, instrMapped);
+
     console.log('humanKeyDown -> velocity: ', velocity);
     if (note < MIN_NOTE || note > MAX_NOTE) return;
     humanKeyAdds.push({ note, velocity });
-    console.log({humanKeyAdds});
+    // console.log({humanKeyAdds});
 }
 function humanKeyUp(note) {
     if (note < MIN_NOTE || note > MAX_NOTE) return;
     humanKeyRemovals.push({ note });
-    console.log({humanKeyRemovals});
+    // console.log({humanKeyRemovals});
 }
 
 // // Startup
