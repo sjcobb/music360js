@@ -118,17 +118,17 @@ document.addEventListener("visibilitychange", function() {
     }
 });
 
-setTimeout(function() {
-    globals.cameraPositionBehind = false;
-    // globals.camera.position.set(0, 20, 40);
-    // globals.camera.position.set(0, 5, 35);
-    globals.camera.position.set(0, 12, 30);
-    globals.camera.lookAt(new THREE.Vector3(0, 1, 10));
-    // globals.camera.lookAt(new THREE.Vector3(-1, 1, 10));
-// }, globals.autoStartTime + 32000); //globals.autoStartTime = 9000
-}, globals.autoStartTime + 46000); 
-// }, 33000);
-// }, 1000);
+// setTimeout(function() {
+//     globals.cameraPositionBehind = false;
+//     // globals.camera.position.set(0, 20, 40);
+//     // globals.camera.position.set(0, 5, 35);
+//     globals.camera.position.set(0, 12, 30);
+//     globals.camera.lookAt(new THREE.Vector3(0, 1, 10));
+//     // globals.camera.lookAt(new THREE.Vector3(-1, 1, 10));
+// // }, globals.autoStartTime + 32000); //globals.autoStartTime = 9000
+// }, globals.autoStartTime + 46000); 
+// // }, 33000);
+// // }, 1000);
 
 // globals.cameraPositionBehind = false;
 // // camera.position.set(0, 5, 35);

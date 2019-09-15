@@ -7,12 +7,11 @@ export default {
     activeInstrColor: '#8F0000', //medred
     // activeInstrColor: '#0018F9', //music wheel I blue
     autoScroll: true,
-    autoStart: true,
+    autoStart: false,
     autoStartTime: 9000,
     camera: new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000),
     cameraPositionBehind: true,
-    cameraLookUp: true,
-    // cameraLookUp: false,
+    cameraLookUp: false,
     clock: new THREE.Clock(),
     configColorAnimate: true,
     controls: '',
