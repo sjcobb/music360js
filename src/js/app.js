@@ -397,6 +397,7 @@ let animate = () => {
     // console.log('position: ', Tone.Transport.position); //ex: 0:0:0.124
     // console.log('seconds: ', Tone.Transport.seconds);
     // console.log(globals.ticks);
+    // console.log(globals.clock.elapsedTime);
 
     if (globals.showStaticRows === true) {
         for (var key in poolBalls) {

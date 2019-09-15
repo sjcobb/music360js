@@ -90,7 +90,8 @@ export default class InstrumentMappings {
             },
             tomHigh: {
                 ballDesc: 'T',
-                color: '#800080', //purple
+                // color: '#800080', //purple
+                color: '#006400', //dkgreen
                 keyInput: '7',
                 note: 'C',
                 octave: 2,

@@ -112,7 +112,7 @@ button#bounce {
 
 #legend-container {
     display: inline-block;
-    width: 80px;
+    width: 90px;
     margin: 0 auto;
     position: absolute;
     right: 0;
@@ -129,7 +129,7 @@ button#bounce {
     display: inline-block;
     position: relative;
     margin: 0;
-    padding: 6px 0px 6px 20px;
+    padding: 10px 0px 8px 20px;
     box-sizing: border-box;
 }
 .legend ul {
@@ -139,13 +139,13 @@ button#bounce {
 }
 .legend ul li {
     height: 14px;
-    margin: 0 0 5px;
+    margin: 0 0 6px;
 }
 .legend span.symbol {
     display: block;
-    width: 8px;
-    height: 8px;
-    margin: 7px 0 0 0;
+    width: 10px;
+    height: 10px;
+    margin: 5px 0 0 0;
     padding: 0;
     position: absolute;
     left: 0;
@@ -156,11 +156,13 @@ button#bounce {
 .legend p {
     margin: 0;
     padding: 0;
-    font-family: 'Didact Gothic', sans-serif;
+    /* font-family: 'Didact Gothic', sans-serif; */
     /* font-family: 'Sawarabi Gothic', sans-serif; */
+    font-family: Verdana, sans-serif;
     line-height: 20px;
-    font-size: 12px;
+    font-size: 14px;
     color: #fff;
+    letter-spacing: 1.25px;
 }
 
 #legend-container.animate-in {

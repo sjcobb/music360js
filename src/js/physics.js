@@ -89,11 +89,11 @@ export default class Physics {
         body.angularVelocity.z = 12;
 
         if (options.type === 'animation') {
-            console.log('addBody -> animation: ', options);
+            // console.log('addBody -> animation: ', options);
             
             // if (globals.flameCounter % 2 === 0) {
             // if (globals.flameCounter % 3 === 0) {
-            console.log(globals.flameCounter);
+            // console.log(globals.flameCounter);
             // if (globals.flameCounter === 4) {
             // if (globals.flameCounter % 2 === 1) { //is flame is called odd num of times
             // if (globals.flameCounter === 1) {

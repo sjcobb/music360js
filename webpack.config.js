@@ -4,6 +4,7 @@
 
 const path = require('path');
 
+// TODO: include Three.js here instead of in index.html, resolve all in src folder and node_modules to fix GitHub Pages 404s
 const config = {
     entry: {
         'bundle.js': [

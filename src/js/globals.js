@@ -2,14 +2,17 @@
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 
 export default {
-    activeInstrColor: '#9F532A', //red
+    // activeInstrColor: '#9F532A', //ltred
+    // activeInstrColor: '#800000', //dkred
+    activeInstrColor: '#8F0000', //medred
     // activeInstrColor: '#0018F9', //music wheel I blue
     autoScroll: true,
-    autoStart: false,
+    autoStart: true,
+    autoStartTime: 9000,
     camera: new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000),
     cameraPositionBehind: true,
-    // cameraLookUp: true,
-    cameraLookUp: false,
+    cameraLookUp: true,
+    // cameraLookUp: false,
     clock: new THREE.Clock(),
     configColorAnimate: true,
     controls: '',
