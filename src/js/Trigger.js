@@ -20,7 +20,8 @@ Tone.Transport.loop = true; //TODO: *** clear all addBody objects if Transport l
 var polySynth = new Tone.PolySynth(6, Tone.Synth).toMaster();
 // polySynth.volume.value = -4; //prev
 polySynth.volume.value = -8; //just right
-polySynth.set("detune", +1200); // octave = 12 semitones of 100 cents each
+// polySynth.set("detune", +1200); // octave = 12 semitones of 100 cents each
+// polySynth.set("detune", +1200);
 
 const bounceSynth = new Tone.Synth();
 bounceSynth.volume.value = 2;
@@ -103,11 +104,17 @@ export default class Trigger {
 
         globals.musicActive = true; //remove?
 
-        let triggerObj = instrument.getNoteMapping(obj);
+        // let triggerObj = instrument.getNoteMapping(obj); //ORIG
+
+        const triggerNote = obj.userData.opts.note + obj.userData.opts.octave;
+        let triggerObj = instrument.getInstrByNote(triggerNote);
+
         let combinedNote = triggerObj.note + triggerObj.octave;
+        console.log('Trigger -> NOTE: ', combinedNote);
+        // console.log('triggerObj: ', triggerObj);
+        // console.groupEnd();
 
         let drumIndex = 0;
-
         // TODO: is if else performance causing sound bug?
         if (triggerObj.type === 'drum') {
             if (triggerObj.variation === 'kick') {

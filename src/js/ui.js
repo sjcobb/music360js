@@ -98,8 +98,11 @@ addShapeId.onclick = (el) => {
     addBody();
 };
 
-if (globals.autoStart === true) {
+if (globals.autoStart === true || globals.hideUI === true) {
     controlsId.classList.toggle('hidden');
+}
+
+if (globals.autoStart === true) {
     setTimeout(function() {
         Tone.Transport.start();
     }, globals.autoStartTime);

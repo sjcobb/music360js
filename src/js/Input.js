@@ -131,7 +131,8 @@ function onActiveOutputChange(id) {
 let humanKeyAdds = [],
     humanKeyRemovals = [];
 function humanKeyDown(note, velocity = 0.7) {
-    console.log('humanKeyDown -> note: ', note);
+    // console.group('Group - ', note);
+    // console.log('humanKeyDown -> note: ', note);
 
     // console.log(Tonal);
     // console.log(Tonal.Note);
@@ -143,16 +144,17 @@ function humanKeyDown(note, velocity = 0.7) {
     let tonalNote = Tonal.Note.fromMidi(note);
     let tonalFreq = Tonal.Note.midiToFreq(note);
     // let tonalNote = midiToNoteName(61);
-    console.log('tonalNote: ', tonalNote); // => "Db4");
-    console.log('tonalFreq: ', tonalFreq); // => "Db4");
+    console.log('Input -> NOTE:   ', tonalNote); // => "Db4");
+    // console.log('tonalFreq: ', tonalFreq); // => "Db4");
 
     // TODO: add getNoteMapping equivalent for getting instrument by note (ex: D4)
-    console.log('MAPPING!', instrument.getInstrByNote(tonalNote));
     const instrMapped = instrument.getInstrByNote(tonalNote);
+    // console.log('Input -> instrMapped: ', instrMapped);
+    
     // physics.addBody(true, globals.dropPosX, '');
     physics.addBody(true, globals.dropPosX, instrMapped);
 
-    console.log('humanKeyDown -> velocity: ', velocity);
+    // console.log('humanKeyDown -> velocity: ', velocity);
     if (note < MIN_NOTE || note > MAX_NOTE) return;
     humanKeyAdds.push({ note, velocity });
     // console.log({humanKeyAdds});
