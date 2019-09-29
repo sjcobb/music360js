@@ -246,7 +246,7 @@ function addStaffLines(color = 0x000000, offset, posXstart, posXend, posY, posZ,
                 staffLine = new THREE.Line(staffLineGeo, new THREE.LineDashedMaterial( { color: 0x000000, dashSize: 1, gapSize: 5 } )); // blue: 0x0000ff
                 staffLine.computeLineDistances();
             } else {
-                staffLine = {};
+                staffLine = new THREE.Line(); // empty line
             }
         }
         globals.scene.add(staffLine);
