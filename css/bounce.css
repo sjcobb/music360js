@@ -170,7 +170,7 @@ button#bounce {
     animation: fade-in 2.0s 1;
     animation-fill-mode: forwards;
     /*animation-delay: 25s;*/ /* close */
-    animation-delay: 27s;
+    animation-delay: 6s;
 } 
 
 @keyframes fade-in {
