@@ -39,7 +39,7 @@ export default {
     scene: new THREE.Scene(),
     staffLineInitZ: 8,
     staffLineSecondZ: -8,
-    showStaticRows: false,
+    // showStaticRows: false,
     ticks: 0,
     triggerAnimationTime: '4:0:0',
     // Transport: Tone.Transport, //TODO: add Transport here for logging ticks and position
