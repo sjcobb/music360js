@@ -25,10 +25,13 @@
   },
   "homepage": "https://github.com/sjcobb/music360js#readme",
   "dependencies": {
+    "@tonaljs/midi": "^3.3.1",
     "gulp": "^4.0.2",
     "lodash": "^4.17.15",
     "three": "^0.105.2",
+    "tonal": "^2.2.2",
     "tone": "^13.4.9",
+    "webmidi": "^2.5.1",
     "webpack": "^4.34.0",
     "webpack-dev-server": "^3.7.2"
   },

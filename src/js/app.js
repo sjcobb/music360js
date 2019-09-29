@@ -39,10 +39,9 @@ const globalCollisionThreshold = 4; //prev: 3.4
 
 let globalDropPosX = 5.5;
 
+// TODO: remove all globalLetterNumArr calls
 const globalLetterNumArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'GG']; //TODO: remove globalLetterNumArr array, only instrumentMapping obj needed
 
-const globalStaffLineInitZ = 8;
-const globalStaffLineInitDrumZ = -(globalStaffLineInitZ);
 /*** 
  *** 3D ENVIRONMENT ***
  ***/
@@ -52,7 +51,12 @@ const globalStaffLineInitDrumZ = -(globalStaffLineInitZ);
 // const scene = new THREE.Scene();
 globals.scene.background = new THREE.Color(0, 0, 0); //prev: 'white'
 
-globals.camera.position.set(0, 12, 40);
+// globals.camera.position.set(0, 12, 40); // ORIG camera looking down on staff
+
+// globals.camera.position.set(0, 30, 0); // directly above
+// globals.camera.position.set(0, 6, 20); // 2nd param (y) = height
+// globals.camera.position.set(0, 8, 22);
+globals.camera.position.set(0, 8, 26);
 globals.camera.lookAt(new THREE.Vector3(0, 1, 0));
 
 if (globals.cameraPositionBehind === true) {
@@ -62,6 +66,15 @@ if (globals.cameraPositionBehind === true) {
 
 if (globals.cameraLookUp === true) {
     globals.camera.lookAt(new THREE.Vector3(globals.dropPosX - 5, 100, globals.posBehindZ));
+}
+
+if (globals.keysOnly === true) {
+    globals.camera.position.z -= 6; // middle of first keyboard staff
+    // globals.camera.position.z -= 8; // middle of first keyboard staff
+    // globals.camera.position.z -= 14; // between each keyboard staff (dashed line C)
+
+    // globals.camera.position.x -= 30; // remove, no difference
+    globals.posBehindX -= 10;
 }
 
 globals.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -93,11 +106,11 @@ globals.controls.dragToLook = true;
 // https://github.com/hghazni/Three.js-Skybox/blob/master/js/script.js#L35
 // assets: http://www.custommapmakers.org/skyboxes.php
 
-// const globalSkyboxTheme = 'nightsky';
+const globalSkyboxTheme = 'nightsky';
 // const globalSkyboxTheme = 'hills'; //blurry
 // const globalSkyboxTheme = 'island'; //only unsupported .tga currently
 // const globalSkyboxTheme = 'bluefreeze';
-const globalSkyboxTheme = 'mercury';
+// const globalSkyboxTheme = 'mercury';
 
 // var geometry = new THREE.CubeGeometry(1000, 1000, 1000); //prev
 var geometry = new THREE.CubeGeometry(1200, 1200, 1200); //prev
@@ -191,13 +204,20 @@ globals.scene.add(skyboxCubeMesh); //add nightsky skybox
 // var staffPlaneMesh = new THREE.Mesh( staffPlaneGeometry, staffPlaneMaterial );
 // globals.scene.add(staffPlaneMesh);
 
-function addStaffLines(color, offset, posXstart, posXend, posY, posZ, innerLinePadding) {
-
+function addStaffLines(color = 0x000000, offset, posXstart, posXend, posY, posZ, innerLinePadding, dashedLines = false, middleC = false) {
     // https://threejs.org/docs/#api/en/materials/LineBasicMaterial
     // BUG for linewidth greater than 1 - see: https://mattdesl.svbtle.com/drawing-lines-is-hard
     // use: https://threejs.org/examples/#webgl_lines_fat
+
+    const origOffset = offset;
     let staffLineMaterial;
     for (let i = 0; i < 5; i++) {
+
+        offset = origOffset;
+        if (i === 0 && middleC === true) {
+            offset += 20;
+        }
+
         const staffLineGeo = new THREE.Geometry();
         const zCoord = (posZ + (innerLinePadding * i) + offset);
         staffLineGeo.vertices.push(
@@ -217,18 +237,32 @@ function addStaffLines(color, offset, posXstart, posXend, posY, posZ, innerLineP
                 // opacity: 0.1, //no effect
             });
         }
-        // console.log({staffLineMaterial});
-        const staffLine = new THREE.Line(staffLineGeo, staffLineMaterial);
-        // staffLine.quaternion.y = -0.01;
-        // staffLine.quaternion.y = -0.9;
-        // staffLine.rotation.y = -0.05;
-        // staffLine.position.y = 2;
-        // console.log({ staffLine });
+        let staffLine = new THREE.Line(staffLineGeo, staffLineMaterial);
+        if (dashedLines === true) {
+            // if (i <= 1) {
+            if (i === 0 && middleC === true) {
+                staffLine = new THREE.Line(staffLineGeo, new THREE.LineDashedMaterial( { color: 0x000000, dashSize: 1, gapSize: 5 } )); // blue: 0x0000ff
+                staffLine.computeLineDistances();
+            } else if (i === 3 || i === 4) {
+                staffLine = new THREE.Line(staffLineGeo, new THREE.LineDashedMaterial( { color: 0x000000, dashSize: 1, gapSize: 5 } )); // blue: 0x0000ff
+                staffLine.computeLineDistances();
+            } else {
+                staffLine = new THREE.Line(); // empty line
+            }
+        }
         globals.scene.add(staffLine);
     }
 }
-addStaffLines(0x000000, globalStaffLineInitZ, -1000, 1000, 0.08, 0, 2);
-addStaffLines(0x000000, globalStaffLineInitDrumZ, -1000, 1000, 0.08, 0, 2);
+
+if (globals.keysOnly !== true) {
+    addStaffLines(0x000000, globals.staffLineInitZ, -1000, 1000, 0.08, 0, 2);
+} else if (globals.keysOnly === true) {
+    addStaffLines(0x000000, globals.staffLineSecondZ, -1000, 1000, 0.08, 0, 2);
+
+    // two dashed lines above treble clef
+    addStaffLines(0x0000ff, globals.staffLineSecondZ - 10, -1000, 1000, 0.08, 0, 2, true, true);
+} else {}
+
 
 function addThickStaffLines() {
     // TODO: fix and UNCOMMENT vendor/Three/lines files in index.html
@@ -296,61 +330,6 @@ let flameActive = false;
 // let flameFirst = new Flame();
 // // flameFirst.create();
 
-//-----POOL BALLS (STATIC ROW)------//
-const poolBalls = {};
-if (globals.showStaticRows === true) {
-    placeStaticPoolBalls();
-}
-
-function placeStaticPoolBalls() {
-    let indexFirstRow = 0;
-    // for (let i = 0; i <= 6; i++) {
-    for (let i = 0; i <= 13; i++) {
-        let currentBall = 'ball' + globalLetterNumArr[i];
-
-        const tempObj = getInstrumentMapping(i, currentBall);
-        poolBalls[currentBall] = THREEx.createPoolBall({
-            ballDesc: tempObj.ballDesc,
-            striped: true,
-            textureW: globalBallTextureWidth
-        });
-
-        const offsetXCalc = ((i * 0.1) * 12) - 3.0; //left aligned, centered: - 0.0
-        const offsetYCalc = 1.5;
-        const offsetZCalc = 0;
-
-        poolBalls[currentBall].name = 'ball' + globalLetterNumArr[i];
-        poolBalls[currentBall].position.set(offsetXCalc, offsetYCalc, offsetZCalc);
-
-        if (i <= 3) {
-            //TODO: fix reverse set of letters
-            //drops 3 balls on page load, if screen clicked note plays
-            // physics.addBody(true, offsetXCalc, tempObj.ballDesc); 
-        }
-
-        if (i > 6) {
-            const offsetAltXCalc = ((indexFirstRow * 0.1) * 12) - 3.0;
-            poolBalls[currentBall].position.x = offsetAltXCalc;
-            poolBalls[currentBall].position.y = 3; //neg = down
-            poolBalls[currentBall].position.z = -2.5; //neg = further away
-            indexFirstRow++;
-        } else {
-            indexFirstRow = 0;
-        }
-        // globals.scene.add(poolBalls['ball' + globalLetterNumArr[i]]);
-    }
-
-    let keyIndex = 0;
-    for (var key in poolBalls) {
-        if (poolBalls.hasOwnProperty(key)) {
-            // poolBalls[key].position.set(offsetXCalc, offsetYCalc, offsetZCalc);
-
-            globals.scene.add(poolBalls[key]);
-            keyIndex++;
-        }
-    }
-}
-
 function getObjectState(object, objPositionUp, threshold) {
     if (object.position.y > threshold) {
         objPositionUp = false;
@@ -398,20 +377,6 @@ let animate = () => {
     // console.log('seconds: ', Tone.Transport.seconds);
     // console.log(globals.ticks);
     // console.log(globals.clock.elapsedTime);
-
-    if (globals.showStaticRows === true) {
-        for (var key in poolBalls) {
-            if (poolBalls.hasOwnProperty(key)) {
-                poolBalls[key].userData.opts.positionUp = getObjectState(poolBalls[key], poolBalls[key].userData.opts.positionUp, globalCollisionThreshold);
-                moveObject(
-                    poolBalls[key],
-                    poolBalls[key].userData.opts.moveControl,
-                    poolBalls[key].userData.opts.positionUp,
-                    globalCollisionThreshold
-                );
-            }
-        }
-    }
 
     /*
     //circular rotation
@@ -493,10 +458,13 @@ window.onload = () => {
             }
 
             if (keyMapped !== undefined) {
-                let instrumentInput = poolBalls[keyMapped.objName];
-                if (instrumentInput !== undefined && keyMapped.movement === 'static') {
-                    instrumentInput.userData.opts.moveControl = activeSwitcher(instrumentInput); //static ball array movement (no physics)
-                } else if (keyName === keyMapped.keyInput) { //*** IMPORTANT ***
+                // *** OLD showStaticRows, placeStaticPoolBalls() animation mapping
+                // let instrumentInput = poolBalls[keyMapped.objName];
+                // if (instrumentInput !== undefined && keyMapped.movement === 'static') {
+                //     instrumentInput.userData.opts.moveControl = activeSwitcher(instrumentInput); //static ball array movement (no physics)
+                // } 
+                
+                if (keyName === keyMapped.keyInput) { //*** IMPORTANT ***
                     // console.log({keyMapped});
                     physics.addBody(true, globalDropPosX, keyMapped);
                     globalDropPosX -= 1.3; //TODO: how to manipulate Y drop position?

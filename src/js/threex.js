@@ -139,10 +139,16 @@ export default class Helpers {
             ctx.save();
             ctx.translate(w / 4, h / 2);
             ctx.fillStyle = "#FFFFFF";
-            // var radiusW = 0.7 * w / 4;
-            // var radiusH = 1.2 * h / 4;
-            var radiusW = 1.0 * w / 4;
-            var radiusH = 1.5 * h / 4;
+            // // var radiusW = 0.7 * w / 4;
+            // // var radiusH = 1.2 * h / 4;
+            var radiusW = 1.0 * w / 4; //128
+            var radiusH = 1.5 * h / 4; //192
+            // var radiusW = 1.1 * w / 4;
+            // var radiusH = 1.6 * h / 4;
+            radiusW += 0;
+            radiusH += 20;
+            // console.log('ball white circle: ', radiusW, ' x ', radiusH);
+
             // xtx.fillEllipse(-radiusW / 2, -radiusH / 2, radiusW, radiusH);
             this.fillEllipse(-radiusW / 2, -radiusH / 2, radiusW, radiusH, ctx);
             ctx.restore();
@@ -151,13 +157,20 @@ export default class Helpers {
             ctx.save();
             ctx.translate(w / 4, h / 2);
             var textH = w / 4;
-            ctx.font = "bolder " + textH + "px Arial"; //128px
+
+            // https://www.w3schools.com/cssref/css_websafe_fonts.asp
+            // https://www.w3.org/TR/css-fonts-3/#generic-font-families
+            // ctx.font = "bolder " + textH + "px Arial"; // ORIG
+            // ctx.font = "bold " + textH + "px Helvetica"; //128px
+            // ctx.font = "bold " + (textH - 2) + "px Tahoma";
+            ctx.font = "bold " + (textH - 6) + "px Geneva";
             ctx.fillStyle = "#000000"; //text color
             var textW = ctx.measureText(textData).width;
             
             //TODO: adjust textOffset position here, make spheres bigger?
             let textOffsetX = 0.0;
-            let textOffsetY = 0.8;
+            // let textOffsetY = 0.8; //ORIG
+            let textOffsetY = 0.6;
             if (textW > 100) {
                 // console.log(textData); //TODO: make fillEllipse wider or font (textH) smaller when multiple characters
                 ctx.font = "bolder " + 80 + "px Arial"; //96 too big
