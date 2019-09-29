@@ -111,8 +111,7 @@ export default class Trigger {
 
         let combinedNote = triggerObj.note + triggerObj.octave;
         console.log('Trigger -> NOTE: ', combinedNote);
-        console.log('triggerObj: ', triggerObj);
-        // console.groupEnd();
+        // console.log('triggerObj: ', triggerObj);
 
         let drumIndex = 0;
         // TODO: is if else performance causing sound bug?
@@ -140,9 +139,11 @@ export default class Trigger {
                 playerHiHat.start();
             }
             drumIndex++;
-        } else if (triggerObj.type === 'chord') {
+        } else if (triggerObj.type === 'chord') { // TODO: rename, universal chord / note accessor
             // console.log('triggerObj -> chord: ', triggerObj.chord);
-            polySynth.triggerAttackRelease(triggerObj.chord, '4n');
+            // polySynth.triggerAttackRelease(triggerObj.chord, '4n');
+            // polySynth.triggerAttackRelease(combinedNote, '4n');
+            polySynth.triggerAttackRelease(combinedNote, '8n');
         } else {
             bounceSynth.triggerAttackRelease(combinedNote, "8n");
             // console.log('triggerNote -> ballDesc: ', triggerObj.ballDesc, ', note: ', combinedNote);

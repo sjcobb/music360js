@@ -7,7 +7,10 @@ export default {
     // activeInstrColor: '#8F0000', //medred
     // activeInstrColor: '#0018F9', //music wheel I blue
     // activeInstrColor: '#7ec850', //grass green (lt)
-    activeInstrColor: '#567d46', //grass green (md)
+    // activeInstrColor: '#567d46', //grass green (md)
+    // activeInstrColor: '#edc9af', //desert sand
+    // activeInstrColor: '#e9be9f', // sand (md)
+    activeInstrColor: '#e5b38f', // sand (md2)
     autoScroll: true,
     autoStart: false,
     autoStartTime: 9000,
