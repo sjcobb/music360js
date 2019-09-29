@@ -39,10 +39,9 @@ const globalCollisionThreshold = 4; //prev: 3.4
 
 let globalDropPosX = 5.5;
 
+// TODO: remove all globalLetterNumArr calls
 const globalLetterNumArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'AA', 'BB', 'CC', 'DD', 'EE', 'FF', 'GG']; //TODO: remove globalLetterNumArr array, only instrumentMapping obj needed
 
-const globalStaffLineInitZ = 8;
-const globalStaffLineInitDrumZ = -(globalStaffLineInitZ);
 /*** 
  *** 3D ENVIRONMENT ***
  ***/
@@ -62,6 +61,12 @@ if (globals.cameraPositionBehind === true) {
 
 if (globals.cameraLookUp === true) {
     globals.camera.lookAt(new THREE.Vector3(globals.dropPosX - 5, 100, globals.posBehindZ));
+}
+
+if (globals.keysOnly === true) {
+    globals.camera.position.z -= 8;
+    // globals.camera.position.x -= 30; // remove, no difference
+    globals.posBehindX -= 10;
 }
 
 globals.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -227,8 +232,11 @@ function addStaffLines(color, offset, posXstart, posXend, posY, posZ, innerLineP
         globals.scene.add(staffLine);
     }
 }
-addStaffLines(0x000000, globalStaffLineInitZ, -1000, 1000, 0.08, 0, 2);
-addStaffLines(0x000000, globalStaffLineInitDrumZ, -1000, 1000, 0.08, 0, 2);
+
+if (globals.keysOnly !== true) {
+    addStaffLines(0x000000, globals.staffLineInitZ, -1000, 1000, 0.08, 0, 2);
+}
+addStaffLines(0x000000, globals.staffLineSecondZ, -1000, 1000, 0.08, 0, 2);
 
 function addThickStaffLines() {
     // TODO: fix and UNCOMMENT vendor/Three/lines files in index.html

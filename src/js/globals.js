@@ -37,6 +37,8 @@ export default {
     groundMeshIncrementer: 0,
     renderer: new THREE.WebGLRenderer(),
     scene: new THREE.Scene(),
+    staffLineInitZ: 8,
+    staffLineSecondZ: -8,
     showStaticRows: false,
     ticks: 0,
     triggerAnimationTime: '4:0:0',

@@ -52,7 +52,7 @@ export default class InstrumentMappings {
                 type: 'drum',
                 variation: 'snare',
                 originalPosition: { x: -3, y: 1.5, z: 1 }
-                // originalPosition: { x: 0, y: 0, z: (globalStaffLineInitDrumZ + 5) }
+                // originalPosition: { x: 0, y: 0, z: (globalStaffLineSecondZ + 5) }
             },
             kickPrimary: {
                 // ballDesc: 'K', // beat-v1
@@ -277,6 +277,76 @@ export default class InstrumentMappings {
                 chord: ['C4', 'E4', 'G4'],
                 type: 'chord',
                 originalPosition: { x: 0, y: 0, z: -2 }
+            },
+            sphereChordD4: {
+                ballDesc: 'D',
+                color: '#680896', //II - purple
+                keyInput: 'K',
+                note: 'D',
+                octave: 4,
+                chord: ['D4', 'F4', 'A4'],
+                type: 'chord',
+                originalPosition: { x: 0, y: 0, z: -3 }
+            },
+            sphereChordE4: {
+                ballDesc: 'E',
+                color: '#FF001F', //III - redorange
+                keyInput: 'L',
+                note: 'E',
+                octave: 4,
+                chord: ['E4', 'G4', 'B4'],
+                type: 'chord',
+                originalPosition: { x: 0, y: 0, z: -4 }
+            },
+            sphereChordF4: {
+                ballDesc: 'F',
+                color: '#006CFA', //IV - medblue
+                keyInput: '[',
+                note: 'F',
+                octave: 4,
+                chord: ['F4', 'A4', 'C5'],
+                type: 'chord',
+                originalPosition: { x: 0, y: 0, z: -5 }
+            },
+            sphereChordG4: {
+                ballDesc: 'G',
+                color: '#4B0AA1', //V - dkblue
+                keyInput: ']',
+                note: 'G',
+                octave: 4,
+                chord: ['G4', 'B4', 'D5'],
+                type: 'chord',
+                originalPosition: { x: 0, y: 0, z: -6 }
+            },
+            sphereChordA4: {
+                ballDesc: 'A',
+                color: '#C6018B', //VI - pink
+                keyInput: 'G',
+                note: 'A',
+                octave: 4,
+                chord: ['A4', 'C5', 'E5'],
+                type: 'chord',
+                originalPosition: { x: 0, y: 0, z: -7 }
+            },
+            sphereChordB4: {
+                ballDesc: 'B',
+                color: '#FF872B', //VII - orange
+                keyInput: 'H',
+                note: 'B',
+                octave: 4,
+                chord: ['B4', 'D5', 'F5'],
+                type: 'chord',
+                originalPosition: { x: 0, y: 0, z: -8 }
+            },
+            sphereChordC5: {
+                ballDesc: 'C',
+                color: '#0018F9', //I - blue
+                keyInput: 'J',
+                note: 'C',
+                octave: 5,
+                chord: ['C5', 'E5', 'G5'],
+                type: 'chord',
+                originalPosition: { x: 0, y: 0, z: -9 }
             },
         };
     }
