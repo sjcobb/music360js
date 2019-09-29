@@ -51,7 +51,11 @@ const globalLetterNumArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'AA', 'BB', 'CC',
 // const scene = new THREE.Scene();
 globals.scene.background = new THREE.Color(0, 0, 0); //prev: 'white'
 
-globals.camera.position.set(0, 12, 40);
+// globals.camera.position.set(0, 12, 40); // ORIG camera looking down on staff
+
+// globals.camera.position.set(0, 30, 0); // directly above
+// globals.camera.position.set(0, 6, 20); // 2nd param (y) = height
+globals.camera.position.set(0, 8, 22);
 globals.camera.lookAt(new THREE.Vector3(0, 1, 0));
 
 if (globals.cameraPositionBehind === true) {
