@@ -12,7 +12,7 @@ export default {
     autoStart: false,
     autoStartTime: 9000,
     camera: new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000),
-    cameraPositionBehind: true,
+    cameraPositionBehind: false,
     cameraLookUp: false,
     clock: new THREE.Clock(),
     configColorAnimate: true,

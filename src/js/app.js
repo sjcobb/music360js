@@ -64,7 +64,10 @@ if (globals.cameraLookUp === true) {
 }
 
 if (globals.keysOnly === true) {
-    globals.camera.position.z -= 8;
+    globals.camera.position.z -= 6; // middle of first keyboard staff
+    // globals.camera.position.z -= 8; // middle of first keyboard staff
+    // globals.camera.position.z -= 14; // between each keyboard staff (dashed line C)
+
     // globals.camera.position.x -= 30; // remove, no difference
     globals.posBehindX -= 10;
 }
@@ -196,13 +199,20 @@ globals.scene.add(skyboxCubeMesh); //add nightsky skybox
 // var staffPlaneMesh = new THREE.Mesh( staffPlaneGeometry, staffPlaneMaterial );
 // globals.scene.add(staffPlaneMesh);
 
-function addStaffLines(color, offset, posXstart, posXend, posY, posZ, innerLinePadding) {
-
+function addStaffLines(color = 0x000000, offset, posXstart, posXend, posY, posZ, innerLinePadding, dashedLines = false, middleC = false) {
     // https://threejs.org/docs/#api/en/materials/LineBasicMaterial
     // BUG for linewidth greater than 1 - see: https://mattdesl.svbtle.com/drawing-lines-is-hard
     // use: https://threejs.org/examples/#webgl_lines_fat
+
+    const origOffset = offset;
     let staffLineMaterial;
     for (let i = 0; i < 5; i++) {
+
+        offset = origOffset;
+        if (i === 0 && middleC === true) {
+            offset += 20;
+        }
+
         const staffLineGeo = new THREE.Geometry();
         const zCoord = (posZ + (innerLinePadding * i) + offset);
         staffLineGeo.vertices.push(
@@ -222,21 +232,32 @@ function addStaffLines(color, offset, posXstart, posXend, posY, posZ, innerLineP
                 // opacity: 0.1, //no effect
             });
         }
-        // console.log({staffLineMaterial});
-        const staffLine = new THREE.Line(staffLineGeo, staffLineMaterial);
-        // staffLine.quaternion.y = -0.01;
-        // staffLine.quaternion.y = -0.9;
-        // staffLine.rotation.y = -0.05;
-        // staffLine.position.y = 2;
-        // console.log({ staffLine });
+        let staffLine = new THREE.Line(staffLineGeo, staffLineMaterial);
+        if (dashedLines === true) {
+            // if (i <= 1) {
+            if (i === 0 && middleC === true) {
+                staffLine = new THREE.Line(staffLineGeo, new THREE.LineDashedMaterial( { color: 0x000000, dashSize: 1, gapSize: 5 } )); // blue: 0x0000ff
+                staffLine.computeLineDistances();
+            } else if (i === 3 || i === 4) {
+                staffLine = new THREE.Line(staffLineGeo, new THREE.LineDashedMaterial( { color: 0x000000, dashSize: 1, gapSize: 5 } )); // blue: 0x0000ff
+                staffLine.computeLineDistances();
+            } else {
+                staffLine = {};
+            }
+        }
         globals.scene.add(staffLine);
     }
 }
 
 if (globals.keysOnly !== true) {
     addStaffLines(0x000000, globals.staffLineInitZ, -1000, 1000, 0.08, 0, 2);
-}
-addStaffLines(0x000000, globals.staffLineSecondZ, -1000, 1000, 0.08, 0, 2);
+} else if (globals.keysOnly === true) {
+    addStaffLines(0x000000, globals.staffLineSecondZ, -1000, 1000, 0.08, 0, 2);
+
+    // two dashed lines above treble clef
+    addStaffLines(0x0000ff, globals.staffLineSecondZ - 10, -1000, 1000, 0.08, 0, 2, true, true);
+} else {}
+
 
 function addThickStaffLines() {
     // TODO: fix and UNCOMMENT vendor/Three/lines files in index.html
