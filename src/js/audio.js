@@ -1,5 +1,5 @@
 import globals from './globals.js';
-import Tone from 'tone';
+import Tone from 'Tone';
 import Physics from './Physics.js';
 import Flame from './Flame.js';
 

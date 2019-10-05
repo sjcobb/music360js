@@ -4,6 +4,9 @@
 // USE:
 // https://github.com/johndatserakis/modern-webpack-starter/blob/master/webpack.config.js
 // resolve .js files in path src: https://github.com/johndatserakis/modern-webpack-starter/blob/master/webpack.config.js#L95
+// startup command: 
+//    NODE_ENV=development webpack-dev-server --open --hot --display-error-details
+
 const path = require('path');
 
 // TODO: include Three.js here instead of in index.html, resolve all in src folder and node_modules to fix GitHub Pages 404s

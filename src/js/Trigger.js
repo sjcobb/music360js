@@ -1,5 +1,5 @@
-import Tone from 'tone';
-import { Transport, Player, Players, Part, Time, Volume } from 'tone';
+import Tone from 'Tone';
+import { Transport, Player, Players, Part, Time, Volume } from 'Tone';
 
 // import Transport from 'Tone/core/Transport';
 // import Volume from 'Tone/component/Volume';

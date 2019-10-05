@@ -1,9 +1,49 @@
 import globals from './globals.js';
 import InstrumentMappings from './InstrumentMappings.js';
+import Tone from 'Tone';
+
 // import { note, interval, transpose, distance, midi } from "tonal";
 import * as Tonal from "tonal";
+
 import * as WebMidi from "webmidi";
 import Physics from './Physics.js';
+
+// Neural.js
+// Using the Improv RNN pretrained model from https://github.com/tensorflow/magenta/tree/master/magenta/models/improv_rnn
+let rnn = new mm.MusicRNN(
+    'https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/chord_pitches_improv'
+);
+let temperature = 1.1;
+
+let reverb = new Tone.Convolver('https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/hm2_000_ortf_48k.mp3').toMaster();
+reverb.wet.value = 0.25;
+
+let sampler = new Tone.Sampler(
+    {
+        C3: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-c3.mp3',
+        'D#3': 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-ds3.mp3',
+        'F#3': 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-fs3.mp3',
+        A3: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-a3.mp3',
+        C4: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-c4.mp3',
+        'D#4': 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-ds4.mp3',
+        'F#4': 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-fs4.mp3',
+        A4: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-a4.mp3',
+        C5: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-c5.mp3',
+        'D#5': 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-ds5.mp3',
+        'F#5': 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-fs5.mp3',
+        A5: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-a5.mp3'
+    }
+).connect(reverb);
+// sampler.release.value = 2;
+console.log({rnn}); 
+// rnn: t
+//     biasShapes: []
+//     checkpointURL: "https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/chord_pitches_improv"
+//     initialized: false
+//     lstmCells: []
+//     rawVars: {}
+//     spec: undefined
+// console.log({sampler});
 
 /*
  *** INPUT - MIDI KEYS MAPPING ***
@@ -158,6 +198,8 @@ function humanKeyDown(note, velocity = 0.7) {
     if (note < MIN_NOTE || note > MAX_NOTE) return;
     humanKeyAdds.push({ note, velocity });
     // console.log({humanKeyAdds});
+
+    
 }
 function humanKeyUp(note) {
     if (note < MIN_NOTE || note > MAX_NOTE) return;
@@ -165,20 +207,120 @@ function humanKeyUp(note) {
     // console.log({humanKeyRemovals});
 }
 
-// // Startup
-// function generateDummySequence() {
-//     // Generate a throwaway sequence to get the RNN loaded so it doesn't
-//     // cause jank later.
-//     return rnn.continueSequence(
-//         buildNoteSequence([{ note: 60, time: Tone.now() }]),
-//         20,
-//         temperature,
-//         ['Cm']
-//     );
-// }
+function buildNoteSequence(seed) {
+    console.log('buildNoteSequence -> seed: ', seed);
+    // // seed:
+        // [{note: 60, time: 0.546984126984127}]
+
+    // // seqOpts:
+        // notes: [{pitch: 60, startTime: 0, endTime: 0.5}]
+        // quantizationInfo: {stepsPerQuarter: 1}
+        // tempos: [{time: 0, qpm: 120}]
+        // ticksPerQuarter: 220
+        // timeSignatures: [{time: 0, numerator: 4, denominator: 4}]
+        // totalTime: 0.5
+    
+    const seqOpts = {
+        ticksPerQuarter: 220,
+        totalTime: seed.length * 0.5,
+        quantizationInfo: {
+            stepsPerQuarter: 1
+        },
+        timeSignatures: [
+            {
+                time: 0,
+                numerator: 4,
+                denominator: 4
+            }
+        ],
+        tempos: [
+            {
+                time: 0,
+                qpm: 120
+            }
+        ],
+        notes: seed.map((n, idx) => ({
+            pitch: n.note,
+            startTime: idx * 0.5,
+            endTime: (idx + 1) * 0.5
+        }))
+    };
+    console.log({seqOpts});
+
+    return mm.sequences.quantizeNoteSequence(
+        seqOpts,
+        1
+    );
+}
+
+function generateDummySequence() {
+    console.log('generateDummySequence called......');
+    // IF rnn.initialize() NOT RUN THEN - ERR: magentamusic.js:45080 Uncaught (in promise) Error: Unexpected chord progression provided.
+
+    const sequence = rnn.continueSequence(
+        buildNoteSequence([{ note: 60, time: Tone.now() }]),
+        20,
+        temperature,
+        ['Cm']
+    );
+    // console.log('generateDummySequence -> sequence: ', sequence);
+    return sequence;
+}
+
+/* AYSNC - AWAIT VERSION */
+rnn.initialize();
+function resolveAfterDelay() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            // // resolve('resolved');
+            // const dummySequence = generateDummySequence();
+            // console.log('dummySequence: ', dummySequence);
+            resolve(generateDummySequence());
+            // // notes:
+                // [
+                //     {pitch: 57, quantizedStartStep: 1, quantizedEndStep: 3}
+                //     {pitch: 55, quantizedStartStep: 3, quantizedEndStep: 5}
+                //     {pitch: 55, quantizedStartStep: 5, quantizedEndStep: 7}
+                //     {pitch: 55, quantizedStartStep: 7, quantizedEndStep: 15}
+                //     {pitch: 55, quantizedStartStep: 15, quantizedEndStep: 17}
+                //     {pitch: 55, quantizedStartStep: 17, quantizedEndStep: 19}
+                //     {pitch: 60, quantizedStartStep: 19, quantizedEndStep: 20}
+                // ]
+        }, 2000);
+    });
+}
+function initRNN() {
+    return new Promise(resolve => {
+        rnn.initialize();
+        resolve('resolved');
+    });
+}
+async function asyncCall() {
+    console.log('asyncCall() run......');
+    var result = await resolveAfterDelay();
+    // // var result = await initRNN(); // TODO: fix so it resolves after RNN is initialized (takes about 1 second after page load)
+    console.log(result);
+}
+asyncCall();
+
+// // rnn.initialize();
+// window.setTimeout(generateDummySequence(), 5000);
+// // generateDummySequence();
+
+/* PROMISE VERSION */
+// let bufferLoadPromise = new Promise(res => Tone.Buffer.on('load', res));
+// Promise.all([bufferLoadPromise, rnn.initialize()])
+//   .then(generateDummySequence)
+// //   .then(() => {
+// //     Tone.Transport.start();
+// //     onScreenKeyboardContainer.classList.add('loaded');
+// //     document.querySelector('.loading').remove();
+// //   });
+// // // StartAudioContext(Tone.context, document.documentElement);
 
 /*
  * https://codepen.io/sjcobb/pen/QWLemdR
+ * https://github.com/tensorflow/magenta/tree/master/magenta/models/improv_rnn
  * https://tensorflow.github.io/magenta-js/music/modules/_core_sequences_.html#quantizenotesequence
  * https://bl.ocks.org/virtix/be35c6c69b08c10b0968fb5f8a657474
  * https://medium.com/@oluwafunmi.ojo/getting-started-with-magenta-js-e7ffbcb64c21
@@ -191,34 +333,3 @@ function humanKeyUp(note) {
  * machineKeyDown -> note:  69
  * machineKeyDown -> time:  2.7666666666666697
  */
-
-// function buildNoteSequence(seed) {
-//     return mm.sequences.quantizeNoteSequence(
-//         {
-//             ticksPerQuarter: 220,
-//             totalTime: seed.length * 0.5,
-//             quantizationInfo: {
-//                 stepsPerQuarter: 1
-//             },
-//             timeSignatures: [
-//                 {
-//                     time: 0,
-//                     numerator: 4,
-//                     denominator: 4
-//                 }
-//             ],
-//             tempos: [
-//                 {
-//                     time: 0,
-//                     qpm: 120
-//                 }
-//             ],
-//             notes: seed.map((n, idx) => ({
-//                 pitch: n.note,
-//                 startTime: idx * 0.5,
-//                 endTime: (idx + 1) * 0.5
-//             }))
-//         },
-//         1
-//     );
-// }

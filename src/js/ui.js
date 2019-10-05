@@ -1,5 +1,5 @@
 import globals from './globals.js';
-import Tone from 'tone';
+import Tone from 'Tone';
 
 /*
  *** USER INTERFACE ***
