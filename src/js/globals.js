@@ -27,6 +27,7 @@ export default {
     flameArr: [],
     flameCounter: 0,
     hideUI: true,
+    inputMidi: false,
     instr: {},
     instrumentCounter: 0,
     keysOnly: true,

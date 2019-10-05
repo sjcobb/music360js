@@ -104,6 +104,12 @@ export default class Trigger {
 
         globals.musicActive = true; //remove?
 
+        console.log('globals.inputMidi: ', globals.inputMidi);
+        if (globals.inputMidi === true) {
+
+        } else {
+
+        }
         // let triggerObj = instrument.getNoteMapping(obj); //ORIG
 
         const triggerNote = obj.userData.opts.note + obj.userData.opts.octave;

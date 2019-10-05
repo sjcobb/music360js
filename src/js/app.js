@@ -388,9 +388,10 @@ let animate = () => {
 
     //ENABLE HORIZONTAL SCROLL
     if (globals.autoScroll === true) {
-        // globals.ticks = Tone.Transport.ticks * 0.014; //old
-        globals.ticks += (delta * 5); //PREV
-        // globals.ticks += (delta * 22);
+        // // globals.ticks = Tone.Transport.ticks * 0.014; //old
+
+        // globals.ticks += (delta * 5); //PREV
+        globals.ticks += (delta * 6); // higher multiplier = higher dist between drops
         
         if (globals.cameraPositionBehind === true) {
             globals.camera.position.x = globals.posBehindX + (globals.ticks);
@@ -465,10 +466,10 @@ window.onload = () => {
                 // } 
                 
                 if (keyName === keyMapped.keyInput) { //*** IMPORTANT ***
-                    // console.log({keyMapped});
+                    console.log({keyMapped});
                     physics.addBody(true, globalDropPosX, keyMapped);
                     globalDropPosX -= 1.3; //TODO: how to manipulate Y drop position?
-                    // console.log('keyMapped: ', event);
+                    console.log('keyMapped -> event: ', event);
                 } else {
                     console.log('keyMapped UNDEF -> else: ', event);
                 }

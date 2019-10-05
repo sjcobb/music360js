@@ -9,6 +9,7 @@ import * as WebMidi from "webmidi";
 import Physics from './Physics.js';
 
 // Neural.js
+// CODEPEN DEMO DEBUG -> -> -> https://codepen.io/sjcobb/pen/QWLemdR
 // Using the Improv RNN pretrained model from https://github.com/tensorflow/magenta/tree/master/magenta/models/improv_rnn
 let rnn = new mm.MusicRNN(
     'https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/chord_pitches_improv'
@@ -75,6 +76,7 @@ WebMidi.enable(err => {
         console.log({input});
 
         if (input !== false) {
+            globals.inputMidi = true;
             input.addListener('pitchbend', "all", function (e) {
                 console.log("Pitch value: " + e.value); // Pitch value: -0.2528076171875
             });
@@ -263,7 +265,7 @@ function generateDummySequence() {
         temperature,
         ['Cm']
     );
-    // console.log('generateDummySequence -> sequence: ', sequence);
+    console.log('generateDummySequence -> sequence: ', sequence);
     return sequence;
 }
 
@@ -295,17 +297,36 @@ function initRNN() {
         resolve('resolved');
     });
 }
-async function asyncCall() {
-    console.log('asyncCall() run......');
+async function asyncGeneratePattern() {
+    console.log('asyncGeneratePattern() run......');
     var result = await resolveAfterDelay();
     // // var result = await initRNN(); // TODO: fix so it resolves after RNN is initialized (takes about 1 second after page load)
     console.log(result);
 }
-asyncCall();
+asyncGeneratePattern();
 
 // // rnn.initialize();
 // window.setTimeout(generateDummySequence(), 5000);
 // // generateDummySequence();
+
+// window.onload = () => {
+    document.addEventListener('keydown', (event) => {
+        const keyName = event.key;
+
+        if (event) {
+            let keyMapped = instrument.getKeyboardMapping(keyName);
+            console.log({keyMapped});
+
+            switch (keyName) {
+                case ('0'):
+                    console.log('0 pressed -> generateDummySequence...')
+                    // generateDummySequence();
+                    // resolveAfterDelay();
+                    asyncGeneratePattern();
+            }
+        }   
+    }, false);
+// };
 
 /* PROMISE VERSION */
 // let bufferLoadPromise = new Promise(res => Tone.Buffer.on('load', res));
@@ -333,3 +354,8 @@ asyncCall();
  * machineKeyDown -> note:  69
  * machineKeyDown -> time:  2.7666666666666697
  */
+
+/* Neural Drum Machine 
+* https://codepen.io/teropa/pen/JLjXGK
+* 
+*/
