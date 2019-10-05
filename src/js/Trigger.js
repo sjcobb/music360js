@@ -104,7 +104,7 @@ export default class Trigger {
 
         globals.musicActive = true; //remove?
 
-        console.log('globals.inputMidi: ', globals.inputMidi);
+        // console.log('globals.inputMidi: ', globals.inputMidi);
         if (globals.inputMidi === true) {
 
         } else {
@@ -112,11 +112,12 @@ export default class Trigger {
         }
         // let triggerObj = instrument.getNoteMapping(obj); //ORIG
 
-        const triggerNote = obj.userData.opts.note + obj.userData.opts.octave;
+        console.log('Trigger -> addBody - note: ', obj.userData.opts.note);
+        const triggerNote = obj.userData.opts.note ? (obj.userData.opts.note + obj.userData.opts.octave) : 'C4';
         let triggerObj = instrument.getInstrByNote(triggerNote);
 
         let combinedNote = triggerObj.note + triggerObj.octave;
-        console.log('Trigger -> NOTE: ', combinedNote);
+        console.log('Trigger -> combinedNote: ', combinedNote);
         // console.log('triggerObj: ', triggerObj);
 
         let drumIndex = 0;
