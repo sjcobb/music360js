@@ -1,7 +1,9 @@
 // https://github.com/johndatserakis/modern-webpack-starter/blob/master/webpack.config.js
 // https://github.com/webpack/webpack-dev-server/blob/master/examples/api/simple/server.js#L16
 // https://medium.com/code-oil/burning-questions-with-answers-to-why-webpack-dev-server-live-reload-does-not-work-6d6390277920
-
+// USE:
+// https://github.com/johndatserakis/modern-webpack-starter/blob/master/webpack.config.js
+// resolve .js files in path src: https://github.com/johndatserakis/modern-webpack-starter/blob/master/webpack.config.js#L95
 const path = require('path');
 
 // TODO: include Three.js here instead of in index.html, resolve all in src folder and node_modules to fix GitHub Pages 404s
@@ -14,6 +16,7 @@ const config = {
             path.resolve(__dirname, 'src/js/Fire.js'),
             path.resolve(__dirname, 'src/js/FireShader.js'),
             path.resolve(__dirname, 'src/js/globals.js'),
+            path.resolve(__dirname, 'src/js/Helpers.js'),
             path.resolve(__dirname, 'src/js/Trigger.js'),
             path.resolve(__dirname, 'src/js/Pool.js'),
             path.resolve(__dirname, 'src/js/Threex.js'),

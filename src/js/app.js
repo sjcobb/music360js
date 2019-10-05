@@ -5,7 +5,7 @@ import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 import Light from './Light.js';
 import Flame from './Flame.js';
 import Physics from './Physics.js';
-import Helpers from './THREEx.js';
+import Helpers from './Helpers.js';
 import Pool from './Pool.js';
 import Trigger from './Trigger.js';
 
@@ -112,8 +112,8 @@ const globalSkyboxTheme = 'nightsky';
 // const globalSkyboxTheme = 'bluefreeze';
 // const globalSkyboxTheme = 'mercury';
 
-// var geometry = new THREE.CubeGeometry(1000, 1000, 1000); //prev
-var geometry = new THREE.CubeGeometry(1200, 1200, 1200); //prev
+// var geometry = new THREE.CubeGeometry(1200, 1200, 1200); //prev
+var geometry = new THREE.CubeGeometry(1800, 1800, 1800);
 
 var cubeMaterials = [
     // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/flame/FireOrig.png`), side: THREE.DoubleSide }), //front side

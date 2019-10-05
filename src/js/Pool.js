@@ -1,5 +1,5 @@
 import globals from './globals.js';
-import Helpers from './THREEx.js';
+import Helpers from './Helpers.js';
 
 /*
  *** POOL ***

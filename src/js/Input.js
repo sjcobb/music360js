@@ -176,3 +176,49 @@ function humanKeyUp(note) {
 //         ['Cm']
 //     );
 // }
+
+/*
+ * https://codepen.io/sjcobb/pen/QWLemdR
+ * https://tensorflow.github.io/magenta-js/music/modules/_core_sequences_.html#quantizenotesequence
+ * https://bl.ocks.org/virtix/be35c6c69b08c10b0968fb5f8a657474
+ * https://medium.com/@oluwafunmi.ojo/getting-started-with-magenta-js-e7ffbcb64c21
+ * https://observablehq.com/@visnup/using-magenta-music-as-a-midi-player
+ * 
+ * quantizeNoteSequence
+ * console.log of consumeNext -> generatedSequence:  (15) [69, 67, 74, 76, 83, 81, 79, 78, 79, 77, 74, 76, 76, 72, 69]
+ * also see: updateChord -> currentSeed
+ * results in: 
+ * machineKeyDown -> note:  69
+ * machineKeyDown -> time:  2.7666666666666697
+ */
+
+// function buildNoteSequence(seed) {
+//     return mm.sequences.quantizeNoteSequence(
+//         {
+//             ticksPerQuarter: 220,
+//             totalTime: seed.length * 0.5,
+//             quantizationInfo: {
+//                 stepsPerQuarter: 1
+//             },
+//             timeSignatures: [
+//                 {
+//                     time: 0,
+//                     numerator: 4,
+//                     denominator: 4
+//                 }
+//             ],
+//             tempos: [
+//                 {
+//                     time: 0,
+//                     qpm: 120
+//                 }
+//             ],
+//             notes: seed.map((n, idx) => ({
+//                 pitch: n.note,
+//                 startTime: idx * 0.5,
+//                 endTime: (idx + 1) * 0.5
+//             }))
+//         },
+//         1
+//     );
+// }

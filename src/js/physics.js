@@ -1,6 +1,6 @@
 import globals from './globals.js';
-// import THREEx from './THREEx.js';
-import Helpers from './THREEx.js';
+// import Helpers from './Helpers.js';
+import Helpers from './Helpers.js';
 import Trigger from './Trigger.js';
 import InstrumentMappings from './InstrumentMappings.js';
 
