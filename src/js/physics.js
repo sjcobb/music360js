@@ -24,11 +24,56 @@ export default class Physics {
     //-----CANNON INIT------//
     // globals.world = new CANNON.World();
 
-    updatePhysics() {
-        // TODO: uncomment debugRenderer after fix scene undef err
-        if (this.physics.debugRenderer !== undefined) {
-            this.physics.debugRenderer.scene.visible = true;
-        }
+    initPhysics() {
+        this.fixedTimeStep = 1.0 / 60.0;
+        this.damping = 0.01;
+
+        globals.world.broadphase = new CANNON.NaiveBroadphase();
+        globals.world.gravity.set(0, -10, 0);
+        this.debugRenderer = new THREE.CannonDebugRenderer(globals.scene, globals.world);
+
+        const groundShape = new CANNON.Plane();
+        const groundMaterial = new CANNON.Material(); //http://schteppe.github.io/cannon.js/docs/classes/Material.html
+        const groundBody = new CANNON.Body({ mass: 0, material: groundMaterial });
+        groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+        groundBody.addShape(groundShape);
+        globals.world.add(groundBody);
+
+        // if (this.useVisuals) this.helper.this.addVisual(groundBody, 'ground', false, true);
+        this.addVisual(groundBody, 'ground', false, true);
+
+        this.shapes = {};
+        this.shapes.sphere = new CANNON.Sphere(0.5);
+        this.shapes.box = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5));
+
+        this.groundMaterial = groundMaterial;
+
+        // this.animate();
+        this.initContactMaterial(0.3);
+    }
+
+    initContactMaterial(restitutionValue = 0.3) {
+        //TODO: add colored ground on contact here
+        //http://schteppe.github.io/cannon.js/docs/classes/ContactMaterial.html
+        const groundShape = new CANNON.Plane();
+        const tempMaterial = new CANNON.Material(); //http://schteppe.github.io/cannon.js/docs/classes/Material.html
+        const groundBody = new CANNON.Body({ mass: 0, material: tempMaterial });
+
+        groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+
+        groundBody.addShape(groundShape);
+        globals.world.add(groundBody);
+
+        // if (this.useVisuals) this.helper.this.addVisual(groundBody, 'ground', false, true);
+        this.addVisual(groundBody, 'ground', false, true);
+
+        this.shapes = {};
+        this.shapes.sphere = new CANNON.Sphere(0.5);
+        this.shapes.box = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5));
+
+        const material = new CANNON.Material(); //why both tempMaterial and material needed?
+        const materialGround = new CANNON.ContactMaterial(tempMaterial, material, { friction: 0.0, restitution: restitutionValue });
+        globals.world.addContactMaterial(materialGround);
     }
 
     addBody(sphere = true, xPosition = 5.5, options = '', timeout = 0) {
@@ -76,9 +121,11 @@ export default class Physics {
         zPos = options.originalPosition !== undefined ? options.originalPosition.z : Math.random() * (15 - 5) - 2;
 
         if (options.type === 'drum') {
-            zPos += 10; //TODO: make global var for staffLineOffset
+            // TODO: new drum machine paradigm - use rotating clock hand to hit drums
+            // https://codepen.io/danlong/pen/LJQYYN
+            zPos += 10; // see globals.staffLineInitZ and globals.staffLineSecondZ
         } else {
-            zPos -= 10; //TODO: make global var for neg staffLineOffset
+            zPos -= 10;
         }
         // zPos = options.originalPosition.z;
 
@@ -172,92 +219,6 @@ export default class Physics {
             // body.quaternion.z = 0.5;
             // console.log(body); //TODO: rotate adjust HERE!!!
         }
-    }
-
-    initPhysics() {
-        this.fixedTimeStep = 1.0 / 60.0;
-        this.damping = 0.01;
-
-        globals.world.broadphase = new CANNON.NaiveBroadphase();
-        globals.world.gravity.set(0, -10, 0);
-        this.debugRenderer = new THREE.CannonDebugRenderer(globals.scene, globals.world);
-
-        const groundShape = new CANNON.Plane();
-        const groundMaterial = new CANNON.Material(); //http://schteppe.github.io/cannon.js/docs/classes/Material.html
-        const groundBody = new CANNON.Body({ mass: 0, material: groundMaterial });
-        groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-        groundBody.addShape(groundShape);
-        globals.world.add(groundBody);
-
-        // if (this.useVisuals) this.helper.this.addVisual(groundBody, 'ground', false, true);
-        this.addVisual(groundBody, 'ground', false, true);
-
-        this.shapes = {};
-        this.shapes.sphere = new CANNON.Sphere(0.5);
-        this.shapes.box = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5));
-
-        this.groundMaterial = groundMaterial;
-
-        // this.animate();
-        this.initContactMaterial(0.3);
-    }
-
-    initContactMaterial(restitutionValue = 0.3) {
-        //TODO: add colored ground on contact here
-        //http://schteppe.github.io/cannon.js/docs/classes/ContactMaterial.html
-        const groundShape = new CANNON.Plane();
-        const tempMaterial = new CANNON.Material(); //http://schteppe.github.io/cannon.js/docs/classes/Material.html
-        const groundBody = new CANNON.Body({ mass: 0, material: tempMaterial });
-
-        groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-
-        groundBody.addShape(groundShape);
-        globals.world.add(groundBody);
-
-        // if (this.useVisuals) this.helper.this.addVisual(groundBody, 'ground', false, true);
-        this.addVisual(groundBody, 'ground', false, true);
-
-        this.shapes = {};
-        this.shapes.sphere = new CANNON.Sphere(0.5);
-        this.shapes.box = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5));
-
-        const material = new CANNON.Material(); //why both tempMaterial and material needed?
-        const materialGround = new CANNON.ContactMaterial(tempMaterial, material, { friction: 0.0, restitution: restitutionValue });
-        globals.world.addContactMaterial(materialGround);
-    }
-
-    createCannonTrimesh(geometry) {
-        if (!geometry.isBufferGeometry) return null;
-
-        const posAttr = geometry.attributes.position;
-        const vertices = geometry.attributes.position.array;
-        let indices = [];
-        for (let i = 0; i < posAttr.count; i++) {
-            indices.push(i);
-        }
-
-        return new CANNON.Trimesh(vertices, indices);
-    }
-
-    createCannonConvex(geometry) {
-        if (!geometry.isBufferGeometry) return null;
-
-        const posAttr = geometry.attributes.position;
-        const floats = geometry.attributes.position.array;
-        const vertices = [];
-        const faces = [];
-        let face = [];
-        let index = 0;
-        for (let i = 0; i < posAttr.count; i += 3) {
-            vertices.push(new CANNON.Vec3(floats[i], floats[i + 1], floats[i + 2]));
-            face.push(index++);
-            if (face.length == 3) {
-                faces.push(face);
-                face = [];
-            }
-        }
-
-        return new CANNON.ConvexPolyhedron(vertices, faces);
     }
 
     addVisual(body, name, castShadow = true, receiveShadow = true, options = 'Z') {
@@ -502,7 +463,47 @@ export default class Physics {
         return obj;
     }
 
-    // updateBodies() {
+    createCannonTrimesh(geometry) {
+        if (!geometry.isBufferGeometry) return null;
+
+        const posAttr = geometry.attributes.position;
+        const vertices = geometry.attributes.position.array;
+        let indices = [];
+        for (let i = 0; i < posAttr.count; i++) {
+            indices.push(i);
+        }
+
+        return new CANNON.Trimesh(vertices, indices);
+    }
+
+    createCannonConvex(geometry) {
+        if (!geometry.isBufferGeometry) return null;
+
+        const posAttr = geometry.attributes.position;
+        const floats = geometry.attributes.position.array;
+        const vertices = [];
+        const faces = [];
+        let face = [];
+        let index = 0;
+        for (let i = 0; i < posAttr.count; i += 3) {
+            vertices.push(new CANNON.Vec3(floats[i], floats[i + 1], floats[i + 2]));
+            face.push(index++);
+            if (face.length == 3) {
+                faces.push(face);
+                face = [];
+            }
+        }
+
+        return new CANNON.ConvexPolyhedron(vertices, faces);
+    }
+
+    updatePhysics() {
+        // TODO: uncomment debugRenderer after fix scene undef err
+        if (this.physics.debugRenderer !== undefined) {
+            this.physics.debugRenderer.scene.visible = true;
+        }
+    }
+
     updateBodies(world) {
         // globals.lastColor = globals.activeInstrColor; //remove?
 
