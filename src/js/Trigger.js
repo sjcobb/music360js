@@ -13,8 +13,8 @@ import Flame from './Flame.js';
 Tone.Transport.bpm.value = 200;
 // Tone.Transport.bpm.rampTo(120, 10);
 Tone.Transport.timeSignature = 12; // https://tonejs.github.io/docs/r13/Transport#timesignature
-Tone.Transport.setLoopPoints(0, "13m"); //starts over at beginning
-Tone.Transport.loop = true; //TODO: *** clear all addBody objects if Transport loop true
+// Tone.Transport.setLoopPoints(0, "13m"); //starts over at beginning
+// Tone.Transport.loop = true; //TODO: *** clear all addBody objects if Transport loop true
 
 //-----SYNTH ASSETS------//
 var polySynth = new Tone.PolySynth(6, Tone.Synth).toMaster();

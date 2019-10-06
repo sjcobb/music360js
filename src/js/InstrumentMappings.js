@@ -25,8 +25,6 @@ export default class InstrumentMappings {
                 ballDesc: 'H',
                 color: '#ff0000', //red
                 keyInput: '1',
-                // note: 'B', // N/A
-                octave: 2, // N/A
                 movement: movement, //default: 'physics', or 'static'
                 type: 'drum',
                 variation: 'hihat',
@@ -36,8 +34,6 @@ export default class InstrumentMappings {
                 ballDesc: 'H+',
                 color: '#990000', //dkred
                 keyInput: '2',
-                // note: 'B',
-                octave: 2,
                 // movement: 'static',
                 type: 'drum',
                 variation: 'hihat-open',
@@ -47,8 +43,6 @@ export default class InstrumentMappings {
                 ballDesc: 'S',
                 color: '#FFFF00', //yellow
                 keyInput: '3',
-                // note: 'A',
-                octave: 2,
                 type: 'drum',
                 variation: 'snare',
                 originalPosition: { x: -3, y: 1.5, z: 1 }
@@ -59,8 +53,6 @@ export default class InstrumentMappings {
                 ballDesc: 'B',
                 color: '#003366', //midnight blue
                 keyInput: '4',
-                // note: 'C',
-                octave: 2,
                 type: 'drum',
                 variation: 'kick',
                 originalPosition: { x: 0, y: 0, z: 5 }
@@ -70,8 +62,6 @@ export default class InstrumentMappings {
                 // color: '#FFA500', //orange
                 color: '#8B008B', //darkmagenta
                 keyInput: '5',
-                // note: 'C',
-                octave: 2,
                 type: 'drum',
                 variation: 'crash', //aka clap
                 originalPosition: { x: 0, y: 0, z: -4 }
@@ -81,8 +71,6 @@ export default class InstrumentMappings {
                 color: '#FFD700', //gold
                 // color: '#800080', //purple
                 keyInput: '6',
-                // note: 'C',
-                octave: 2,
                 type: 'drum',
                 variation: 'ride',
                 originalPosition: { x: 0, y: 0, z: -2 }
@@ -92,8 +80,6 @@ export default class InstrumentMappings {
                 // color: '#800080', //purple
                 color: '#006400', //dkgreen
                 keyInput: '7',
-                // note: 'C',
-                octave: 2,
                 type: 'drum',
                 variation: 'tom-high',
                 originalPosition: { x: 0, y: 0, z: 0 }
@@ -347,6 +333,16 @@ export default class InstrumentMappings {
                 chord: ['C5', 'E5', 'G5'],
                 type: 'chord',
                 originalPosition: { x: 0, y: 0, z: -9 }
+            },
+            sphereChordD5: {
+                ballDesc: 'D',
+                color: '#680896', //II - purple
+                keyInput: ';',
+                note: 'D',
+                octave: 5,
+                chord: ['D5', 'F5', 'A5'],
+                type: 'chord',
+                originalPosition: { x: 0, y: 0, z: -10 }
             },
             // Db2, Eb2, Gb2, Ab2, Bb2, Db3, Eb3, Gb3, Ab3, Bb3
         };

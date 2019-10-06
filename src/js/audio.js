@@ -9,6 +9,7 @@ let flameAudio = new Flame();
  *** AUDIO ***
  */
 
+/*
 const physics = new Physics();
 
 //-----INSTRUMENT PARTS------//
@@ -167,3 +168,5 @@ export default class Audio {
 
     }
 }
+
+*/

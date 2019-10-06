@@ -200,7 +200,7 @@ function humanKeyDown(note, velocity = 0.7) {
     let tonalFreq = Tonal.Note.midiToFreq(note);
 
     const instrMapped = getInstrByInputNote(tonalNote);
-
+    console.log('humanKeyDown -> instrMapped: ', instrMapped);
     physics.addBody(true, globals.dropPosX, instrMapped);
 
     // console.log('humanKeyDown -> velocity: ', velocity);
@@ -221,7 +221,10 @@ function machineKeyDown(midiNote = 60, time = 0) {
     let note = Tonal.Note.fromMidi(midiNote);
     console.log('machineKeyDown -> note: ', note);
 
-    const instrMapped = getInstrByInputNote(note);
+    let instrMapped = getInstrByInputNote(note);
+    if (instrMapped === undefined) {
+        instrMapped = getInstrByInputNote('C3'); // TODO: rework defaults, Trigger, addBody params (C4 vs C3 vs defaultInstr.hiHatClosed)
+    }
     console.log('machineKeyDown -> instrMapped: ', instrMapped);
 
     // let synth = new Tone.Synth(synthConfig).connect(synthFilter);
@@ -229,14 +232,6 @@ function machineKeyDown(midiNote = 60, time = 0) {
     // synth.triggerAttack(freq, Tone.now(), velocity);
 
     physics.addBody(true, globals.dropPosX, instrMapped);
-    // Tone.Transport.start();
-
-    // let playIntervalTime = getSequencePlayIntervalTime(seed);
-    // console.log({playIntervalTime});
-
-    // TODO: how to time note drop using Transport.scheduleRepeat or Tone.Part
-    // // https://tonejs.github.io/docs/13.8.25/Transport
-    // setTimeout(physics.addBody(true, globals.dropPosX, instrMapped), 2000);
 
     // if (note < MIN_NOTE || note > MAX_NOTE) return;
     // sampler.triggerAttack(Tone.Frequency(note, 'midi'));
@@ -303,7 +298,8 @@ function startSequenceGenerator(seedSeq = [], seedInput = SEED_DEFAULT) {
     console.log('seedSeq -> notes: ', seedSeq.notes);
     
     let launchWaitTime = 1; // 1
-    let playIntervalTime = getSequencePlayIntervalTime(seedInput); // 0.25
+    // let playIntervalTime = getSequencePlayIntervalTime(seedInput); // 0.25
+    let playIntervalTime = 0.25
     
     // let generatedSequence =
     //     Math.random() < 0.7 ? _.clone(seedSeq.notes.map(n => n.pitch)) : [];
@@ -314,32 +310,20 @@ function startSequenceGenerator(seedSeq = [], seedInput = SEED_DEFAULT) {
     console.log({playIntervalTime}); // 0.15 (seconds)
     let generationIntervalTime = playIntervalTime / 2; // needed?
 
-    generatedSequence.forEach((seqDatum, seqIndex) => {
-        console.log({seqDatum});
-        
-        // if (seqIndex === 0) {
-        //     machineKeyDown(seqDatum, seqIndex);
-        // }
-
-        // if (seqIndex <= 2) {
-        //     machineKeyDown(seqDatum, seqIndex);
-        //     setTimeout(machineKeyDown(seqDatum, seqIndex), 2000);
-        // }
-        // setTimeout(function () {
-        //     machineKeyDown(seqDatum, seqIndex);
-        // }, 2000);
-
-        // // setTimeout(generateNext, generationIntervalTime * 1000);
-        // setTimeout(generateNext, generationIntervalTime * 1000);
-
-        // machineKeyDown(seqDatum, seqIndex);
-        // setTimeout(machineKeyDown(seqDatum, seqIndex), seqIndex * 2000);
-        // setTimeout(machineKeyDown(seqDatum, seqIndex), 5000);
-    });
+    // generatedSequence.forEach((seqDatum, seqIndex) => {
+    //     console.log({seqDatum});
+    //     // if (seqIndex === 0) {
+    //     //     machineKeyDown(seqDatum, seqIndex);
+    //     // }
+    //     // setTimeout(machineKeyDown(seqDatum, seqIndex), 2000);
+    //     // setTimeout(machineKeyDown(seqDatum, seqIndex), seqIndex * 2000);
+    // });
 
     // console.log(_.isNumber(62));
 
     // https://tonejs.github.io/docs/13.8.25/Transport
+    // scheduleRepeat is used to call consumeNext, which THEN calls machineKeyDown which calls addBody() individually
+
     // Tone.Transport.scheduleRepeat(function(time){
     //     //
     // }, "8n");
@@ -362,7 +346,8 @@ function startSequenceGenerator(seedSeq = [], seedInput = SEED_DEFAULT) {
         Tone.Transport.seconds + launchWaitTime
     );
     console.log({consumerId});
-    console.log(Tone.Transport);
+    // console.log(Tone.Transport);
+
     // WHY IS THIS NEEDED? https://tonejs.github.io/docs/13.8.25/Transport#clear
     // return () => {
     //     running = false;
@@ -443,9 +428,16 @@ document.addEventListener('keydown', (event) => {
                     generatedPattern = await resolveAfterDelay();
                     if (generatedPattern) {
                         startSequenceGenerator(generatedPattern);
+                        console.log('Tone.Transport - STARTED');
+                        Tone.Transport.start()
                     }
                 }
-                asyncGeneratePattern();
+                // asyncGeneratePattern();
+                setInterval(() => {
+                    asyncGeneratePattern();
+                }, 4000);
+
+                // Tone.Transport.start();
 
                 // startSequenceGenerator(generatedPattern); 
         }
