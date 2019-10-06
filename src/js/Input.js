@@ -200,7 +200,7 @@ function humanKeyDown(note, velocity = 0.7) {
     let tonalFreq = Tonal.Note.midiToFreq(note);
 
     const instrMapped = getInstrByInputNote(tonalNote);
-    console.log('humanKeyDown -> instrMapped: ', instrMapped);
+    // console.log('humanKeyDown -> instrMapped: ', instrMapped);
     physics.addBody(true, globals.dropPosX, instrMapped);
 
     // console.log('humanKeyDown -> velocity: ', velocity);
@@ -215,17 +215,26 @@ function humanKeyUp(note) {
 }
 
 function machineKeyDown(midiNote = 60, time = 0) {
-    console.log('machineKeyDown -> midiNote: ', midiNote);
+    // console.log('machineKeyDown -> midiNote: ', midiNote);
     console.log('machineKeyDown -> time: ', time);
 
     let note = Tonal.Note.fromMidi(midiNote);
     console.log('machineKeyDown -> note: ', note);
 
     let instrMapped = getInstrByInputNote(note);
+    // console.log('machineKeyDown -> PRE instrMapped: ', instrMapped);
     if (instrMapped === undefined) {
-        instrMapped = getInstrByInputNote('C3'); // TODO: rework defaults, Trigger, addBody params (C4 vs C3 vs defaultInstr.hiHatClosed)
+        // console.log('machineKeyDown -> UNDEF note: ', note); //Eb4
+        const undefNoteArr = note.split('');
+        // debugger;
+        note = undefNoteArr[0] + undefNoteArr[2];
+        console.log('new note: ', note);
+        instrMapped = getInstrByInputNote(note);
+        // instrMapped = getInstrByInputNote('C3'); // TODO: rework defaults, Trigger, addBody params (C4 vs C3 vs defaultInstr.hiHatClosed)
     }
-    console.log('machineKeyDown -> instrMapped: ', instrMapped);
+    instrMapped.color = '#e91e63'; // red (nerual melody autocompletion)
+    // instrMapped.color = '#f9bb2d'; // orange (ai duet original)
+    console.log('machineKeyDown -> POST instrMapped: ', instrMapped);
 
     // let synth = new Tone.Synth(synthConfig).connect(synthFilter);
     // let freq = Tone.Frequency(note, 'midi');
@@ -418,6 +427,10 @@ document.addEventListener('keydown', (event) => {
         console.log({ keyMapped });
 
         switch (keyName) {
+            case ('9'):
+                console.log('9 pressed - patternInfinite = false');
+                globals.patternInfinite = false;
+                break;
             case ('0'):
                 console.log('0 pressed -> generateDummySequence...')
                 
@@ -432,14 +445,16 @@ document.addEventListener('keydown', (event) => {
                         Tone.Transport.start()
                     }
                 }
-                // asyncGeneratePattern();
-                setInterval(() => {
+
+                if (globals.patternInfinite === true) {
+                    setInterval(() => {
+                        asyncGeneratePattern();
+                    }, 4000);
+                } else {
                     asyncGeneratePattern();
-                }, 4000);
+                }
+            default:
 
-                // Tone.Transport.start();
-
-                // startSequenceGenerator(generatedPattern); 
         }
     }
 }, false);

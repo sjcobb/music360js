@@ -112,7 +112,7 @@ export default class Trigger {
         }
         // let triggerObj = instrument.getNoteMapping(obj); //ORIG
 
-        console.log('Trigger -> addBody - note: ', obj.userData.opts.note);
+        // console.log('Trigger -> addBody - note: ', obj.userData.opts.note);
         const triggerNote = obj.userData.opts.note ? (obj.userData.opts.note + obj.userData.opts.octave) : 'C4';
         let triggerObj = instrument.getInstrByNote(triggerNote);
 
