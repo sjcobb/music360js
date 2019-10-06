@@ -271,6 +271,36 @@ export default class Physics {
         }
     }
 
+    addSpinner() {
+        // DRUM MACHINE WHEEL: 
+        // https://codepen.io/danlong/pen/LJQYYN?editors=1010
+
+        // CANNON (PHYSICS)
+        // var boxShape = new CANNON.Box(new CANNON.Vec3(12.25, 0.5, 0.5));
+        // this.spinnerBody = new CANNON.Body({
+        //     mass: 1000,
+        //     angularVelocity: new CANNON.Vec3(0,5,0),
+        //     fixedRotation: true,
+        // });
+        // this.spinnerBody.addShape(boxShape);
+        // this.spinnerBody.position.set(0,0.25,0);
+        // this.spinnerBody.name = 'spinner';		
+        
+        // // THREE JS (VISUAL)
+        // var geometry = new THREE.BoxBufferGeometry( 24.5, 0.5, 0.5 );
+        // geometry.rotateX(THREE.Math.degToRad(90));
+        // var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+        // let spinner = new THREE.Mesh( geometry, material );
+        // spinner.position.y = 0;
+
+        // // push to meshes & bodies
+        // this.meshes.push(spinner);
+        // this.scene.add(spinner);
+        
+        // this.world.addBody(this.spinnerBody);
+        // this.bodies.push(this.spinnerBody);
+    }
+
     shape2Mesh(body, castShadow, receiveShadow, options) {
         const helpers = new Helpers();
 
