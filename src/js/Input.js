@@ -2,8 +2,12 @@ import globals from './globals.js';
 import InstrumentMappings from './InstrumentMappings.js';
 import Tone from 'Tone';
 
-// import { note, interval, transpose, distance, midi } from "tonal";
 import * as Tonal from "tonal";
+// import { note, interval, transpose, distance, midi } from "tonal";
+
+// import { has } from 'lodash-es';
+// import { map, tail, times, uniq } from 'lodash';
+import _ from 'lodash';
 
 import * as WebMidi from "webmidi";
 import Physics from './Physics.js';
@@ -11,6 +15,9 @@ import Physics from './Physics.js';
 // Neural.js
 // CODEPEN DEMO DEBUG -> -> -> https://codepen.io/sjcobb/pen/QWLemdR
 // Using the Improv RNN pretrained model from https://github.com/tensorflow/magenta/tree/master/magenta/models/improv_rnn
+
+// Tone.Transport.clear()
+
 let rnn = new mm.MusicRNN(
     'https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/chord_pitches_improv'
 );
@@ -61,6 +68,8 @@ const MAX_NOTE = 84;
 const DEFAULT_BPM = 120;
 const MAX_MIDI_BPM = 240;
 const TEMPO_MIDI_CONTROLLER = 20; // Control changes for tempo for this controller id
+
+const SEED_DEFAULT = [{ note: 60, time: Tone.now() }];
 
 let enabledWebMidi = false;
 WebMidi.enable(err => {
@@ -215,7 +224,16 @@ function machineKeyDown(midiNote = 60, time = 0) {
     const instrMapped = getInstrByInputNote(note);
     console.log('machineKeyDown -> instrMapped: ', instrMapped);
 
+    // let synth = new Tone.Synth(synthConfig).connect(synthFilter);
+    // let freq = Tone.Frequency(note, 'midi');
+    // synth.triggerAttack(freq, Tone.now(), velocity);
+
     physics.addBody(true, globals.dropPosX, instrMapped);
+    // Tone.Transport.start();
+
+    // let playIntervalTime = getSequencePlayIntervalTime(seed);
+    // console.log({playIntervalTime});
+
     // TODO: how to time note drop using Transport.scheduleRepeat or Tone.Part
     // // https://tonejs.github.io/docs/13.8.25/Transport
     // setTimeout(physics.addBody(true, globals.dropPosX, instrMapped), 2000);
@@ -226,7 +244,7 @@ function machineKeyDown(midiNote = 60, time = 0) {
     // animateMachine(machinePlayer[note - MIN_NOTE]);
 }
 
-function buildNoteSequence(seed) {
+function buildNoteSequence(seed = SEED_DEFAULT) {
     console.log('buildNoteSequence -> seed: ', seed);
     // // seed:
     // [{note: 60, time: 0.546984126984127}]
@@ -272,86 +290,87 @@ function buildNoteSequence(seed) {
     );
 }
 
-function startSequenceGenerator(seedSeq = [], seedInput = [{ note: 60, time: Tone.now() }]) {
-    console.log('startSequenceGenerator -> seedSeq: ', seedSeq);
+function getSequencePlayIntervalTime(seed = SEED_DEFAULT) {
+    if (seed.length <= 1) {
+        return Tone.Time('8n').toSeconds();
+    }
+    let intervals = getSeedIntervals(seed).sort();
+    return _.first(intervals);
+}
 
+function startSequenceGenerator(seedSeq = [], seedInput = SEED_DEFAULT) {
+    console.log('startSequenceGenerator -> seedSeq: ', seedSeq);
     console.log('seedSeq -> notes: ', seedSeq.notes);
+    
+    let launchWaitTime = 1; // 1
+    let playIntervalTime = getSequencePlayIntervalTime(seedInput); // 0.25
+    
     // let generatedSequence =
     //     Math.random() < 0.7 ? _.clone(seedSeq.notes.map(n => n.pitch)) : [];
 
     let generatedSequence = seedSeq.notes.map(n => n.pitch);
     console.log({generatedSequence});
 
+    console.log({playIntervalTime}); // 0.15 (seconds)
+    let generationIntervalTime = playIntervalTime / 2; // needed?
+
     generatedSequence.forEach((seqDatum, seqIndex) => {
         console.log({seqDatum});
-        machineKeyDown(seqDatum, seqIndex);
+        
+        // if (seqIndex === 0) {
+        //     machineKeyDown(seqDatum, seqIndex);
+        // }
+
+        // if (seqIndex <= 2) {
+        //     machineKeyDown(seqDatum, seqIndex);
+        //     setTimeout(machineKeyDown(seqDatum, seqIndex), 2000);
+        // }
+        // setTimeout(function () {
+        //     machineKeyDown(seqDatum, seqIndex);
+        // }, 2000);
+
+        // // setTimeout(generateNext, generationIntervalTime * 1000);
+        // setTimeout(generateNext, generationIntervalTime * 1000);
+
+        // machineKeyDown(seqDatum, seqIndex);
         // setTimeout(machineKeyDown(seqDatum, seqIndex), seqIndex * 2000);
         // setTimeout(machineKeyDown(seqDatum, seqIndex), 5000);
     });
 
+    // console.log(_.isNumber(62));
+
     // https://tonejs.github.io/docs/13.8.25/Transport
-    Tone.Transport.scheduleRepeat(function(time){
-        //
-    }, "8n");
-    // }, "16:0:0");
+    // Tone.Transport.scheduleRepeat(function(time){
+    //     //
+    // }, "8n");
+    // // }, "16:0:0");
 
-    // const generatedNotes = generateDummySequence();
-    // console.log({generatedNotes});
+    function consumeNext(time) {
+        if (generatedSequence.length) {
+            console.log('consumeNext -> generatedSequence: ', generatedSequence);
+            let note = generatedSequence.shift();
+            if (note > 0) {
+                machineKeyDown(note, time);
+            }
+        }
+    }
 
-    // // // //
-
-    // let running = true,
-    //     lastGenerationTask = Promise.resolve();
-
-    // let chords = detectChord(seed);
-    // let chord = _.first(chords) || 'CM';
-    // let seedSeq = buildNoteSequence(seed);
-    // let generatedSequence =
-    //     Math.random() < 0.7 ? _.clone(seedSeq.notes.map(n => n.pitch)) : [];
-    // let launchWaitTime = getSequenceLaunchWaitTime(seed);
-    // let playIntervalTime = getSequencePlayIntervalTime(seed);
-    // let generationIntervalTime = playIntervalTime / 2;
-
-    // function generateNext() {
-    //     if (!running) return;
-    //     if (generatedSequence.length < 10) {
-    //         lastGenerationTask = rnn
-    //             .continueSequence(seedSeq, 20, temperature, [chord])
-    //             .then(genSeq => {
-    //                 generatedSequence = generatedSequence.concat(
-    //                     genSeq.notes.map(n => n.pitch)
-    //                 );
-    //                 setTimeout(generateNext, generationIntervalTime * 1000);
-    //             });
-    //     } else {
-    //         setTimeout(generateNext, generationIntervalTime * 1000);
-    //     }
-    // }
-
-    // function consumeNext(time) {
-    //     if (generatedSequence.length) {
-    //         console.log('consumeNext -> generatedSequence: ', generatedSequence);
-    //         let note = generatedSequence.shift();
-    //         if (note > 0) {
-    //             machineKeyDown(note, time);
-    //         }
-    //     }
-    // }
-
-    // setTimeout(generateNext, launchWaitTime * 1000);
-    // let consumerId = Tone.Transport.scheduleRepeat(
-    //     consumeNext,
-    //     playIntervalTime,
-    //     Tone.Transport.seconds + launchWaitTime
-    // );
-
+    console.log(Tone.Transport);
+    let consumerId = Tone.Transport.scheduleRepeat(
+        consumeNext,
+        playIntervalTime,
+        Tone.Transport.seconds + launchWaitTime
+    );
+    console.log({consumerId});
+    console.log(Tone.Transport);
+    // WHY IS THIS NEEDED? https://tonejs.github.io/docs/13.8.25/Transport#clear
     // return () => {
     //     running = false;
     //     Tone.Transport.clear(consumerId);
     // };
 }
 
-function generateDummySequence(seed = [{ note: 60, time: Tone.now() }]) {
+function generateDummySequence(seed = SEED_DEFAULT) {
     console.log('generateDummySequence called......');
     // IF rnn.initialize() NOT RUN THEN - ERR: magentamusic.js:45080 Uncaught (in promise) Error: Unexpected chord progression provided.
 
@@ -465,3 +484,27 @@ document.addEventListener('keydown', (event) => {
 * https://codepen.io/teropa/pen/JLjXGK
 *
 */
+// function visualizePlay(time, stepIdx, drumIdx) {
+//     Tone.Draw.schedule(() => {
+//         if (!stepEls[stepIdx]) return;
+//         let animTime = oneEighth * 4 * 1000;
+//         let cellEl = stepEls[stepIdx].cellEls[drumIdx];
+//         if (cellEl.classList.contains('on')) {
+//             let baseColor = stepIdx < state.seedLength ? '#e91e63' : '#64b5f6';
+//             cellEl.animate(
+//                 [
+//                     {
+//                         transform: 'translateZ(-100px)',
+//                         backgroundColor: '#fad1df'
+//                     },
+//                     {
+//                         transform: 'translateZ(50px)',
+//                         offset: 0.7
+//                     },
+//                     { transform: 'translateZ(0)', backgroundColor: baseColor }
+//                 ],
+//                 { duration: animTime, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }
+//             );
+//         }
+//     }, time);
+// }

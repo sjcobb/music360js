@@ -466,10 +466,10 @@ window.onload = () => {
                 // } 
                 
                 if (keyName === keyMapped.keyInput) { //*** IMPORTANT ***
-                    console.log({keyMapped});
+                    // console.log({keyMapped});
                     physics.addBody(true, globalDropPosX, keyMapped);
                     globalDropPosX -= 1.3; //TODO: how to manipulate Y drop position?
-                    console.log('keyMapped -> event: ', event);
+                    console.log('keydown -> keyMapped, event: ', keyMapped, event);
                 } else {
                     console.log('keyMapped UNDEF -> else: ', event);
                 }

@@ -181,7 +181,7 @@ export default class InstrumentMappings {
             sphereChordA2: {
                 ballDesc: 'A',
                 color: '#C6018B', //VI - pink
-                keyInput: 'G',
+                keyInput: 'z',
                 note: 'A',
                 octave: 2,
                 chord: ['A2', 'C3', 'E3'],
@@ -191,7 +191,7 @@ export default class InstrumentMappings {
             sphereChordB2: {
                 ballDesc: 'B',
                 color: '#FF872B', //VII - orange
-                keyInput: 'H',
+                keyInput: 'x',
                 note: 'B',
                 octave: 2,
                 chord: ['B2', 'D3', 'F3'],
@@ -201,7 +201,7 @@ export default class InstrumentMappings {
             sphereChordC3: {
                 ballDesc: 'C',
                 color: '#0018F9', //I - blue
-                keyInput: 'J',
+                keyInput: 'c',
                 note: 'C',
                 octave: 3,
                 chord: ['C3', 'E3', 'G3'],
@@ -211,7 +211,7 @@ export default class InstrumentMappings {
             sphereChordD3: {
                 ballDesc: 'D',
                 color: '#680896', //II - purple
-                keyInput: 'K',
+                keyInput: 'v',
                 note: 'D',
                 octave: 3,
                 chord: ['D3', 'F3', 'A3'],
@@ -221,7 +221,7 @@ export default class InstrumentMappings {
             sphereChordE3: {
                 ballDesc: 'E',
                 color: '#FF001F', //III - redorange
-                keyInput: 'L',
+                keyInput: 'b',
                 note: 'E',
                 octave: 3,
                 chord: ['E3', 'G3', 'B3'],
@@ -231,7 +231,7 @@ export default class InstrumentMappings {
             sphereChordF3: {
                 ballDesc: 'F',
                 color: '#006CFA', //IV - medblue
-                keyInput: '[',
+                keyInput: 'n',
                 note: 'F',
                 octave: 3,
                 chord: ['F3', 'A3', 'C4'],
@@ -241,7 +241,7 @@ export default class InstrumentMappings {
             sphereChordG3: {
                 ballDesc: 'G',
                 color: '#4B0AA1', //V - dkblue
-                keyInput: ']',
+                keyInput: 'm',
                 note: 'G',
                 octave: 3,
                 chord: ['G3', 'B3', 'D4'],
@@ -251,7 +251,7 @@ export default class InstrumentMappings {
             sphereChordA3: {
                 ballDesc: 'A',
                 color: '#C6018B', //VI - pink
-                keyInput: 'G',
+                keyInput: 'g',
                 note: 'A',
                 octave: 3,
                 chord: ['A3', 'C4', 'E4'],
@@ -261,7 +261,7 @@ export default class InstrumentMappings {
             sphereChordB3: {
                 ballDesc: 'B',
                 color: '#FF872B', //VII - orange
-                keyInput: 'H',
+                keyInput: 'h',
                 note: 'B',
                 octave: 3,
                 chord: ['B3', 'D4', 'F4'],
@@ -271,7 +271,7 @@ export default class InstrumentMappings {
             sphereChordC4: {
                 ballDesc: 'C',
                 color: '#0018F9', //I - blue
-                keyInput: 'J',
+                keyInput: 'j',
                 note: 'C',
                 octave: 4,
                 chord: ['C4', 'E4', 'G4'],
@@ -281,7 +281,7 @@ export default class InstrumentMappings {
             sphereChordD4: {
                 ballDesc: 'D',
                 color: '#680896', //II - purple
-                keyInput: 'K',
+                keyInput: 'k',
                 note: 'D',
                 octave: 4,
                 chord: ['D4', 'F4', 'A4'],
@@ -291,7 +291,7 @@ export default class InstrumentMappings {
             sphereChordE4: {
                 ballDesc: 'E',
                 color: '#FF001F', //III - redorange
-                keyInput: 'L',
+                keyInput: 'l',
                 note: 'E',
                 octave: 4,
                 chord: ['E4', 'G4', 'B4'],
@@ -301,7 +301,7 @@ export default class InstrumentMappings {
             sphereChordF4: {
                 ballDesc: 'F',
                 color: '#006CFA', //IV - medblue
-                keyInput: '[',
+                keyInput: 'G',
                 note: 'F',
                 octave: 4,
                 chord: ['F4', 'A4', 'C5'],
@@ -311,7 +311,7 @@ export default class InstrumentMappings {
             sphereChordG4: {
                 ballDesc: 'G',
                 color: '#4B0AA1', //V - dkblue
-                keyInput: ']',
+                keyInput: 'H',
                 note: 'G',
                 octave: 4,
                 chord: ['G4', 'B4', 'D5'],
@@ -321,7 +321,7 @@ export default class InstrumentMappings {
             sphereChordA4: {
                 ballDesc: 'A',
                 color: '#C6018B', //VI - pink
-                keyInput: 'G',
+                keyInput: 'J',
                 note: 'A',
                 octave: 4,
                 chord: ['A4', 'C5', 'E5'],
@@ -331,7 +331,7 @@ export default class InstrumentMappings {
             sphereChordB4: {
                 ballDesc: 'B',
                 color: '#FF872B', //VII - orange
-                keyInput: 'H',
+                keyInput: 'K',
                 note: 'B',
                 octave: 4,
                 chord: ['B4', 'D5', 'F5'],
@@ -341,7 +341,7 @@ export default class InstrumentMappings {
             sphereChordC5: {
                 ballDesc: 'C',
                 color: '#0018F9', //I - blue
-                keyInput: 'J',
+                keyInput: 'L',
                 note: 'C',
                 octave: 5,
                 chord: ['C5', 'E5', 'G5'],

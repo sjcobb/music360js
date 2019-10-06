@@ -14,8 +14,8 @@ const config = {
     entry: {
         'bundle.js': [
             path.resolve(__dirname, 'node_modules/webmidi/webmidi.min.js'),
-            path.resolve(__dirname, 'node_modules/tonal/build/es6.js'),
-            path.resolve(__dirname, 'node_modules/tone/build/Tone.js'),
+            // path.resolve(__dirname, 'node_modules/tonal/build/es6.js'),
+            // path.resolve(__dirname, 'node_modules/tone/build/Tone.js'),
             path.resolve(__dirname, 'src/js/Fire.js'),
             path.resolve(__dirname, 'src/js/FireShader.js'),
             path.resolve(__dirname, 'src/js/globals.js'),
