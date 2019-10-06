@@ -86,7 +86,8 @@ export default class Physics {
 
         body.linearDamping = globals.damping;
 
-        body.angularVelocity.z = 12;
+        // body.angularVelocity.z = 12; //prev, too much rotation - hard to read note letter
+        body.angularVelocity.z = 6;
 
         if (options.type === 'animation') {
             // console.log('addBody -> animation: ', options);
@@ -160,6 +161,8 @@ export default class Physics {
         if (options.type === 'drum') {
             sphereRestitution = 0.5; //prev: 0.9, 0.1 = one bounce
         } else {
+            // TODO: map note duration to sphereRestitution so longer note length = bouncier
+                // 1/4 note = 0.25, 1/2 = 0.50 ???
             sphereRestitution = 0.1;
         }
 

@@ -348,6 +348,7 @@ export default class InstrumentMappings {
                 type: 'chord',
                 originalPosition: { x: 0, y: 0, z: -9 }
             },
+            // Db2, Eb2, Gb2, Ab2, Bb2, Db3, Eb3, Gb3, Ab3, Bb3
         };
     }
     

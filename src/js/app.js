@@ -388,16 +388,20 @@ let animate = () => {
 
     //ENABLE HORIZONTAL SCROLL
     if (globals.autoScroll === true) {
+        const ticksMultiplier = 9;
         // // globals.ticks = Tone.Transport.ticks * 0.014; //old
 
         // globals.ticks += (delta * 5); //PREV
-        globals.ticks += (delta * 6); // higher multiplier = higher dist between drops
+        // globals.ticks += (delta * 6); // higher multiplier = higher dist between drops
+
+        globals.ticks += (delta * ticksMultiplier); // Too fast, balls dropped too far left
         
         if (globals.cameraPositionBehind === true) {
             globals.camera.position.x = globals.posBehindX + (globals.ticks);
             // console.log(globals.camera);
         } else {
-            globals.camera.position.x = (globals.ticks) - 12;
+            // globals.camera.position.x = (globals.ticks) - 12; // prev, works the (delta * 5)
+            globals.camera.position.x = (globals.ticks) - 30;
         }
     }
 

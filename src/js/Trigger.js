@@ -18,8 +18,8 @@ Tone.Transport.loop = true; //TODO: *** clear all addBody objects if Transport l
 
 //-----SYNTH ASSETS------//
 var polySynth = new Tone.PolySynth(6, Tone.Synth).toMaster();
-// polySynth.volume.value = -4; //prev
-polySynth.volume.value = -8; //just right
+polySynth.volume.value = -6;
+// polySynth.volume.value = -8; //prev
 // polySynth.set("detune", +1200); // octave = 12 semitones of 100 cents each
 // polySynth.set("detune", +1200);
 

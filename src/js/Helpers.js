@@ -139,12 +139,10 @@ export default class Helpers {
             ctx.save();
             ctx.translate(w / 4, h / 2);
             ctx.fillStyle = "#FFFFFF";
-            // // var radiusW = 0.7 * w / 4;
-            // // var radiusH = 1.2 * h / 4;
-            var radiusW = 1.0 * w / 4; //128
-            var radiusH = 1.5 * h / 4; //192
-            // var radiusW = 1.1 * w / 4;
-            // var radiusH = 1.6 * h / 4;
+            // var radiusW = 1.0 * w / 4; //128
+            // var radiusH = 1.5 * h / 4; //192
+            var radiusW = 1.1 * w / 4;
+            var radiusH = 1.7 * h / 4;
             radiusW += 10;
             radiusH += 30;
             // console.log('ball white circle: ', radiusW, ' x ', radiusH);
@@ -173,7 +171,8 @@ export default class Helpers {
             let textOffsetY = 0.6;
             if (textW > 100) {
                 // console.log(textData); //TODO: make fillEllipse wider or font (textH) smaller when multiple characters
-                ctx.font = "bolder " + 80 + "px Arial"; //96 too big
+                // ctx.font = "bolder " + 80 + "px Arial"; //96 too big
+                ctx.font = "bolder " + 96 + "px Arial";
                 textOffsetX = 30; 
                 textOffsetY = 0.4;
             }
