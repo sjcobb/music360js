@@ -1,8 +1,9 @@
-import globals from './globals.js';
+import Store from './Store.js';
 // import Helpers from './Helpers.js';
 import Helpers from './Helpers.js';
 import Trigger from './Trigger.js';
 import InstrumentMappings from './InstrumentMappings.js';
+import { getInstrumentMappingTemplate } from './InstrumentMappings.js';
 
 import Flame from './Flame.js';
 
@@ -22,77 +23,127 @@ export default class Physics {
     }
 
     //-----CANNON INIT------//
-    // globals.world = new CANNON.World();
+    // Store.world = new CANNON.World();
 
     initPhysics() {
         this.fixedTimeStep = 1.0 / 60.0;
         this.damping = 0.01;
 
-        globals.world.broadphase = new CANNON.NaiveBroadphase();
-        globals.world.gravity.set(0, -10, 0);
-        this.debugRenderer = new THREE.CannonDebugRenderer(globals.scene, globals.world);
-
-        const groundShape = new CANNON.Plane();
-        const groundMaterial = new CANNON.Material(); //http://schteppe.github.io/cannon.js/docs/classes/Material.html
-        const groundBody = new CANNON.Body({ mass: 0, material: groundMaterial });
-        groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-        groundBody.addShape(groundShape);
-        globals.world.add(groundBody);
-
-        // if (this.useVisuals) this.helper.this.addVisual(groundBody, 'ground', false, true);
-        this.addVisual(groundBody, 'ground', false, true);
+        Store.world.broadphase = new CANNON.NaiveBroadphase();
+        Store.world.gravity.set(0, -10, 0);
+        this.debugRenderer = new THREE.CannonDebugRenderer(Store.scene, Store.world);
 
         this.shapes = {};
         this.shapes.sphere = new CANNON.Sphere(0.5);
         this.shapes.box = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5));
-
-        this.groundMaterial = groundMaterial;
 
         // this.animate();
-        this.initContactMaterial(0.3);
+        this.initGroundContactMaterial(0.3);
+        // this.initGroundContactMaterial(0.3, [0, 10, 0]);
+        // this.initGroundContactMaterial(0.3, [0, 5, 0], [2, 2, 0.1]);
+
+        // this.addSpinner();
     }
 
-    initContactMaterial(restitutionValue = 0.3) {
+    initGroundContactMaterial(restitutionValue = 0.3, posArr=[0, -6, 0], sizeArr=[5000, 10, 5]) {
+
+        if (Store.view.showStaff.treble === true && Store.view.showStaff.bass === true) {
+            posArr = [0, -6, -2];
+            sizeArr = [5000, 15, 5];
+        }
+
+        // FLOOR
         //TODO: add colored ground on contact here
         //http://schteppe.github.io/cannon.js/docs/classes/ContactMaterial.html
-        const groundShape = new CANNON.Plane();
-        const tempMaterial = new CANNON.Material(); //http://schteppe.github.io/cannon.js/docs/classes/Material.html
+        // const groundShape = new CANNON.Plane(); // invisible plane across entire screen
+
+        // const groundShape = new CANNON.Box(new CANNON.Vec3(10, 10, 0.1));
+        // const groundShape = new CANNON.Box(new CANNON.Vec3(15, 15, 5)); // 0.3
+        // const groundShape = new CANNON.Box(new CANNON.Vec3(1500, 20, 5));
+        const groundShape = new CANNON.Box(new CANNON.Vec3(...sizeArr));
+
+        // http://schteppe.github.io/cannon.js/docs/classes/Material.html
+        const tempMaterial = new CANNON.Material({ restitution: 1, friction: 1 });
+        // const tempMaterial = new CANNON.Material();
+        // console.log({tempMaterial});
+
         const groundBody = new CANNON.Body({ mass: 0, material: tempMaterial });
 
-        groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+        groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2); //PREV
+        // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0.5, 0, 0), -Math.PI / 2); // invisible giant hill
 
+        // groundBody.position.set(0, -6, 0);
+        groundBody.position.set(...posArr);
+        // console.log({groundBody});
+
+        // https://stackoverflow.com/a/35101095 - “Glueing together” two bodies in cannon.js
         groundBody.addShape(groundShape);
-        globals.world.add(groundBody);
+        Store.world.add(groundBody);
 
         // if (this.useVisuals) this.helper.this.addVisual(groundBody, 'ground', false, true);
         this.addVisual(groundBody, 'ground', false, true);
 
-        this.shapes = {};
-        this.shapes.sphere = new CANNON.Sphere(0.5);
-        this.shapes.box = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5));
-
-        const material = new CANNON.Material(); //why both tempMaterial and material needed?
-        const materialGround = new CANNON.ContactMaterial(tempMaterial, material, { friction: 0.0, restitution: restitutionValue });
-        globals.world.addContactMaterial(materialGround);
+        // https://github.com/schteppe/cannon.js/issues/300
+        // https://github.com/schteppe/cannon.js/blob/master/demos/bounce.html
+        // restitutionValue = 200;
+        // const material = new CANNON.Material(); //why both tempMaterial and material needed?
+        // const restitutionGround = new CANNON.ContactMaterial(tempMaterial, material, { friction: 0.0, restitution: restitutionValue });
+        // Store.world.addContactMaterial(restitutionGround);
     }
 
-    addBody(sphere = true, xPosition = 5.5, options = '', timeout = 0) {
+    // addBody(sphere = true, xPosition = 5.5, options = '', timeout = 0) {
+    addBody(sphere = true, xPosition=5.5, options = '', index=0) { // TODO: take yPosition from Store.dropCoordCircleInterval[] loop, swap yPos to zPos
 
         if (options === '') {
             const instrument = new InstrumentMappings();
-            const defaultInstr = instrument.getInstrumentMappingTemplate();
+            const defaultInstr = getInstrumentMappingTemplate();
             options = defaultInstr.hiHatClosed;
         }
 
+        let objSize = options.size !== undefined ? options.size : 'md';
+        if (objSize === 'xl') {
+            objSize = 2.0;
+        } else {
+            // objSize = 0.5; // v0.3
+            // objSize = 0.65; // too big for D maj chord
+            objSize = 0.50;
+        }
+
+        // console.log('addBody -> options: ', options);       
+
         const trigger = new Trigger();
 
-        const material = new CANNON.Material();
-        const body = new CANNON.Body({ mass: 5, material: material });
-        // const body = new CANNON.Body({ mass: 1, material: material }); //no effect
+        let sphereRestitution = 0.3;
+        if (options.type === 'drum') {
+            sphereRestitution = 0.3; //prev: 0.9, 0.1 = one bounce
+        } else {
+            // console.log('options.duration: ', options.duration);
+            if (options.duration > 0) { // TODO: rename options.noteLength so not confusing with arr length
+                // sphereRestitution = options.length / 2;
+                // sphereRestitution = options.duration * 0.65; // PREV
+                sphereRestitution = options.duration * 0.58;
+                // sphereRestitution = options.length * 1;
 
+                // TODO: clean up bounciness default and min / max height
+                // if (sphereRestitution < 0.225) {
+                // if (sphereRestitution < 0.19) {
+                //     sphereRestitution = 0.19;
+                //     // sphereRestitution = 0.225;
+                // }
+            }
+            // console.log({sphereRestitution});
+        }
+        const material = new CANNON.Material({ restitution: sphereRestitution, friction: 1 }); 
+
+        // https://schteppe.github.io/cannon.js/docs/classes/Body.html
+        // const body = new CANNON.Body({ mass: 5, material: material }); // v0.3, v0.4
+        const body = new CANNON.Body({ mass: 550, material: material });
+        
         this.shapes = {};
-        this.shapes.sphere = new CANNON.Sphere(0.5);
+        // this.shapes.sphere = new CANNON.Sphere(0.5);
+        this.shapes.sphere = new CANNON.Sphere(objSize);
         this.shapes.box = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5));
+
         if (sphere) {
             body.addShape(this.shapes.sphere);
         } else {
@@ -101,127 +152,126 @@ export default class Physics {
 
         let xRand = Math.random() * (15 - 1) + 1; //rdm b/w 1 and 15
         let xPos = xPosition; //TODO: remove xPosition param if not used
-
-        if (globals.autoScroll === true) {
+        
+        if (Store.autoScroll === true) {
             if (options.type === 'drum') {
-                xPos = -(globals.ticks);
+                xPos = -(Store.ticks);
             } else {
-                xPos = -(globals.ticks);
-                globals.InstrumentCounter++;
+                xPos = -(Store.ticks);
+                Store.InstrumentCounter++;
             }
         }
 
-        const yPos = 20; //PREV, just right
-        // const yPos = 26;
+        // https://stackoverflow.com/questions/44630265/how-can-i-set-z-up-coordinate-system-in-three-js
+        // const yPos = 20; // v0.4, v0.5
+        // const yPos = 1;
+        const yPos = 30;
 
         /*** Randomized Y drop point ***/
         // const y = Math.random() * (10 - 5) + 5; //rdm b/w 5 and 10
 
         let zPos;
         zPos = options.originalPosition !== undefined ? options.originalPosition.z : Math.random() * (15 - 5) - 2;
+        // zPos = Store.dropPosY; // drum spinner (v0.3)
+
+        // body.mass = 1; // feather light
+        // body.mass = 8; // heavy
 
         if (options.type === 'drum') {
             // TODO: new drum machine paradigm - use rotating clock hand to hit drums
             // https://codepen.io/danlong/pen/LJQYYN
-            zPos += 10; // see globals.staffLineInitZ and globals.staffLineSecondZ
+            // zPos += 10; // PREV: see Store.staffLineInitZ and Store.staffLineSecondZ
+
+            zPos -= 8; // TODO: is this still needed?
         } else {
-            zPos -= 10;
+            // zPos -= 3; // v0.4, v0.5
+
+            zPos += 2;
         }
+
+        if (Store.cameraCircularAnimation === true) {
+            Store.dropOffset = options.variation === 'snare' ? Store.dropOffset -= 0.8 : 0;
+            Store.dropOffset = options.variation === 'kick' ? Store.dropOffset -= 1.2 : 0;
+            Store.dropOffset = options.variation === 'hihat' ? Store.dropOffset -= 1.6 : 0;
+            // console.log('Store.dropOffset: ', Store.dropOffset); // DEBUG
+            // xPos += Store.dropOffset;
+            // zPos += Store.dropOffset;
+
+            xPos = Store.dropCoordCircleInterval[index].px;
+            zPos = Store.dropCoordCircleInterval[index].py;
+        }
+
         // zPos = options.originalPosition.z;
 
         body.position.set((sphere) ? -xPos : xPos, yPos, zPos);
 
-        body.linearDamping = globals.damping;
+        body.linearDamping = Store.damping; // 0.01
+        // body.linearDamping = 0.01; // v0.2, v0.3
 
-        // body.angularVelocity.z = 12; //prev, too much rotation - hard to read note letter
-        body.angularVelocity.z = 6;
+        // body.angularVelocity.z = 12; //too much rotation - hard to read note letter
+        // body.angularVelocity.z = 6; //prev
+        body.angularVelocity.z = 0;
 
         if (options.type === 'animation') {
-            // console.log('addBody -> animation: ', options);
-            
-            // if (globals.flameCounter % 2 === 0) {
-            // if (globals.flameCounter % 3 === 0) {
-            // console.log(globals.flameCounter);
-            // if (globals.flameCounter === 4) {
-            // if (globals.flameCounter % 2 === 1) { //is flame is called odd num of times
-            // if (globals.flameCounter === 1) {
-            //     flamePhysics.create({x: -xPos});
-            //     globals.flameCounter = 0;
-            // }
             flamePhysics.create({x: -xPos});
-
-            globals.flameCounter++;
+            Store.flameCounter++;
             return;
         }
         
-        // setTimeout(function() { //TODO: remove setTimeout param if not needed anymore
-            globals.world.add(body);
-        // }, timeout);
-
-        // if (this.useVisuals) this.helper.this.addVisual(body, (sphere) ? 'sphere' : 'box', true, false);
+        Store.world.add(body);
 
         body.userData = {
             opts: options
         };
+
         this.addVisual(body, (sphere) ? 'sphere' : 'box', true, false, options);
 
+        let notePlayed = false;
         let bodyCollideCount = 0;
+        let spinnerCollideCount = 0;
         body.addEventListener('collide', function(ev) {
+            // console.log('body collide ev: ', ev);
             // console.log('body collide event: ', ev.body);
             // console.log('body collide INERTIA: ', ev.body.inertia);
             // console.log('contact between two bodies: ', ev.contact);
             // console.log(bodyCollideCount);
+            if (ev.contact) {
+                // console.log('ev.contact.ni', ev.contact.ni); // DEBUG USE
+                // console.log('ev.contact.rj', ev.contact.rj);
 
-            if (options.type === 'drum') {
-                // if (bodyCollideCount <= 1) { //play note two times on collide
-                if (bodyCollideCount <= 0) {
-                    // console.log('DRUM ev: ', ev);
-                    // if (isNaN(ev.body.inertia.x)) { //hack works
-
-                    // if (ev.body.initPosition.x === 0) { 
-                    // since ground is stationary at 0, must be hidden contact body above origin drop point
-                    trigger.triggerNote(body);
-                    // }
+                //TODO: determine best way to convert from negative scientific notation without rounding to -0, ex: -2.220446049250313e-16
+                // const roundedHitMetric = parseInt(ev.contact.ni.z);
+                // if (ev.contact.ni.x !== -0 || roundedHitMetric !== -2) {
+                if (ev.contact.ni.x !== -0) {
+                    // console.log('HIT ev.contact.ni', ev.contact.ni);
+                    spinnerCollideCount++;
+                } else {
+                    // console.log('MISS ev.contact.ni', ev.contact.ni);
+                    // console.log('MISS roundedHitMetric', roundedHitMetric);
                 }
-            } else { //regular spheres
-                if (bodyCollideCount <= 0) { //play note one time on collide
-                    // console.log('REGULAR ev: ', ev);
-                    trigger.triggerNote(body);
-                }
+                bodyCollideCount++;
             }
 
-            // console.log(bodyCollideCount);
-            // setTimeout(() => {
-            //     if (bodyCollideCount >= 3) { //play note one time on collide
-            //         console.log({ body });
-            //         globals.world.remove(body);
-            //         // http://www.html5gamedevs.com/topic/28819-solved-how-dispose-mesh-in-oncollideevent/
-            //     }
-            // }, 2000); //does not work
-
-            bodyCollideCount++;
+            if (Store.triggerOn === 'contact') {
+                if (bodyCollideCount === 1) {
+                    trigger.triggerNote(body);
+                    notePlayed = true;
+                }
+            } else if (Store.triggerOn === 'spinner') {
+                if (spinnerCollideCount === 1 && notePlayed !== true) { // 0.3
+                    trigger.triggerNote(body);
+                    notePlayed = true;
+                }
+            }
         });
 
-        const defaultRestitution = 0.3; //bounciness 
-
-        let sphereRestitution;
-        if (options.type === 'drum') {
-            sphereRestitution = 0.5; //prev: 0.9, 0.1 = one bounce
-        } else {
-            // TODO: map note duration to sphereRestitution so longer note length = bouncier
-                // 1/4 note = 0.25, 1/2 = 0.50 ???
-            sphereRestitution = 0.1;
-        }
-
-        if (globals.cameraPositionBehind === true) {
-            // body.quaternion.x = 11; //sideways spin
-            // body.quaternion.y = 11;
-            // body.quaternion.z = 0.5;
-            // console.log(body); //TODO: rotate adjust HERE!!!
-        }
     }
 
     addVisual(body, name, castShadow = true, receiveShadow = true, options = 'Z') {
+
+        // const objSize = options.size ? options.size : 'md';
+        // console.log('(addVisual) -> options: ', options);
+
         body.name = name;
         if (this.currentMaterial === undefined) this.currentMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 });
         if (this.settings === undefined) {
@@ -252,6 +302,7 @@ export default class Physics {
             };
 
             this.particleGeo = new THREE.SphereGeometry(1, 16, 8);
+            
             this.particleMaterial = new THREE.MeshLambertMaterial({ color: 0xff0000 });
         }
         // What geometry should be used?
@@ -267,38 +318,8 @@ export default class Physics {
             body.threemesh = mesh;
             mesh.castShadow = castShadow;
             mesh.receiveShadow = receiveShadow;
-            globals.scene.add(mesh);
+            Store.scene.add(mesh);
         }
-    }
-
-    addSpinner() {
-        // DRUM MACHINE WHEEL: 
-        // https://codepen.io/danlong/pen/LJQYYN?editors=1010
-
-        // CANNON (PHYSICS)
-        // var boxShape = new CANNON.Box(new CANNON.Vec3(12.25, 0.5, 0.5));
-        // this.spinnerBody = new CANNON.Body({
-        //     mass: 1000,
-        //     angularVelocity: new CANNON.Vec3(0,5,0),
-        //     fixedRotation: true,
-        // });
-        // this.spinnerBody.addShape(boxShape);
-        // this.spinnerBody.position.set(0,0.25,0);
-        // this.spinnerBody.name = 'spinner';		
-        
-        // // THREE JS (VISUAL)
-        // var geometry = new THREE.BoxBufferGeometry( 24.5, 0.5, 0.5 );
-        // geometry.rotateX(THREE.Math.degToRad(90));
-        // var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
-        // let spinner = new THREE.Mesh( geometry, material );
-        // spinner.position.y = 0;
-
-        // // push to meshes & bodies
-        // this.meshes.push(spinner);
-        // this.scene.add(spinner);
-        
-        // this.world.addBody(this.spinnerBody);
-        // this.bodies.push(this.spinnerBody);
     }
 
     shape2Mesh(body, castShadow, receiveShadow, options) {
@@ -331,12 +352,21 @@ export default class Physics {
                     }
                     const poolTexture = helpers.ballTexture(options.ballDesc, stripedVariation, fillStyleMapping, 512);
 
-                    const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 });
+                    // const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 }); //PREV
+                    // const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0xf3f3f3 });
+                    const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
                     poolBallMaterial.map = poolTexture;
+
                     const sphereGeo = new THREE.SphereGeometry(shape.radius, 8, 8);
-                    sphereGeo.name = 'sphereGeo'; //*** important for rotation when globals.cameraPositionBehind true
+
+                    // TODO: if options.size is 'xl' make sphere larger, need to fix Cannon addShape so physics still work
+                    // const sphereGeo = new THREE.SphereGeometry(12, 12, 12);
+                    sphereGeo.name = 'sphereGeo'; //*** important for rotation when Store.view.cameraPositionBehind true
 
                     mesh = new THREE.Mesh(sphereGeo, poolBallMaterial); //prev: material
+                    
+                    // TODO: add configurable height / size
+                    mesh.scale.set(1.35, 1.35, 1.35);
                     break;
 
                 case CANNON.Shape.types.PARTICLE:
@@ -347,7 +377,8 @@ export default class Physics {
 
                 case CANNON.Shape.types.PLANE:
                     // geometry = new THREE.PlaneGeometry(10, 10, 4, 4); // too short
-                    geometry = new THREE.PlaneGeometry(20, 10, 4, 4);
+                    // geometry = new THREE.PlaneGeometry(20, 10, 4, 4);
+                    geometry = new THREE.PlaneGeometry(0, 0, 0, 0);
                     mesh = new THREE.Object3D();
 
                     // TODO: try changing mesh.name to fix no color update
@@ -359,15 +390,15 @@ export default class Physics {
                     // const randColor = (Math.random()*0xFFFFFF<<0).toString(16);
                     // const tempColor = parseInt('0x' + randColor); //or options.color
                     
-                    const tempColor = globals.activeInstrColor;
+                    const tempColor = Store.activeInstrColor;
                     // const tempColor = '#9F532A'; //red
 
                     const defaultColor = new THREE.Color(tempColor);
                     material.color = defaultColor;
 
                     const ground = new THREE.Mesh(geometry, material);
-                    // ground.scale.set(100, 100, 100); // ORIG ground aka floor size
-                    ground.scale.set(100, 6, 100);
+                    // ground.scale.set(500, 6, 100); // PREV
+                    ground.scale.set(10, 10, 10); // no effect
                     ground.name = 'groundMesh';
 
                     //TODO: use correctly - https://threejs.org/docs/#manual/en/introduction/How-to-update-things
@@ -378,10 +409,19 @@ export default class Physics {
                     break;
 
                 case CANNON.Shape.types.BOX:
-                    const box_geometry = new THREE.BoxGeometry(shape.halfExtents.x * 2,
+                    // NEW Ground for drum spinner, PLANE no longer used since infinite invisible contact not needed
+                    const boxGeometry = new THREE.BoxGeometry(shape.halfExtents.x * 2,
                         shape.halfExtents.y * 2,
                         shape.halfExtents.z * 2);
-                    mesh = new THREE.Mesh(box_geometry, material);
+
+                    // console.log({shape});
+
+                    // const boxGeometry = new THREE.BoxGeometry(25, 25, 0.5); // does not coincide with contact surface size
+
+                    material.color = new THREE.Color(Store.activeInstrColor);;
+
+                    // boxGeometry.scale.set(10, 10, 10); // not a function
+                    mesh = new THREE.Mesh(boxGeometry, material);
                     break;
 
                 case CANNON.Shape.types.CONVEXPOLYHEDRON:
@@ -479,7 +519,7 @@ export default class Physics {
             mesh.quaternion.set(q.x, q.y, q.z, q.w);
 
             if (mesh.geometry) {
-                if (mesh.geometry.name === 'sphereGeo' && globals.cameraPositionBehind) {
+                if (mesh.geometry.name === 'sphereGeo' && Store.view.cameraPositionBehind) {
                     // console.log('sphereGeo debug rotation: ', mesh.rotation);
                     mesh.rotation.set(0, -1.5, 0); //x: more faces downwards, y: correct - around center, z
                 }
@@ -490,6 +530,7 @@ export default class Physics {
             // console.log({obj}); //name = groundPlane is child of Object3D type
         });
 
+        // console.log('(shape2Mesh) -> obj: ', obj);
         return obj;
     }
 
@@ -527,6 +568,68 @@ export default class Physics {
         return new CANNON.ConvexPolyhedron(vertices, faces);
     }
 
+    addSpinner() {
+        // DRUM MACHINE WHEEL: 
+        // https://codepen.io/danlong/pen/LJQYYN?editors=1010
+        // FORK: https://codepen.io/sjcobb/pen/vYYpKMv
+
+        // const rotationSpeed = Store.bpm * 0.011;
+        // const rotationSpeed = Store.bpm * 0.019; 
+        // const rotationSpeed = Store.bpm * 0.027; // prev
+        const rotationSpeed = Store.bpm * 0.025;
+        // console.log({rotationSpeed});
+
+        const spinnerLength = 28;
+
+        // CANNON (PHYSICS)
+        let boxShape = new CANNON.Box(new CANNON.Vec3(12.25, 0.5, 0.5)); // no effect
+
+        // https://schteppe.github.io/cannon.js/docs/classes/Body.html
+        Store.spinnerBody = new CANNON.Body({
+            // mass: 1000,
+            mass: 1000,
+            // angularVelocity: new CANNON.Vec3(0, 5 ,0),
+            angularVelocity: new CANNON.Vec3(0, rotationSpeed, 0), // TODO: spinner speed (2nd param, y) map to Tone.Transport bpm
+            // angularVelocity: new CANNON.Vec3(12, rotationSpeed, 0), // wave shutter up & down
+            // angularVelocity: new CANNON.Vec3(0, rotationSpeed, 10), // vertical clock tower - USE
+            angularDamping: 0, // default=0.01
+            // linearDamping: 0.01,
+            fixedRotation: true, // IMPORTANT
+            // boundingRadius: 2
+            // interpolatedPosition: {x: 100, y: 100, z: 100}
+        });
+        // Store.spinnerBody.quaternion = new CANNON.Quaternion(-0.5, -0.5, 0.5, 0.5); // rotate standing up
+        // Store.spinnerBody.quaternion = new CANNON.Quaternion(0.5, 0.5, 0.5, 0.5); // rotate standing up
+        // Store.spinnerBody.quaternion = new CANNON.Quaternion(0, 0.5, 0.5, 0.5); // woah
+        
+        Store.spinnerBody.quaternion = new CANNON.Quaternion(0, 0.5, 0.05, 0.5); // decent - stage under - wobbly
+
+        Store.spinnerBody.addShape(boxShape);
+        // console.log('Store.spinnerBody: ', Store.spinnerBody);
+        console.log(Store.spinnerBody);
+
+        // Store.spinnerBody.position.set(0, 0.25, 0); // no effect
+
+        Store.spinnerBody.name = 'spinner';
+        
+        // THREE JS (VISUAL)
+        // var geometry = new THREE.BoxBufferGeometry( 24.5, 0.5, 0.5 );
+        var geometry = new THREE.BoxBufferGeometry(spinnerLength, 0.5, 0.5);
+        // geometry.rotateX(THREE.Math.degToRad(90)); // TODO: animate rotation so rect goes in circle
+        // geometry.rotateY(THREE.Math.degToRad(45)); // no effect
+        // console.log({geometry});
+
+        // var material = new THREE.MeshBasicMaterial({color: 0xff0000}); red
+        var material = new THREE.MeshBasicMaterial({color: 0x003366}); //midnight blue
+        let spinner = new THREE.Mesh(geometry, material);
+        // console.log({spinner});
+
+        // Store.meshes.push(spinner);
+        Store.bodies.push(Store.spinnerBody);
+        Store.scene.add(spinner);
+        Store.world.addBody(Store.spinnerBody);
+    }
+
     updatePhysics() {
         // TODO: uncomment debugRenderer after fix scene undef err
         if (this.physics.debugRenderer !== undefined) {
@@ -534,55 +637,31 @@ export default class Physics {
         }
     }
 
+    // updateMeshPositions() {
+    //     for (var i = 0; i !== this.meshes.length; i++) {
+    //         Store.meshes[i].position.copy(this.bodies[i].position);
+    //         Store.meshes[i].quaternion.copy(this.bodies[i].quaternion);
+    //     }
+    // },
+
     updateBodies(world) {
-        // globals.lastColor = globals.activeInstrColor; //remove?
 
-        if (globals.configColorAnimate === true) {
-
-            //TODO: fix activeInstrColor by simpifying nested forEach calls
-            // console.log('globals.scene.children -> ', globals.scene.children);
-
-            globals.scene.children.forEach((child) => {
-                if (child.name && child.name === 'physicsParent') {
-                    child.children.forEach((child) => {
-                        if (child.name && child.name === 'groundPlane') {
-                            child.children.forEach((child) => {
-                                child.children.forEach((child) => {
-                                    if (child.name && child.name === 'groundMesh') {
-                                        if (globals.groundMeshIncrementer % 10 === 0) {
-                                            const tempColor = globals.activeInstrColor.substr(0, 1) === '#' ? globals.activeInstrColor.slice(1, globals.activeInstrColor.length) : 0x191CAC;
-                                            const intColor = parseInt('0x' + tempColor, 16);
-
-                                            if (globals.lastColor !== globals.activeInstrColor) {
-                                                child.material.color = new THREE.Color(intColor);
-
-                                                // console.log({child}); //{r: 1, g: 0.5294117647058824, b: 0.16862745098039217}
-                                                // console.log({tempColor}); 
-                                                // console.log({intColor}); 
-                                                // console.log(globals.lastColor);
-                                            }
-
-                                            globals.lastColor = globals.activeInstrColor;
-                        
-                                        }
-                                        globals.groundMeshIncrementer++;
-                                    }
-                                });
-                            });
-                        }
-                    });
-                }
-            });
-        }
+        // Store.spinnerBody.position.set(0, -1.5, 0);
 
         // IMPORTANT: cannon.js boilerplate
         // world.bodies.forEach(function(body) {
-        globals.world.bodies.forEach(function(body) {
+        Store.world.bodies.forEach(function(body) {
             if (body.threemesh != undefined) {
                 body.threemesh.position.copy(body.position);
                 body.threemesh.quaternion.copy(body.quaternion);
             }
         });
+
+        // TODO: standard way to update bodies? Store.bodies and Store.meshes shouldn't only be for spinner
+        // for (var i = 0; i !== Store.meshes.length; i++) {
+        //     Store.meshes[i].position.copy(Store.bodies[i].position);
+        //     Store.meshes[i].quaternion.copy(Store.bodies[i].quaternion);
+        // }
     }
 
 }

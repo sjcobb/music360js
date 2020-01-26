@@ -1,4 +1,5 @@
 // https://github.com/johndatserakis/modern-webpack-starter/blob/master/webpack.config.js
+// https://github.com/edwinwebb/three-seed/blob/master/webpack.config.js 
 // https://github.com/webpack/webpack-dev-server/blob/master/examples/api/simple/server.js#L16
 // https://medium.com/code-oil/burning-questions-with-answers-to-why-webpack-dev-server-live-reload-does-not-work-6d6390277920
 // USE:
@@ -13,12 +14,13 @@ const path = require('path');
 const config = {
     entry: {
         'bundle.js': [
+            path.resolve(__dirname, 'node_modules/stats.js/build/stats.min.js'),
             path.resolve(__dirname, 'node_modules/webmidi/webmidi.min.js'),
             // path.resolve(__dirname, 'node_modules/tonal/build/es6.js'),
             // path.resolve(__dirname, 'node_modules/tone/build/Tone.js'),
             path.resolve(__dirname, 'src/js/Fire.js'),
             path.resolve(__dirname, 'src/js/FireShader.js'),
-            path.resolve(__dirname, 'src/js/globals.js'),
+            path.resolve(__dirname, 'src/js/Store.js'),
             path.resolve(__dirname, 'src/js/Helpers.js'),
             path.resolve(__dirname, 'src/js/Trigger.js'),
             path.resolve(__dirname, 'src/js/Pool.js'),
