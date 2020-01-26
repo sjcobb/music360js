@@ -85,56 +85,56 @@ var toneSnare = new Tone.NoiseSynth({
     }
 }).toMaster();
 
-// const player808HiHat = new Player(`${sampleBaseUrl}/808-hihat-vh.mp3`).toMaster();
-// const playerHiHatOpen = new Tone.Player("./assets/sounds/drum-kits/dubstep/hihat-open.mp3").toMaster(); //PREV
-const playerHiHatOpen = new Player("./assets/sounds/drum-kits/dubstep/hihat-open.mp3").toMaster();
-const playerHiHat = new Player("./assets/sounds/drum-kits/dubstep/hihat-closed.mp3").toMaster();
-playerHiHatOpen.volume.value = -2;
-playerHiHat.volume.value = -2;
+// // const player808HiHat = new Player(`${sampleBaseUrl}/808-hihat-vh.mp3`).toMaster();
+// // const playerHiHatOpen = new Tone.Player("./assets/sounds/drum-kits/dubstep/hihat-open.mp3").toMaster(); //PREV
+// const playerHiHatOpen = new Player("./assets/sounds/drum-kits/dubstep/hihat-open.mp3").toMaster();
+// const playerHiHat = new Player("./assets/sounds/drum-kits/dubstep/hihat-closed.mp3").toMaster();
+// playerHiHatOpen.volume.value = -2;
+// playerHiHat.volume.value = -2;
 
-// const playerKick = new Player("./assets/sounds/drum-kits/analog/kick.mp3").toMaster(); //aka dubstep - 808?
-// const playerKick = new Player("./assets/sounds/drum-kits/dubstep/kick.mp3").toMaster(); //aka analog - PREV
-// const playerKick = new Player("./assets/sounds/drum-kits/electronic/kick.mp3").toMaster(); //guitar pluck
-// const playerKick = new Player("./assets/sounds/drum-kits/percussion/kick.mp3").toMaster(); //normal
+// // const playerKick = new Player("./assets/sounds/drum-kits/analog/kick.mp3").toMaster(); //aka dubstep - 808?
+// // const playerKick = new Player("./assets/sounds/drum-kits/dubstep/kick.mp3").toMaster(); //aka analog - PREV
+// // const playerKick = new Player("./assets/sounds/drum-kits/electronic/kick.mp3").toMaster(); //guitar pluck
+// // const playerKick = new Player("./assets/sounds/drum-kits/percussion/kick.mp3").toMaster(); //normal
 
-// const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vh.mp3").toMaster(); // high
-const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vm.mp3").toMaster(); // medium
-// const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vl.mp3").toMaster(); // low
+// // const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vh.mp3").toMaster(); // high
+// const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vm.mp3").toMaster(); // medium
+// // const playerKick = new Player("./assets/sounds/drum-kits/808/808-kick-vl.mp3").toMaster(); // low
 
-// const playerKick = new Player("./assets/sounds/drum-kits/hiphop/kick.mp3").toMaster(); //v2, v3, v4 (boring, but not distorted)
-playerKick.volume.value = +2;
+// // const playerKick = new Player("./assets/sounds/drum-kits/hiphop/kick.mp3").toMaster(); //v2, v3, v4 (boring, but not distorted)
+// playerKick.volume.value = +2;
 
-// playerKick.volume.value = -6; // -6 broken
-// playerKick.input.value = -4; //err
-// {
-//     onload: Tone.noOp ,
-//     playbackRate: 1 ,
-//     loop: false ,
-//     autostart: false ,
-//     loopStart: 0 ,
-//     loopEnd: 0 ,
-//     reverse: false ,
-//     fadeIn: 0 ,
-//     fadeOut: 0
-// }
+// // playerKick.volume.value = -6; // -6 broken
+// // playerKick.input.value = -4; //err
+// // {
+// //     onload: Tone.noOp ,
+// //     playbackRate: 1 ,
+// //     loop: false ,
+// //     autostart: false ,
+// //     loopStart: 0 ,
+// //     loopEnd: 0 ,
+// //     reverse: false ,
+// //     fadeIn: 0 ,
+// //     fadeOut: 0
+// // }
 
-// console.log({playerKick});
-// input: AudioParam {value: 1, automationRate: "a-rate", defaultValue: 1, minValue: -3.4028234663852886e+38, maxValue: 3.4028234663852886e+38}
+// // console.log({playerKick});
+// // input: AudioParam {value: 1, automationRate: "a-rate", defaultValue: 1, minValue: -3.4028234663852886e+38, maxValue: 3.4028234663852886e+38}
 
-const playerCrash = new Player("./assets/sounds/drum-kits/hiphop/clap.mp3").toMaster(); //hand clap echo
-// const playerCrash = new Player("./assets/sounds/drum-kits/percussion/clap.mp3").toMaster(); //stick click
+// const playerCrash = new Player("./assets/sounds/drum-kits/hiphop/clap.mp3").toMaster(); //hand clap echo
+// // const playerCrash = new Player("./assets/sounds/drum-kits/percussion/clap.mp3").toMaster(); //stick click
 
-// const playerRide = new Player("./assets/sounds/drum-kits/dubstep/ride.wav").toMaster(); //drum stick click
-const playerRide = new Player("./assets/sounds/drum-kits/hiphop/ride.mp3").toMaster(); //cool click pop
-// const playerRide = new Player("./assets/sounds/drum-kits/electronic/ride.mp3").toMaster(); //high tick metal
-// const playerRide = new Player("./assets/sounds/drum-kits/percussion/ride.mp3").toMaster(); //weird low squeak 
-// const playerRide = new Player("./assets/sounds/drum-kits/analog/ride.mp3").toMaster(); // drum stick click
+// // const playerRide = new Player("./assets/sounds/drum-kits/dubstep/ride.wav").toMaster(); //drum stick click
+// const playerRide = new Player("./assets/sounds/drum-kits/hiphop/ride.mp3").toMaster(); //cool click pop
+// // const playerRide = new Player("./assets/sounds/drum-kits/electronic/ride.mp3").toMaster(); //high tick metal
+// // const playerRide = new Player("./assets/sounds/drum-kits/percussion/ride.mp3").toMaster(); //weird low squeak 
+// // const playerRide = new Player("./assets/sounds/drum-kits/analog/ride.mp3").toMaster(); // drum stick click
 
-const playerTomHigh = new Player("./assets/sounds/drum-kits/electronic/tom-high.mp3").toMaster();
-const playerTomMid = new Player("./assets/sounds/drum-kits/electronic/tom-mid.mp3").toMaster();
-const playerTomLow = new Player("./assets/sounds/drum-kits/electronic/tom-low.mp3").toMaster();
+// const playerTomHigh = new Player("./assets/sounds/drum-kits/electronic/tom-high.mp3").toMaster();
+// const playerTomMid = new Player("./assets/sounds/drum-kits/electronic/tom-mid.mp3").toMaster();
+// const playerTomLow = new Player("./assets/sounds/drum-kits/electronic/tom-low.mp3").toMaster();
 
-let flameFirst = new Flame();
+// let flameFirst = new Flame();
 
 export default class Trigger {
     constructor() {
@@ -230,29 +230,29 @@ export default class Trigger {
         // console.log('Trigger -> combinedNote: ', combinedNote);
         let drumIndex = 0;
         if (triggerObj.type === 'drum') {
-            if (triggerObj.variation === 'kick') {
-                // console.log('trigger -> playerKick: ', playerKick);
-                playerKick.start();
-                // toneKick.triggerAttackRelease("C2"); //deep
-            } else if (triggerObj.variation === 'hihat') {
-                playerHiHat.start();
-            } else if (triggerObj.variation === 'hihat-open') {
-                playerHiHatOpen.start();
-            } else if (triggerObj.variation === 'snare') {
-                toneSnare.triggerAttackRelease();
-            } else if (triggerObj.variation === 'crash') {
-                playerCrash.start();
-                // toneCrash.triggerAttackRelease("C4"); //laser
-            } else if (triggerObj.variation === 'ride') {
-                playerRide.start();
-            } else if (triggerObj.variation === 'tom-high') {
-                playerTomHigh.start(); // key: 7
-                // flameFirst.create(obj.initPosition);
-            } else {
-                // console.log('UNDEF variation - triggerNote() -> triggerObj (drum): ', triggerObj);
-                playerHiHat.start();
-            }
-            drumIndex++;
+            // if (triggerObj.variation === 'kick') {
+            //     // console.log('trigger -> playerKick: ', playerKick);
+            //     playerKick.start();
+            //     // toneKick.triggerAttackRelease("C2"); //deep
+            // } else if (triggerObj.variation === 'hihat') {
+            //     playerHiHat.start();
+            // } else if (triggerObj.variation === 'hihat-open') {
+            //     playerHiHatOpen.start();
+            // } else if (triggerObj.variation === 'snare') {
+            //     toneSnare.triggerAttackRelease();
+            // } else if (triggerObj.variation === 'crash') {
+            //     playerCrash.start();
+            //     // toneCrash.triggerAttackRelease("C4"); //laser
+            // } else if (triggerObj.variation === 'ride') {
+            //     playerRide.start();
+            // } else if (triggerObj.variation === 'tom-high') {
+            //     playerTomHigh.start(); // key: 7
+            //     // flameFirst.create(obj.initPosition);
+            // } else {
+            //     // console.log('UNDEF variation - triggerNote() -> triggerObj (drum): ', triggerObj);
+            //     playerHiHat.start();
+            // }
+            // drumIndex++;
         } else if (triggerObj.type === 'chord') { // TODO: rename, universal chord / note accessor
             // console.log('triggerNote (chord) -> combinedNote: ', combinedNote);
             // console.log('triggerNote (chord) -> triggerObj: ', triggerObj);
