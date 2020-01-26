@@ -54,34 +54,7 @@ export default {
         },
         noteCountsArr: [
             // {note: 'A', octave: 3, count: 0},
-            // {note: 'B', octave: 3, count: 0},
-            // {note: 'C', octave: 4, count: 0},
-            // {note: 'D', octave: 4, count: 0},
-            // {note: 'E', octave: 4, count: 0},
-            // {note: 'F', octave: 4, count: 0},
-            // {note: 'G', octave: 4, count: 0},
         ],
-        noteCountsDataset: {
-            source: {
-                'note': [],
-                'noteCount': [],
-                'octave': [],
-                'octaveCount': [],
-                // 'test': [1],
-                'time': [],
-            }
-        },
-        // noteCountsDatasetRow: {
-        //     source: [
-        //         {note: 'C', octave: 4, count: 10},
-        //         {note: 'C', octave: 3, count: 4},
-        //         {note: 'D', octave: 2, count: 1},
-        //         {note: 'D', octave: 3, count: 2},
-        //         {note: 'D', octave: 4, count: 3},
-        //         {note: 'D', octave: 5, count: 4},
-        //         {note: 'E', octave: 2, count: 1},
-        //     ]
-        // },
         instrData: [],
         // https://echarts.apache.org/en/option.html#dataset.source
         dataset: {

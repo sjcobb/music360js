@@ -16,8 +16,6 @@ const config = {
         'bundle.js': [
             path.resolve(__dirname, 'node_modules/stats.js/build/stats.min.js'),
             path.resolve(__dirname, 'node_modules/webmidi/webmidi.min.js'),
-            // path.resolve(__dirname, 'node_modules/tonal/build/es6.js'),
-            // path.resolve(__dirname, 'node_modules/tone/build/Tone.js'),
             path.resolve(__dirname, 'src/js/Fire.js'),
             path.resolve(__dirname, 'src/js/FireShader.js'),
             path.resolve(__dirname, 'src/js/Store.js'),
@@ -32,7 +30,6 @@ const config = {
             path.resolve(__dirname, 'src/js/Light.js'),
             path.resolve(__dirname, 'src/js/app.js'),
             path.resolve(__dirname, 'src/js/Audio.js'),
-            path.resolve(__dirname, 'src/js/Input.js'),
             path.resolve(__dirname, 'src/js/ui.js')
         ]
     },

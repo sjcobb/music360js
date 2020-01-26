@@ -61,8 +61,9 @@ Store.polySynth = new Tone.PolySynth(10, Tone.Synth, {
 	// },
 }).toMaster();
 
-// Store.polySynth.volume.value = -8; // v0.4, v0.5
-Store.polySynth.volume.value = -6;
+Store.polySynth.volume.value = -8; // v0.4, v0.5
+// Store.polySynth.volume.value = -6;
+
 // Store.polySynth.set("detune", +1200); // octave = 12 semitones of 100 cents each
 // Store.polySynth.set("detune", +1200);
 

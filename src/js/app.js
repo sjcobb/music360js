@@ -1,20 +1,10 @@
-import Tone from 'Tone';
 import Store from './Store.js';
 import InstrumentMappings from './InstrumentMappings.js';
 import { getInstrumentMappingTemplate, generateInstrMetadata, getInstrByInputNote } from './InstrumentMappings.js';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 import Light from './Light.js';
-import Flame from './Flame.js';
 import Physics from './Physics.js';
-import Helpers from './Helpers.js';
-import Pool from './Pool.js';
-import Trigger from './Trigger.js';
-import * as Tonal from "tonal";
-
 import Stats from 'stats.js';
-
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-
 
 /***
  *** SCENE SETUP ***
@@ -28,7 +18,6 @@ if (Store.view.showStats === true) {
     stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
     document.body.appendChild( stats.dom );
 }
-
 
 const instrument = new InstrumentMappings();
 
@@ -81,12 +70,6 @@ Store.controls.dragToLook = true;
 //*** LOADER ***
 Store.loader = new THREE.TextureLoader();
 
-function onTextureLoaded(texture) {
-    console.log('onTextureLoaded() run......');
-    // loadSkyBox();
-    // setupStage(); // high end VR devices stage parameters into account
-}
-
 const light = new Light();
 light.addLights(Store.renderer);
 
@@ -136,7 +119,6 @@ const globalSkyboxTheme = 'nightsky';
 var skyboxGeometry = new THREE.CubeGeometry(1800, 1800, 1800);
 
 var cubeMaterials = [
-    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/flame/FireOrig.png`), side: THREE.DoubleSide }), //front side
     new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/ft.png`), side: THREE.DoubleSide }), //front side
     new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/bk.png`), side: THREE.DoubleSide }), //back side
     new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/up.png`), side: THREE.DoubleSide }), //up side
@@ -335,7 +317,9 @@ function createCharts(showGrid = false) {
             '#c12e34','#e6b600','#0098d9','#2b821d',
             '#005eaa','#339ca8','#cda819','#32a487'
         ],
-        tooltip: {},
+        tooltip: {
+            show: false
+        },
         legend: {
             // data:['Note']
         },
@@ -477,11 +461,17 @@ function createCharts(showGrid = false) {
                 // type: 'bar',
                 type: 'bar3D',
                 // shading: 'lambert',
+                label: {
+                    formatter: (value) => {
+                        // console.log(value);
+                        return value.data.count;
+                    }
+                },
                 encode: {
                     // x: 0,
                     // y: 1,
                     // z: 1,
-                    label: 'note',
+                    // label: 'note',
                     y: 'note',
                     x: 'octave',
                     // y: 'time',
@@ -532,18 +522,12 @@ function createCharts(showGrid = false) {
             //     }
             // }
         ],
-        // dataset: dataset,
         dataset: {
-            // source: Store.dashboard.noteCountsDataset.source,
-            // source: Store.dashboard.noteCountsDatasetRow.source,
             source: Store.dashboard.noteCountsArr,
             dimensions: ['note', 'octave', 'count'],
             // imensions: ['note', 'noteCount', 'octave', 'octaveCount', 'time'],
-            // source: Store.dashboard.noteCounts,
         },
     };
-
-    // Store.dashboard.chart.resize(); // no effect
 
     // console.log({option});
     Store.dashboard.chart.setOption(option);
