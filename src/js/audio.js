@@ -1,122 +1,122 @@
-import Store from './Store.js';
-import Tone from 'Tone';
-import Physics from './Physics.js';
-import Flame from './Flame.js';
+// import Store from './Store.js';
+// import Tone from 'Tone';
+// import Physics from './Physics.js';
+// import Flame from './Flame.js';
 
-let flameAudio = new Flame();
+// let flameAudio = new Flame();
 
-/*
- *** AUDIO ***
- */
-
-
-const physics = new Physics();
-
-//-----INSTRUMENT PARTS------//
-var allDrumsPart = new Tone.Part(function(time, instr) {
-    // physics.addBody(true, time * Store.multiplierPosX, instr);
-    physics.addBody(true, Store.dropPosX, instr);
-}, [
-    ["0:0:0", Store.instr.kickPrimary],
-    // ["0:0:0", Store.instr.snarePrimary],
-
-    // ["0:6:0", Store.instr.kickPrimary],
-    ["0:6:0", Store.instr.snarePrimary],
-
-    ["0:10:0", Store.instr.kickPrimary],
-    // ["0:10:0", Store.instr.snarePrimary],
-
-    // ["0:10:0", Store.instr.snarePrimary],
-
-    // ["0:8:0", Store.instr.crashPrimary],
-    // ["0:8:0", Store.instr.snarePrimary],
-
-    // ["0:4:0", Store.instr.tomHigh],
-]);
-allDrumsPart.loop = true;
-// allDrumsPart.start("1:0:0");
-
-var introPart = new Tone.Part(function(time, instr) {
-    // TODO: use Store.dropCoordCircle [0] and [719] for dropPosX and dropPosY (must be added as param to addBody) coordinates
-    // console.log('introPart -> dropPosX, dropPosY: ', Store.dropPosX, '-', Store.dropPosY);
-    physics.addBody(true, Store.dropPosX, instr, 0);
-    // physics.addBody(true, time * Store.multiplierPosX, instr); // sine wave
-}, [
-    ["0:0:0", Store.instr.hiHatClosed],
-    ["0:1:0", Store.instr.hiHatClosed],
-    ["0:2:0", Store.instr.hiHatClosed],
-    ["0:3:0", Store.instr.hiHatClosed],
-    ["0:4:0", Store.instr.hiHatClosed],
-    ["0:5:0", Store.instr.hiHatClosed],
-    ["0:6:0", Store.instr.hiHatClosed],
-    ["0:7:0", Store.instr.hiHatClosed],
-    ["0:8:0", Store.instr.hiHatClosed],
-    ["0:9:0", Store.instr.hiHatClosed],
-    ["0:10:0", Store.instr.hiHatClosed],
-    ["0:11:0", Store.instr.hiHatClosed],
-    // ["0:0:0", Store.instr.hiHatOpen],
-]);
-introPart.loop = 6;
-introPart.loop = true;
-// introPart.start("0:0:0");
-
-var secPosPart = new Tone.Part(function(time, instr) {
-    physics.addBody(true, Store.dropPosX, instr, 1);
-}, [
-    //[ "0:0:0", Store.instr.hiHatClosed],
-    // ["0:2:0", Store.instr.kickPrimary],
-    ["0:0:0", Store.instr.snarePrimary],
-]);
-secPosPart.loop = true;
-// secPosPart.start("0:0:0");
+// /*
+//  *** AUDIO ***
+//  */
 
 
-var thirdPosPart = new Tone.Part(function(time, instr) {
-    physics.addBody(true, Store.dropPosX, instr, 2);
-}, [
-    ["0:0:0", Store.instr.kickPrimary],
-]);
-thirdPosPart.loop = true;
-// thirdPosPart.start("0:0:0");
+// const physics = new Physics();
 
-var fourthPosPart = new Tone.Part(function(time, instr) {
-    physics.addBody(true, Store.dropPosX, instr, 3);
-}, [
-    ["0:0:0", Store.instr.kickPrimary],
-]);
-fourthPosPart.loop = true;
-// fourthPosPart.start("0:0:0");
+// //-----INSTRUMENT PARTS------//
+// var allDrumsPart = new Tone.Part(function(time, instr) {
+//     // physics.addBody(true, time * Store.multiplierPosX, instr);
+//     physics.addBody(true, Store.dropPosX, instr);
+// }, [
+//     ["0:0:0", Store.instr.kickPrimary],
+//     // ["0:0:0", Store.instr.snarePrimary],
 
+//     // ["0:6:0", Store.instr.kickPrimary],
+//     ["0:6:0", Store.instr.snarePrimary],
 
-// var groovePart = new Tone.Part(function(time, instr) {
-//     physics.addBody(true, time * Store.multiplierPosX, instr);
+//     ["0:10:0", Store.instr.kickPrimary],
+//     // ["0:10:0", Store.instr.snarePrimary],
+
+//     // ["0:10:0", Store.instr.snarePrimary],
+
+//     // ["0:8:0", Store.instr.crashPrimary],
+//     // ["0:8:0", Store.instr.snarePrimary],
+
+//     // ["0:4:0", Store.instr.tomHigh],
+// ]);
+// allDrumsPart.loop = true;
+// // allDrumsPart.start("1:0:0");
+
+// var introPart = new Tone.Part(function(time, instr) {
+//     // TODO: use Store.dropCoordCircle [0] and [719] for dropPosX and dropPosY (must be added as param to addBody) coordinates
+//     // console.log('introPart -> dropPosX, dropPosY: ', Store.dropPosX, '-', Store.dropPosY);
+//     physics.addBody(true, Store.dropPosX, instr, 0);
+//     // physics.addBody(true, time * Store.multiplierPosX, instr); // sine wave
 // }, [
 //     ["0:0:0", Store.instr.hiHatClosed],
+//     ["0:1:0", Store.instr.hiHatClosed],
 //     ["0:2:0", Store.instr.hiHatClosed],
 //     ["0:3:0", Store.instr.hiHatClosed],
-//     ["0:4:0", Store.instr.hiHatOpen],
-
-//     ["0:8:0", Store.instr.snarePrimary],
-
-//     ["0:6:0", Store.instr.kickPrimary],
+//     ["0:4:0", Store.instr.hiHatClosed],
+//     ["0:5:0", Store.instr.hiHatClosed],
+//     ["0:6:0", Store.instr.hiHatClosed],
+//     ["0:7:0", Store.instr.hiHatClosed],
+//     ["0:8:0", Store.instr.hiHatClosed],
+//     ["0:9:0", Store.instr.hiHatClosed],
+//     ["0:10:0", Store.instr.hiHatClosed],
+//     ["0:11:0", Store.instr.hiHatClosed],
+//     // ["0:0:0", Store.instr.hiHatOpen],
 // ]);
-// groovePart.loop = 2;
-// // groovePart.start("0:0:0");
+// introPart.loop = 6;
+// introPart.loop = true;
+// // introPart.start("0:0:0");
 
-//-----KEYBOARED PARTS------//
+// var secPosPart = new Tone.Part(function(time, instr) {
+//     physics.addBody(true, Store.dropPosX, instr, 1);
+// }, [
+//     //[ "0:0:0", Store.instr.hiHatClosed],
+//     // ["0:2:0", Store.instr.kickPrimary],
+//     ["0:0:0", Store.instr.snarePrimary],
+// ]);
+// secPosPart.loop = true;
+// // secPosPart.start("0:0:0");
 
-var introPianoPart = new Tone.Part(function(time, instr) {
-    physics.addBody(true, time * Store.multiplierPosX, instr);
-}, [
-    ["0:0:0", Store.instr.sphereChordC5],
-    ["0:4:0", Store.instr.sphereChordF5],
-    ["0:8:0", Store.instr.sphereChordA4],
-    ["0:9:0", Store.instr.sphereChordA4],
-    ["0:10:0", Store.instr.sphereChordG4],
-]);
-// introPianoPart.loop = 2;
-introPianoPart.loop = true;
-// introPianoPart.start("0:0:0");
+
+// var thirdPosPart = new Tone.Part(function(time, instr) {
+//     physics.addBody(true, Store.dropPosX, instr, 2);
+// }, [
+//     ["0:0:0", Store.instr.kickPrimary],
+// ]);
+// thirdPosPart.loop = true;
+// // thirdPosPart.start("0:0:0");
+
+// var fourthPosPart = new Tone.Part(function(time, instr) {
+//     physics.addBody(true, Store.dropPosX, instr, 3);
+// }, [
+//     ["0:0:0", Store.instr.kickPrimary],
+// ]);
+// fourthPosPart.loop = true;
+// // fourthPosPart.start("0:0:0");
+
+
+// // var groovePart = new Tone.Part(function(time, instr) {
+// //     physics.addBody(true, time * Store.multiplierPosX, instr);
+// // }, [
+// //     ["0:0:0", Store.instr.hiHatClosed],
+// //     ["0:2:0", Store.instr.hiHatClosed],
+// //     ["0:3:0", Store.instr.hiHatClosed],
+// //     ["0:4:0", Store.instr.hiHatOpen],
+
+// //     ["0:8:0", Store.instr.snarePrimary],
+
+// //     ["0:6:0", Store.instr.kickPrimary],
+// // ]);
+// // groovePart.loop = 2;
+// // // groovePart.start("0:0:0");
+
+// //-----KEYBOARED PARTS------//
+
+// var introPianoPart = new Tone.Part(function(time, instr) {
+//     physics.addBody(true, time * Store.multiplierPosX, instr);
+// }, [
+//     ["0:0:0", Store.instr.sphereChordC5],
+//     ["0:4:0", Store.instr.sphereChordF5],
+//     ["0:8:0", Store.instr.sphereChordA4],
+//     ["0:9:0", Store.instr.sphereChordA4],
+//     ["0:10:0", Store.instr.sphereChordG4],
+// ]);
+// // introPianoPart.loop = 2;
+// introPianoPart.loop = true;
+// // introPianoPart.start("0:0:0");
 
 /*
 const boleroFireChords = [

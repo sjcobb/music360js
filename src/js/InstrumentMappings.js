@@ -135,88 +135,88 @@ export function getInstrByNote(inputNote = 'C4') {
 export function getInstrumentMappingTemplate(movement = 'physics') {
     //const instrumentMapping = {
     return {
-        flameCenter: {
-            type: 'animation',
-            triggerOn: 2,
-            timesTriggered: 0,
-            originalPosition: { x: 0, y: 0, z: -5 }
-        },
-        hiHatClosed: {
-            ballDesc: 'H',
-            // color: '#ff0000', //red
-            color: '#64b5f6', // human (lt blue)
-            keyInput: '1',
-            movement: movement, //default: 'physics', or 'static'
-            type: 'drum',
-            variation: 'hihat',
-            // originalPosition: { x: -3, y: 1.5, z: 1 }
-            originalPosition: { x: 0, y: 0, z: 10 }
-        },
-        hiHatOpen: {
-            ballDesc: 'H',
-            // ballDesc: 'H+',
-            // color: '#990000', //dkred
-            color: '#64b5f6', // human (lt blue)
-            keyInput: '2',
-            // movement: 'static',
-            type: 'drum',
-            variation: 'hihat-open',
-            originalPosition: { x: 0, y: 0, z: -3 }
-        },
-        snarePrimary: {
-            ballDesc: 'S',
-            // color: '#FFFF00', //yellow
-            color: '#64b5f6', // human (lt blue)
-            keyInput: '3',
-            type: 'drum',
-            variation: 'snare',
-            originalPosition: { x: -3, y: 1.5, z: 1 }
-            // originalPosition: { x: 0, y: 0, z: (globalStaffLineSecondZ + 5) }
-        },
-        kickPrimary: {
-            // ballDesc: 'K', // beat-v1
-            // ballDesc: 'B',
-            ballDesc: '808',
-            // color: '#003366', //midnight blue
-            color: '#64b5f6', // human (lt blue)
-            keyInput: '4',
-            type: 'drum',
-            variation: 'kick',
-            // originalPosition: { x: 0, y: 0, z: 5 }, // drum staff
-            // originalPosition: { x: 0, y: 0, z: 4 }, // B
-            originalPosition: { x: 0, y: 0, z: 2 }, // B
-            // originalPosition: { x: 0, y: 0, z: 1 },
-            size: 'xl',
-        },
-        crashPrimary: {
-            ballDesc: 'Cr',
-            // color: '#FFA500', //orange
-            color: '#8B008B', //darkmagenta
-            color: '#64b5f6', // human (lt blue)
-            keyInput: '5',
-            type: 'drum',
-            variation: 'crash', //aka clap
-            // originalPosition: { x: 0, y: 0, z: -4 }
-            originalPosition: { x: 0, y: 0, z: 2 }
-        },
-        ridePrimary: {
-            ballDesc: 'R',
-            // color: '#FFD700', //gold
-            color: '#64b5f6', // human (lt blue)
-            keyInput: '6',
-            type: 'drum',
-            variation: 'ride',
-            originalPosition: { x: 0, y: 0, z: -2 }
-        },
-        tomHigh: {
-            ballDesc: 'T',
-            // color: '#006400', //dkgreen
-            color: '#64b5f6', // human (lt blue)
-            keyInput: '7',
-            type: 'drum',
-            variation: 'tom-high',
-            originalPosition: { x: 0, y: 0, z: 0 }
-        },
+        // flameCenter: {
+        //     type: 'animation',
+        //     triggerOn: 2,
+        //     timesTriggered: 0,
+        //     originalPosition: { x: 0, y: 0, z: -5 }
+        // },
+        // hiHatClosed: {
+        //     ballDesc: 'H',
+        //     // color: '#ff0000', //red
+        //     color: '#64b5f6', // human (lt blue)
+        //     keyInput: '1',
+        //     movement: movement, //default: 'physics', or 'static'
+        //     type: 'drum',
+        //     variation: 'hihat',
+        //     // originalPosition: { x: -3, y: 1.5, z: 1 }
+        //     originalPosition: { x: 0, y: 0, z: 10 }
+        // },
+        // hiHatOpen: {
+        //     ballDesc: 'H',
+        //     // ballDesc: 'H+',
+        //     // color: '#990000', //dkred
+        //     color: '#64b5f6', // human (lt blue)
+        //     keyInput: '2',
+        //     // movement: 'static',
+        //     type: 'drum',
+        //     variation: 'hihat-open',
+        //     originalPosition: { x: 0, y: 0, z: -3 }
+        // },
+        // snarePrimary: {
+        //     ballDesc: 'S',
+        //     // color: '#FFFF00', //yellow
+        //     color: '#64b5f6', // human (lt blue)
+        //     keyInput: '3',
+        //     type: 'drum',
+        //     variation: 'snare',
+        //     originalPosition: { x: -3, y: 1.5, z: 1 }
+        //     // originalPosition: { x: 0, y: 0, z: (globalStaffLineSecondZ + 5) }
+        // },
+        // kickPrimary: {
+        //     // ballDesc: 'K', // beat-v1
+        //     // ballDesc: 'B',
+        //     ballDesc: '808',
+        //     // color: '#003366', //midnight blue
+        //     color: '#64b5f6', // human (lt blue)
+        //     keyInput: '4',
+        //     type: 'drum',
+        //     variation: 'kick',
+        //     // originalPosition: { x: 0, y: 0, z: 5 }, // drum staff
+        //     // originalPosition: { x: 0, y: 0, z: 4 }, // B
+        //     originalPosition: { x: 0, y: 0, z: 2 }, // B
+        //     // originalPosition: { x: 0, y: 0, z: 1 },
+        //     size: 'xl',
+        // },
+        // crashPrimary: {
+        //     ballDesc: 'Cr',
+        //     // color: '#FFA500', //orange
+        //     color: '#8B008B', //darkmagenta
+        //     color: '#64b5f6', // human (lt blue)
+        //     keyInput: '5',
+        //     type: 'drum',
+        //     variation: 'crash', //aka clap
+        //     // originalPosition: { x: 0, y: 0, z: -4 }
+        //     originalPosition: { x: 0, y: 0, z: 2 }
+        // },
+        // ridePrimary: {
+        //     ballDesc: 'R',
+        //     // color: '#FFD700', //gold
+        //     color: '#64b5f6', // human (lt blue)
+        //     keyInput: '6',
+        //     type: 'drum',
+        //     variation: 'ride',
+        //     originalPosition: { x: 0, y: 0, z: -2 }
+        // },
+        // tomHigh: {
+        //     ballDesc: 'T',
+        //     // color: '#006400', //dkgreen
+        //     color: '#64b5f6', // human (lt blue)
+        //     keyInput: '7',
+        //     type: 'drum',
+        //     variation: 'tom-high',
+        //     originalPosition: { x: 0, y: 0, z: 0 }
+        // },
         sphereChordG1: {
             ballDesc: 'G',
             color: '#4B0AA1', //V - dkblue
