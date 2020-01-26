@@ -1,5 +1,5 @@
 {
-  "name": "ai-duet-3d",
+  "name": "music360js",
   "version": "0.0.1",
   "description": "https://www.youtube.com/channel/UCo_IXLTK8dtF2qOUCt4l47Q",
   "main": "index.js",
@@ -21,9 +21,9 @@
   "author": "sjcobb",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sjcobb/ai-duet-3d/issues"
+    "url": "https://github.com/sjcobb/music360js/issues"
   },
-  "homepage": "https://github.com/sjcobb/ai-duet-3d#readme",
+  "homepage": "https://github.com/sjcobb/music360js#readme",
   "dependencies": {
     "@tonaljs/midi": "^3.3.1",
     "gulp": "^4.0.2",

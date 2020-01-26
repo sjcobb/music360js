@@ -1,38 +1,19 @@
-# AI Duet 3D
+# Music Visualization Experiments
 
-## Overview
+This repo contains the current state of a new approach for visualizing sheet music by using bouncing balls with note duration encoded on the Z axis. 
 
-This project is in active development and is not live yet. Until release v1.0.0, when the full UI implementation is planned (currently a MIDI controller must be used to jam with the machine learning model), all progress can be tracked on the [AI Duet - JavaScript Music Animation YouTube channel](https://www.youtube.com/channel/UCo_IXLTK8dtF2qOUCt4l47Q).
+The note names are overlaid on each sphere so that the user does not need to remember what each staff line represents or which key the piece is in (flat or sharp is shown directly beside the note letter, ex: "Gb").
 
-## Release Notes
+[I have also experimented](https://www.youtube.com/watch?v=RX_kNGIzA8U) with using color to indicate intervals as described by Stephen Malinowski of the [popular smalin channel](https://www.youtube.com/user/smalin) here: http://www.musanim.com/mam/pfifth.htm
 
-### 0.5
+## YouTube Channel
 
-synth changes, bugfixes / refactoring, ui updates: https://www.youtube.com/watch?v=KGOxn0_Hj_k
+https://www.youtube.com/channel/UCo_IXLTK8dtF2qOUCt4l47Q
 
-### 0.4
+## AI Duet 3D
 
-neural network melody right hand + human left hand: https://www.youtube.com/watch?v=tTNFgoKaEnA
+https://github.com/sjcobb/ai-duet-3d
 
-### 0.3
+## CodePen
 
-drum machine spinner: https://www.youtube.com/watch?v=2uCANP7zd4s
-
-### 0.2
-
-melody autocompletion: https://www.youtube.com/watch?v=uT5s3Svk7Fo
-
-### 0.1
-
-first 3D prototype: https://www.youtube.com/watch?v=8QR59RP-Z_8
-
-## Project Inspiration 
-
-- Original A.I. Duet: https://github.com/googlecreativelab/aiexperiments-ai-duet
-- [ANIMUSIC videos](https://www.animusic.com/dvds) - [Pipe Dream](https://www.youtube.com/watch?v=hyCIpKAIFyo)
-- All of the amazing work by [teropa](https://github.com/teropa):
-  - Neural Arpeggiator: https://codepen.io/teropa/pen/ddqEwj
-  - Neural Drum Machine: https://codepen.io/teropa/pen/JLjXGK
-  - Neural Melody Autocompletion: https://codepen.io/teropa/pen/gvwwZL
-- Performance RNN: https://magenta.tensorflow.org/performance-rnn
-- Magenta demos: https://magenta.tensorflow.org/demos
+https://codepen.io/sjcobb
