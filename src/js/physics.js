@@ -31,7 +31,7 @@ export default class Physics {
 
         Store.world.broadphase = new CANNON.NaiveBroadphase();
         Store.world.gravity.set(0, -10, 0);
-        this.debugRenderer = new THREE.CannonDebugRenderer(Store.scene, Store.world);
+        // this.debugRenderer = new THREE.CannonDebugRenderer(Store.scene, Store.world);
 
         this.shapes = {};
         this.shapes.sphere = new CANNON.Sphere(0.5);
@@ -632,9 +632,9 @@ export default class Physics {
 
     updatePhysics() {
         // TODO: uncomment debugRenderer after fix scene undef err
-        if (this.physics.debugRenderer !== undefined) {
-            this.physics.debugRenderer.scene.visible = true;
-        }
+        // if (this.physics.debugRenderer !== undefined) {
+        //     this.physics.debugRenderer.scene.visible = true;
+        // }
     }
 
     // updateMeshPositions() {

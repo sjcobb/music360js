@@ -1,5 +1,7 @@
 # Music Visualization Experiments
 
+Live application: https://sjcobb.github.io/music360js
+
 This repo contains the current state of a new approach for visualizing sheet music by using bouncing balls with note duration encoded on the Z axis. 
 
 The note names are overlaid on each sphere so that the user does not need to remember what each staff line represents or which key the piece is in (flat or sharp is shown directly beside the note letter, ex: "Gb").
