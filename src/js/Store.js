@@ -23,8 +23,9 @@ export default {
     },
     autoScroll: true,
     autoStartTime: 4500,
-    bpm: 120, // v0.4
-    // bpm: 160,
+    // bpm: 120, // v0.4
+    // bpm: 140,
+    bpm: 160,
     camera: new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000),
     // cameraCircularAnimation: false, // true - drum spinner (v0.3), NOW view.drumCircle
     cameraLookUp: false,
@@ -144,21 +145,25 @@ export default {
         skybox: false,
         cameraPositionBehind: true,
         cameraAutoStart: true,
-        // posBehindX: -30,
-        // posBehindY: 2,
-        // posBehindZ: 3.8,
-        // posBehindX: -55,
+        // posBehindX: -70,
+        // posBehindY: 8,
+        // posBehindZ: 1,
+
         posBehindX: -70,
-        posBehindY: 8,
-        // posBehindZ: 0,
-        posBehindZ: 1,
+        posBehindY: 4,
+        posBehindZ: 0,
+
         songAutoStart: true,
+        showDashboard: true,
         showLogoSprite: false,
         showStats: false,
         showStaff: {
-            bass: true,
-            treble: true,
+            bass: false,
+            treble: false,
         },
+        stage: {
+            size: 'lg',
+        }
     },
     world: new CANNON.World(),
 };

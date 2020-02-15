@@ -52,6 +52,11 @@ export default class Physics {
             sizeArr = [5000, 15, 5];
         }
 
+        if (Store.view.stage.size === 'lg') {
+            posArr = [0, -6, -2];
+            sizeArr = [5000, 50, 5];
+        }
+
         // FLOOR
         //TODO: add colored ground on contact here
         //http://schteppe.github.io/cannon.js/docs/classes/ContactMaterial.html
@@ -115,7 +120,8 @@ export default class Physics {
 
         let sphereRestitution = 0.3;
         if (options.type === 'drum') {
-            sphereRestitution = 0.3; //prev: 0.9, 0.1 = one bounce
+            // sphereRestitution = 0.3; //prev: 0.9, 0.1 = one bounce
+            sphereRestitution = 0.2;
         } else {
             // console.log('options.duration: ', options.duration);
             if (options.duration > 0) { // TODO: rename options.noteLength so not confusing with arr length
@@ -182,11 +188,13 @@ export default class Physics {
             // https://codepen.io/danlong/pen/LJQYYN
             // zPos += 10; // PREV: see Store.staffLineInitZ and Store.staffLineSecondZ
 
-            zPos -= 8; // TODO: is this still needed?
+            // zPos -= 8; // TODO: is this still needed?
         } else {
             // zPos -= 3; // v0.4, v0.5
 
-            zPos += 2;
+            if (Store.view.showStaff.treble === true) {
+                zPos += 2;
+            }
         }
 
         if (Store.cameraCircularAnimation === true) {

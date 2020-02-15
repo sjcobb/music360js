@@ -34,7 +34,8 @@ Store.camera.lookAt(new THREE.Vector3(0, -2.5, 0)); // v0.5
 
 if (Store.view.cameraPositionBehind === true) {
     Store.camera.position.set(Store.view.posBehindX, Store.view.posBehindY, Store.view.posBehindZ);
-    Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ));
+    // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ));
+    Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 12, Store.view.posBehindZ));
 }
 
 if (Store.cameraLookUp === true) {
@@ -589,19 +590,15 @@ function getChartTexture(chart) {
     return canvasTexture;
 }
 
-initDashboardData();
+if (Store.view.showDashboard === true) {
+    initDashboardData();
 
-// const lastNoteLength = Store.dashboard.recentPlayedNotes.length;
-const lastNoteLength = Store.dashboard.allPlayedNotes.length;
-setInterval(() => {
+    setInterval(() => {
+        if (Store.dashboard.allPlayedNotes.length !== Store.dashboard.lastNoteLength) {
+            updateDashboardData();
+            Store.dashboard.lastNoteLength = Store.dashboard.recentPlayedNotes.length;
+            // addDashboard3D();
+        }
+    }, 100);
 
-    // if (Store.dashboard.recentPlayedNotes.length !== Store.dashboard.lastNoteLength) {
-    if (Store.dashboard.allPlayedNotes.length !== Store.dashboard.lastNoteLength) {
-        updateDashboardData();
-        Store.dashboard.lastNoteLength = Store.dashboard.recentPlayedNotes.length;
-        // console.log('Store.dashboard.lastNoteLength: ', Store.dashboard.lastNoteLength);
-
-        // addDashboard3D();
-    }
-
-}, 100);
+}
