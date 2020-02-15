@@ -17,7 +17,8 @@ export default {
     // activeInstrColor: '#003366', // spinner midnight blue
     // activeInstrColor: '#001f3e',
     // activeInstrColor: '#1f1f1f',
-    activeInstrColor: '#343434',
+    // activeInstrColor: '#343434', // PREV (gray)
+    activeInstrColor: '#ffffff',
     ai: {
         enabled: false,
     },
@@ -154,7 +155,7 @@ export default {
         posBehindZ: 0,
 
         songAutoStart: true,
-        showDashboard: true,
+        showDashboard: false,
         showLogoSprite: false,
         showStats: false,
         showStaff: {

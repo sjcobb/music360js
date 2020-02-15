@@ -5234,13 +5234,13 @@ const recordingPart = new Tone.Part(function(time, datum){
 // recordingPart.loop = true;
 recordingPart.start("0:0:0");
 
-
 const recordingSecondPart = new Tone.Part(function(time, datum){
     // console.log(time);
     // console.log(datum);
 
     const instrMapped = generateInstrMetadata(datum.name);
 
+    // instrMapped.color = '#0000cd';
     instrMapped.color = '#003366'; 
     instrMapped.originalPosition.z += 20;
 

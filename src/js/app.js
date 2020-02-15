@@ -274,9 +274,11 @@ window.onload = () => {
 
     animate();
 
-    setTimeout(() => {
-        createCharts(false);
-    }, 3000);
+    if (Store.view.showDashboard === true) {
+        setTimeout(() => {
+            createCharts(false);
+        }, 3000);
+    }
 
 };
 
