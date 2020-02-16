@@ -127,7 +127,10 @@ export default class Physics {
             if (options.duration > 0) { // TODO: rename options.noteLength so not confusing with arr length
                 // sphereRestitution = options.length / 2;
                 // sphereRestitution = options.duration * 0.65; // PREV
-                sphereRestitution = options.duration * 0.58;
+
+                sphereRestitution = options.duration * 0.55; // higher decimal = higher bounce
+                // sphereRestitution = options.duration * 0.58; // twinkle star
+
                 // sphereRestitution = options.length * 1;
 
                 // TODO: clean up bounciness default and min / max height
@@ -445,8 +448,8 @@ export default class Physics {
 
                     // boxGeometry.scale.set(10, 10, 10); // not a function
 
-                    // mesh = new THREE.Mesh(boxGeometry, material); // v0.5
-                    mesh = new THREE.Mesh(boxGeometry, floorMaterial);
+                    mesh = new THREE.Mesh(boxGeometry, material); // v0.5
+                    // mesh = new THREE.Mesh(boxGeometry, floorMaterial); // new earthquake asset
                     break;
 
                 case CANNON.Shape.types.CONVEXPOLYHEDRON:

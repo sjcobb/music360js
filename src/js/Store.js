@@ -17,13 +17,14 @@ export default {
     // activeInstrColor: '#003366', // spinner midnight blue
     // activeInstrColor: '#001f3e',
     // activeInstrColor: '#1f1f1f',
-    // activeInstrColor: '#343434', // PREV (gray)
-    activeInstrColor: '#ffffff',
+    activeInstrColor: '#343434', // PREV (gray)
+    // activeInstrColor: '#ffffff',
     ai: {
         enabled: false,
     },
     autoScroll: true,
-    autoStartTime: 4500,
+    // autoStartTime: 4500,
+    autoStartTime: 0,
     // bpm: 120, // v0.4
     // bpm: 140,
     bpm: 160,
@@ -159,11 +160,11 @@ export default {
         showLogoSprite: false,
         showStats: false,
         showStaff: {
-            bass: false,
-            treble: false,
+            bass: true,
+            treble: true,
         },
         stage: {
-            size: 'lg',
+            // size: 'lg',
         }
     },
     world: new CANNON.World(),

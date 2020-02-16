@@ -97,10 +97,16 @@ export function generateInstrMetadata(note) {
 
     // console.log('(generateInstrMetadata) -> instrMapped: ', instrMapped);
     // TODO: best way to set color for machine, human, reg keyboard???
-    if (instrMapped.color) {
-        // instrMapped.color = '#64b5f6'; // human blue
-        instrMapped.color = '#FFFF00'; // yellow
+    // if (instrMapped.color) {
+    if (instrMapped !== undefined) {
+        instrMapped.color = '#64b5f6'; // human blue
+        // instrMapped.color = '#FFFF00'; // yellow
     }
+
+    if (instrMapped === undefined) {
+        console.log('(generateInstrMetadata) -> UNDEF note: ', note);
+    }
+    // console.log(instrMapped);
     
     return instrMapped;
 }
@@ -398,7 +404,7 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             chord: ['C4', 'E4', 'G4'],
             type: 'chord',
             // length: '8n', // '4n', '2n'
-            duration: '8n',
+            // duration: '8n',
             originalPosition: { x: 0, y: 0, z: -2 }
         },
         sphereChordD4: {
@@ -484,7 +490,7 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
         sphereChordE5: {
             ballDesc: 'E',
             color: '#FF001F', //III - redorange
-            keyInput: 'F',
+            keyInput: '?',
             note: 'E',
             octave: 5,
             chord: ['E5', 'G5', 'B5'],
@@ -510,6 +516,36 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             chord: ['G5', 'B5', 'D6'],
             type: 'chord',
             originalPosition: { x: 0, y: 0, z: -13 }
+        },
+        sphereChordA5: {
+            ballDesc: 'A',
+            color: '#C6018B', //VI - pink
+            keyInput: '?',
+            note: 'A',
+            octave: 5,
+            chord: ['A5', 'C6', 'E6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -14 }
+        },
+        sphereChordB5: {
+            ballDesc: 'B',
+            color: '#FF872B', //VII - orange
+            keyInput: '?',
+            note: 'B',
+            octave: 5,
+            chord: ['B5', 'D6', 'F6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -15 }
+        },
+        sphereChordC6: {
+            ballDesc: 'C',
+            color: '#0018F9', //I - blue
+            keyInput: '?',
+            note: 'C',
+            octave: 6,
+            chord: ['C6', 'E6', 'G6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -16 }
         },
         // Db2, Eb2, Gb2, Ab2, Bb2, Db3, Eb3, Gb3, Ab3, Bb3
     };
