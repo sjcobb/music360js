@@ -38,14 +38,14 @@ export default class Physics {
         this.shapes.box = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5));
 
         // this.animate();
-        this.initGroundContactMaterial(0.3);
-        // this.initGroundContactMaterial(0.3, [0, 10, 0]);
-        // this.initGroundContactMaterial(0.3, [0, 5, 0], [2, 2, 0.1]);
+        this.initGroundContactMaterial();
+        // this.initGroundContactMaterial([0, 10, 0]);
+        // this.initGroundContactMaterial([0, 5, 0], [2, 2, 0.1]);
 
         // this.addSpinner();
     }
 
-    initGroundContactMaterial(restitutionValue = 0.3, posArr=[0, -6, 0], sizeArr=[5000, 10, 5]) {
+    initGroundContactMaterial(posArr=[0, -6, 0], sizeArr=[5000, 10, 5]) {
 
         if (Store.view.showStaff.treble === true && Store.view.showStaff.bass === true) {
             posArr = [0, -6, -2];
@@ -88,42 +88,53 @@ export default class Physics {
         // if (this.useVisuals) this.helper.this.addVisual(groundBody, 'ground', false, true);
         this.addVisual(groundBody, 'ground', false, true); // PREV
 
-        this.createFloor(groundBody);
+        // this.createFloor([70, -1, -2], [20, 20, 0.1], 0);
     }
 
-    createFloor(body) {
+    padToThree(number) {
+        if (number<=999) { number = ("00"+number).slice(-3); }
+        return number;
+    }
+
+    createFloor(posArr, sizeArr, floorIndex=0) {
         ///////////
         // FLOOR //
         // https://github.com/sjcobb/ice-cavern/blob/master/js/scene.js#L73
         ///////////
 
-        const floorSizeArr = [20, 20, 0.1];
-
-        // const floorPosArr = [0, -6, -2];
-        // const floorPosArr = [0, -1, -2];
-        const floorPosArr = [70, -1, -2];
+        console.log('createFloor() -> floorIndex: ', floorIndex);
 
         const tempMaterial = new CANNON.Material({ restitution: 1, friction: 1 });
 
-        const floorGroundShape = new CANNON.Box(new CANNON.Vec3(...floorSizeArr));
+        const floorGroundShape = new CANNON.Box(new CANNON.Vec3(...sizeArr));
 
         const floorGroundBody = new CANNON.Body({ mass: 0, material: tempMaterial });
         floorGroundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2); 
 
-        floorGroundBody.position.set(...floorPosArr);
+        floorGroundBody.position.set(...posArr);
         floorGroundBody.addShape(floorGroundShape);
         Store.world.add(floorGroundBody);
 
-        body = floorGroundBody;
+        // body = floorGroundBody;
 
         const obj = new THREE.Object3D();
-        let index = 0;
-        console.log('createFloor() -> body: ', body);
+        // let index = 0;
         
-        const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/frame_121.png');
+        const assetMaxFrames = 121;
+        const assetOffsetMultiplier = 10;
+        // if (floorIndex <= assetMaxFrames && floorIndex > 3) {
+        if (floorIndex <= assetMaxFrames) {
+            floorIndex *= assetOffsetMultiplier;
+        }
+        const paddedFloorIndex = this.padToThree(floorIndex);
+        const currentFrame = 'frame_' + paddedFloorIndex + '.png';
+        console.log('createFloor() -> currentFrame: ', currentFrame);
+
+        const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/' + currentFrame);
+        // const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/frame_121.png');
         // const floorTexture = Store.loader.load('assets/floor/earthquake-hole-opening/frame_121.png');
 
-        console.log({floorTexture});
+        // console.log({floorTexture});
 
         // https://threejs.org/docs/#api/en/textures/Texture.repeat
 
@@ -144,11 +155,11 @@ export default class Physics {
 
         floorMaterial.opacity = 0.5; // no effect
 
-        console.log({floorMaterial});
+        // console.log({floorMaterial});
 
         // body.shapes.forEach(function(shape) {}
         
-        const boxGeometry = new THREE.BoxGeometry(body.shapes[0].halfExtents.x * 2, body.shapes[0].halfExtents.y * 2, body.shapes[0].halfExtents.z * 2);
+        const boxGeometry = new THREE.BoxGeometry(floorGroundBody.shapes[0].halfExtents.x * 2, floorGroundBody.shapes[0].halfExtents.y * 2, floorGroundBody.shapes[0].halfExtents.z * 2);
 
         const mesh = new THREE.Mesh(boxGeometry, floorMaterial);
         
@@ -156,8 +167,10 @@ export default class Physics {
         mesh.receiveShadow = true;
         mesh.castShadow = false;
 
-        var o = body.shapeOffsets[index];
-        var q = body.shapeOrientations[index++];
+        // var o = floorGroundBody.shapeOffsets[index];
+        // var q = floorGroundBody.shapeOrientations[index++];
+        var o = floorGroundBody.shapeOffsets[0];
+        var q = floorGroundBody.shapeOrientations[0];
         mesh.position.set(o.x, o.y, o.z);
 
         mesh.quaternion.set(q.x, q.y, q.z, q.w);
@@ -172,7 +185,7 @@ export default class Physics {
         obj.add(mesh);
 
         if (mesh) {
-            body.threemesh = mesh;
+            floorGroundBody.threemesh = mesh;
 
             console.log('createFloor() -> FINAL mesh: ', mesh);
             Store.scene.add(mesh);
@@ -205,6 +218,8 @@ export default class Physics {
         if (options.type === 'drum') {
             // sphereRestitution = 0.3; //prev: 0.9, 0.1 = one bounce
             sphereRestitution = 0.2;
+
+            // this.createFloor([70, -1, -2], [20, 20, 0.1]);
         } else {
             // console.log('options.duration: ', options.duration);
             if (options.duration > 0) { // TODO: rename options.noteLength so not confusing with arr length
@@ -320,7 +335,8 @@ export default class Physics {
         let notePlayed = false;
         let bodyCollideCount = 0;
         let spinnerCollideCount = 0;
-        body.addEventListener('collide', function(ev) {
+        // body.addEventListener('collide', function(ev) {
+        body.addEventListener('collide', (ev) => {
             // console.log('body collide ev: ', ev);
             // console.log('body collide event: ', ev.body);
             // console.log('body collide INERTIA: ', ev.body.inertia);
@@ -340,6 +356,19 @@ export default class Physics {
                     // console.log('MISS ev.contact.ni', ev.contact.ni);
                     // console.log('MISS roundedHitMetric', roundedHitMetric);
                 }
+
+                if (bodyCollideCount === 0) {
+                    if (options.variation === 'kick') {
+                        // this.createFloor([70, -1, -2], [20, 20, 0.1], Store.floorExplodeCount);
+                        // if (Store.floorExplodeCount === 0 || Store.floorExplodeCount % 3 === 0) {
+                        if (Store.floorExplodeCount % 3 === 0) {
+                            this.createFloor([-xPos, -1, -2], [20, 20, 0.1], Store.floorExplodeCount);
+                        }
+                        Store.floorExplodeCount++;
+                    }
+                }
+                // console.log(bodyCollideCount);
+
                 bodyCollideCount++;
             }
 

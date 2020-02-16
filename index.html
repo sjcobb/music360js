@@ -16,12 +16,14 @@
     <script src="vendor/Cannon/cannon.min.js"></script>
     <script src="vendor/Cannon/CannonDebugRenderer.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.6.0/echarts.min.js"></script>
-    <script src="vendor/echarts-gl.min.js"></script>
+    <!-- only load if Store.view.showDashboard === true -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.6.0/echarts.min.js"></script>
+    <script src="vendor/echarts-gl.min.js"></script> -->
 </head>
 
 <body>
-    <div id="controls-container" class="hidden">
+    <!-- <div id="controls-container" class="hidden"> -->
+    <div id="controls-container" class="">
         <div class="toggle-wrapper">
             <button id="settings-toggle-btn" class="btn hidden-active"><i class="fa fa-cog" aria-hidden="true"></i></button>
         </div>

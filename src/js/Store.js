@@ -109,6 +109,7 @@ export default {
     fixedTimeStep: 1.0 / 60.0,
     flameArr: [],
     flameCounter: 0,
+    floorExplodeCount: 1,
     inputMidi: false,
     instr: {},
     instrumentCounter: 0,
