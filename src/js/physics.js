@@ -86,7 +86,7 @@ export default class Physics {
         Store.world.add(groundBody);
 
         // if (this.useVisuals) this.helper.this.addVisual(groundBody, 'ground', false, true);
-        // this.addVisual(groundBody, 'ground', false, true); // PREV
+        this.addVisual(groundBody, 'ground', false, true); // PREV
 
         this.createFloor(groundBody);
     }
@@ -97,11 +97,32 @@ export default class Physics {
         // https://github.com/sjcobb/ice-cavern/blob/master/js/scene.js#L73
         ///////////
 
+        const floorSizeArr = [20, 20, 0.1];
+
+        // const floorPosArr = [0, -6, -2];
+        // const floorPosArr = [0, -1, -2];
+        const floorPosArr = [70, -1, -2];
+
+        const tempMaterial = new CANNON.Material({ restitution: 1, friction: 1 });
+
+        const floorGroundShape = new CANNON.Box(new CANNON.Vec3(...floorSizeArr));
+
+        const floorGroundBody = new CANNON.Body({ mass: 0, material: tempMaterial });
+        floorGroundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2); 
+
+        floorGroundBody.position.set(...floorPosArr);
+        floorGroundBody.addShape(floorGroundShape);
+        Store.world.add(floorGroundBody);
+
+        body = floorGroundBody;
+
         const obj = new THREE.Object3D();
         let index = 0;
         console.log('createFloor() -> body: ', body);
         
         const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/frame_121.png');
+        // const floorTexture = Store.loader.load('assets/floor/earthquake-hole-opening/frame_121.png');
+
         console.log({floorTexture});
 
         // https://threejs.org/docs/#api/en/textures/Texture.repeat
@@ -109,21 +130,28 @@ export default class Physics {
         // floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
         // floorTexture.repeat.set(3, 3);
 
-        // const floorMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 });
-        // const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+        // floorTexture.repeat = new THREE.Vector2(0, 0);
+        floorTexture.repeat = new THREE.Vector2(1, 1);
+
+        // // const floorMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 });
+        // // const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+        // // const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, color: 0xffffff } ); // no effect
         const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture } );
         floorMaterial.map.center.set(0.5, 0.5) 
-        // floorMaterial.map.repeat = 1; // just black, no img
+
+        floorMaterial.color = new THREE.Color(Store.activeInstrColor); // no effect
+        // floorMaterial.color = new THREE.Color('#9F532A'); // red
+
+        floorMaterial.opacity = 0.5; // no effect
+
         console.log({floorMaterial});
 
         // body.shapes.forEach(function(shape) {}
         
         const boxGeometry = new THREE.BoxGeometry(body.shapes[0].halfExtents.x * 2, body.shapes[0].halfExtents.y * 2, body.shapes[0].halfExtents.z * 2);
 
-        // floorMaterial.color = new THREE.Color(Store.activeInstrColor);
-        // floorMaterial.color = new THREE.Color('#9F532A'); // red
-
         const mesh = new THREE.Mesh(boxGeometry, floorMaterial);
+        
 
         mesh.receiveShadow = true;
         mesh.castShadow = false;
@@ -142,10 +170,11 @@ export default class Physics {
         }
 
         obj.add(mesh);
-        obj.name = 'physicsParent';
 
         if (mesh) {
             body.threemesh = mesh;
+
+            console.log('createFloor() -> FINAL mesh: ', mesh);
             Store.scene.add(mesh);
         }
     }
@@ -470,10 +499,13 @@ export default class Physics {
 
                 case CANNON.Shape.types.BOX:
 
+                    // FLOOR
+
                     // NEW Ground for drum spinner, PLANE no longer used since infinite invisible contact not needed
                     const boxGeometry = new THREE.BoxGeometry(shape.halfExtents.x * 2, shape.halfExtents.y * 2, shape.halfExtents.z * 2);
                     material.color = new THREE.Color(Store.activeInstrColor);
                     // material.color = new THREE.Color('#9F532A'); // red
+
                     mesh = new THREE.Mesh(boxGeometry, material); // v0.5
 
                     break;
