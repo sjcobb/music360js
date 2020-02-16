@@ -384,15 +384,12 @@ export default class Physics {
                     break;
 
                 case CANNON.Shape.types.PLANE:
-                    // geometry = new THREE.PlaneGeometry(10, 10, 4, 4); // too short
-                    // geometry = new THREE.PlaneGeometry(20, 10, 4, 4);
-                    geometry = new THREE.PlaneGeometry(0, 0, 0, 0);
+
+                    // Old floor (switched to box geometry)
+                    geometry = new THREE.PlaneGeometry(20, 10, 4, 4);
                     mesh = new THREE.Object3D();
-
-                    // TODO: try changing mesh.name to fix no color update
                     mesh.name = 'groundPlane';
-                    // geometry.colorsNeedUpdate = true; //no effect
-
+  
                     const submesh = new THREE.Object3D();
 
                     // const randColor = (Math.random()*0xFFFFFF<<0).toString(16);
@@ -406,10 +403,11 @@ export default class Physics {
 
                     const ground = new THREE.Mesh(geometry, material);
                     // ground.scale.set(500, 6, 100); // PREV
-                    ground.scale.set(10, 10, 10); // no effect
+                    // ground.scale.set(10, 10, 10); // no effect
                     ground.name = 'groundMesh';
 
                     //TODO: use correctly - https://threejs.org/docs/#manual/en/introduction/How-to-update-things
+                    // TODO: try changing mesh.name to fix no color update
                     // ground.colorsNeedUpdate = true;
 
                     submesh.add(ground);
@@ -417,19 +415,38 @@ export default class Physics {
                     break;
 
                 case CANNON.Shape.types.BOX:
-                    // NEW Ground for drum spinner, PLANE no longer used since infinite invisible contact not needed
-                    const boxGeometry = new THREE.BoxGeometry(shape.halfExtents.x * 2,
-                        shape.halfExtents.y * 2,
-                        shape.halfExtents.z * 2);
+                    ///////////
+                    // FLOOR //
+                    // https://github.com/sjcobb/ice-cavern/blob/master/js/scene.js#L73
+                    ///////////
+                    const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/frame_121.png');
+                    console.log({floorTexture});
 
-                    // console.log({shape});
+                    // https://threejs.org/docs/#api/en/textures/Texture.repeat
+
+                    // floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
+                    // floorTexture.repeat.set(3, 3);
+
+                    // const floorMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 });
+                    // const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+                    const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture } );
+                    floorMaterial.map.center.set(0.5, 0.5) 
+                    // floorMaterial.map.repeat = 1; // just black, no img
+                    console.log({floorMaterial});
+
+                    // NEW Ground for drum spinner, PLANE no longer used since infinite invisible contact not needed
+                    const boxGeometry = new THREE.BoxGeometry(shape.halfExtents.x * 2, shape.halfExtents.y * 2, shape.halfExtents.z * 2);
 
                     // const boxGeometry = new THREE.BoxGeometry(25, 25, 0.5); // does not coincide with contact surface size
 
-                    material.color = new THREE.Color(Store.activeInstrColor);;
+                    material.color = new THREE.Color(Store.activeInstrColor);
+
+                    // material.color = new THREE.Color('#9F532A'); // red
 
                     // boxGeometry.scale.set(10, 10, 10); // not a function
-                    mesh = new THREE.Mesh(boxGeometry, material);
+
+                    // mesh = new THREE.Mesh(boxGeometry, material); // v0.5
+                    mesh = new THREE.Mesh(boxGeometry, floorMaterial);
                     break;
 
                 case CANNON.Shape.types.CONVEXPOLYHEDRON:
