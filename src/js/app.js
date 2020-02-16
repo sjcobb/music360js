@@ -51,6 +51,16 @@ Store.renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(Store.renderer.domElement);
 Store.renderer.domElement.id = 'canvas-scene-primary';
 
+// https://stackoverflow.com/a/16177178/7639084
+// Store.renderer.setClearColor(0xffffff, 0); // no effect
+
+////////////////
+// BACKGROUND //
+////////////////
+// Store.scene.background = new THREE.Color( 0xff0000 ); // red
+Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
+// Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
+
 // update viewport on resize
 window.addEventListener('resize', function() {
     var width = window.innerWidth;

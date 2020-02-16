@@ -86,14 +86,68 @@ export default class Physics {
         Store.world.add(groundBody);
 
         // if (this.useVisuals) this.helper.this.addVisual(groundBody, 'ground', false, true);
-        this.addVisual(groundBody, 'ground', false, true);
+        // this.addVisual(groundBody, 'ground', false, true); // PREV
 
-        // https://github.com/schteppe/cannon.js/issues/300
-        // https://github.com/schteppe/cannon.js/blob/master/demos/bounce.html
-        // restitutionValue = 200;
-        // const material = new CANNON.Material(); //why both tempMaterial and material needed?
-        // const restitutionGround = new CANNON.ContactMaterial(tempMaterial, material, { friction: 0.0, restitution: restitutionValue });
-        // Store.world.addContactMaterial(restitutionGround);
+        this.createFloor(groundBody);
+    }
+
+    createFloor(body) {
+        ///////////
+        // FLOOR //
+        // https://github.com/sjcobb/ice-cavern/blob/master/js/scene.js#L73
+        ///////////
+
+        const obj = new THREE.Object3D();
+        let index = 0;
+        console.log('createFloor() -> body: ', body);
+        
+        const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/frame_121.png');
+        console.log({floorTexture});
+
+        // https://threejs.org/docs/#api/en/textures/Texture.repeat
+
+        // floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
+        // floorTexture.repeat.set(3, 3);
+
+        // const floorMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 });
+        // const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+        const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture } );
+        floorMaterial.map.center.set(0.5, 0.5) 
+        // floorMaterial.map.repeat = 1; // just black, no img
+        console.log({floorMaterial});
+
+        // body.shapes.forEach(function(shape) {}
+        
+        const boxGeometry = new THREE.BoxGeometry(body.shapes[0].halfExtents.x * 2, body.shapes[0].halfExtents.y * 2, body.shapes[0].halfExtents.z * 2);
+
+        // floorMaterial.color = new THREE.Color(Store.activeInstrColor);
+        // floorMaterial.color = new THREE.Color('#9F532A'); // red
+
+        const mesh = new THREE.Mesh(boxGeometry, floorMaterial);
+
+        mesh.receiveShadow = true;
+        mesh.castShadow = false;
+
+        var o = body.shapeOffsets[index];
+        var q = body.shapeOrientations[index++];
+        mesh.position.set(o.x, o.y, o.z);
+
+        mesh.quaternion.set(q.x, q.y, q.z, q.w);
+
+        if (mesh.geometry) {
+            if (mesh.geometry.name === 'sphereGeo' && Store.view.cameraPositionBehind) {
+                // console.log('sphereGeo debug rotation: ', mesh.rotation);
+                mesh.rotation.set(0, -1.5, 0); //x: more faces downwards, y: correct - around center, z
+            }
+        }
+
+        obj.add(mesh);
+        obj.name = 'physicsParent';
+
+        if (mesh) {
+            body.threemesh = mesh;
+            Store.scene.add(mesh);
+        }
     }
 
     // addBody(sphere = true, xPosition = 5.5, options = '', timeout = 0) {
@@ -415,38 +469,13 @@ export default class Physics {
                     break;
 
                 case CANNON.Shape.types.BOX:
-                    ///////////
-                    // FLOOR //
-                    // https://github.com/sjcobb/ice-cavern/blob/master/js/scene.js#L73
-                    ///////////
-                    const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/frame_121.png');
-                    console.log({floorTexture});
-
-                    // https://threejs.org/docs/#api/en/textures/Texture.repeat
-
-                    // floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
-                    // floorTexture.repeat.set(3, 3);
-
-                    // const floorMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 });
-                    // const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
-                    const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture } );
-                    floorMaterial.map.center.set(0.5, 0.5) 
-                    // floorMaterial.map.repeat = 1; // just black, no img
-                    console.log({floorMaterial});
 
                     // NEW Ground for drum spinner, PLANE no longer used since infinite invisible contact not needed
                     const boxGeometry = new THREE.BoxGeometry(shape.halfExtents.x * 2, shape.halfExtents.y * 2, shape.halfExtents.z * 2);
-
-                    // const boxGeometry = new THREE.BoxGeometry(25, 25, 0.5); // does not coincide with contact surface size
-
                     material.color = new THREE.Color(Store.activeInstrColor);
-
                     // material.color = new THREE.Color('#9F532A'); // red
+                    mesh = new THREE.Mesh(boxGeometry, material); // v0.5
 
-                    // boxGeometry.scale.set(10, 10, 10); // not a function
-
-                    // mesh = new THREE.Mesh(boxGeometry, material); // v0.5
-                    mesh = new THREE.Mesh(boxGeometry, floorMaterial);
                     break;
 
                 case CANNON.Shape.types.CONVEXPOLYHEDRON:
