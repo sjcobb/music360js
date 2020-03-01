@@ -22,7 +22,7 @@ export default {
     ai: {
         enabled: false,
     },
-    autoScroll: true,
+    autoScroll: false,
     autoStartTime: 4500,
     // bpm: 120, // v0.4
     // bpm: 140,
@@ -30,6 +30,8 @@ export default {
     camera: new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000),
     // cameraCircularAnimation: false, // true - drum spinner (v0.3), NOW view.drumCircle
     cameraLookUp: false,
+    cameraShakeEnabled: true,
+    cameraShakeActive: false,
     clock: new THREE.Clock(),
     clockNote: new THREE.Clock(),
     configColorAnimate: true,
@@ -110,6 +112,8 @@ export default {
     flameArr: [],
     flameCounter: 0,
     floorExplodeCount: 1,
+    floorMaterial: null,
+    floorMesh: null,
     inputMidi: false,
     instr: {},
     instrumentCounter: 0,
@@ -152,7 +156,7 @@ export default {
         // posBehindZ: 1,
 
         posBehindX: -70,
-        posBehindY: 4,
+        posBehindY: 12,
         posBehindZ: 0,
 
         songAutoStart: true,
@@ -164,7 +168,9 @@ export default {
             treble: false,
         },
         stage: {
-            size: 'lg',
+            // size: 'large',
+            // size: 'medium',
+            size: 'small',
         }
     },
     world: new CANNON.World(),

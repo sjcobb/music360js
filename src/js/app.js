@@ -202,6 +202,8 @@ if (Store.view.showStaff.bass === true) {
     addStaffLines(0xffffff, 2, -1000, staffLineLengthEnd, lineYHeight, 0, 2);
 }
 
+Store.screenShake = physics.screenShake();
+
 //-----ANIMATION------//
 let animate = () => {
 
@@ -229,6 +231,11 @@ let animate = () => {
         } else {
             Store.camera.position.x = (Store.ticks) - 35;
         }
+    }
+
+    if (Store.cameraShakeEnabled === true) {
+        // https://github.com/felixmariotto/three-screenshake
+        Store.screenShake.update(Store.camera);
     }
 
     physics.updateBodies(Store.world);

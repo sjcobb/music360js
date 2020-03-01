@@ -53,9 +53,14 @@ export default class Physics {
             sizeArr = [5000, 15, 5];
         }
 
-        if (Store.view.stage.size === 'lg') {
+        if (Store.view.stage.size === 'large') {
             posArr = [0, -6, -2];
             sizeArr = [5000, 50, 5];
+        }
+
+        if (Store.view.stage.size === 'small') {
+            posArr = [0, -6, -2];
+            sizeArr = [60, 60, 5];
         }
 
         // FLOOR
@@ -88,8 +93,6 @@ export default class Physics {
 
         // if (this.useVisuals) this.helper.this.addVisual(groundBody, 'ground', false, true);
         this.addVisual(groundBody, 'ground', false, true); // PREV
-
-        // this.createFloor([70, -1, -2], [20, 20, 0.1], 0);
     }
 
     padToThree(number) {
@@ -210,30 +213,33 @@ export default class Physics {
         // console.log('createFloor() -> floorIndex: ', floorIndex);
 
         let assetPrefix = 'assets/floor/earthquake-cracks-forming/';
-        const assetMaxFrames = 121;
-        let assetOffsetMultiplier = 2;
+        const assetMaxFrames = 132;
+        // let assetOffsetMultiplier = 6;
+        let assetOffsetMultiplier = 20;
 
-        if (floorIndex > 24) {
         // if (floorIndex > 2) {
-            assetPrefix = 'assets/floor/earthquake-hole-opening/';
-            sizeArr = sizeArr.map(x => x * 2);
+        // // if (floorIndex > 20) {
+        //     assetPrefix = 'assets/floor/earthquake-hole-opening/';
 
-            posArr[2] += 6;
-            // posArr[1] = 0; // y placement
+        //     // console.log({sizeArr});
+        //     // sizeArr = sizeArr.map(x => x * 2);
+        //     // posArr[2] += 6;
 
-            floorIndex -= 20;
-            assetOffsetMultiplier = 3;
-        } else {
-            // sizeArr = sizeArr.map(x => x * 2.5);
-            // posArr[1] = 0;
-        }
+        //     // floorIndex -= 20;
+        //     // assetOffsetMultiplier = 3;
 
-        posArr[1] += (floorIndex * 0.0001);
-        console.log({posArr});
+        //     // floorIndex = assetMaxFrames;
+        //     floorIndex = 36;
 
-        const obj = new THREE.Object3D();
+        //     // Store.floorMesh.scale.set(2, 2, 2);
+        // } else {
+        //     // sizeArr = sizeArr.map(x => x * 2.5);
+        //     // posArr[1] = 0;
+        // }
         
-        // if (floorIndex <= assetMaxFrames && floorIndex > 3) {
+        posArr[1] += (floorIndex * 0.0001);
+
+        // if (floorIndex <= assetMaxFrames && floorIndex > 0) {
         if (floorIndex <= assetMaxFrames) {
             floorIndex *= assetOffsetMultiplier;
         }
@@ -250,73 +256,37 @@ export default class Physics {
         console.log('assetUrl: ', assetUrl);
 
         const floorTexture = Store.loader.load(assetUrl);
-        // const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/' + currentFrame);
-        // const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/frame_121.png');
-        // const floorTexture = Store.loader.load('assets/floor/earthquake-hole-opening/frame_121.png');
-
-        // console.log({floorTexture});
 
         // https://threejs.org/docs/#api/en/textures/Texture.repeat
-
-        // floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
-        // floorTexture.repeat.set(3, 3);
-
-        // floorTexture.repeat = new THREE.Vector2(0, 0);
         floorTexture.repeat = new THREE.Vector2(1, 1);
 
-        // // const floorMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 });
-        // // const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
-        // // const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, color: 0xffffff } ); // no effect
         const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture } );
-        floorMaterial.map.center.set(0.5, 0.5);
-
-        // https://stackoverflow.com/a/51736926/7639084
-        // https://stackoverflow.com/a/15995475/7639084
+        // floorMaterial.map.center.set(0.5, 0.5);
         floorMaterial.transparent = true;
-
         floorMaterial.color = new THREE.Color(Store.activeInstrColor); // no effect
-        // floorMaterial.color = new THREE.Color('#9F532A'); // red
 
-        // floorMaterial.opacity = 0.5; // no effect
+        if (Store.floorMaterial == null) {
+            Store.floorMaterial = floorMaterial;
+            const boxGeometry = new THREE.BoxGeometry(...sizeArr);
+            boxGeometry.uvsNeedUpdate = true;
 
-        // console.log({floorMaterial});
+            Store.floorMesh = new THREE.Mesh(boxGeometry, Store.floorMaterial);
 
-        // body.shapes.forEach(function(shape) {}
-        
-        // const boxGeometry = new THREE.BoxGeometry(floorGroundBody.shapes[0].halfExtents.x * 2, floorGroundBody.shapes[0].halfExtents.y * 2, floorGroundBody.shapes[0].halfExtents.z * 2);
-        const boxGeometry = new THREE.BoxGeometry(...sizeArr);
+            Store.floorMesh.receiveShadow = true;
+            Store.floorMesh.castShadow = false;
 
-        const mesh = new THREE.Mesh(boxGeometry, floorMaterial);
-        
-        // mesh.scale.set(2, 2, 2);
+            Store.floorMesh.position.set(...posArr);
 
-        mesh.receiveShadow = true;
-        mesh.castShadow = false;
+            Store.floorMesh.rotation.x = Math.PI / 2;
 
-        mesh.position.set(...posArr);
-        // mesh.position.copy(...posArr);
-
-        // mesh.rotation.set(0, -1.5, 0);
-        mesh.rotation.x = Math.PI / 2;
-
-        if (mesh.geometry) {
-            if (mesh.geometry.name === 'sphereGeo' && Store.view.cameraPositionBehind) {
-                // console.log('sphereGeo debug rotation: ', mesh.rotation);
-                mesh.rotation.set(0, -1.5, 0); //x: more faces downwards, y: correct - around center, z
+            if (Store.floorMesh) {
+                Store.floorMesh.name = 'floor_mesh_1';
+                Store.scene.add(Store.floorMesh);
             }
+        } else {
+            Store.floorMesh.material = floorMaterial
         }
-
-        obj.add(mesh);
-
-        if (mesh) {
-            // floorGroundBody.threemesh = mesh;
-
-            // console.log('createFloor() -> FINAL mesh: ', mesh);
-            Store.scene.add(mesh);
-
-            // https://stackoverflow.com/a/55617900/7639084
-            // Store.world.removeBody(floorGroundBody);
-        }
+        
     }
 
     // addBody(sphere = true, xPosition = 5.5, options = '', timeout = 0) {
@@ -445,7 +415,7 @@ export default class Physics {
 
         // body.angularVelocity.z = 12; //too much rotation - hard to read note letter
         // body.angularVelocity.z = 6; //prev
-        // body.angularVelocity.z = 10;
+        body.angularVelocity.z = 10;
         // body.angularVelocity.z = 0;
 
         if (options.type === 'animation') {
@@ -489,11 +459,18 @@ export default class Physics {
 
                 if (bodyCollideCount === 0) {
                     if (options.variation === 'kick') {
-                        // this.createFloor([70, -1, -2], [20, 20, 0.1], Store.floorExplodeCount);
-                        // if (Store.floorExplodeCount === 0 || Store.floorExplodeCount % 3 === 0) {
-                        if (Store.floorExplodeCount % 3 === 0) {
+                        
+                        // Store.screenShake.shake(Store.camera, new THREE.Vector3(0.1, 0, 0), 300);
+
+                        // Store.screenShake.shake(Store.camera, new THREE.Vector3(0, 0, 0.3), 1000);
+
+                        Store.screenShake.shake(Store.camera, new THREE.Vector3(0.1, 0.3, 0.5), 800);
+                        // Store.cameraShakeActive = true;
+
+                        // if (Store.floorExplodeCount % 3 === 0) {
+                        if (Store.floorExplodeCount % 2 === 0) {
                             // this.createFloor([-xPos, -1, -2], [60, 60, 0.1], Store.floorExplodeCount);
-                            this.createFloor([-xPos, 0, -2], [60, 60, 0.1], Store.floorExplodeCount);
+                            this.createFloor([-xPos, -1, -2], [90, 90, 0.1], Store.floorExplodeCount);
                         }
                         Store.floorExplodeCount++;
                     }
@@ -875,6 +852,81 @@ export default class Physics {
         Store.scene.add(spinner);
         Store.world.addBody(Store.spinnerBody);
     }
+
+    screenShake() {
+
+        return {
+            // When a function outside ScreenShake handle the camera, it should
+            // always check that ScreenShake.enabled is false before.
+            enabled: false,
+    
+            _timestampStart: undefined,
+    
+            _timestampEnd: undefined,
+    
+            _startPoint: undefined,
+    
+            _endPoint: undefined,
+    
+            // update(camera) must be called in the loop function of the renderer,
+            // it will re-position the camera according to the requested shaking.
+            update: function update(camera) {
+                if ( this.enabled == true ) {
+                    const now = Date.now();
+                    if ( this._timestampEnd > now ) {
+                        let interval = (Date.now() - this._timestampStart) / 
+                            (this._timestampEnd - this._timestampStart) ;
+                        this.computePosition( camera, interval );
+                    } else {
+                        camera.position.copy(this._startPoint);
+                        this.enabled = false;
+                    };
+                };
+            },
+    
+            // This initialize the values of the shaking.
+            // vecToAdd param is the offset of the camera position at the climax of its wave.
+            shake: function shake(camera, vecToAdd, milliseconds) {
+                this.enabled = true ;
+                this._timestampStart = Date.now();
+                this._timestampEnd = this._timestampStart + milliseconds;
+                this._startPoint = new THREE.Vector3().copy(camera.position);
+                // console.log('this._startPoint: ', this._startPoint);
+                this._endPoint = new THREE.Vector3().addVectors( camera.position, vecToAdd );
+            },
+    
+            computePosition: function computePosition(camera, interval) {
+    
+                // This creates the wavy movement of the camera along the interval.
+                // The first bloc call this.getQuadra() with a positive indice between
+                // 0 and 1, then the second call it again with a negative indice between
+                // 0 and -1, etc. Variable position will get the sign of the indice, and
+                // get wavy.
+                if (interval < 0.4) {
+                    var position = this.getQuadra( interval / 0.4 );
+                } else if (interval < 0.7) {
+                    var position = this.getQuadra( (interval-0.4) / 0.3 ) * -0.6;
+                } else if (interval < 0.9) {
+                    var position = this.getQuadra( (interval-0.7) / 0.2 ) * 0.3;
+                } else {
+                    var position = this.getQuadra( (interval-0.9) / 0.1 ) * -0.1;
+                }
+                
+                // Here the camera is positioned according to the wavy 'position' variable.
+                camera.position.lerpVectors( this._startPoint, this._endPoint, position );
+
+                // camera.position.x = this._startPoint.x;
+            },
+    
+            // This is a quadratic function that return 0 at first, then return 0.5 when t=0.5,
+            // then return 0 when t=1 ;
+            getQuadra: function getQuadra(t) {
+                return 9.436896e-16 + (4*t) - (4*(t*t)) ;
+            }
+    
+        };
+    
+    };
 
     updatePhysics() {
         // TODO: uncomment debugRenderer after fix scene undef err
