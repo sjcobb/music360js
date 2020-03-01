@@ -17,9 +17,13 @@ var allDrumsPart = new Tone.Part(function(time, instr) {
     // physics.addBody(true, time * Store.multiplierPosX, instr);
     physics.addBody(true, Store.dropPosX, instr);
 }, [
+    // ["0:0:0", Store.instr.kickPrimary],
+    // ["0:1:0", Store.instr.kickPrimary],
+    // ["0:2:0", Store.instr.kickPrimary],
+
     ["0:0:0", Store.instr.kickPrimary],
-    ["0:1:0", Store.instr.kickPrimary],
     ["0:2:0", Store.instr.kickPrimary],
+    ["0:4:0", Store.instr.kickPrimary],
 
     // ["0:4:0", Store.instr.crashPrimary],
 

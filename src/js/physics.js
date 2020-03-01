@@ -30,7 +30,8 @@ export default class Physics {
         this.damping = 0.01;
 
         Store.world.broadphase = new CANNON.NaiveBroadphase();
-        Store.world.gravity.set(0, -10, 0);
+        // Store.world.gravity.set(0, -10, 0);
+        Store.world.gravity.set(0, -40, 0);
         // this.debugRenderer = new THREE.CannonDebugRenderer(Store.scene, Store.world);
 
         this.shapes = {};
@@ -206,22 +207,32 @@ export default class Physics {
         // use createPlatform() for collision enabled floor
         // https://github.com/sjcobb/ice-cavern/blob/master/js/scene.js#L73
 
-        console.log('createFloor() -> floorIndex: ', floorIndex);
+        // console.log('createFloor() -> floorIndex: ', floorIndex);
 
         let assetPrefix = 'assets/floor/earthquake-cracks-forming/';
-        if (floorIndex > 10) {
+        const assetMaxFrames = 121;
+        let assetOffsetMultiplier = 2;
+
+        if (floorIndex > 24) {
+        // if (floorIndex > 2) {
             assetPrefix = 'assets/floor/earthquake-hole-opening/';
             sizeArr = sizeArr.map(x => x * 2);
-            posArr[1] = 0; // y placement
+
+            posArr[2] += 6;
+            // posArr[1] = 0; // y placement
+
+            floorIndex -= 20;
+            assetOffsetMultiplier = 3;
         } else {
             // sizeArr = sizeArr.map(x => x * 2.5);
-            posArr[1] = 0;
+            // posArr[1] = 0;
         }
+
+        posArr[1] += (floorIndex * 0.0001);
+        console.log({posArr});
 
         const obj = new THREE.Object3D();
         
-        const assetMaxFrames = 121;
-        const assetOffsetMultiplier = 10;
         // if (floorIndex <= assetMaxFrames && floorIndex > 3) {
         if (floorIndex <= assetMaxFrames) {
             floorIndex *= assetOffsetMultiplier;
@@ -229,13 +240,16 @@ export default class Physics {
 
         if (floorIndex > assetMaxFrames) {
             floorIndex = assetMaxFrames;
+        } else if (floorIndex < 1) {
+            floorIndex = 1;
         }
 
         const paddedFloorIndex = this.padToThree(floorIndex);
         const currentFrame = 'frame_' + paddedFloorIndex + '.png';
-        console.log('createFloor() -> currentFrame: ', currentFrame);
+        const assetUrl = assetPrefix + currentFrame;
+        console.log('assetUrl: ', assetUrl);
 
-        const floorTexture = Store.loader.load(assetPrefix + currentFrame);
+        const floorTexture = Store.loader.load(assetUrl);
         // const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/' + currentFrame);
         // const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/frame_121.png');
         // const floorTexture = Store.loader.load('assets/floor/earthquake-hole-opening/frame_121.png');
@@ -265,7 +279,7 @@ export default class Physics {
 
         // floorMaterial.opacity = 0.5; // no effect
 
-        console.log({floorMaterial});
+        // console.log({floorMaterial});
 
         // body.shapes.forEach(function(shape) {}
         
@@ -280,6 +294,8 @@ export default class Physics {
         mesh.castShadow = false;
 
         mesh.position.set(...posArr);
+        // mesh.position.copy(...posArr);
+
         // mesh.rotation.set(0, -1.5, 0);
         mesh.rotation.x = Math.PI / 2;
 
@@ -295,7 +311,7 @@ export default class Physics {
         if (mesh) {
             // floorGroundBody.threemesh = mesh;
 
-            console.log('createFloor() -> FINAL mesh: ', mesh);
+            // console.log('createFloor() -> FINAL mesh: ', mesh);
             Store.scene.add(mesh);
 
             // https://stackoverflow.com/a/55617900/7639084
@@ -352,7 +368,8 @@ export default class Physics {
 
         // https://schteppe.github.io/cannon.js/docs/classes/Body.html
         // const body = new CANNON.Body({ mass: 5, material: material }); // v0.3, v0.4
-        const body = new CANNON.Body({ mass: 550, material: material });
+        const body = new CANNON.Body({ mass: 550, material: material }); // v0.5
+        // const body = new CANNON.Body({ mass: 2000000, material: material }); // no collision
         
         this.shapes = {};
         // this.shapes.sphere = new CANNON.Sphere(0.5);
@@ -365,7 +382,7 @@ export default class Physics {
             body.addShape(this.shapes.box);
         }
 
-        let xRand = Math.random() * (15 - 1) + 1; //rdm b/w 1 and 15
+        // let xRand = Math.random() * (15 - 1) + 1; //rdm b/w 1 and 15
         let xPos = xPosition; //TODO: remove xPosition param if not used
         
         if (Store.autoScroll === true) {
@@ -380,7 +397,8 @@ export default class Physics {
         // https://stackoverflow.com/questions/44630265/how-can-i-set-z-up-coordinate-system-in-three-js
         // const yPos = 20; // v0.4, v0.5
         // const yPos = 1;
-        const yPos = 30;
+        // const yPos = 30;
+        const yPos = 45;
 
         /*** Randomized Y drop point ***/
         // const y = Math.random() * (10 - 5) + 5; //rdm b/w 5 and 10
@@ -390,7 +408,7 @@ export default class Physics {
         // zPos = Store.dropPosY; // drum spinner (v0.3)
 
         // body.mass = 1; // feather light
-        // body.mass = 8; // heavy
+        body.mass = 600; // heavy
 
         if (options.type === 'drum') {
             // TODO: new drum machine paradigm - use rotating clock hand to hit drums
@@ -427,7 +445,8 @@ export default class Physics {
 
         // body.angularVelocity.z = 12; //too much rotation - hard to read note letter
         // body.angularVelocity.z = 6; //prev
-        body.angularVelocity.z = 0;
+        // body.angularVelocity.z = 10;
+        // body.angularVelocity.z = 0;
 
         if (options.type === 'animation') {
             flamePhysics.create({x: -xPos});
@@ -473,7 +492,8 @@ export default class Physics {
                         // this.createFloor([70, -1, -2], [20, 20, 0.1], Store.floorExplodeCount);
                         // if (Store.floorExplodeCount === 0 || Store.floorExplodeCount % 3 === 0) {
                         if (Store.floorExplodeCount % 3 === 0) {
-                            this.createFloor([-xPos, -1, -2], [50, 50, 0.1], Store.floorExplodeCount);
+                            // this.createFloor([-xPos, -1, -2], [60, 60, 0.1], Store.floorExplodeCount);
+                            this.createFloor([-xPos, 0, -2], [60, 60, 0.1], Store.floorExplodeCount);
                         }
                         Store.floorExplodeCount++;
                     }

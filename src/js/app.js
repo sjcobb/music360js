@@ -219,6 +219,7 @@ let animate = () => {
     // console.log(Store.clock.elapsedTime);
 
     if (Store.autoScroll === true) {
+        // const ticksMultiplier = 12; // v0.5
         const ticksMultiplier = 12;
         Store.ticks += (delta * ticksMultiplier); // Too fast, balls dropped too far left
         if (Store.view.cameraPositionBehind === true) {
