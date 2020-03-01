@@ -210,12 +210,13 @@ export default class Physics {
         // use createPlatform() for collision enabled floor
         // https://github.com/sjcobb/ice-cavern/blob/master/js/scene.js#L73
 
-        // console.log('createFloor() -> floorIndex: ', floorIndex);
+        console.log('createFloor() -> floorIndex: ', floorIndex);
 
         let assetPrefix = 'assets/floor/earthquake-cracks-forming/';
         const assetMaxFrames = 132;
         // let assetOffsetMultiplier = 6;
-        let assetOffsetMultiplier = 20;
+        let assetOffsetMultiplier = 10;
+        // let assetOffsetMultiplier = 50;
 
         // if (floorIndex > 2) {
         // // if (floorIndex > 20) {
@@ -236,6 +237,12 @@ export default class Physics {
         //     // sizeArr = sizeArr.map(x => x * 2.5);
         //     // posArr[1] = 0;
         // }
+
+        // if (floorIndex > 12) {
+        //     // sizeArr[1] = sizeArr[1] * 2;
+        //     // sizeArr = sizeArr.map(x => x * 5);
+        //     Store.floorMesh.scale.set(1.5, 3, 1);
+        // }
         
         posArr[1] += (floorIndex * 0.0001);
 
@@ -248,6 +255,12 @@ export default class Physics {
             floorIndex = assetMaxFrames;
         } else if (floorIndex < 1) {
             floorIndex = 1;
+        }
+
+        if (floorIndex > 121) {
+            // sizeArr[1] = sizeArr[1] * 2;
+            // sizeArr = sizeArr.map(x => x * 5);
+            Store.floorMesh.scale.set(1.5, 2.5, 1);
         }
 
         const paddedFloorIndex = this.padToThree(floorIndex);
@@ -468,7 +481,8 @@ export default class Physics {
                         // Store.cameraShakeActive = true;
 
                         // if (Store.floorExplodeCount % 3 === 0) {
-                        if (Store.floorExplodeCount % 2 === 0) {
+                        // if (Store.floorExplodeCount % 2 === 0) {
+                        if (Store.floorExplodeCount % 1 === 0) {
                             // this.createFloor([-xPos, -1, -2], [60, 60, 0.1], Store.floorExplodeCount);
                             this.createFloor([-xPos, -1, -2], [90, 90, 0.1], Store.floorExplodeCount);
                         }
