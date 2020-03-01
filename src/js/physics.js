@@ -104,9 +104,16 @@ export default class Physics {
 
         console.log('createFloor() -> floorIndex: ', floorIndex);
 
+        let assetPrefix = 'assets/floor/earthquake-cracks-forming/';
+        if (floorIndex > 10) {
+            assetPrefix = 'assets/floor/earthquake-hole-opening/';
+            sizeArr = sizeArr.map(x => x * 2);
+        }
+        
         const tempMaterial = new CANNON.Material({ restitution: 1, friction: 1 });
 
         const floorGroundShape = new CANNON.Box(new CANNON.Vec3(...sizeArr));
+        // const floorGroundShape = new THREE.BoxGeometry(...sizeArr);
 
         const floorGroundBody = new CANNON.Body({ mass: 0, material: tempMaterial });
         floorGroundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2); 
@@ -114,8 +121,6 @@ export default class Physics {
         floorGroundBody.position.set(...posArr);
         floorGroundBody.addShape(floorGroundShape);
         Store.world.add(floorGroundBody);
-
-        // body = floorGroundBody;
 
         const obj = new THREE.Object3D();
         // let index = 0;
@@ -126,15 +131,21 @@ export default class Physics {
         if (floorIndex <= assetMaxFrames) {
             floorIndex *= assetOffsetMultiplier;
         }
+
+        if (floorIndex > assetMaxFrames) {
+            floorIndex = assetMaxFrames;
+        }
+
         const paddedFloorIndex = this.padToThree(floorIndex);
         const currentFrame = 'frame_' + paddedFloorIndex + '.png';
         console.log('createFloor() -> currentFrame: ', currentFrame);
 
-        const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/' + currentFrame);
+        const floorTexture = Store.loader.load(assetPrefix + currentFrame);
+        // const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/' + currentFrame);
         // const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/frame_121.png');
         // const floorTexture = Store.loader.load('assets/floor/earthquake-hole-opening/frame_121.png');
 
-        // console.log({floorTexture});
+        console.log({floorTexture});
 
         // https://threejs.org/docs/#api/en/textures/Texture.repeat
 
@@ -148,14 +159,18 @@ export default class Physics {
         // // const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
         // // const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, color: 0xffffff } ); // no effect
         const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture } );
-        floorMaterial.map.center.set(0.5, 0.5) 
+        floorMaterial.map.center.set(0.5, 0.5);
+
+        // https://stackoverflow.com/a/51736926/7639084
+        // https://stackoverflow.com/a/15995475/7639084
+        floorMaterial.transparent = true;
 
         floorMaterial.color = new THREE.Color(Store.activeInstrColor); // no effect
         // floorMaterial.color = new THREE.Color('#9F532A'); // red
 
         floorMaterial.opacity = 0.5; // no effect
 
-        // console.log({floorMaterial});
+        console.log({floorMaterial});
 
         // body.shapes.forEach(function(shape) {}
         
@@ -163,6 +178,7 @@ export default class Physics {
 
         const mesh = new THREE.Mesh(boxGeometry, floorMaterial);
         
+        // mesh.scale.set(2, 2, 2);
 
         mesh.receiveShadow = true;
         mesh.castShadow = false;
@@ -189,6 +205,9 @@ export default class Physics {
 
             console.log('createFloor() -> FINAL mesh: ', mesh);
             Store.scene.add(mesh);
+
+            // https://stackoverflow.com/a/55617900/7639084
+            // Store.world.removeBody(floorGroundBody);
         }
     }
 
@@ -362,7 +381,8 @@ export default class Physics {
                         // this.createFloor([70, -1, -2], [20, 20, 0.1], Store.floorExplodeCount);
                         // if (Store.floorExplodeCount === 0 || Store.floorExplodeCount % 3 === 0) {
                         if (Store.floorExplodeCount % 3 === 0) {
-                            this.createFloor([-xPos, -1, -2], [20, 20, 0.1], Store.floorExplodeCount);
+                            this.createFloor([-xPos, 1, -2], [40, 40, 0.1], Store.floorExplodeCount);
+                            // this.createFloor([-xPos, -1, -2], [30, 30, 0.1], Store.floorExplodeCount);
                         }
                         Store.floorExplodeCount++;
                     }
