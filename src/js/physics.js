@@ -474,15 +474,15 @@ export default class Physics {
                     if (options.variation === 'kick') {
                         
                         // Store.screenShake.shake(Store.camera, new THREE.Vector3(0.1, 0, 0), 300);
-
                         // Store.screenShake.shake(Store.camera, new THREE.Vector3(0, 0, 0.3), 1000);
+                        // Store.screenShake.shake(Store.camera, new THREE.Vector3(0.1, 0.3, 0.5), 800);
 
-                        Store.screenShake.shake(Store.camera, new THREE.Vector3(0.1, 0.3, 0.5), 800);
+                        Store.screenShake.shake(Store.camera, new THREE.Vector3(0.2, 0.4, 0.7), 800);
+
                         // Store.cameraShakeActive = true;
 
                         // if (Store.floorExplodeCount % 3 === 0) {
-                        // if (Store.floorExplodeCount % 2 === 0) {
-                        if (Store.floorExplodeCount % 1 === 0) {
+                        if (Store.floorExplodeCount % 2 === 0) {
                             // this.createFloor([-xPos, -1, -2], [60, 60, 0.1], Store.floorExplodeCount);
                             this.createFloor([-xPos, -1, -2], [90, 90, 0.1], Store.floorExplodeCount);
                         }
