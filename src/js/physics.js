@@ -295,6 +295,7 @@ export default class Physics {
             if (Store.floorMesh) {
                 Store.floorMesh.name = 'floor_mesh_1';
                 Store.scene.add(Store.floorMesh);
+                Store.scene.add(Store.floorMesh);
             }
         } else {
             Store.floorMesh.material = floorMaterial
