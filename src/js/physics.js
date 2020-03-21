@@ -312,18 +312,16 @@ export default class Physics {
             options = defaultInstr.hiHatClosed;
         }
 
-        let objSize = options.size !== undefined ? options.size : 'md';
-        if (objSize === 'xl') {
-            objSize = 2.0;
-        } else {
-            // objSize = 0.5; // v0.3
-            // objSize = 0.65; // too big for D maj chord
-            objSize = 0.50;
-        }
-
         // console.log('addBody -> options: ', options);       
 
         const trigger = new Trigger();
+
+        let zPos;
+        // zPos = options.originalPosition !== undefined ? options.originalPosition.z : Math.random() * (15 - 5) - 2;
+        // // zPos = Store.dropPosY; // drum spinner (v0.3)
+
+        zPos = options.originalPosition.z || 0;
+        // zPos += 20;
 
         let sphereRestitution = 0.3;
         if (options.type === 'drum') {
@@ -348,11 +346,29 @@ export default class Physics {
             }
             // console.log({sphereRestitution});
         }
+
+        // let objMass = 5000; // floats
+        let objMass = 500;
+        let objSize = options.size !== undefined ? options.size : 'md';
+        if (objSize === 'xl') { // 808
+            objSize = 2.0;
+            objMass = 50;
+        } else {
+            // objSize = 0.5; // v0.3
+            // objSize = 0.65; // too big for D maj chord
+            objSize = 0.50;
+
+            // xPosition += 2;
+            // xPosition *= 20;
+
+            zPos *= 1.5;
+
+        }
         const material = new CANNON.Material({ restitution: sphereRestitution, friction: 1 }); 
 
         // https://schteppe.github.io/cannon.js/docs/classes/Body.html
         // const body = new CANNON.Body({ mass: 5, material: material }); // v0.3, v0.4
-        const body = new CANNON.Body({ mass: 550, material: material }); // v0.5
+        const body = new CANNON.Body({ mass: objMass, material: material }); // v0.5
         // const body = new CANNON.Body({ mass: 2000000, material: material }); // no collision
         
         this.shapes = {};
@@ -366,6 +382,7 @@ export default class Physics {
             body.addShape(this.shapes.box);
         }
 
+        
         // let xRand = Math.random() * (15 - 1) + 1; //rdm b/w 1 and 15
         let xPos = xPosition; //TODO: remove xPosition param if not used
         
@@ -386,10 +403,6 @@ export default class Physics {
 
         /*** Randomized Y drop point ***/
         // const y = Math.random() * (10 - 5) + 5; //rdm b/w 5 and 10
-
-        let zPos;
-        zPos = options.originalPosition !== undefined ? options.originalPosition.z : Math.random() * (15 - 5) - 2;
-        // zPos = Store.dropPosY; // drum spinner (v0.3)
 
         // body.mass = 1; // feather light
         body.mass = 600; // heavy

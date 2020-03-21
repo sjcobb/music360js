@@ -24,6 +24,17 @@ export default {
     ai: {
         enabled: false,
     },
+    assets: {
+        // https://drive.google.com/drive/folders/1KCnflGLa-6m_szDDYsWMiBFDZNony6e9
+        // https://www.reddit.com/r/makinghiphop/comments/efhy4i/what_are_the_best_808_drum_kits/
+        //
+        // kick: "./assets/sounds/drum-kits/808/808-kick-vm.mp3",
+        // kick: "./assets/sounds/drum-kits/808/808-cardi-money.wav", // low boom (bad on speakers)
+        // kick: "./assets/sounds/drum-kits/808/808-cardi-ring.wav", // short (bad)
+        kick: "./assets/sounds/drum-kits/808/808-dolph.wav", // YES
+        // kick: "./assets/sounds/drum-kits/808/808-flip.wav", // way too soft
+        // kick: "./assets/sounds/drum-kits/808/808-polo.wav", // decent, soft
+    },
     autoScroll: false,
     autoStartTime: 4500,
     // bpm: 120, // v0.4
