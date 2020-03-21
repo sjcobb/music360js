@@ -41,14 +41,15 @@ export default {
         // kick: "./assets/sounds/drum-kits/808/808-yc.wav",
     },
     autoScroll: false,
-    autoStartTime: 4500,
+    // autoStartTime: 4500,
+    autoStartTime: 8000,
     // bpm: 120, // v0.4
     // bpm: 140,
     // bpm: 160,
     bpm: 180,
     camera: new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000),
     // cameraCircularAnimation: false, // true - drum spinner (v0.3), NOW view.drumCircle
-    cameraLookUp: false,
+    cameraLookUp: true,
     cameraShakeEnabled: true,
     cameraShakeActive: false,
     clock: new THREE.Clock(),

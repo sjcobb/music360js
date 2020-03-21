@@ -215,7 +215,9 @@ export default class Physics {
         let assetPrefix = 'assets/floor/earthquake-cracks-forming/';
         const assetMaxFrames = 132;
         // let assetOffsetMultiplier = 6; // too late
-        let assetOffsetMultiplier = 8; // good
+        let assetOffsetMultiplier = 8;
+        // let assetOffsetMultiplier = 5;
+
         // let assetOffsetMultiplier = 10;
         // let assetOffsetMultiplier = 50;
 
@@ -336,17 +338,19 @@ export default class Physics {
                 // sphereRestitution = options.length / 2;
 
 
-                if (options.duration < 0.20) { 
-                    options.duration = 0.20;
+                if (options.duration < 0.25) { 
+                    options.duration = 0.25;
                 }
 
-                if (options.duration > 0.4) { 
-                    options.duration = 0.4;
+                if (options.duration > 0.45) { 
+                    options.duration = 0.45;
                 }
 
                 // sphereRestitution = options.duration * 0.65; // v0.5
                 // sphereRestitution = options.duration * 1.5; // too bouncy
-                sphereRestitution = options.duration * 1.40;
+
+                // sphereRestitution = options.duration * 1.40;
+                sphereRestitution = options.duration * 1.44;
 
                 // sphereRestitution = options.duration * 0.58; // PREV (twinkle)
 
@@ -454,7 +458,7 @@ export default class Physics {
         // // // IMPORTANT - rotation spped // // //
         // body.angularVelocity.z = 10; // prev
         // body.angularVelocity.z = options.size === 'xl' ? 10 : 20;
-        body.angularVelocity.z = options.size === 'xl' ? 8 : 16;
+        body.angularVelocity.z = options.size === 'xl' ? 8 : 18;
 
         if (options.type === 'animation') {
             flamePhysics.create({x: -xPos});
@@ -496,13 +500,10 @@ export default class Physics {
                 }
 
                 if (bodyCollideCount === 0) {
-                    if (options.variation === 'kick') {
-                        
-                        // Store.screenShake.shake(Store.camera, new THREE.Vector3(0.1, 0, 0), 300);
-                        // Store.screenShake.shake(Store.camera, new THREE.Vector3(0, 0, 0.3), 1000);
-                        // Store.screenShake.shake(Store.camera, new THREE.Vector3(0.1, 0.3, 0.5), 800);
+                    if (options.variation === 'kick' || options.variation === 'kick-sec') {
 
-                        Store.screenShake.shake(Store.camera, new THREE.Vector3(0.2, 0.4, 0.7), 800);
+                        // Store.screenShake.shake(Store.camera, new THREE.Vector3(0.2, 0.4, 0.7), 800);
+                        Store.screenShake.shake(Store.camera, new THREE.Vector3(0.3, 0.5, 0.7), 800);
 
                         // Store.cameraShakeActive = true;
 
