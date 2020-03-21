@@ -214,8 +214,9 @@ export default class Physics {
 
         let assetPrefix = 'assets/floor/earthquake-cracks-forming/';
         const assetMaxFrames = 132;
-        // let assetOffsetMultiplier = 6;
-        let assetOffsetMultiplier = 10;
+        // let assetOffsetMultiplier = 6; // too late
+        let assetOffsetMultiplier = 8; // good
+        // let assetOffsetMultiplier = 10;
         // let assetOffsetMultiplier = 50;
 
         // if (floorIndex > 2) {

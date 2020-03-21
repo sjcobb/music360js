@@ -189,6 +189,19 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             originalPosition: { x: 0, y: 0, z: 0 }, // B
             size: 'xl',
         },
+        kickSecondary: {
+            // ballDesc: 'K', // beat-v1
+            // ballDesc: 'B',
+            ballDesc: '808',
+            // color: '#003366', //midnight blue
+            color: '#64b5f6', // human (lt blue)
+            keyInput: '8',
+            type: 'drum',
+            variation: 'kick-sec',
+            // originalPosition: { x: 0, y: 0, z: 2 }, // B
+            originalPosition: { x: 0, y: 0, z: 0 }, // B
+            size: 'xl',
+        },
         crashPrimary: {
             ballDesc: 'Cr',
             // color: '#FFA500', //orange

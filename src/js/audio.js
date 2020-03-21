@@ -29,7 +29,7 @@ var allDrumsPart = new Tone.Part(function(time, instr) {
     // ["0:16:0", Store.instr.kickPrimary],
 
     ["0:15:0", Store.instr.kickPrimary],
-    ["0:18:0", Store.instr.kickPrimary],
+    ["0:18:0", Store.instr.kickSecondary],
 
     // ["0:4:0", Store.instr.crashPrimary],
 

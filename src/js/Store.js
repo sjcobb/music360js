@@ -174,8 +174,10 @@ export default {
         // posBehindY: 8,
         // posBehindZ: 1,
 
-        posBehindX: -70,
-        posBehindY: 12,
+        // posBehindX: -70,
+        posBehindX: -45,
+        // posBehindY: 12,
+        posBehindY: 10,
         posBehindZ: 0,
 
         songAutoStart: true,

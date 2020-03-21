@@ -63,7 +63,7 @@ Store.polySynth = new Tone.PolySynth(10, Tone.Synth, {
 }).toMaster();
 
 Store.polySynth.volume.value = -8; // v0.4, v0.5
-// Store.polySynth.volume.value = -6;
+// Store.polySynth.volume.value = -24;
 
 // Store.polySynth.set("detune", +1200); // octave = 12 semitones of 100 cents each
 // Store.polySynth.set("detune", +1200);
@@ -107,8 +107,9 @@ const playerKick = new Player(Store.assets.kick).toMaster();
 
 // const playerKick = new Player("./assets/sounds/drum-kits/hiphop/kick.mp3").toMaster(); //v2, v3, v4 (boring, but not distorted)
 // playerKick.volume.value = +2; // v0.5
-// playerKick.volume.value = -6; // v0.6
-playerKick.volume.value = +2;
+playerKick.volume.value = -6; // v0.6
+// playerKick.volume.value = +2;
+// playerKick.volume.value = -20;
 
 // playerKick.volume.value = -6; // -6 broken
 // playerKick.input.value = -4; //err
@@ -125,6 +126,11 @@ playerKick.volume.value = +2;
 // }
 
 console.log({playerKick});
+
+const playerKickSecondary = new Player(Store.assets.kick).toMaster();
+// const playerKickSecondary = new Player("./assets/sounds/drum-kits/electronic/tom-high.mp3").toMaster();
+playerKickSecondary.volume.value = -6;
+
 // input: AudioParam {value: 1, automationRate: "a-rate", defaultValue: 1, minValue: -3.4028234663852886e+38, maxValue: 3.4028234663852886e+38}
 
 const playerCrash = new Player("./assets/sounds/drum-kits/hiphop/clap.mp3").toMaster(); //hand clap echo
@@ -240,6 +246,8 @@ export default class Trigger {
                 // console.log('trigger -> playerKick: ', playerKick);
                 playerKick.start();
                 // toneKick.triggerAttackRelease("C2"); //deep
+            } else if (triggerObj.variation === 'kick-sec') {
+                playerKickSecondary.start();
             } else if (triggerObj.variation === 'hihat') {
                 playerHiHat.start();
             } else if (triggerObj.variation === 'hihat-open') {
@@ -1373,7 +1381,8 @@ const recordingPart = new Tone.Part(function(time, datum){
     // instrMapped.color = '#008b8b';
     instrMapped.color = '#64b5f6'; // human blue
 
-    instrMapped.originalPosition.z -= 15;
+    // instrMapped.originalPosition.z -= 15;
+    instrMapped.originalPosition.z -= 10;
 
     instrMapped.duration = datum.duration / 2;
 
