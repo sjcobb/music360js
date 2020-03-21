@@ -107,7 +107,8 @@ const playerKick = new Player(Store.assets.kick).toMaster();
 
 // const playerKick = new Player("./assets/sounds/drum-kits/hiphop/kick.mp3").toMaster(); //v2, v3, v4 (boring, but not distorted)
 // playerKick.volume.value = +2; // v0.5
-playerKick.volume.value = -6; 
+// playerKick.volume.value = -6; // v0.6
+playerKick.volume.value = +2;
 
 // playerKick.volume.value = -6; // -6 broken
 // playerKick.input.value = -4; //err

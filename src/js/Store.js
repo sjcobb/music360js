@@ -31,9 +31,14 @@ export default {
         // kick: "./assets/sounds/drum-kits/808/808-kick-vm.mp3",
         // kick: "./assets/sounds/drum-kits/808/808-cardi-money.wav", // low boom (bad on speakers)
         // kick: "./assets/sounds/drum-kits/808/808-cardi-ring.wav", // short (bad)
-        kick: "./assets/sounds/drum-kits/808/808-dolph.wav", // YES
+        kick: "./assets/sounds/drum-kits/808/808-dolph.wav", // YES (pops ughh)
         // kick: "./assets/sounds/drum-kits/808/808-flip.wav", // way too soft
         // kick: "./assets/sounds/drum-kits/808/808-polo.wav", // decent, soft
+
+        // kick: "./assets/sounds/drum-kits/808/808-pusha.wav", // ?
+        // kick: "./assets/sounds/drum-kits/808/808-murda.wav", // too low
+        // kick: "./assets/sounds/drum-kits/808/808-choppa.wav", // too low
+        // kick: "./assets/sounds/drum-kits/808/808-yc.wav",
     },
     autoScroll: false,
     autoStartTime: 4500,

@@ -162,7 +162,9 @@ export default class Helpers {
             if (textData.length > 2) {
                 textH = textH / 2.5;
             } else if (textData.length === 2) {
-                textH = textH / 1.2;
+                // textH = textH / 1.2; // v0.5
+
+                textH = textH * 0.6;
             }
             // textH = textH / textData.length; // kind of works, but "Cr" too small
 

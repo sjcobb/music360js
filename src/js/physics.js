@@ -333,30 +333,40 @@ export default class Physics {
             // console.log('options.duration: ', options.duration);
             if (options.duration > 0) { // TODO: rename options.noteLength so not confusing with arr length
                 // sphereRestitution = options.length / 2;
-                // sphereRestitution = options.duration * 0.65; // PREV
-                sphereRestitution = options.duration * 0.58;
-                // sphereRestitution = options.length * 1;
 
-                // TODO: clean up bounciness default and min / max height
-                // if (sphereRestitution < 0.225) {
-                // if (sphereRestitution < 0.19) {
-                //     sphereRestitution = 0.19;
-                //     // sphereRestitution = 0.225;
-                // }
+
+                if (options.duration < 0.20) { 
+                    options.duration = 0.20;
+                }
+
+                if (options.duration > 0.4) { 
+                    options.duration = 0.4;
+                }
+
+                // sphereRestitution = options.duration * 0.65; // v0.5
+                // sphereRestitution = options.duration * 1.5; // too bouncy
+                sphereRestitution = options.duration * 1.40;
+
+                // sphereRestitution = options.duration * 0.58; // PREV (twinkle)
+
             }
             // console.log({sphereRestitution});
         }
 
         // let objMass = 5000; // floats
-        let objMass = 500;
+        // let objMass = 500;
+        let objMass = 550;
         let objSize = options.size !== undefined ? options.size : 'md';
         if (objSize === 'xl') { // 808
-            objSize = 2.0;
-            objMass = 50;
+            // objSize = 2.0;
+            objSize = 4.0;
+            objMass = 50; // 808 sound pops
+            //objMass = 1000;
         } else {
             // objSize = 0.5; // v0.3
             // objSize = 0.65; // too big for D maj chord
-            objSize = 0.50;
+            // objSize = 0.50; // prev
+            objSize = 0.75
 
             // xPosition += 2;
             // xPosition *= 20;
@@ -405,7 +415,7 @@ export default class Physics {
         // const y = Math.random() * (10 - 5) + 5; //rdm b/w 5 and 10
 
         // body.mass = 1; // feather light
-        body.mass = 600; // heavy
+        // body.mass = 600; // heavy
 
         if (options.type === 'drum') {
             // TODO: new drum machine paradigm - use rotating clock hand to hit drums
@@ -440,10 +450,10 @@ export default class Physics {
         body.linearDamping = Store.damping; // 0.01
         // body.linearDamping = 0.01; // v0.2, v0.3
 
-        // body.angularVelocity.z = 12; //too much rotation - hard to read note letter
-        // body.angularVelocity.z = 6; //prev
-        body.angularVelocity.z = 10;
-        // body.angularVelocity.z = 0;
+        // // // IMPORTANT - rotation spped // // //
+        // body.angularVelocity.z = 10; // prev
+        // body.angularVelocity.z = options.size === 'xl' ? 10 : 20;
+        body.angularVelocity.z = options.size === 'xl' ? 8 : 16;
 
         if (options.type === 'animation') {
             flamePhysics.create({x: -xPos});
