@@ -547,6 +547,26 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             type: 'chord',
             originalPosition: { x: 0, y: 0, z: -16 }
         },
+        sphereChordD6: {
+            ballDesc: 'D',
+            color: '#680896', //II - purple
+            keyInput: '?',
+            note: 'D',
+            octave: 6,
+            chord: ['D6', 'F6', 'A6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -17 }
+        },
+        sphereChordE6: {
+            ballDesc: 'E',
+            color: '#FF001F', //III - redorange
+            keyInput: '?',
+            note: 'E',
+            octave: 6,
+            chord: ['E6', 'G6', 'B6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -18 }
+        },
         // Db2, Eb2, Gb2, Ab2, Bb2, Db3, Eb3, Gb3, Ab3, Bb3
     };
 }

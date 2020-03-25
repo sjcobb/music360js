@@ -27,7 +27,7 @@ Store.instr = getInstrumentMappingTemplate();
  *** 3D ENVIRONMENT ***
  ***/
 
-Store.scene.background = new THREE.Color(0, 0, 0);
+// Store.scene.background = new THREE.Color(0, 0, 0);
 
 Store.camera.position.set(0, 16, 26); 
 Store.camera.lookAt(new THREE.Vector3(0, -2.5, 0)); // v0.5
@@ -50,6 +50,15 @@ if (Store.view.showStaff.treble === true && Store.view.showStaff.bass === true) 
 Store.renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(Store.renderer.domElement);
 Store.renderer.domElement.id = 'canvas-scene-primary';
+
+
+////////////////
+// BACKGROUND //
+////////////////
+// Store.scene.background = new THREE.Color( 0xff0000 ); // red
+Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
+// Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
+
 
 // update viewport on resize
 window.addEventListener('resize', function() {

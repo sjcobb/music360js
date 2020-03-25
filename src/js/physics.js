@@ -444,7 +444,9 @@ export default class Physics {
 
                     material.color = new THREE.Color(Store.activeInstrColor);
 
-                    // material.color = new THREE.Color('#9F532A'); // red
+                    material.opacity = 0;
+                    
+                    console.log({material});
 
                     // boxGeometry.scale.set(10, 10, 10); // not a function
 
