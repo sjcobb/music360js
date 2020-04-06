@@ -39,7 +39,7 @@ var allDrumsPart = new Tone.Part(function(time, instr) {
     // ["0:4:0", Store.instr.tomHigh],
 ]);
 allDrumsPart.loop = true;
-allDrumsPart.start("0:0:0");
+// allDrumsPart.start("0:0:0");
 // allDrumsPart.start("1:0:0");
 
 var introPart = new Tone.Part(function(time, instr) {
