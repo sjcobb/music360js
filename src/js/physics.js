@@ -44,6 +44,8 @@ export default class Physics {
         // this.initGroundContactMaterial([0, 5, 0], [2, 2, 0.1]);
 
         // this.addSpinner();
+
+        this.createFloor([0, -1, -2], [90, 90, 0.1], 1);
     }
 
     initGroundContactMaterial(posArr=[0, -6, 0], sizeArr=[5000, 10, 5]) {
@@ -212,40 +214,12 @@ export default class Physics {
 
         console.log('createFloor() -> floorIndex: ', floorIndex);
 
-        let assetPrefix = 'assets/floor/earthquake-cracks-forming/';
+        // let assetPrefix = 'assets/floor/earthquake-cracks-forming/';
+        let assetPrefix = 'assets/floor/picnic/';
+
         const assetMaxFrames = 132;
-        // let assetOffsetMultiplier = 6; // too late
+
         let assetOffsetMultiplier = 8;
-        // let assetOffsetMultiplier = 5;
-
-        // let assetOffsetMultiplier = 10;
-        // let assetOffsetMultiplier = 50;
-
-        // if (floorIndex > 2) {
-        // // if (floorIndex > 20) {
-        //     assetPrefix = 'assets/floor/earthquake-hole-opening/';
-
-        //     // console.log({sizeArr});
-        //     // sizeArr = sizeArr.map(x => x * 2);
-        //     // posArr[2] += 6;
-
-        //     // floorIndex -= 20;
-        //     // assetOffsetMultiplier = 3;
-
-        //     // floorIndex = assetMaxFrames;
-        //     floorIndex = 36;
-
-        //     // Store.floorMesh.scale.set(2, 2, 2);
-        // } else {
-        //     // sizeArr = sizeArr.map(x => x * 2.5);
-        //     // posArr[1] = 0;
-        // }
-
-        // if (floorIndex > 12) {
-        //     // sizeArr[1] = sizeArr[1] * 2;
-        //     // sizeArr = sizeArr.map(x => x * 5);
-        //     Store.floorMesh.scale.set(1.5, 3, 1);
-        // }
         
         posArr[1] += (floorIndex * 0.0001);
 
@@ -266,8 +240,12 @@ export default class Physics {
             Store.floorMesh.scale.set(1.5, 2.5, 1);
         }
 
+        floorIndex = 1;
         const paddedFloorIndex = this.padToThree(floorIndex);
-        const currentFrame = 'frame_' + paddedFloorIndex + '.png';
+        // const paddedFloorIndex = 1;
+
+        // const currentFrame = 'frame_' + paddedFloorIndex + '.png';
+        const currentFrame = 'frame_' + paddedFloorIndex + '.jpg';
         const assetUrl = assetPrefix + currentFrame;
         console.log('assetUrl: ', assetUrl);
 
@@ -509,8 +487,7 @@ export default class Physics {
 
                         // if (Store.floorExplodeCount % 3 === 0) {
                         if (Store.floorExplodeCount % 2 === 0) {
-                            // this.createFloor([-xPos, -1, -2], [60, 60, 0.1], Store.floorExplodeCount);
-                            this.createFloor([-xPos, -1, -2], [90, 90, 0.1], Store.floorExplodeCount);
+                            // this.createFloor([-xPos, -1, -2], [90, 90, 0.1], Store.floorExplodeCount);
                         }
                         Store.floorExplodeCount++;
                     }
