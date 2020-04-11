@@ -5,9 +5,10 @@ import Trigger from './Trigger.js';
 import InstrumentMappings from './InstrumentMappings.js';
 import { getInstrumentMappingTemplate } from './InstrumentMappings.js';
 
-import Flame from './Flame.js';
+import * as THREE from 'three';
 
-let flamePhysics = new Flame();
+// import Flame from './Flame.js';
+// let flamePhysics = new Flame();
 
 
 /*

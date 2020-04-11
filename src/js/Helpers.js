@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 import Pool from './Pool.js';
 
 /*

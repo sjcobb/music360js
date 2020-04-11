@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 /* see: http://mattatz.github.io */
 
 // THREE.FireShader = {

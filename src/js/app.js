@@ -1,16 +1,19 @@
+import * as THREE from 'three';
+import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+
+import Stats from 'stats.js';
+
 import Store from './Store.js';
 import InstrumentMappings from './InstrumentMappings.js';
-import { getInstrumentMappingTemplate, generateInstrMetadata, getInstrByInputNote } from './InstrumentMappings.js';
-import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
+import { getInstrumentMappingTemplate } from './InstrumentMappings.js';
 import Light from './Light.js';
 import Physics from './Physics.js';
-import Stats from 'stats.js';
 
 /***
  *** SCENE SETUP ***
  * Tone.js: v13.8.4 *
- * Three.js: v97 *
- * TODO: update to most recent of both libs
+ * TODO: update to most recent of Tone and Three
  ***/
 
 if (Store.view.showStats === true) {
@@ -73,7 +76,9 @@ window.addEventListener('resize', function() {
 
 // CONTROLS: https://threejs.org/examples/#misc_controls_fly
 Store.controls = new FlyControls(Store.camera);
-Store.controls.movementSpeed = 1; //prev: 10
+// Store.controls.movementSpeed = 1; //prev: 10
+Store.controls.movementSpeed = 10;
+
 Store.controls.domElement = Store.renderer.domElement;
 Store.controls.rollSpeed = Math.PI / 40;
 Store.controls.autoForward = false;
@@ -145,6 +150,41 @@ var skyboxCubeMesh = new THREE.Mesh(skyboxGeometry, cubeMaterial); //nightsky sk
 if (Store.view.skybox === true) {
     Store.scene.add(skyboxCubeMesh); //add nightsky skybox
 }
+
+//-----RADIO MODEL------//
+// https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_fbx.html
+var fbxLoader = new FBXLoader();
+fbxLoader.load( 'assets/radio/radio.fbx', function (object) {
+
+    // const mixer = new THREE.AnimationMixer( object );
+
+    // var action = mixer.clipAction( object.animations[ 0 ] );
+    // action.play();
+
+    // object.traverse( function ( child ) {
+    //     if (child.isMesh) {
+    //         child.castShadow = true;
+    //         child.receiveShadow = true;
+    //     }
+    // });
+
+    // object.scale.set(-2, -2, -2);
+    // object.scale.set(5, 5, 5);
+    // object.scale.set(0.35, 0.35, 0.35);
+
+    object.scale.set(0.01, 0.01, 0.01);
+    
+    object.position.set(3, 3, -20);
+
+    // object.rotateX(Math.PI / 2);
+    // object.rotateY(Math.PI / 2);
+    object.rotateY(Math.PI);
+    
+    console.log({object});
+    Store.scene.add(object);
+
+} );
+console.log({fbxLoader});
 
 //-----MUSIC STAFF------//
 function addStaffLines(color = 0x000000, offset, posXstart, posXend, posY, posZ, innerLinePadding, dashedLines = false, middleC = false) {

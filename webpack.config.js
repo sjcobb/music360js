@@ -16,6 +16,7 @@ const config = {
         'bundle.js': [
             path.resolve(__dirname, 'node_modules/stats.js/build/stats.min.js'),
             path.resolve(__dirname, 'node_modules/webmidi/webmidi.min.js'),
+            path.resolve(__dirname, 'node_modules/three/build/three.min.js'),
             path.resolve(__dirname, 'src/js/Fire.js'),
             path.resolve(__dirname, 'src/js/FireShader.js'),
             path.resolve(__dirname, 'src/js/Store.js'),
