@@ -18,14 +18,17 @@ export default class Light {
         const ambient = new THREE.AmbientLight(0x888888);
         Store.scene.add(ambient);
 
-        const light = new THREE.DirectionalLight(0xdddddd);
-        light.position.set(3, 10, 4);
+        // const light = new THREE.DirectionalLight(0xdddddd);
+        const light = new THREE.DirectionalLight(0x888888);
+
+        // light.position.set(3, 10, 4);
+        light.position.set(3, 10, -14);
+
         light.target.position.set(0, 0, 0);
         light.castShadow = true;
-        // light.castShadow = false;
 
-        const lightSize = 10;
-        // const lightSize = 100;
+        // const lightSize = 10;
+        const lightSize = 100;
         light.shadow.camera.near = 1;
         light.shadow.camera.far = 50;
         light.shadow.camera.left = light.shadow.camera.bottom = -lightSize;
@@ -37,13 +40,27 @@ export default class Light {
         light.shadow.mapSize.width = 0; // TODO: figure out lighting and shadow casts from balls
         light.shadow.mapSize.height = 0;
 
-        this.sun = light;
+        // this.sun = light;
         Store.scene.add(light);
 
         // const fogColor = new THREE.Color(0xffffff);
         const fogColor = new THREE.Color(0xE5E5E5); 
         // const fogColor  = new THREE.Color("rgb(255, 0, 0)");
         // Store.scene.background = fogColor; // PREV
+    }
+
+    addSolarLights(renderer) {
+        const ambientLight = new THREE.AmbientLight(0x888888, 1);
+        // const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+        Store.scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0x888888);
+        // directionalLight.position.set(3, 10, 4);
+        directionalLight.position.set(3, 10, -14);
+        directionalLight.target.position.set(0, 0, 0);
+        directionalLight.castShadow = true;
+        Store.scene.add(directionalLight);
+
     }
 
 }

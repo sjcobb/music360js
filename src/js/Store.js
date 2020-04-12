@@ -186,7 +186,7 @@ export default {
         songAutoStart: true,
         showDashboard: false,
         showLogoSprite: false,
-        showStats: false,
+        showStats: true,
         showStaff: {
             bass: false,
             treble: false,

@@ -1,6 +1,10 @@
 import * as THREE from 'three';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
+
+// https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_obj.html
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
 import Stats from 'stats.js';
 
@@ -61,9 +65,9 @@ Store.renderer.domElement.id = 'canvas-scene-primary';
 ////////////////
 // BACKGROUND //
 ////////////////
-// Store.scene.background = new THREE.Color( 0xff0000 ); // red
-Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
-// Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
+// // Store.scene.background = new THREE.Color( 0xff0000 ); // red
+// Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
+// // Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
 
 // update viewport on resize
 window.addEventListener('resize', function() {
@@ -88,15 +92,16 @@ Store.controls.dragToLook = true;
 Store.loader = new THREE.TextureLoader();
 
 const light = new Light();
-light.addLights(Store.renderer);
+// light.addLights(Store.renderer);
+light.addSolarLights(Store.renderer);
 
 const physics = new Physics();
 physics.initPhysics();
 
 //-----GEOMETRY VARIABLES------//
 let box = new THREE.BoxGeometry(1, 1, 1);
-let sphere = new THREE.SphereGeometry(0.5, 32, 32);
-let torus = new THREE.TorusGeometry(0.5, 0.25, 32, 32, 2 * Math.PI);
+// let sphere = new THREE.SphereGeometry(0.5, 32, 32);
+// let torus = new THREE.TorusGeometry(0.5, 0.25, 32, 32, 2 * Math.PI);
 
 //-----MATERIAL VARIABLES------//
 let phong = new THREE.MeshPhongMaterial({
@@ -105,14 +110,14 @@ let phong = new THREE.MeshPhongMaterial({
     specular: 0x070707,
     shininess: 100
 });
-let basic = new THREE.MeshBasicMaterial({
-    color: 'pink'
-});
-let lambert = new THREE.MeshPhongMaterial({
-    color: 'pink',
-    reflectivity: 0.5,
-    refractionRatio: 1
-});
+// let basic = new THREE.MeshBasicMaterial({
+//     color: 'pink'
+// });
+// let lambert = new THREE.MeshPhongMaterial({
+//     color: 'pink',
+//     reflectivity: 0.5,
+//     refractionRatio: 1
+// });
 
 //-----OBJ FUNCTIONALITY------//
 //make the objects and add them to the scene
@@ -151,34 +156,69 @@ if (Store.view.skybox === true) {
     Store.scene.add(skyboxCubeMesh); //add nightsky skybox
 }
 
-//-----RADIO MODEL------//
+/////////////////
+// RADIO MODEL //
+/////////////////
 // https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_fbx.html
-var fbxLoader = new FBXLoader();
-fbxLoader.load( 'assets/radio/radio.fbx', function (object) {
+// https://stackoverflow.com/questions/21321450/add-color-to-obj-in-threejs
+
+// https://free3d.com/3d-model/radio-423970.html
+// https://free3d.com/3d-model/radio-89480.html
+// https://free3d.com/3d-model/radio-51766.html
+// https://3dmdb.com/en/3d-models/radio/?&free
+
+const colladaLoader = new ColladaLoader();
+const fbxLoader = new FBXLoader();
+const objLoader = new OBJLoader();
+
+// fbxLoader.load( 'assets/radio/first/radio.fbx', function (object) {
+// fbxLoader.load( 'assets/radio/second/Radio.fbx', function (object) {
+// fbxLoader.load( 'assets/radio/third/Radio.fbx', function (object) {
+// fbxLoader.load( 'assets/radio/third/radio_asset_03.fbx', function (object) {
+// fbxLoader.load( 'assets/radio/first/radio_asset_01.fbx', function (object) {
+// fbxLoader.load( 'assets/radio/first/radio_asset_01_01.fbx', function (object) {
+fbxLoader.load( 'assets/radio/first/radio_asset_01_02.fbx', function (object) {
+
+// https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_collada.html
+
+// colladaLoader.load( 'assets/radio/first/radio_asset_01.dae', function (object) {
 
     // const mixer = new THREE.AnimationMixer( object );
 
     // var action = mixer.clipAction( object.animations[ 0 ] );
     // action.play();
 
-    // object.traverse( function ( child ) {
-    //     if (child.isMesh) {
-    //         child.castShadow = true;
-    //         child.receiveShadow = true;
-    //     }
-    // });
+    // https://stackoverflow.com/questions/21321450/add-color-to-obj-in-threejs
+    object.traverse( function ( child ) {
+        
+        // if ( child instanceof THREE.Mesh ) {
+        if (child.isMesh) {
+            // console.log({child});
+            child.castShadow = true;
+            child.receiveShadow = true;
 
-    // object.scale.set(-2, -2, -2);
-    // object.scale.set(5, 5, 5);
-    // object.scale.set(0.35, 0.35, 0.35);
+            // if (child.material.ambient) {
+            //     child.material.ambient.setHex(0xFF0000);
+            // }
+
+            if (child.material.color) {
+                child.material.color.setHex(0x00FF00);
+            }
+
+        }
+    });
 
     object.scale.set(0.01, 0.01, 0.01);
+    // object.scale.set(0.05, 0.05, 0.05);
     
-    object.position.set(3, 3, -20);
+    // object.position.set(3, 3, -20);
+    object.position.set(1, 3, -18);
+    // object.position.set(0, 3, 0);
 
-    // object.rotateX(Math.PI / 2);
-    // object.rotateY(Math.PI / 2);
+    // // object.rotateX(Math.PI / 2);
+    // // object.rotateY(Math.PI / 2);
     object.rotateY(Math.PI);
+    // object.rotateY(Math.PI / 2);
     
     console.log({object});
     Store.scene.add(object);

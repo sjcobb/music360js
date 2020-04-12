@@ -9773,7 +9773,7 @@ const recordingPart = new Tone.Part(function(time, datum){
 // }, recordingThirdNotes);  // alphabet song
 
 recordingPart.loop = true;
-recordingPart.start("0:0:0");
+// recordingPart.start("0:0:0");
 
 const recordingSecondPart = new Tone.Part(function(time, datum){
     // console.log(time);
@@ -9795,6 +9795,6 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
 
 }, recordingSecondNotes);  // bah bah black sheep
 
-// recordingSecondPart.loop = true;
-// recordingSecondPart.start("0:0:0");
-recordingSecondPart.start("1:0:0");
+// // recordingSecondPart.loop = true;
+// // recordingSecondPart.start("0:0:0");
+// recordingSecondPart.start("1:0:0");
