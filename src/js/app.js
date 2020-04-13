@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 // https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_obj.html
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
@@ -171,60 +172,86 @@ const colladaLoader = new ColladaLoader();
 const fbxLoader = new FBXLoader();
 const objLoader = new OBJLoader();
 
+// https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_gltf.html#L63
+// https://threejs.org/docs/#examples/en/loaders/GLTFLoader
+
+var gltfLoader = new GLTFLoader().setPath( 'assets/radio/first/' );
+// loader.load( 'DamagedHelmet.gltf', function ( gltf ) {
+gltfLoader.load( 'radio_asset_01_02.glb', function (gltf) {
+    console.log(gltf);
+
+    // object.scale.set(0.01, 0.01, 0.01);
+    // object.position.set(1, 3, -18);
+    gltf.scene.rotateY(Math.PI);
+    // gltf.scene.position.set(0.5, 2, -21);
+    gltf.scene.position.set(0.1, 2.1, -18);
+
+    gltf.scene.traverse( function (child) {
+        if (child.isMesh) {
+            console.log({child});
+            // roughnessMipmapper.generateMipmaps( child.material );
+        }
+    });
+    Store.scene.add(gltf.scene);
+    // roughnessMipmapper.dispose();
+    // render();
+} );
+
+
 // fbxLoader.load( 'assets/radio/first/radio.fbx', function (object) {
 // fbxLoader.load( 'assets/radio/second/Radio.fbx', function (object) {
 // fbxLoader.load( 'assets/radio/third/Radio.fbx', function (object) {
 // fbxLoader.load( 'assets/radio/third/radio_asset_03.fbx', function (object) {
 // fbxLoader.load( 'assets/radio/first/radio_asset_01.fbx', function (object) {
 // fbxLoader.load( 'assets/radio/first/radio_asset_01_01.fbx', function (object) {
-fbxLoader.load( 'assets/radio/first/radio_asset_01_02.fbx', function (object) {
+// fbxLoader.load( 'assets/radio/first/radio_asset_01_02.fbx', function (object) {
 
-// https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_collada.html
+// // https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_collada.html
 
-// colladaLoader.load( 'assets/radio/first/radio_asset_01.dae', function (object) {
+// // colladaLoader.load( 'assets/radio/first/radio_asset_01.dae', function (object) {
 
-    // const mixer = new THREE.AnimationMixer( object );
+//     // const mixer = new THREE.AnimationMixer( object );
 
-    // var action = mixer.clipAction( object.animations[ 0 ] );
-    // action.play();
+//     // var action = mixer.clipAction( object.animations[ 0 ] );
+//     // action.play();
 
-    // https://stackoverflow.com/questions/21321450/add-color-to-obj-in-threejs
-    object.traverse( function ( child ) {
+//     // https://stackoverflow.com/questions/21321450/add-color-to-obj-in-threejs
+//     object.traverse( function ( child ) {
         
-        // if ( child instanceof THREE.Mesh ) {
-        if (child.isMesh) {
-            // console.log({child});
-            child.castShadow = true;
-            child.receiveShadow = true;
+//         // if ( child instanceof THREE.Mesh ) {
+//         if (child.isMesh) {
+//             // console.log({child});
+//             child.castShadow = true;
+//             child.receiveShadow = true;
 
-            // if (child.material.ambient) {
-            //     child.material.ambient.setHex(0xFF0000);
-            // }
+//             // if (child.material.ambient) {
+//             //     child.material.ambient.setHex(0xFF0000);
+//             // }
 
-            if (child.material.color) {
-                child.material.color.setHex(0x00FF00);
-            }
+//             if (child.material.color) {
+//                 child.material.color.setHex(0x00FF00);
+//             }
 
-        }
-    });
+//         }
+//     });
 
-    object.scale.set(0.01, 0.01, 0.01);
-    // object.scale.set(0.05, 0.05, 0.05);
+//     object.scale.set(0.01, 0.01, 0.01);
+//     // object.scale.set(0.05, 0.05, 0.05);
     
-    // object.position.set(3, 3, -20);
-    object.position.set(1, 3, -18);
-    // object.position.set(0, 3, 0);
+//     // object.position.set(3, 3, -20);
+//     object.position.set(1, 3, -18);
+//     // object.position.set(0, 3, 0);
 
-    // // object.rotateX(Math.PI / 2);
-    // // object.rotateY(Math.PI / 2);
-    object.rotateY(Math.PI);
-    // object.rotateY(Math.PI / 2);
+//     // // object.rotateX(Math.PI / 2);
+//     // // object.rotateY(Math.PI / 2);
+//     object.rotateY(Math.PI);
+//     // object.rotateY(Math.PI / 2);
     
-    console.log({object});
-    Store.scene.add(object);
+//     console.log({object});
+//     Store.scene.add(object);
 
-} );
-console.log({fbxLoader});
+// } );
+// console.log({fbxLoader});
 
 //-----MUSIC STAFF------//
 function addStaffLines(color = 0x000000, offset, posXstart, posXend, posY, posZ, innerLinePadding, dashedLines = false, middleC = false) {
