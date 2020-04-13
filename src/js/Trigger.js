@@ -9773,7 +9773,7 @@ const recordingPart = new Tone.Part(function(time, datum){
 // }, recordingThirdNotes);  // alphabet song
 
 recordingPart.loop = true;
-// recordingPart.start("0:0:0");
+recordingPart.start("0:0:0"); // no notes
 
 const recordingSecondPart = new Tone.Part(function(time, datum){
     // console.log(time);
@@ -9786,7 +9786,8 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
 
     instrMapped.color = '#64b5f6'; // human blue
 
-    instrMapped.originalPosition.z += 15;
+    // instrMapped.originalPosition.z += 15;
+    instrMapped.originalPosition.z += 5;
 
     instrMapped.duration = datum.duration / 2;
 
@@ -9796,5 +9797,5 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
 }, recordingSecondNotes);  // bah bah black sheep
 
 // // recordingSecondPart.loop = true;
-// // recordingSecondPart.start("0:0:0");
+recordingSecondPart.start("0:0:0");
 // recordingSecondPart.start("1:0:0");

@@ -67,7 +67,7 @@ Store.renderer.domElement.id = 'canvas-scene-primary';
 // BACKGROUND //
 ////////////////
 // // Store.scene.background = new THREE.Color( 0xff0000 ); // red
-// Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
+Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
 // // Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
 
 // update viewport on resize
@@ -180,16 +180,34 @@ var gltfLoader = new GLTFLoader().setPath( 'assets/radio/first/' );
 gltfLoader.load( 'radio_asset_01_02.glb', function (gltf) {
     console.log(gltf);
 
-    // object.scale.set(0.01, 0.01, 0.01);
-    // object.position.set(1, 3, -18);
+    gltf.scene.scale.set(1.5, 1.5, 1.5);
+
     gltf.scene.rotateY(Math.PI);
-    // gltf.scene.position.set(0.5, 2, -21);
-    gltf.scene.position.set(0.1, 2.1, -18);
+
+    // gltf.scene.position.set(-12, 2.1, -18); // works when scale is 1
+
+    gltf.scene.position.set(-13, 4, -22);
 
     gltf.scene.traverse( function (child) {
         if (child.isMesh) {
-            console.log({child});
+            // console.log({child});
             // roughnessMipmapper.generateMipmaps( child.material );
+
+            // if (child.material.color) {
+            //     child.material.color.setHex(0x00FF00); // green
+            // }
+
+            if (child.material.color) {
+                // console.log(child.material.color);
+                // child.material.color.setHex(0x00FF00); // green
+                if (child.material.color.r === 0 && child.material.color.g === 0 && child.material.color.b === 0) {
+                    // console.log('BLACK');
+                    child.material.color.setHex(0x00FF00); // green
+                    child.material.color.setHex(0x272727); // dkgray
+                }
+
+            }
+
         }
     });
     Store.scene.add(gltf.scene);

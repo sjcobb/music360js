@@ -50,16 +50,26 @@ export default class Light {
     }
 
     addSolarLights(renderer) {
-        const ambientLight = new THREE.AmbientLight(0x888888, 1);
-        // const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+
+        // https://github.com/asjadanis/3d-scene/blob/master/src/Scene.js#L107
+        
+        // const ambientLight = new THREE.AmbientLight(0x888888, 1); // too dark
+        // const ambientLight = new THREE.AmbientLight(0x888888, 0.5); // way too dark
+        // const ambientLight = new THREE.AmbientLight(0xffffff, 1); // too bright
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        // ambientLight.position.set(0, 100, 0);
         Store.scene.add(ambientLight);
 
-        const directionalLight = new THREE.DirectionalLight(0x888888);
-        // directionalLight.position.set(3, 10, 4);
-        directionalLight.position.set(3, 10, -14);
-        directionalLight.target.position.set(0, 0, 0);
-        directionalLight.castShadow = true;
-        Store.scene.add(directionalLight);
+        let hemiLight = new THREE.HemisphereLight(0xfffafa, 0x000000, 0.9); // https://www.color-hex.com/color/fffafa (snow),
+        // let hemiLight = new THREE.HemisphereLight(0x446377, 0xff0000, 0.9); // sunset (dark blue, red)
+        Store.scene.add(hemiLight);
+
+        // const directionalLight = new THREE.DirectionalLight(0x888888);
+        // // directionalLight.position.set(3, 10, 4);
+        // directionalLight.position.set(3, 10, -14);
+        // directionalLight.target.position.set(0, 0, 0);
+        // directionalLight.castShadow = true;
+        // Store.scene.add(directionalLight);
 
     }
 
