@@ -7,6 +7,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 // https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_obj.html
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
+import Tone from 'Tone';
+
 import Stats from 'stats.js';
 
 import Store from './Store.js';
@@ -201,8 +203,8 @@ gltfLoader.load( 'radio_asset_01_02.glb', function (gltf) {
                 // console.log(child.material.color);
                 // child.material.color.setHex(0x00FF00); // green
                 if (child.material.color.r === 0 && child.material.color.g === 0 && child.material.color.b === 0) {
-                    // console.log('BLACK');
-                    child.material.color.setHex(0x00FF00); // green
+
+                    // child.material.color.setHex(0x00FF00); // green
                     child.material.color.setHex(0x272727); // dkgray
                 }
 
@@ -384,6 +386,7 @@ window.onload = () => {
 
     document.addEventListener('keydown', (event) => {
         const keyName = event.key;
+        // console.log({keyName});
 
         if (keyName === 'Control') {
             // do not log when only Control key is pressed.
@@ -398,6 +401,14 @@ window.onload = () => {
                 case ('z'):
                     // physics.addBody(true, Store.dropPosX, keyMapped);
                     // Store.dropPosX -= 1.3;
+                    break;
+                case ('Escape'):
+                    Tone.Transport.stop();
+                    console.error('... ESCAPE -> Tone.Transport stopped ...');
+                    break;
+                case ('Enter'):
+                    Tone.Transport.start();
+                    console.info('... ENTER -> Tone.Transport started ...');
                     break;
                 case(' '):
                     console.error('... SPACEBAR RESET -> polySynth.triggerRelease() ...');

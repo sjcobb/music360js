@@ -22,7 +22,7 @@ export default {
     // activeInstrColor: '#343434', // PREV (gray)
     // activeInstrColor: '#ffffff',
     // activeInstrColor: '#0047bb', // blue screen
-    activeInstrColor: '#FF0000', // blue screen
+    activeInstrColor: '#FF0000', // red
     ai: {
         enabled: false,
     },
@@ -178,7 +178,8 @@ export default {
         // posBehindZ: 1,
 
         // posBehindX: -70,
-        posBehindX: -45,
+        // posBehindX: -45, // earthquake
+        posBehindX: -65,
         // posBehindY: 12,
         posBehindY: 10,
         posBehindZ: 0,

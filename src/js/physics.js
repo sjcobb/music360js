@@ -46,7 +46,8 @@ export default class Physics {
 
         // this.addSpinner();
 
-        this.createFloor([0, -1, -2], [90, 90, 0.1], 1);
+        // this.createFloor([0, -1, -2], [90, 90, 0.1], 1);
+        this.createFloor([0, -1, 0], [130, 130, 0.1], 1);
     }
 
     initGroundContactMaterial(posArr=[0, -6, 0], sizeArr=[5000, 10, 5]) {
@@ -218,28 +219,27 @@ export default class Physics {
         // let assetPrefix = 'assets/floor/earthquake-cracks-forming/';
         let assetPrefix = 'assets/floor/picnic/';
 
-        const assetMaxFrames = 132;
-
-        let assetOffsetMultiplier = 8;
+        // const assetMaxFrames = 132;
+        // let assetOffsetMultiplier = 8;
         
         posArr[1] += (floorIndex * 0.0001);
 
-        // if (floorIndex <= assetMaxFrames && floorIndex > 0) {
-        if (floorIndex <= assetMaxFrames) {
-            floorIndex *= assetOffsetMultiplier;
-        }
+        // // if (floorIndex <= assetMaxFrames && floorIndex > 0) {
+        // if (floorIndex <= assetMaxFrames) {
+        //     floorIndex *= assetOffsetMultiplier;
+        // }
 
-        if (floorIndex > assetMaxFrames) {
-            floorIndex = assetMaxFrames;
-        } else if (floorIndex < 1) {
-            floorIndex = 1;
-        }
+        // if (floorIndex > assetMaxFrames) {
+        //     floorIndex = assetMaxFrames;
+        // } else if (floorIndex < 1) {
+        //     floorIndex = 1;
+        // }
 
-        if (floorIndex > 121) {
-            // sizeArr[1] = sizeArr[1] * 2;
-            // sizeArr = sizeArr.map(x => x * 5);
-            Store.floorMesh.scale.set(1.5, 2.5, 1);
-        }
+        // if (floorIndex > 121) {
+        //     // sizeArr[1] = sizeArr[1] * 2;
+        //     // sizeArr = sizeArr.map(x => x * 5);
+        //     Store.floorMesh.scale.set(1.5, 2.5, 1);
+        // }
 
         floorIndex = 1;
         const paddedFloorIndex = this.padToThree(floorIndex);
@@ -253,12 +253,15 @@ export default class Physics {
         const floorTexture = Store.loader.load(assetUrl);
 
         // https://threejs.org/docs/#api/en/textures/Texture.repeat
-        floorTexture.repeat = new THREE.Vector2(1, 1);
+        // floorTexture.repeat = new THREE.Vector2(1, 1);
+        // floorTexture.repeat = new THREE.Vector2(2, 2);
+        // floorTexture.repeat.set(4, 4);
+        floorTexture.wrapY = THREE.RepeatWrapping;
 
         const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture } );
         // floorMaterial.map.center.set(0.5, 0.5);
-        floorMaterial.transparent = true;
-        floorMaterial.color = new THREE.Color(Store.activeInstrColor); // no effect
+        // floorMaterial.transparent = true;
+        // floorMaterial.color = new THREE.Color(Store.activeInstrColor); // no effect
 
         if (Store.floorMaterial == null) {
             Store.floorMaterial = floorMaterial;
@@ -659,7 +662,8 @@ export default class Physics {
                     // NEW Ground for drum spinner, PLANE no longer used since infinite invisible contact not needed
                     const boxGeometry = new THREE.BoxGeometry(shape.halfExtents.x * 2, shape.halfExtents.y * 2, shape.halfExtents.z * 2);
                     material.color = new THREE.Color(Store.activeInstrColor);
-                    // material.color = new THREE.Color('#9F532A'); // red
+                    // material.transparent = true; 
+                    // // material.color = new THREE.Color('#9F532A'); // red
 
                     mesh = new THREE.Mesh(boxGeometry, material); // v0.5
 

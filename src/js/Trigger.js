@@ -163,12 +163,6 @@ export default class Trigger {
 
         Store.musicActive = true; //remove?
 
-        // console.log('Store.inputMidi: ', Store.inputMidi);
-        if (Store.inputMidi === true) {
-
-        } else {
-
-        }
         // console.log('Trigger -> addBody - opts: ', obj.userData.opts);
         
         let triggerObj = {};
@@ -177,61 +171,34 @@ export default class Trigger {
             combinedNote = obj.userData.opts.note ? (obj.userData.opts.note + obj.userData.opts.octave) : 'C4';
             // console.log({combinedNote});
 
-            Store.dashboard.lastNote = combinedNote;
+            if (Store.view.showDashboard === true) {
+                Store.dashboard.lastNote = combinedNote;
 
-            Store.dashboard.allPlayedNotes.push(combinedNote);
-            // Store.dashboard.allPlayedNotes.push(obj.userData.opts.note);
-            // Store.dashboard.allPlayedOctaves.push(obj.userData.opts.octave);
-            // // Store.dashboard.noteCountsDataset.source.note.push(obj.userData.opts.note);
-            // // Store.dashboard.noteCountsDataset.source.octave.push(obj.userData.opts.octave);
+                Store.dashboard.allPlayedNotes.push(combinedNote);
 
-            // const noteDatum = {
+                if (Store.dashboard.noteCountsObj[combinedNote] != null) {
+                    Store.dashboard.noteCountsObj[combinedNote].count++;
+                } else {
+                    Store.dashboard.noteCountsObj[combinedNote] = {
+                        note: obj.userData.opts.note,
+                        octave: obj.userData.opts.octave,
+                        count: 1,
+                    };
+                }
 
-            // };
-            // Store.dashboard.noteCounts.push(
-            //     {
-            //         note: obj.userData.opts.note,
-            //         octave: obj.userData.opts.octave,
-            //         count: 1
-            //     }
-            // )
+                Store.dashboard.noteCountsArr = [];
+                for (let key in Store.dashboard.noteCountsObj){
+                    Store.dashboard.noteCountsArr.push(Store.dashboard.noteCountsObj[key]);
+                }
 
-            // if (Store.instr[obj.userData.opts.objName].count != null) {
-            //     Store.instr[obj.userData.opts.objName].count++;
-            // } else {
-            //     Store.instr[obj.userData.opts.objName].count = 1;
-            // }
-
-            if (Store.dashboard.noteCountsObj[combinedNote] != null) {
-                Store.dashboard.noteCountsObj[combinedNote].count++;
-            } else {
-                Store.dashboard.noteCountsObj[combinedNote] = {
-                    note: obj.userData.opts.note,
-                    octave: obj.userData.opts.octave,
-                    count: 1,
-                };
-                // Store.dashboard.noteCountsObj[combinedNote].count = 1;
+                // https://stackoverflow.com/a/8900824/7639084
+                Store.dashboard.noteCountsArr.sort(function(a, b) {
+                    var textA = a.note.toUpperCase();
+                    var textB = b.note.toUpperCase();
+                    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+                });
+                Store.dashboard.recentPlayedNotes.push(combinedNote);
             }
-            // console.log(Object.entries(Store.dashboard.noteCountsObj));
-            // Store.dashboard.noteCountsArr = Object.entries(Store.dashboard.noteCountsObj);
-
-            Store.dashboard.noteCountsArr = [];
-            for (let key in Store.dashboard.noteCountsObj){
-                // console.log({key});
-                Store.dashboard.noteCountsArr.push(Store.dashboard.noteCountsObj[key]);
-            }
-
-            // https://stackoverflow.com/a/8900824/7639084
-            Store.dashboard.noteCountsArr.sort(function(a, b) {
-                // console.log(a, b);
-                var textA = a.note.toUpperCase();
-                var textB = b.note.toUpperCase();
-                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-            });
-            // console.log('triggerNote -> Store.dashboard.allPlayedNotes: ', Store.dashboard.allPlayedNotes);
-
-            Store.dashboard.recentPlayedNotes.push(combinedNote);
-            // console.log('triggerNote -> Store.dashboard.recentPlayedNotes: ', Store.dashboard.recentPlayedNotes);
 
             triggerObj = obj.userData.opts;
 
@@ -9758,10 +9725,11 @@ const recordingPart = new Tone.Part(function(time, datum){
     const instrMapped = generateInstrMetadata(datum.name);
 
     // instrMapped.color = '#008b8b';
-    instrMapped.color = '#64b5f6'; // human blue
+    instrMapped.color = '#800000'; // dkred
+    // instrMapped.color = '#64b5f6'; // human blue
 
     // instrMapped.originalPosition.z -= 15;
-    instrMapped.originalPosition.z -= 10;
+    instrMapped.originalPosition.z -= 18;
 
     instrMapped.duration = datum.duration / 2;
 
@@ -9772,8 +9740,8 @@ const recordingPart = new Tone.Part(function(time, datum){
 // }, recordingSecondNotes);  // bah bah black sheep
 // }, recordingThirdNotes);  // alphabet song
 
-recordingPart.loop = true;
-recordingPart.start("0:0:0"); // no notes
+// recordingPart.loop = true;
+// recordingPart.start("0:0:0"); // red notes
 
 const recordingSecondPart = new Tone.Part(function(time, datum){
     // console.log(time);
@@ -9787,7 +9755,7 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
     instrMapped.color = '#64b5f6'; // human blue
 
     // instrMapped.originalPosition.z += 15;
-    instrMapped.originalPosition.z += 5;
+    instrMapped.originalPosition.z += 8;
 
     instrMapped.duration = datum.duration / 2;
 
