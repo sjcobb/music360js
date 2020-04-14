@@ -184,10 +184,10 @@ export default {
         posBehindY: 10,
         posBehindZ: 0,
 
-        songAutoStart: true,
+        songAutoStart: false,
         showDashboard: false,
         showLogoSprite: false,
-        showStats: true,
+        showStats: false,
         showStaff: {
             bass: false,
             treble: false,

@@ -159,119 +159,134 @@ if (Store.view.skybox === true) {
     Store.scene.add(skyboxCubeMesh); //add nightsky skybox
 }
 
-/////////////////
-// RADIO MODEL //
-/////////////////
-// https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_fbx.html
-// https://stackoverflow.com/questions/21321450/add-color-to-obj-in-threejs
+function loadRadio() {
+    /////////////////
+    // RADIO MODEL //
+    /////////////////
+    // https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_fbx.html
+    // https://stackoverflow.com/questions/21321450/add-color-to-obj-in-threejs
 
-// https://free3d.com/3d-model/radio-423970.html
-// https://free3d.com/3d-model/radio-89480.html
-// https://free3d.com/3d-model/radio-51766.html
-// https://3dmdb.com/en/3d-models/radio/?&free
+    // https://free3d.com/3d-model/radio-423970.html
+    // https://free3d.com/3d-model/radio-89480.html
+    // https://free3d.com/3d-model/radio-51766.html
+    // https://3dmdb.com/en/3d-models/radio/?&free
 
-const colladaLoader = new ColladaLoader();
-const fbxLoader = new FBXLoader();
-const objLoader = new OBJLoader();
+    // TODO: use Draco to compress asset gltf file
+    // https://discourse.threejs.org/t/what-glb-compessions-optimizers-can-i-find/5374/2
 
-// https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_gltf.html#L63
-// https://threejs.org/docs/#examples/en/loaders/GLTFLoader
+    console.log('loadRadio() called...');
 
-var gltfLoader = new GLTFLoader().setPath( 'assets/radio/first/' );
-// loader.load( 'DamagedHelmet.gltf', function ( gltf ) {
-gltfLoader.load( 'radio_asset_01_02.glb', function (gltf) {
-    console.log(gltf);
+    const colladaLoader = new ColladaLoader();
+    const fbxLoader = new FBXLoader();
+    const objLoader = new OBJLoader();
 
-    gltf.scene.scale.set(1.5, 1.5, 1.5);
+    // https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_gltf.html#L63
+    // https://threejs.org/docs/#examples/en/loaders/GLTFLoader
 
-    gltf.scene.rotateY(Math.PI);
+    var gltfLoader = new GLTFLoader().setPath( 'assets/radio/first/' );
+    console.log({gltfLoader});
 
-    // gltf.scene.position.set(-12, 2.1, -18); // works when scale is 1
+    // loader.load( 'DamagedHelmet.gltf', function ( gltf ) {
+    gltfLoader.load( 'radio_asset_01_02.glb', function (gltf) {
+        console.log(gltf);
 
-    gltf.scene.position.set(-13, 4, -22);
+        gltf.scene.scale.set(1.5, 1.5, 1.5);
 
-    gltf.scene.traverse( function (child) {
-        if (child.isMesh) {
-            // console.log({child});
-            // roughnessMipmapper.generateMipmaps( child.material );
+        gltf.scene.rotateY(Math.PI);
+        // gltf.scene.rotateY(Math.PI + 0.15);
 
-            // if (child.material.color) {
-            //     child.material.color.setHex(0x00FF00); // green
-            // }
+        // gltf.scene.position.set(-12, 2.1, -18); // works when scale is 1
 
-            if (child.material.color) {
-                // console.log(child.material.color);
-                // child.material.color.setHex(0x00FF00); // green
-                if (child.material.color.r === 0 && child.material.color.g === 0 && child.material.color.b === 0) {
+        // gltf.scene.position.set(-13, 4, -22);
+        gltf.scene.position.set(-16, 4, -22);
 
+        gltf.scene.traverse( function (child) {
+            if (child.isMesh) {
+                // console.log({child});
+                // roughnessMipmapper.generateMipmaps( child.material );
+
+                // if (child.material.color) {
+                //     child.material.color.setHex(0x00FF00); // green
+                // }
+
+                if (child.material.color) {
+                    // console.log(child.material.color);
                     // child.material.color.setHex(0x00FF00); // green
-                    child.material.color.setHex(0x272727); // dkgray
+                    if (child.material.color.r === 0 && child.material.color.g === 0 && child.material.color.b === 0) {
+
+                        // child.material.color.setHex(0x00FF00); // green
+                        child.material.color.setHex(0x272727); // dkgray
+                    }
+
                 }
 
             }
+        });
+        Store.scene.add(gltf.scene);
+        // roughnessMipmapper.dispose();
+        // render();
 
-        }
-    });
-    Store.scene.add(gltf.scene);
-    // roughnessMipmapper.dispose();
-    // render();
-} );
+        Tone.Transport.start();
+
+    } );
 
 
-// fbxLoader.load( 'assets/radio/first/radio.fbx', function (object) {
-// fbxLoader.load( 'assets/radio/second/Radio.fbx', function (object) {
-// fbxLoader.load( 'assets/radio/third/Radio.fbx', function (object) {
-// fbxLoader.load( 'assets/radio/third/radio_asset_03.fbx', function (object) {
-// fbxLoader.load( 'assets/radio/first/radio_asset_01.fbx', function (object) {
-// fbxLoader.load( 'assets/radio/first/radio_asset_01_01.fbx', function (object) {
-// fbxLoader.load( 'assets/radio/first/radio_asset_01_02.fbx', function (object) {
+    // fbxLoader.load( 'assets/radio/first/radio.fbx', function (object) {
+    // fbxLoader.load( 'assets/radio/second/Radio.fbx', function (object) {
+    // fbxLoader.load( 'assets/radio/third/Radio.fbx', function (object) {
+    // fbxLoader.load( 'assets/radio/third/radio_asset_03.fbx', function (object) {
+    // fbxLoader.load( 'assets/radio/first/radio_asset_01.fbx', function (object) {
+    // fbxLoader.load( 'assets/radio/first/radio_asset_01_01.fbx', function (object) {
+    // fbxLoader.load( 'assets/radio/first/radio_asset_01_02.fbx', function (object) {
 
-// // https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_collada.html
+    // // https://github.com/mrdoob/three.js/blob/dev/examples/webgl_loader_collada.html
 
-// // colladaLoader.load( 'assets/radio/first/radio_asset_01.dae', function (object) {
+    // // colladaLoader.load( 'assets/radio/first/radio_asset_01.dae', function (object) {
 
-//     // const mixer = new THREE.AnimationMixer( object );
+    //     // const mixer = new THREE.AnimationMixer( object );
 
-//     // var action = mixer.clipAction( object.animations[ 0 ] );
-//     // action.play();
+    //     // var action = mixer.clipAction( object.animations[ 0 ] );
+    //     // action.play();
 
-//     // https://stackoverflow.com/questions/21321450/add-color-to-obj-in-threejs
-//     object.traverse( function ( child ) {
+    //     // https://stackoverflow.com/questions/21321450/add-color-to-obj-in-threejs
+    //     object.traverse( function ( child ) {
+            
+    //         // if ( child instanceof THREE.Mesh ) {
+    //         if (child.isMesh) {
+    //             // console.log({child});
+    //             child.castShadow = true;
+    //             child.receiveShadow = true;
+
+    //             // if (child.material.ambient) {
+    //             //     child.material.ambient.setHex(0xFF0000);
+    //             // }
+
+    //             if (child.material.color) {
+    //                 child.material.color.setHex(0x00FF00);
+    //             }
+
+    //         }
+    //     });
+
+    //     object.scale.set(0.01, 0.01, 0.01);
+    //     // object.scale.set(0.05, 0.05, 0.05);
         
-//         // if ( child instanceof THREE.Mesh ) {
-//         if (child.isMesh) {
-//             // console.log({child});
-//             child.castShadow = true;
-//             child.receiveShadow = true;
+    //     // object.position.set(3, 3, -20);
+    //     object.position.set(1, 3, -18);
+    //     // object.position.set(0, 3, 0);
 
-//             // if (child.material.ambient) {
-//             //     child.material.ambient.setHex(0xFF0000);
-//             // }
+    //     // // object.rotateX(Math.PI / 2);
+    //     // // object.rotateY(Math.PI / 2);
+    //     object.rotateY(Math.PI);
+    //     // object.rotateY(Math.PI / 2);
+        
+    //     console.log({object});
+    //     Store.scene.add(object);
 
-//             if (child.material.color) {
-//                 child.material.color.setHex(0x00FF00);
-//             }
+    // } );
+    // console.log({fbxLoader});
 
-//         }
-//     });
-
-//     object.scale.set(0.01, 0.01, 0.01);
-//     // object.scale.set(0.05, 0.05, 0.05);
-    
-//     // object.position.set(3, 3, -20);
-//     object.position.set(1, 3, -18);
-//     // object.position.set(0, 3, 0);
-
-//     // // object.rotateX(Math.PI / 2);
-//     // // object.rotateY(Math.PI / 2);
-//     object.rotateY(Math.PI);
-//     // object.rotateY(Math.PI / 2);
-    
-//     console.log({object});
-//     Store.scene.add(object);
-
-// } );
-// console.log({fbxLoader});
+}
 
 //-----MUSIC STAFF------//
 function addStaffLines(color = 0x000000, offset, posXstart, posXend, posY, posZ, innerLinePadding, dashedLines = false, middleC = false) {
@@ -382,6 +397,9 @@ let animate = () => {
 };
 
 window.onload = () => {
+
+    loadRadio();
+
     //-----KEYBOARD MAPPING------//
 
     document.addEventListener('keydown', (event) => {
