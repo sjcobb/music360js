@@ -26,7 +26,7 @@ export default class Physics {
     //-----CANNON INIT------//
     // Store.world = new CANNON.World();
 
-    initPhysics() {
+    init() {
         this.fixedTimeStep = 1.0 / 60.0;
         this.damping = 0.01;
 

@@ -16,6 +16,7 @@ import InstrumentMappings from './InstrumentMappings.js';
 import { getInstrumentMappingTemplate } from './InstrumentMappings.js';
 import Light from './Light.js';
 import Physics from './Physics.js';
+import Recording from './Recording.js';
 
 /***
  *** SCENE SETUP ***
@@ -65,6 +66,11 @@ Store.renderer.domElement.id = 'canvas-scene-primary';
 // https://stackoverflow.com/a/16177178/7639084
 // Store.renderer.setClearColor(0xffffff, 0); // no effect
 
+/////////////
+// LOADER //
+////////////
+Store.loader = new THREE.TextureLoader();
+
 ////////////////
 // BACKGROUND //
 ////////////////
@@ -81,7 +87,10 @@ window.addEventListener('resize', function() {
     Store.camera.updateProjectionMatrix();
 });
 
-// CONTROLS: https://threejs.org/examples/#misc_controls_fly
+//////////////
+// CONTROLS //
+/////////////
+// https://threejs.org/examples/#misc_controls_fly
 Store.controls = new FlyControls(Store.camera);
 // Store.controls.movementSpeed = 1; //prev: 10
 Store.controls.movementSpeed = 10;
@@ -91,15 +100,24 @@ Store.controls.rollSpeed = Math.PI / 40;
 Store.controls.autoForward = false;
 Store.controls.dragToLook = true;
 
-//*** LOADER ***
-Store.loader = new THREE.TextureLoader();
-
+//////////// 
+// LIGHT //
+///////////
 const light = new Light();
 // light.addLights(Store.renderer);
 light.addSolarLights(Store.renderer);
 
+////////////// 
+// PHYSICS //
+/////////////
 const physics = new Physics();
-physics.initPhysics();
+physics.init();
+
+/////////////// 
+// RECORDING //
+//////////////
+const recording = new Recording();
+recording.init();
 
 //-----GEOMETRY VARIABLES------//
 let box = new THREE.BoxGeometry(1, 1, 1);
@@ -779,91 +797,3 @@ if (Store.view.showDashboard === true) {
     }, 100);
 
 }
-
-// 
-
-// https://www.html5rocks.com/en/tutorials/webaudio/intro/
-
-function BufferLoader(context, urlList, callback) {
-    this.context = context;
-    this.urlList = urlList;
-    this.onload = callback;
-    this.bufferList = new Array();
-    this.loadCount = 0;
-  }
-  
-  BufferLoader.prototype.loadBuffer = function(url, index) {
-    // Load buffer asynchronously
-    var request = new XMLHttpRequest();
-    request.open("GET", url, true);
-    request.responseType = "arraybuffer";
-  
-    var loader = this;
-  
-    request.onload = function() {
-      // Asynchronously decode the audio file data in request.response
-      loader.context.decodeAudioData(
-        request.response,
-        function(buffer) {
-          if (!buffer) {
-            alert('error decoding file data: ' + url);
-            return;
-          }
-          loader.bufferList[index] = buffer;
-          if (++loader.loadCount == loader.urlList.length)
-            loader.onload(loader.bufferList);
-        },
-        function(error) {
-          console.error('decodeAudioData error', error);
-        }
-      );
-    }
-  
-    request.onerror = function() {
-      alert('BufferLoader: XHR error');
-    }
-  
-    request.send();
-  }
-  
-  BufferLoader.prototype.load = function() {
-    for (var i = 0; i < this.urlList.length; ++i)
-    this.loadBuffer(this.urlList[i], i);
-  }
-
-// 
-
-// window.onload = initRecording;
-var context;
-var bufferLoader;
-
-function initRecording() {
-    // Fix up prefixing
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    context = new AudioContext();
-
-    bufferLoader = new BufferLoader(
-        context,
-        [
-            './assets/song/aintno_vocals_01.wav',
-        ],
-        finishedLoading
-    );
-
-    bufferLoader.load();
-}
-
-function finishedLoading(bufferList) {
-    // Create two sources and play them both together.
-    var source1 = context.createBufferSource();
-    var source2 = context.createBufferSource();
-    source1.buffer = bufferList[0];
-    source2.buffer = bufferList[1];
-
-    source1.connect(context.destination);
-    source2.connect(context.destination);
-    source1.start(0);
-    source2.start(0);
-}
-
-initRecording();
