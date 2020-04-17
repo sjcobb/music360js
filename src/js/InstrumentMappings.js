@@ -89,6 +89,10 @@ export function generateInstrMetadata(note) {
     // console.log({baseNote});
     const instrMapped = getInstrByInputNote(baseNote);
 
+    if (instrMapped === undefined) {
+        console.log('(generateInstrMetadata) -> UNDEF note: ', note);
+    }
+
     if (tonalNote.length === 3) {
         instrMapped.note = tonalNote[0] + tonalNote[1];
         instrMapped.ballDesc = tonalNote[0] + tonalNote[1];
@@ -523,6 +527,26 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             chord: ['G5', 'B5', 'D6'],
             type: 'chord',
             originalPosition: { x: 0, y: 0, z: -13 }
+        },
+        sphereChordA5: {
+            ballDesc: 'A',
+            color: '#C6018B', //VI - pink
+            keyInput: '?',
+            note: 'A',
+            octave: 5,
+            chord: ['A5', 'C6', 'E6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -7 }
+        },
+        sphereChordB5: {
+            ballDesc: 'B',
+            color: '#FF872B', //VII - orange
+            keyInput: '?',
+            note: 'B',
+            octave: 5,
+            chord: ['B5', 'D6', 'F6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -8 }
         },
         // Db2, Eb2, Gb2, Ab2, Bb2, Db3, Eb3, Gb3, Ab3, Bb3
     };

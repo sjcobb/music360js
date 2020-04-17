@@ -397,6 +397,7 @@ export default class Physics {
         // const yPos = 1;
         // const yPos = 30;
         const yPos = 45;
+        // const yPos = 95;
 
         /*** Randomized Y drop point ***/
         // const y = Math.random() * (10 - 5) + 5; //rdm b/w 5 and 10
@@ -440,7 +441,9 @@ export default class Physics {
         // // // IMPORTANT - rotation spped // // //
         // body.angularVelocity.z = 10; // prev
         // body.angularVelocity.z = options.size === 'xl' ? 10 : 20;
-        body.angularVelocity.z = options.size === 'xl' ? 8 : 18;
+
+        // body.angularVelocity.z = options.size === 'xl' ? 8 : 18; // earthquake
+        body.angularVelocity.z = options.size === 'xl' ? 8 : 24;
 
         if (options.type === 'animation') {
             flamePhysics.create({x: -xPos});

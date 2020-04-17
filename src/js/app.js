@@ -117,7 +117,7 @@ physics.init();
 // RECORDING //
 //////////////
 const recording = new Recording();
-recording.init();
+recording.initSample();
 
 //-----GEOMETRY VARIABLES------//
 let box = new THREE.BoxGeometry(1, 1, 1);
@@ -246,6 +246,7 @@ function loadRadio() {
         // roughnessMipmapper.dispose();
         // render();
 
+        Store.recording.playerFirst.start();
         Tone.Transport.start();
 
     } );
@@ -442,7 +443,8 @@ window.onload = () => {
                     break;
                 case ('Escape'):
                     Tone.Transport.stop();
-                    console.error('... ESCAPE -> Tone.Transport stopped ...');
+                    Store.recording.playerFirst.stop();
+                    console.error('... ESCAPE -> Tone.Transport & recording stopped ...');
                     break;
                 case ('Enter'):
                     Tone.Transport.start();

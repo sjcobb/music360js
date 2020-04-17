@@ -1,5 +1,6 @@
 // import * as THREE from 'three';
 import Store from './Store.js';
+import Tone from 'Tone';
 
 export default class Recording {
 
@@ -7,10 +8,30 @@ export default class Recording {
         // super();
     }
 
-    init() {
-        console.log('Recording -> init()');
+    // activeSources = [];
+
+    initSample() {
+        console.log('Recording -> initSample()');
+        // const player = new Tone.Player("./assets/song/aintno_vocals_01.wav").toMaster();
+        // player.autostart = true;
+
+        Store.recording.playerFirst = new Tone.Player("./assets/song/aintno_vocals_01.wav").toMaster();
+
+        setTimeout(function() {
+            // Tone.Transport.start();
+            // player.start();
+            // Store.recording.playerFirst.start();
+        }, 6000);
+        
+    }
+
+    initManualPlayer() {
+        console.log('Recording -> initManualPlayer()');
         // https://www.html5rocks.com/en/tutorials/webaudio/intro/
 
+        this.activeSources = [];
+
+        // 
         function BufferLoader(context, urlList, callback) {
             this.context = context;
             this.urlList = urlList;
@@ -91,9 +112,30 @@ export default class Recording {
             source2.connect(context.destination);
             source1.start(0);
             source2.start(0);
-        }
 
+            // this.activeSources.append(source1);
+            // this.activeSources.append(source2);
+
+            // source1.stop(0);
+            // source2.stop(0);
+        }
+    
         initRecording();
+        // this.stopAll(this.activeSources);
+    }
+
+    // stopAll(sourcesArr) {
+    stopAll() {
+        // source1.stop(0);
+        // source2.stop(0);
+        console.log('Recording -> stopAll()');
+        console.log(this);
+        // this.activeSources.each(function(item) {
+        // sourcesArr.each(function(item) {
+        
+        // sourcesArr.forEach((element) => {
+        //     element.stop(0);
+        // });
     }
 
 }
