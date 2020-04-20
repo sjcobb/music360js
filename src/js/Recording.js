@@ -25,6 +25,29 @@ export default class Recording {
         
     }
 
+    initInstruments() {
+        console.log('Recording -> initInstruments - SampleLibrary: ', SampleLibrary);
+        var violin = SampleLibrary.load({
+            instruments: "violin"
+        });
+            
+        violin.toMaster();
+        violin.triggerAttack("A3");
+          
+
+        var instruments = SampleLibrary.load({
+            // instruments: ["piano", "harmonium", "violin"],
+            instruments: ["violin"]
+        });
+
+        console.log({instruments});
+
+        // Tone.Buffer.on('load', function() {
+        //     instruments['violin'].toMaster();
+        //     instruments['violin'].triggerAttack("A3");
+        // });
+    }
+
     initManualPlayer() {
         console.log('Recording -> initManualPlayer()');
         // https://www.html5rocks.com/en/tutorials/webaudio/intro/

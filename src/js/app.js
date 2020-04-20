@@ -118,6 +118,7 @@ physics.init();
 //////////////
 const recording = new Recording();
 recording.initSample();
+recording.initInstruments();
 
 //-----GEOMETRY VARIABLES------//
 let box = new THREE.BoxGeometry(1, 1, 1);
