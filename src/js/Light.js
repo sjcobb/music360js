@@ -8,7 +8,7 @@ export default class Light {
         // super();
     }
 
-    addLights(renderer) {
+    addLights(renderer) { // OLD
         // https://stackoverflow.com/a/40416826/7639084
 
         renderer.shadowMap.enabled = true;
@@ -56,7 +56,8 @@ export default class Light {
         // const ambientLight = new THREE.AmbientLight(0x888888, 1); // too dark
         // const ambientLight = new THREE.AmbientLight(0x888888, 0.5); // way too dark
         // const ambientLight = new THREE.AmbientLight(0xffffff, 1); // too bright
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        // const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        const ambientLight = new THREE.AmbientLight(0x888888, 0.5);
         // ambientLight.position.set(0, 100, 0);
         Store.scene.add(ambientLight);
 

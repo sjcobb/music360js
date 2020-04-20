@@ -118,7 +118,7 @@ physics.init();
 //////////////
 const recording = new Recording();
 recording.initSample();
-recording.initInstruments();
+// recording.initInstruments(); // err: Tone not defined
 
 //-----GEOMETRY VARIABLES------//
 let box = new THREE.BoxGeometry(1, 1, 1);

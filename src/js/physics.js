@@ -341,8 +341,9 @@ export default class Physics {
         }
 
         // let objMass = 5000; // floats
-        // let objMass = 500;
-        let objMass = 550;
+        let objMass = 550; // works
+        // let objMass = 9000; 
+
         let objSize = options.size !== undefined ? options.size : 'md';
         if (objSize === 'xl') { // 808
             // objSize = 2.0;
@@ -393,10 +394,8 @@ export default class Physics {
         }
 
         // https://stackoverflow.com/questions/44630265/how-can-i-set-z-up-coordinate-system-in-three-js
-        // const yPos = 20; // v0.4, v0.5
-        // const yPos = 1;
-        // const yPos = 30;
-        const yPos = 45;
+
+        const yPos = 45; // works
         // const yPos = 95;
 
         /*** Randomized Y drop point ***/
@@ -443,7 +442,8 @@ export default class Physics {
         // body.angularVelocity.z = options.size === 'xl' ? 10 : 20;
 
         // body.angularVelocity.z = options.size === 'xl' ? 8 : 18; // earthquake
-        body.angularVelocity.z = options.size === 'xl' ? 8 : 24;
+        // body.angularVelocity.z = options.size === 'xl' ? 8 : 24; // works
+        body.angularVelocity.z = options.size === 'xl' ? 8 : 20;
 
         if (options.type === 'animation') {
             flamePhysics.create({x: -xPos});
