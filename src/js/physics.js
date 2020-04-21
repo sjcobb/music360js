@@ -319,20 +319,29 @@ export default class Physics {
             if (options.duration > 0) { // TODO: rename options.noteLength so not confusing with arr length
                 // sphereRestitution = options.length / 2;
 
+                // console.log(options.duration);
 
-                if (options.duration < 0.25) { 
-                    options.duration = 0.25;
-                }
+                // // const maxDuration = 2.5; // too bouncy
+                const maxDuration = 1.7;
+                const minDuration = 0.50;
 
-                if (options.duration > 0.45) { 
-                    options.duration = 0.45;
-                }
+                // options.duration = options.duration < minDuration ? minDuration : options.duration;
+                options.duration = options.duration > maxDuration ? maxDuration : options.duration;
 
-                // sphereRestitution = options.duration * 0.65; // v0.5
-                // sphereRestitution = options.duration * 1.5; // too bouncy
+                // // sphereRestitution = options.duration * 0.65; // v0.5
+                // // sphereRestitution = options.duration * 1.5; // too bouncy
 
-                // sphereRestitution = options.duration * 1.40;
-                sphereRestitution = options.duration * 1.44;
+                // // sphereRestitution = options.duration * 1.40;
+
+                // sphereRestitution = options.duration * 1.44; // earthquake
+
+                // sphereRestitution = options.duration * 0.45;
+                sphereRestitution = options.duration * 0.5;
+
+                console.log(sphereRestitution);
+
+                const minRestitution = 0.3;
+                sphereRestitution = sphereRestitution < minRestitution ? minRestitution : sphereRestitution;
 
                 // sphereRestitution = options.duration * 0.58; // PREV (twinkle)
 

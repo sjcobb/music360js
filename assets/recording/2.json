@@ -9,67 +9,6 @@
     },
     "tracks": [
         {
-            "channel": 0,
-            "controlChanges": {
-                "0": [
-                    {
-                        "number": 0,
-                        "ticks": 0,
-                        "time": 0,
-                        "value": 0
-                    }
-                ],
-                "7": [
-                    {
-                        "number": 7,
-                        "ticks": 0,
-                        "time": 0,
-                        "value": 0.6299212598425197
-                    }
-                ],
-                "10": [
-                    {
-                        "number": 10,
-                        "ticks": 0,
-                        "time": 0,
-                        "value": 0.5039370078740157
-                    }
-                ],
-                "32": [
-                    {
-                        "number": 32,
-                        "ticks": 0,
-                        "time": 0,
-                        "value": 0
-                    }
-                ],
-                "91": [
-                    {
-                        "number": 91,
-                        "ticks": 0,
-                        "time": 0,
-                        "value": 0.8661417322834646
-                    }
-                ],
-                "93": [
-                    {
-                        "number": 93,
-                        "ticks": 0,
-                        "time": 0,
-                        "value": 0.31496062992125984
-                    }
-                ]
-            },
-            "pitchBends": [],
-            "instrument": {
-                "family": "piano",
-                "name": "acoustic grand piano",
-                "number": 0
-            },
-            "name": "",
-            "notes": []
-        },
-        {
             "channel": 4,
             "controlChanges": {
                 "11": [

@@ -152,15 +152,26 @@ export default {
     groundMeshIncrementer: 0,
     recording: {
         playerFirst: {},
-        first: {
-            notes: [],
-        },
-        second: {
-            notes: [],
-        },
-        third: {
-            notes: [],
-        },
+        parts: [
+            {
+                notes: [],
+            },
+            {
+                notes: [],
+            },
+            {
+                notes: [],
+            },
+        ],
+        // first: {
+        //     notes: [],
+        // },
+        // second: {
+        //     notes: [],
+        // },
+        // third: {
+        //     notes: [],
+        // },
     },
     renderer: new THREE.WebGLRenderer(),
     sampler: {
