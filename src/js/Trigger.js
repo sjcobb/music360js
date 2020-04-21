@@ -1961,4 +1961,6 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
 // recordingSecondPart.start("2:16:0"); // TODO: change to ticks or seconds
 
 // recordingSecondPart.start(0);
-recordingSecondPart.start(27.5);
+// recordingSecondPart.start(27.5); // little early
+
+recordingSecondPart.start(29.5);

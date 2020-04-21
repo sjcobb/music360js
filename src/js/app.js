@@ -247,8 +247,13 @@ function loadRadio() {
         // roughnessMipmapper.dispose();
         // render();
 
-        Store.recording.playerFirst.start();
         Tone.Transport.start();
+
+        setTimeout(() => {
+            console.log('Store.recording.playerFirst.start()');
+            Store.recording.playerFirst.start();
+        }, 1000);
+        
 
     } );
 
