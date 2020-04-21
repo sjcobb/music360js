@@ -60,8 +60,8 @@ Store.sampler.strings = new Tone.Sampler({
     'G5': samplerAssetPath + 'G5.[mp3|ogg]',
     'G6': samplerAssetPath + 'G6.[mp3|ogg]',
 }, function(){
-    // Store.sampler.strings.triggerAttackRelease("A3");
-    Store.sampler.strings.triggerAttackRelease("A3", 3);
+    // // Store.sampler.strings.triggerAttackRelease("A3");
+    // Store.sampler.strings.triggerAttackRelease("A3", 3);
 }).toMaster();
 
 // Store.sampler.strings.volume.value = -32;
@@ -110,7 +110,7 @@ Store.sampler.guitar = new Tone.Sampler({
     'F1': samplerAssetPathSecond + 'F1.[mp3|ogg]',
     'F2': samplerAssetPathSecond + 'F2.[mp3|ogg]',
 }, function(){
-    Store.sampler.guitar.triggerAttackRelease("A3");
+    // Store.sampler.guitar.triggerAttackRelease("A3");
 }).toMaster();
 
 Store.sampler.guitar.volume.value = -20;
@@ -385,7 +385,7 @@ const recordingPart = new Tone.Part(function(time, datum){
 
     // instrMapped.originalPosition.z -= 15;
     // instrMapped.originalPosition.z -= 18;
-    instrMapped.originalPosition.z += 8;
+    instrMapped.originalPosition.z += 10;
 
     // instrMapped.duration = datum.duration / 2;
     // instrMapped.duration = datum.duration * 2;
@@ -421,7 +421,7 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
     // instrMapped.color = '#64b5f6'; // human blue
 
     // instrMapped.originalPosition.z += 15;
-    instrMapped.originalPosition.z -= 5;
+    instrMapped.originalPosition.z -= 10;
     // instrMapped.originalPosition.z += 8;
 
     // instrMapped.duration = datum.duration / 2;

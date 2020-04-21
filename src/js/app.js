@@ -220,10 +220,8 @@ function loadRadio() {
         gltf.scene.rotateY(Math.PI);
         // gltf.scene.rotateY(Math.PI + 0.15);
 
-        // gltf.scene.position.set(-12, 2.1, -18); // works when scale is 1
-
-        // gltf.scene.position.set(-13, 4, -22);
-        gltf.scene.position.set(-16, 4, -22);
+        // gltf.scene.position.set(-16, 4, -22); // left side of screen (z), middle depth (x)
+        gltf.scene.position.set(-30, 4, -16);
 
         gltf.scene.traverse( function (child) {
             if (child.isMesh) {
@@ -251,13 +249,13 @@ function loadRadio() {
         // roughnessMipmapper.dispose();
         // render();
 
-        Tone.Transport.start();
-
         setTimeout(() => {
-            console.log('Store.recording.playerFirst.start()');
-            Store.recording.playerFirst.start();
-        }, 1000);
-        
+            Tone.Transport.start();
+            setTimeout(() => {
+                console.log('Store.recording.playerFirst.start()');
+                Store.recording.playerFirst.start();
+            }, 1000);
+        }, 6000);
 
     } );
 

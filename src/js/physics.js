@@ -338,7 +338,7 @@ export default class Physics {
                 // sphereRestitution = options.duration * 0.45;
                 sphereRestitution = options.duration * 0.5;
 
-                console.log(sphereRestitution);
+                // console.log(sphereRestitution);
 
                 const minRestitution = 0.3;
                 sphereRestitution = sphereRestitution < minRestitution ? minRestitution : sphereRestitution;
