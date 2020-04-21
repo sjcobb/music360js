@@ -152,8 +152,21 @@ export default {
     groundMeshIncrementer: 0,
     recording: {
         playerFirst: {},
+        first: {
+            notes: [],
+        },
+        second: {
+            notes: [],
+        },
+        third: {
+            notes: [],
+        },
     },
     renderer: new THREE.WebGLRenderer(),
+    sampler: {
+        strings: {},
+        guitar: {},
+    },
     scene: new THREE.Scene(),
     spinnerBody: {},
     // staffLineInitZ: 8,    // remove

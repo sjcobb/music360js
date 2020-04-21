@@ -16,7 +16,11 @@ import InstrumentMappings from './InstrumentMappings.js';
 import { getInstrumentMappingTemplate } from './InstrumentMappings.js';
 import Light from './Light.js';
 import Physics from './Physics.js';
+
 import Recording from './Recording.js';
+// import * as recordingFirstNotes from '../../assets/recording/1.json'
+// console.log({recordingFirstNotes});
+// console.log(recordingFirstNotes.tracks[0].notes);
 
 /***
  *** SCENE SETUP ***

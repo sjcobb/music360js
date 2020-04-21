@@ -443,7 +443,7 @@ export default class Physics {
 
         // body.angularVelocity.z = options.size === 'xl' ? 8 : 18; // earthquake
         // body.angularVelocity.z = options.size === 'xl' ? 8 : 24; // works
-        body.angularVelocity.z = options.size === 'xl' ? 8 : 20;
+        body.angularVelocity.z = options.size === 'xl' ? 8 : 26;
 
         if (options.type === 'animation') {
             flamePhysics.create({x: -xPos});
