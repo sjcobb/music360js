@@ -178,6 +178,7 @@ export default {
         strings: {},
         guitar: {},
         saxophone: {},
+        saxophoneCounter: 0,
     },
     scene: new THREE.Scene(),
     spinnerBody: {},

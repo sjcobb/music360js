@@ -169,7 +169,7 @@ export default class Physics {
 
         floorMaterial.opacity = 0.5; // no effect
 
-        console.log({floorMaterial});
+        // console.log({floorMaterial});
 
         // body.shapes.forEach(function(shape) {}
         
@@ -214,7 +214,7 @@ export default class Physics {
         // use createPlatform() for collision enabled floor
         // https://github.com/sjcobb/ice-cavern/blob/master/js/scene.js#L73
 
-        console.log('createFloor() -> floorIndex: ', floorIndex);
+        // console.log('createFloor() -> floorIndex: ', floorIndex);
 
         // let assetPrefix = 'assets/floor/earthquake-cracks-forming/';
         let assetPrefix = 'assets/floor/picnic/';
@@ -248,7 +248,7 @@ export default class Physics {
         // const currentFrame = 'frame_' + paddedFloorIndex + '.png';
         const currentFrame = 'frame_' + paddedFloorIndex + '.jpg';
         const assetUrl = assetPrefix + currentFrame;
-        console.log('assetUrl: ', assetUrl);
+        // console.log('assetUrl: ', assetUrl);
 
         const floorTexture = Store.loader.load(assetUrl);
 
@@ -323,9 +323,10 @@ export default class Physics {
 
                 // // const maxDuration = 2.5; // too bouncy
                 const maxDuration = 1.7;
-                const minDuration = 0.50;
+                // const minDuration = 0.50;
+                const minDuration = 0.30;
 
-                // options.duration = options.duration < minDuration ? minDuration : options.duration;
+                options.duration = options.duration < minDuration ? minDuration : options.duration;
                 options.duration = options.duration > maxDuration ? maxDuration : options.duration;
 
                 // // sphereRestitution = options.duration * 0.65; // v0.5
@@ -398,7 +399,7 @@ export default class Physics {
                 xPos = -(Store.ticks);
             } else {
                 xPos = -(Store.ticks);
-                Store.InstrumentCounter++;
+                Store.instrumentCounter++;
             }
         }
 
@@ -863,7 +864,7 @@ export default class Physics {
 
         Store.spinnerBody.addShape(boxShape);
         // console.log('Store.spinnerBody: ', Store.spinnerBody);
-        console.log(Store.spinnerBody);
+        // console.log(Store.spinnerBody);
 
         // Store.spinnerBody.position.set(0, 0.25, 0); // no effect
 

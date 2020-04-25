@@ -378,6 +378,7 @@ export default class Trigger {
                 Store.sampler.guitar.triggerAttackRelease(combinedNote, noteLength); 
             } else if (triggerObj.variation === 'saxophone') {
                 Store.sampler.saxophone.triggerAttackRelease(combinedNote, noteLength); 
+                Store.sampler.saxophoneCounter++;
             } else {
                 Store.polySynth.triggerAttackRelease(combinedNote, noteLength); 
             }
@@ -511,15 +512,23 @@ const recordingThirdPart = new Tone.Part(function(time, datum){
     // instrMapped.originalPosition.z += 10;
     instrMapped.originalPosition.z += 0;
 
+    let xDropOffset = 0;
+    let tempDropPosX = Store.dropPosX;
+    if (Store.sampler.saxophoneCounter % 2 === 0) {
+        // instrMapped.originalPosition.x += 200;
+        xDropOffset = (-50);
+        tempDropPosX += xDropOffset;
+    }
+
     instrMapped.duration = datum.duration;
 
     instrMapped.variation = 'saxophone';
 
-    physics.addBody(true, Store.dropPosX, instrMapped, 0);
+    physics.addBody(true, tempDropPosX, instrMapped, 0);
 
 }, Store.recording.parts[2]);
 
 // recordingThirdPart.playbackRate = 0.9;
-recordingThirdPart.playbackRate = 0.5;
+recordingThirdPart.playbackRate = 0.9;
 
 recordingThirdPart.start(0);
