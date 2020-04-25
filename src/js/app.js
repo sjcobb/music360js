@@ -251,10 +251,10 @@ function loadRadio() {
 
         setTimeout(() => {
             Tone.Transport.start();
-            setTimeout(() => {
-                console.log('Store.recording.playerFirst.start()');
-                Store.recording.playerFirst.start();
-            }, 1000);
+            // setTimeout(() => {
+            //     console.log('Store.recording.playerFirst.start()');
+            //     Store.recording.playerFirst.start();
+            // }, 1000);
         }, 6000);
 
     } );

@@ -16,10 +16,12 @@ import Flame from './Flame';
 
 import * as recordingFirstNotes from '../../assets/recording/1.json';
 import * as recordingSecondNotes from '../../assets/recording/2.json';
+import * as recordingThirdNotes from '../../assets/recording/3.json';
 
-console.log({recordingFirstNotes});
-// console.log(recordingFirstNotes.tracks[0].notes);
-console.log({recordingSecondNotes});
+// console.log({recordingFirstNotes});
+// // console.log(recordingFirstNotes.tracks[0].notes);
+// console.log({recordingSecondNotes});
+console.log({recordingThirdNotes});
 
 //////////
 // TONE //
@@ -115,6 +117,46 @@ Store.sampler.guitar = new Tone.Sampler({
 
 Store.sampler.guitar.volume.value = -20;
 // console.log(Store.sampler.guitar);
+
+//
+
+const samplerAssetPathThird = './assets/samples/saxophone/'
+Store.sampler.saxophone = new Tone.Sampler({
+    'D#4': samplerAssetPathThird + 'Ds4.[mp3|ogg]',
+    'E2': samplerAssetPathThird + 'E2.[mp3|ogg]',
+    'E3': samplerAssetPathThird + 'E3.[mp3|ogg]',
+    'E4': samplerAssetPathThird + 'E4.[mp3|ogg]',
+    'F2': samplerAssetPathThird + 'F2.[mp3|ogg]',
+    'F3': samplerAssetPathThird + 'F3.[mp3|ogg]',
+    'F4': samplerAssetPathThird + 'F4.[mp3|ogg]',
+    'F#2': samplerAssetPathThird + 'Fs2.[mp3|ogg]',
+    'F#3': samplerAssetPathThird + 'Fs3.[mp3|ogg]',
+    'F#4': samplerAssetPathThird + 'Fs4.[mp3|ogg]',
+    'G2': samplerAssetPathThird + 'G2.[mp3|ogg]',
+    'G3': samplerAssetPathThird + 'G3.[mp3|ogg]',
+    'G4': samplerAssetPathThird + 'G4.[mp3|ogg]',
+    'G#2': samplerAssetPathThird + 'Gs2.[mp3|ogg]',
+    'G#3': samplerAssetPathThird + 'Gs3.[mp3|ogg]',
+    'G#4': samplerAssetPathThird + 'Gs4.[mp3|ogg]',
+    'A3': samplerAssetPathThird + 'A3.[mp3|ogg]',
+    'A4': samplerAssetPathThird + 'A4.[mp3|ogg]',
+    'A#2': samplerAssetPathThird + 'As2.[mp3|ogg]',
+    'A#3': samplerAssetPathThird + 'As3.[mp3|ogg]',
+    'B2': samplerAssetPathThird + 'B2.[mp3|ogg]',
+    'B3': samplerAssetPathThird + 'B3.[mp3|ogg]',
+    'C3': samplerAssetPathThird + 'C3.[mp3|ogg]',
+    'C4': samplerAssetPathThird + 'C4.[mp3|ogg]',
+    'C#2': samplerAssetPathThird + 'Cs2.[mp3|ogg]',
+    'C#3': samplerAssetPathThird + 'Cs3.[mp3|ogg]',
+    'C#4': samplerAssetPathThird + 'Cs4.[mp3|ogg]',
+    'D2': samplerAssetPathThird + 'D2.[mp3|ogg]',
+    'D3': samplerAssetPathThird + 'D3.[mp3|ogg]',
+    'D4': samplerAssetPathThird + 'D4.[mp3|ogg]',
+    'D#2': samplerAssetPathThird + 'Ds2.[mp3|ogg]',
+    'D#3': samplerAssetPathThird + 'Ds3.[mp3|ogg]',
+}, function(){
+    // Store.sampler.saxophone.triggerAttackRelease("G3");
+}).toMaster();
 
 ///////////
 // SYNTH //
@@ -334,6 +376,8 @@ export default class Trigger {
                 Store.sampler.strings.triggerAttackRelease(combinedNote, noteLength); 
             } else if (triggerObj.variation === 'guitar') {
                 Store.sampler.guitar.triggerAttackRelease(combinedNote, noteLength); 
+            } else if (triggerObj.variation === 'saxophone') {
+                Store.sampler.saxophone.triggerAttackRelease(combinedNote, noteLength); 
             } else {
                 Store.polySynth.triggerAttackRelease(combinedNote, noteLength); 
             }
@@ -368,8 +412,10 @@ const physics = new Physics();
 // const recordingFirstNotes = recordingFirstNotes.tracks[0].notes;
 // const recordingFirstNotes = [];
 
+// TODO: dynamic loop through recording parts array
 Store.recording.parts[0] = recordingFirstNotes.tracks[0].notes;
 Store.recording.parts[1] = recordingSecondNotes.tracks[0].notes;
+Store.recording.parts[2] = recordingThirdNotes.tracks[0].notes;
 
 // console.log({recordingNotes});
 
@@ -451,3 +497,29 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
 
 recordingSecondPart.start(28.85);
 // recordingSecondPart.start(29.0);
+
+
+//
+// recordingThirddNotes
+
+const recordingThirdPart = new Tone.Part(function(time, datum){
+    const instrMapped = generateInstrMetadata(datum.name);
+
+    // instrMapped.color = '#64b5f6'; // human blue
+    instrMapped.color = '#003366'; // midnight blue
+
+    // instrMapped.originalPosition.z += 10;
+    instrMapped.originalPosition.z += 0;
+
+    instrMapped.duration = datum.duration;
+
+    instrMapped.variation = 'saxophone';
+
+    physics.addBody(true, Store.dropPosX, instrMapped, 0);
+
+}, Store.recording.parts[2]);
+
+// recordingThirdPart.playbackRate = 0.9;
+recordingThirdPart.playbackRate = 0.5;
+
+recordingThirdPart.start(0);

@@ -177,6 +177,7 @@ export default {
     sampler: {
         strings: {},
         guitar: {},
+        saxophone: {},
     },
     scene: new THREE.Scene(),
     spinnerBody: {},
