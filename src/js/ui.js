@@ -98,7 +98,7 @@ if (Store.uiHidden === true) {
 if (Store.view.songAutoStart === true) {
     setTimeout(function() {
         Tone.Transport.start();
-    }, Store.autoStartTime);
+    }, Store.view.songAutoStartTime);
     // }, 9000);
 } else {
     controlsId.classList.toggle('show');

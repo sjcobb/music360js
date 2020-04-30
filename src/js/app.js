@@ -317,7 +317,9 @@ function loadRadio() {
 
 }
 
-//-----MUSIC STAFF------//
+/////////////////
+// MUSIC STAFF //
+/////////////////
 function addStaffLines(color = 0x000000, offset, posXstart, posXend, posY, posZ, innerLinePadding, dashedLines = false, middleC = false) {
     const origOffset = offset;
     let staffLineMaterial;
@@ -374,6 +376,37 @@ if (Store.view.showStaff.bass === true) {
     addStaffLines(0xffffff, 2, -1000, staffLineLengthEnd, lineYHeight, 0, 2);
 }
 
+/////////////////
+// SPRITE LOGO //
+/////////////////
+// TODO: how to maintain png transparency
+
+if (Store.view.showLogoSprite === true) {
+
+    // const spriteAssetPath = "assets/logo/ai_robot_1.jpeg";
+    const spriteAssetPath = Store.view.instrumentConfig.assetPath;
+
+    var spriteTexture = Store.loader.load(spriteAssetPath);
+    // var spriteTexture = Store.loader.load('/assets/ai_robot_1.jpg', onTextureLoaded);
+    var spriteMaterial = new THREE.SpriteMaterial({
+        map: spriteTexture,
+        color: 0xffffff
+    });
+    var robotSprite = new THREE.Sprite(spriteMaterial);
+
+    const robotPos = Store.view.instrumentConfig.location;
+    robotSprite.position.set(...robotPos);
+
+    // robotSprite.position.set(-10, 8, 0);
+    // robotSprite.scale.set(5, 10, 5);
+
+    robotSprite.scale.set(2, 2, 2);
+    Store.scene.add(robotSprite);
+}
+
+//////////////////////
+// EARTHQUAKE SHAKE //
+//////////////////////
 Store.screenShake = physics.screenShake();
 
 //-----ANIMATION------//
@@ -427,7 +460,9 @@ let animate = () => {
 
 window.onload = () => {
 
-    loadRadio();
+    if (Store.view.showRadio === true) {
+        loadRadio();
+    }
 
     //-----KEYBOARD MAPPING------//
 

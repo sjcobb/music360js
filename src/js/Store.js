@@ -43,8 +43,7 @@ export default {
         // kick: "./assets/sounds/drum-kits/808/808-yc.wav",
     },
     autoScroll: false,
-    // autoStartTime: 4500,
-    autoStartTime: 2000,
+
     // bpm: 120, // v0.4
     // bpm: 140,
     // bpm: 160,
@@ -198,6 +197,7 @@ export default {
         }
     },
     view: {
+
         drumCircle: true,
         skybox: false,
         cameraPositionBehind: true,
@@ -213,9 +213,25 @@ export default {
         posBehindY: 10,
         posBehindZ: 0,
 
-        songAutoStart: false,
+        instrumentConfig: {
+            // assetPath: 'assets/logo/ai_robot_1.jpeg',
+            assetPath: 'assets/fish/blue_fish_01.png',
+            // assetPath: 'assets/fish/red_fish_01.jpg',
+
+            // location: [-5, 2, 0],
+            // location: [-20, 18, 0],
+            // location: [-20, 30, 0],
+            location: [-20, 5, 0],
+        },
+
+        songAutoStart: true,
+        songAutoStartTime: 3000,
+        
         showDashboard: false,
-        showLogoSprite: false,
+
+        showLogoSprite: true,
+
+        showRadio: false,
         showStats: false,
         showStaff: {
             bass: false,

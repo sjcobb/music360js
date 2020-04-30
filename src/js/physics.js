@@ -31,8 +31,13 @@ export default class Physics {
         this.damping = 0.01;
 
         Store.world.broadphase = new CANNON.NaiveBroadphase();
-        // Store.world.gravity.set(0, -10, 0);
-        Store.world.gravity.set(0, -40, 0);
+
+        // // Store.world.gravity.set(0, -10, 0);
+        // Store.world.gravity.set(0, -40, 0); // PREV
+        // Store.world.gravity.set(0, -5, 0);
+        
+        Store.world.gravity.set(0, 5, 0);
+
         // this.debugRenderer = new THREE.CannonDebugRenderer(Store.scene, Store.world);
 
         this.shapes = {};
@@ -41,6 +46,9 @@ export default class Physics {
 
         // this.animate();
         this.initGroundContactMaterial();
+
+        // this.initGroundContactMaterial([0, 30, 0], [5000, 10, 5]);
+        
         // this.initGroundContactMaterial([0, 10, 0]);
         // this.initGroundContactMaterial([0, 5, 0], [2, 2, 0.1]);
 
@@ -289,7 +297,7 @@ export default class Physics {
     }
 
     // addBody(sphere = true, xPosition = 5.5, options = '', timeout = 0) {
-    addBody(sphere = true, xPosition=5.5, options = '', index=0) { // TODO: take yPosition from Store.dropCoordCircleInterval[] loop, swap yPos to zPos
+    addBody(sphere = true, xPosition=5.5, options = '', index=0, location=Store.view.instrumentConfig.location) { 
 
         if (options === '') {
             const instrument = new InstrumentMappings();
@@ -442,7 +450,9 @@ export default class Physics {
 
         // zPos = options.originalPosition.z;
 
-        body.position.set((sphere) ? -xPos : xPos, yPos, zPos);
+        // body.position.set((sphere) ? -xPos : xPos, yPos, zPos); // PREV
+
+        body.position.set(...location);
 
         body.linearDamping = Store.damping; // 0.01
         // body.linearDamping = 0.01; // v0.2, v0.3

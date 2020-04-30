@@ -450,10 +450,12 @@ const recordingPart = new Tone.Part(function(time, datum){
 // recordingPart.volume.value = -18;
 // recordingPart.loop = true;
 
-//recordingPart.playbackRate = 0.9;
-// recordingPart.start("0:5:0");
-// recordingPart.start("0:0:0");
-recordingPart.start(0);
+// // recordingPart.playbackRate = 0.9;
+// // recordingPart.start("0:5:0");
+// // recordingPart.start("0:0:0");
+
+// recordingPart.playbackRate = 0.2;
+// recordingPart.start(0);
 
 const recordingSecondPart = new Tone.Part(function(time, datum){
     // console.log(time);
@@ -484,21 +486,13 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
 // }, recordingSecondNotes);  // bah bah black sheep
 
 // // recordingSecondPart.loop = true;
-// recordingSecondPart.start("0:0:0");
-// recordingSecondPart.start("4:0:0"); // little too early
-// recordingSecondPart.start("4:4:0"); // decent
-// recordingSecondPart.start("5:0:0"); // too late
 
 // recordingSecondPart.playbackRate = 0.9;
 // recordingSecondPart.start("0:0:0"); 
 // recordingSecondPart.start("2:16:0"); // TODO: change to ticks or seconds
 
-// recordingSecondPart.start(0);
-// recordingSecondPart.start(27.5); // little early
-
-recordingSecondPart.start(28.85);
-// recordingSecondPart.start(29.0);
-
+// // recordingSecondPart.start(0);
+// recordingSecondPart.start(28.85);
 
 //
 // recordingThirddNotes
@@ -530,5 +524,4 @@ const recordingThirdPart = new Tone.Part(function(time, datum){
 
 // recordingThirdPart.playbackRate = 0.9;
 recordingThirdPart.playbackRate = 0.9;
-
-recordingThirdPart.start(0);
+// recordingThirdPart.start(0);
