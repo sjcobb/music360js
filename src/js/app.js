@@ -380,21 +380,39 @@ if (Store.view.showStaff.bass === true) {
 // SPRITE LOGO //
 /////////////////
 // TODO: how to maintain png transparency
+// TODO: bubble animation -  https://medium.com/@soffritti.pierfrancesco/animations-with-alpha-textures-in-three-js-52a33654e137 
+// https://github.com/mrdoob/three.js/blob/master/examples/webgl_materials_cubemap_dynamic.html
+// 
+
+let robotSprite;
+let robotPos;
 
 if (Store.view.showLogoSprite === true) {
 
     // const spriteAssetPath = "assets/logo/ai_robot_1.jpeg";
     const spriteAssetPath = Store.view.instrumentConfig.assetPath;
 
-    var spriteTexture = Store.loader.load(spriteAssetPath);
+    const spriteTexture = Store.loader.load(spriteAssetPath);
     // var spriteTexture = Store.loader.load('/assets/ai_robot_1.jpg', onTextureLoaded);
-    var spriteMaterial = new THREE.SpriteMaterial({
-        map: spriteTexture,
-        color: 0xffffff
-    });
-    var robotSprite = new THREE.Sprite(spriteMaterial);
 
-    const robotPos = Store.view.instrumentConfig.location;
+    // https://threejs.org/docs/#api/en/materials/SpriteMaterial.color
+    const spriteMaterial = new THREE.SpriteMaterial({
+        map: spriteTexture,
+        transparent: true,
+        // opacity: 0.5,
+        // color: 0xffffff,
+        // color: 0x000000,
+        rotation: 2,
+    });
+
+    // spriteMaterial.rotation.x = Math.PI / 2; // err
+
+    // const robotSprite = new THREE.Sprite(spriteMaterial);
+    robotSprite = new THREE.Sprite(spriteMaterial);
+
+    // const robotPos = Store.view.instrumentConfig.location;
+    robotPos = Store.view.instrumentConfig.location;
+
     robotSprite.position.set(...robotPos);
 
     // robotSprite.position.set(-10, 8, 0);
@@ -442,6 +460,19 @@ let animate = () => {
         // https://github.com/felixmariotto/three-screenshake
         Store.screenShake.update(Store.camera);
     }
+
+    // console.log(robotSprite.position);
+    if (robotPos[2] < 20) {
+        robotPos[0] += 0.01; // back / front
+        robotPos[2] += 0.1;
+    } else  {
+
+    }
+    
+
+    robotSprite.position.set(...robotPos);
+
+    // // //
 
     physics.updateBodies(Store.world);
     Store.world.step(Store.fixedTimeStep);

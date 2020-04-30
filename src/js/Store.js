@@ -217,11 +217,13 @@ export default {
             // assetPath: 'assets/logo/ai_robot_1.jpeg',
             assetPath: 'assets/fish/blue_fish_01.png',
             // assetPath: 'assets/fish/red_fish_01.jpg',
+            // assetPath: 'assets/fish/green_fish_01.png',
+            // assetPath: 'assets/fish/green_fish_02.png',
 
             // location: [-5, 2, 0],
             // location: [-20, 18, 0],
             // location: [-20, 30, 0],
-            location: [-20, 5, 0],
+            location: [-20, 5, -10],
         },
 
         songAutoStart: true,
