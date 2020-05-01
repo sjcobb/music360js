@@ -462,11 +462,17 @@ let animate = () => {
     }
 
     // console.log(robotSprite.position);
-    if (robotPos[2] < 20) {
+    if (robotPos[2] < 20 && Store.view.instrumentConfig.directionRight) {
         robotPos[0] += 0.01; // back / front
         robotPos[2] += 0.1;
-    } else  {
-
+        // Store.view.instrumentConfig.directionRight = false;
+    } else if (robotPos[2] > -20) {
+        robotPos[0] -= 0.01;
+        robotPos[2] -= 0.1;
+        // robotPos[2] -= 0.2; // fast sideways
+        Store.view.instrumentConfig.directionRight = false;
+    } else {
+        Store.view.instrumentConfig.directionRight = true;
     }
     
 

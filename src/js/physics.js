@@ -33,10 +33,10 @@ export default class Physics {
         Store.world.broadphase = new CANNON.NaiveBroadphase();
 
         // // Store.world.gravity.set(0, -10, 0);
-        // Store.world.gravity.set(0, -40, 0); // PREV
-        // Store.world.gravity.set(0, -5, 0);
+
+        Store.world.gravity.set(0, -40, 0); // PREV
         
-        Store.world.gravity.set(0, 5, 0);
+        // Store.world.gravity.set(0, 5, 0); // underwater 
 
         // this.debugRenderer = new THREE.CannonDebugRenderer(Store.scene, Store.world);
 
@@ -371,8 +371,8 @@ export default class Physics {
         } else {
             // objSize = 0.5; // v0.3
             // objSize = 0.65; // too big for D maj chord
-            // objSize = 0.50; // prev
-            objSize = 0.75
+            objSize = 0.50; // prev
+            // objSize = 0.75
 
             // xPosition += 2;
             // xPosition *= 20;

@@ -223,7 +223,8 @@ export default {
             // location: [-5, 2, 0],
             // location: [-20, 18, 0],
             // location: [-20, 30, 0],
-            location: [-20, 5, -10],
+            location: [-20, 20, -10],
+            directionRight: true,
         },
 
         songAutoStart: true,
