@@ -45,13 +45,15 @@ Store.instr = getInstrumentMappingTemplate();
 Store.scene.background = new THREE.Color(0, 0, 0);
 
 Store.camera.position.set(0, 16, 26); 
-Store.camera.lookAt(new THREE.Vector3(0, -2.5, 0)); // v0.5
+Store.camera.lookAt(new THREE.Vector3(0, -2.5, 0)); // v0.5, earthquake
+
+// Store.camera.lookAt(new THREE.Vector3(0, -2.5, 0));
 
 if (Store.view.cameraPositionBehind === true) {
     Store.camera.position.set(Store.view.posBehindX, Store.view.posBehindY, Store.view.posBehindZ);
-    // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ));
-    // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 12, Store.view.posBehindZ));
-    Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 2, Store.view.posBehindZ));
+    // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 2, Store.view.posBehindZ)); // earthquake
+
+    Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 10, Store.view.posBehindZ));
 }
 
 if (Store.cameraLookUp === true) {
@@ -79,7 +81,7 @@ Store.loader = new THREE.TextureLoader();
 // BACKGROUND //
 ////////////////
 // // Store.scene.background = new THREE.Color( 0xff0000 ); // red
-Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
+// Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
 // // Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
 
 // update viewport on resize
@@ -154,30 +156,31 @@ const objCenter = new THREE.Mesh(currentShape, currentMesh);
 objCenter.position.set(0, 0, Store.view.posBehindZ);
 // Store.scene.add(objCenter); //for absolute center reference
 
-//-----SKYBOX (LOAD TEXTURES)------//
+////////////
+// SKYBOX //
+////////////
 // https://github.com/hghazni/Three.js-Skybox/blob/master/js/script.js#L35
 // assets: http://www.custommapmakers.org/skyboxes.php
 
-const globalSkyboxTheme = 'nightsky';
+// const globalSkyboxTheme = 'nightsky';
 // const globalSkyboxTheme = 'hills'; //blurry
 // const globalSkyboxTheme = 'island'; //only unsupported .tga currently
 // const globalSkyboxTheme = 'bluefreeze';
 // const globalSkyboxTheme = 'mercury';
+// const globalSkyboxTheme= 'underwater';
 
-var skyboxGeometry = new THREE.CubeGeometry(1800, 1800, 1800);
-
-var cubeMaterials = [
-    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/ft.png`), side: THREE.DoubleSide }), //front side
-    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/bk.png`), side: THREE.DoubleSide }), //back side
-    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/up.png`), side: THREE.DoubleSide }), //up side
-    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/dn.png`), side: THREE.DoubleSide }), //down side
-    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/rt.png`), side: THREE.DoubleSide }), //right side
-    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/lf.png`), side: THREE.DoubleSide }) //left side
+// const skyboxGeometry = new THREE.CubeGeometry(1800, 1800, 1800);
+const skyboxGeometry = new THREE.CubeGeometry(600, 600, 600);
+const cubeMaterials = [
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${Store.view.skyboxTheme}/ft.png`), side: THREE.DoubleSide }), //front side
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${Store.view.skyboxTheme}/bk.png`), side: THREE.DoubleSide }), //back side
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${Store.view.skyboxTheme}/up.png`), side: THREE.DoubleSide }), //up side
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${Store.view.skyboxTheme}/dn.png`), side: THREE.DoubleSide }), //down side
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${Store.view.skyboxTheme}/rt.png`), side: THREE.DoubleSide }), //right side
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${Store.view.skyboxTheme}/lf.png`), side: THREE.DoubleSide }) //left side
 ];
-
-var cubeMaterial = new THREE.MeshFaceMaterial(cubeMaterials);
-var skyboxCubeMesh = new THREE.Mesh(skyboxGeometry, cubeMaterial); //nightsky skybox
-
+const cubeMaterial = new THREE.MeshFaceMaterial(cubeMaterials);
+const skyboxCubeMesh = new THREE.Mesh(skyboxGeometry, cubeMaterial); //nightsky skybox
 if (Store.view.skybox === true) {
     Store.scene.add(skyboxCubeMesh); //add nightsky skybox
 }
@@ -376,9 +379,9 @@ if (Store.view.showStaff.bass === true) {
     addStaffLines(0xffffff, 2, -1000, staffLineLengthEnd, lineYHeight, 0, 2);
 }
 
-/////////////////
-// SPRITE LOGO //
-/////////////////
+////////////////////
+// SPRITE (FISH) //
+///////////////////
 // TODO: how to maintain png transparency
 // TODO: bubble animation -  https://medium.com/@soffritti.pierfrancesco/animations-with-alpha-textures-in-three-js-52a33654e137 
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_materials_cubemap_dynamic.html
@@ -402,8 +405,12 @@ if (Store.view.showLogoSprite === true) {
         // opacity: 0.5,
         // color: 0xffffff,
         // color: 0x000000,
-        rotation: 2,
+        // rotation: 2,
+        // rotation: 32,
     });
+
+    // TODO: pivot fish so facing opposite direction
+    // https://stackoverflow.com/questions/28848863/threejs-how-to-rotate-around-objects-own-center-instead-of-world-center
 
     // spriteMaterial.rotation.x = Math.PI / 2; // err
 
@@ -418,7 +425,8 @@ if (Store.view.showLogoSprite === true) {
     // robotSprite.position.set(-10, 8, 0);
     // robotSprite.scale.set(5, 10, 5);
 
-    robotSprite.scale.set(2, 2, 2);
+    // robotSprite.scale.set(2, 2, 2);
+    robotSprite.scale.set(5, 5, 5);
     Store.scene.add(robotSprite);
 }
 

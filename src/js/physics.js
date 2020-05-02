@@ -34,9 +34,9 @@ export default class Physics {
 
         // // Store.world.gravity.set(0, -10, 0);
 
-        Store.world.gravity.set(0, -40, 0); // PREV
+        // Store.world.gravity.set(0, -40, 0); // PREV - normal earth-like
         
-        // Store.world.gravity.set(0, 5, 0); // underwater 
+        Store.world.gravity.set(0, 5, 0); // underwater 
 
         // this.debugRenderer = new THREE.CannonDebugRenderer(Store.scene, Store.world);
 
@@ -48,14 +48,10 @@ export default class Physics {
         this.initGroundContactMaterial();
 
         // this.initGroundContactMaterial([0, 30, 0], [5000, 10, 5]);
-        
-        // this.initGroundContactMaterial([0, 10, 0]);
-        // this.initGroundContactMaterial([0, 5, 0], [2, 2, 0.1]);
 
         // this.addSpinner();
 
-        // this.createFloor([0, -1, -2], [90, 90, 0.1], 1);
-        this.createFloor([0, -1, 0], [130, 130, 0.1], 1);
+        // this.createFloor([0, -1, 0], [130, 130, 0.1], 1); // picnic
     }
 
     initGroundContactMaterial(posArr=[0, -6, 0], sizeArr=[5000, 10, 5]) {
@@ -73,6 +69,12 @@ export default class Physics {
         if (Store.view.stage.size === 'small') {
             posArr = [0, -6, -2];
             sizeArr = [60, 60, 5];
+        }
+
+        if (Store.view.stage.size === 'underwater') {
+            posArr = [0, 24, 0];
+            // sizeArr = [60, 60, 5];
+            sizeArr = [30, 60, 2];
         }
 
         // FLOOR
@@ -680,12 +682,13 @@ export default class Physics {
 
                 case CANNON.Shape.types.BOX:
 
-                    // FLOOR
+                    // FLOOR (current)
 
                     // NEW Ground for drum spinner, PLANE no longer used since infinite invisible contact not needed
                     const boxGeometry = new THREE.BoxGeometry(shape.halfExtents.x * 2, shape.halfExtents.y * 2, shape.halfExtents.z * 2);
                     material.color = new THREE.Color(Store.activeInstrColor);
-                    // material.transparent = true; 
+                    material.transparent = true; 
+                    material.opacity = 0.0;
                     // // material.color = new THREE.Color('#9F532A'); // red
 
                     mesh = new THREE.Mesh(boxGeometry, material); // v0.5

@@ -21,8 +21,8 @@ export default {
     // activeInstrColor: '#1f1f1f',
     // activeInstrColor: '#343434', // PREV (gray)
     // activeInstrColor: '#ffffff',
-    // activeInstrColor: '#0047bb', // blue screen
-    activeInstrColor: '#FF0000', // red
+    activeInstrColor: '#0047bb', // blue screen
+    // activeInstrColor: '#FF0000', // red
     ai: {
         enabled: false,
     },
@@ -199,7 +199,8 @@ export default {
     view: {
 
         drumCircle: true,
-        skybox: false,
+        skybox: true,
+        skyboxTheme: 'underwater',
         cameraPositionBehind: true,
         cameraAutoStart: true,
         // posBehindX: -70,
@@ -210,7 +211,7 @@ export default {
         // posBehindX: -45, // earthquake
         posBehindX: -65,
         // posBehindY: 12,
-        posBehindY: 10,
+        posBehindY: -2,
         posBehindZ: 0,
 
         instrumentConfig: {
@@ -223,7 +224,7 @@ export default {
             // location: [-5, 2, 0],
             // location: [-20, 18, 0],
             // location: [-20, 30, 0],
-            location: [-20, 20, -10],
+            location: [-20, 0, -10],
             directionRight: true,
         },
 
@@ -243,7 +244,8 @@ export default {
         stage: {
             // size: 'large',
             // size: 'medium',
-            size: 'small',
+            // size: 'small',
+            size: 'underwater',
         }
     },
     world: new CANNON.World(),
