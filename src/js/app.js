@@ -464,6 +464,8 @@ let animate = () => {
         }
     }
 
+    Store.camera.lookAt(new THREE.Vector3(...Store.view.instrumentConfig.location));
+
     if (Store.cameraShakeEnabled === true) {
         // https://github.com/felixmariotto/three-screenshake
         Store.screenShake.update(Store.camera);

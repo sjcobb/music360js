@@ -230,13 +230,10 @@ export default {
 
         songAutoStart: true,
         songAutoStartTime: 3000,
-        
         showDashboard: false,
-
         showLogoSprite: true,
-
         showRadio: false,
-        showStats: false,
+        showStats: true,
         showStaff: {
             bass: false,
             treble: false,
