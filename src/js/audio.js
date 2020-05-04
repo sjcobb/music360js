@@ -28,8 +28,8 @@ var allDrumsPart = new Tone.Part(function(time, instr) {
     // ["0:14:0", Store.instr.kickPrimary],
     // ["0:16:0", Store.instr.kickPrimary],
 
-    ["0:15:0", Store.instr.kickPrimary],
-    ["0:18:0", Store.instr.kickSecondary],
+    // ["0:15:0", Store.instr.kickPrimary],
+    // ["0:18:0", Store.instr.kickSecondary],
 
     // ["0:4:0", Store.instr.crashPrimary],
 
@@ -45,7 +45,10 @@ allDrumsPart.loop = true;
 var introPart = new Tone.Part(function(time, instr) {
     // TODO: use Store.dropCoordCircle [0] and [719] for dropPosX and dropPosY (must be added as param to addBody) coordinates
     // console.log('introPart -> dropPosX, dropPosY: ', Store.dropPosX, '-', Store.dropPosY);
-    physics.addBody(true, Store.dropPosX, instr, 0);
+    // physics.addBody(true, Store.dropPosX, instr, 0); // prev
+
+    physics.addBody(true, Store.dropPosX, instr, 1);
+
     // physics.addBody(true, time * Store.multiplierPosX, instr); // sine wave
 }, [
     ["0:0:0", Store.instr.hiHatClosed],
@@ -62,8 +65,10 @@ var introPart = new Tone.Part(function(time, instr) {
     ["0:11:0", Store.instr.hiHatClosed],
     // ["0:0:0", Store.instr.hiHatOpen],
 ]);
-introPart.loop = 6;
+// introPart.loop = 6;
 introPart.loop = true;
+// introPart.start(6);
+// introPart.start("1:0:0");
 // introPart.start("3:0:0");
 
 // var secPosPart = new Tone.Part(function(time, instr) {

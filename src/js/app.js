@@ -387,16 +387,19 @@ if (Store.view.showStaff.bass === true) {
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_materials_cubemap_dynamic.html
 // 
 
-let robotSprite;
-let robotPos;
+let instrSprite;
+let instrSpriteSecond;
+let spritePos;
+let spritePosSecond;
 
 if (Store.view.showLogoSprite === true) {
 
     // const spriteAssetPath = "assets/logo/ai_robot_1.jpeg";
-    const spriteAssetPath = Store.view.instrumentConfig.assetPath;
-
+    const spriteAssetPath = Store.view.instrumentConfigArr[0].assetPath;
     const spriteTexture = Store.loader.load(spriteAssetPath);
     // var spriteTexture = Store.loader.load('/assets/ai_robot_1.jpg', onTextureLoaded);
+
+    const spriteTextureSecond = Store.loader.load(Store.view.instrumentConfigArr[1].assetPath);
 
     // https://threejs.org/docs/#api/en/materials/SpriteMaterial.color
     const spriteMaterial = new THREE.SpriteMaterial({
@@ -409,25 +412,30 @@ if (Store.view.showLogoSprite === true) {
         // rotation: 32,
     });
 
+    const spriteMaterialSecond = new THREE.SpriteMaterial({
+        map: spriteTextureSecond,
+        transparent: true,
+    });
+
     // TODO: pivot fish so facing opposite direction
     // https://stackoverflow.com/questions/28848863/threejs-how-to-rotate-around-objects-own-center-instead-of-world-center
-
     // spriteMaterial.rotation.x = Math.PI / 2; // err
 
-    // const robotSprite = new THREE.Sprite(spriteMaterial);
-    robotSprite = new THREE.Sprite(spriteMaterial);
+    instrSprite = new THREE.Sprite(spriteMaterial);
+    spritePos = Store.view.instrumentConfig.location;
+    // instrSprite.position.set(...spritePos);
+    instrSprite.position.set(...Store.view.instrumentConfigArr[0].location);
+    instrSprite.scale.set(5, 5, 5);
+    Store.scene.add(instrSprite);
 
-    // const robotPos = Store.view.instrumentConfig.location;
-    robotPos = Store.view.instrumentConfig.location;
+    instrSpriteSecond = new THREE.Sprite(spriteMaterialSecond);
+    instrSpriteSecond.position.set(...Store.view.instrumentConfigArr[1].location);
+    instrSpriteSecond.scale.set(5, 5, 5);
 
-    robotSprite.position.set(...robotPos);
-
-    // robotSprite.position.set(-10, 8, 0);
-    // robotSprite.scale.set(5, 10, 5);
-
-    // robotSprite.scale.set(2, 2, 2);
-    robotSprite.scale.set(5, 5, 5);
-    Store.scene.add(robotSprite);
+    setTimeout(function() {
+        Store.scene.add(instrSpriteSecond);
+    }, 9000);
+   
 }
 
 //////////////////////
@@ -464,29 +472,34 @@ let animate = () => {
         }
     }
 
-    Store.camera.lookAt(new THREE.Vector3(...Store.view.instrumentConfig.location));
+    if (Store.view.cameraLookAtSprite === true) {
+        // TODO: add if fish scene is active or camera tracking enabled
+        Store.camera.lookAt(new THREE.Vector3(...Store.view.instrumentConfig.location));
+    }
 
     if (Store.cameraShakeEnabled === true) {
         // https://github.com/felixmariotto/three-screenshake
         Store.screenShake.update(Store.camera);
     }
 
-    // console.log(robotSprite.position);
-    if (robotPos[2] < 20 && Store.view.instrumentConfig.directionRight) {
-        robotPos[0] += 0.01; // back / front
-        robotPos[2] += 0.1;
-        // Store.view.instrumentConfig.directionRight = false;
-    } else if (robotPos[2] > -20) {
-        robotPos[0] -= 0.01;
-        robotPos[2] -= 0.1;
-        // robotPos[2] -= 0.2; // fast sideways
+    // console.log(instrSprite.position);
+    if (spritePos[2] < 20 && Store.view.instrumentConfig.directionRight) {
+        spritePos[0] += 0.01; // back / front
+        spritePos[2] += 0.1;
+    } else if (spritePos[2] > -20) {
+        spritePos[0] -= 0.01;
+        spritePos[2] -= 0.1;
         Store.view.instrumentConfig.directionRight = false;
     } else {
         Store.view.instrumentConfig.directionRight = true;
     }
     
+    instrSprite.position.set(...spritePos);
 
-    robotSprite.position.set(...robotPos);
+    Store.view.instrumentConfigArr[1].location = [...spritePos];
+    Store.view.instrumentConfigArr[1].location[0] -= 0.02;
+    Store.view.instrumentConfigArr[1].location[2] -= 0.2;
+    instrSpriteSecond.position.set(...Store.view.instrumentConfigArr[1].location);
 
     // // //
 

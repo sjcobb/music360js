@@ -454,7 +454,12 @@ export default class Physics {
 
         // body.position.set((sphere) ? -xPos : xPos, yPos, zPos); // PREV
 
-        body.position.set(...location);
+        // TODO: multiple location Store values for each fish
+        if (location == null) {
+            body.position.set(...location);
+        } else {
+            body.position.set(...location);
+        }
 
         body.linearDamping = Store.damping; // 0.01
         // body.linearDamping = 0.01; // v0.2, v0.3

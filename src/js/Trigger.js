@@ -32,8 +32,8 @@ Tone.Transport.bpm.value = Store.bpm;
 // Tone.Transport.bpm.rampTo(120, 10);
 
 // https://tonejs.github.io/docs/r13/Transport#timesignature
-// Tone.Transport.timeSignature = 12; // v0.4, v0.5
-Tone.Transport.timeSignature = 20;
+Tone.Transport.timeSignature = 12; // v0.4, v0.5
+// Tone.Transport.timeSignature = 20;
 
 // Tone.Transport.timeSignature = 4;     // DEFAULT
 

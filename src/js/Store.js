@@ -203,6 +203,7 @@ export default {
         skyboxTheme: 'underwater',
         cameraPositionBehind: true,
         cameraAutoStart: true,
+        cameraLookAtSprite: false,
         // posBehindX: -70,
         // posBehindY: 8,
         // posBehindZ: 1,
@@ -227,6 +228,20 @@ export default {
             location: [-20, 0, -10],
             directionRight: true,
         },
+
+        instrumentConfigArr: [
+            {
+                assetPath: 'assets/fish/blue_fish_01.png',
+                location: [-20, 0, -10],
+                directionRight: true,
+            },
+            {
+                assetPath: 'assets/fish/green_fish_02.png',
+                location: [-20, 0, 10],
+                directionRight: true,
+            },
+        ],
+            
 
         songAutoStart: true,
         songAutoStartTime: 3000,
