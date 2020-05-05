@@ -47,27 +47,28 @@ var introPart = new Tone.Part(function(time, instr) {
     // console.log('introPart -> dropPosX, dropPosY: ', Store.dropPosX, '-', Store.dropPosY);
     // physics.addBody(true, Store.dropPosX, instr, 0); // prev
 
+    Store.view.instrumentConfigArr[1].active = true;
     physics.addBody(true, Store.dropPosX, instr, 1);
 
     // physics.addBody(true, time * Store.multiplierPosX, instr); // sine wave
 }, [
     ["0:0:0", Store.instr.hiHatClosed],
-    ["0:1:0", Store.instr.hiHatClosed],
-    ["0:2:0", Store.instr.hiHatClosed],
-    ["0:3:0", Store.instr.hiHatClosed],
-    ["0:4:0", Store.instr.hiHatClosed],
-    ["0:5:0", Store.instr.hiHatClosed],
-    ["0:6:0", Store.instr.hiHatClosed],
-    ["0:7:0", Store.instr.hiHatClosed],
-    ["0:8:0", Store.instr.hiHatClosed],
-    ["0:9:0", Store.instr.hiHatClosed],
-    ["0:10:0", Store.instr.hiHatClosed],
+    // ["0:1:0", Store.instr.hiHatClosed],
+    // ["0:2:0", Store.instr.hiHatClosed],
+    // ["0:3:0", Store.instr.hiHatClosed],
+    // ["0:4:0", Store.instr.hiHatClosed],
+    // ["0:5:0", Store.instr.hiHatClosed],
+    // ["0:6:0", Store.instr.hiHatClosed],
+    // ["0:7:0", Store.instr.hiHatClosed],
+    // ["0:8:0", Store.instr.hiHatClosed],
+    // ["0:9:0", Store.instr.hiHatClosed],
+    // ["0:10:0", Store.instr.hiHatClosed],
     ["0:11:0", Store.instr.hiHatClosed],
-    // ["0:0:0", Store.instr.hiHatOpen],
+    // // ["0:0:0", Store.instr.hiHatOpen],
 ]);
 // introPart.loop = 6;
 introPart.loop = true;
-// introPart.start(6);
+introPart.start(6);
 // introPart.start("1:0:0");
 // introPart.start("3:0:0");
 

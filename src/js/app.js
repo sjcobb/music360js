@@ -484,22 +484,37 @@ let animate = () => {
 
     // console.log(instrSprite.position);
     if (spritePos[2] < 20 && Store.view.instrumentConfig.directionRight) {
-        spritePos[0] += 0.01; // back / front
+        spritePos[0] += 0.05; // back / front
         spritePos[2] += 0.1;
     } else if (spritePos[2] > -20) {
-        spritePos[0] -= 0.01;
+        spritePos[0] -= 0.05;
         spritePos[2] -= 0.1;
         Store.view.instrumentConfig.directionRight = false;
     } else {
         Store.view.instrumentConfig.directionRight = true;
     }
-    
     instrSprite.position.set(...spritePos);
 
-    Store.view.instrumentConfigArr[1].location = [...spritePos];
-    Store.view.instrumentConfigArr[1].location[0] -= 0.02;
-    Store.view.instrumentConfigArr[1].location[2] -= 0.2;
-    instrSpriteSecond.position.set(...Store.view.instrumentConfigArr[1].location);
+    if (Store.view.instrumentConfigArr[1].active === true) {
+        // Store.view.instrumentConfigArr[1].location[0] -= 0.02;
+        // Store.view.instrumentConfigArr[1].location[2] -= 0.2;
+        // instrSpriteSecond.position.set(...Store.view.instrumentConfigArr[1].location);
+
+        if (Store.view.instrumentConfigArr[1].location[2] < 20 && Store.view.instrumentConfigArr[1].directionRight) {
+            Store.view.instrumentConfigArr[1].location[0] += 0.05; // back / front
+            Store.view.instrumentConfigArr[1].location[2] += 0.1;
+        } else if (Store.view.instrumentConfigArr[1].location[2] > -20) {
+            Store.view.instrumentConfigArr[1].location[0] -= 0.05;
+            Store.view.instrumentConfigArr[1].location[2] -= 0.1;
+            Store.view.instrumentConfigArr[1].directionRight = false;
+        } else {
+            Store.view.instrumentConfigArr[1].directionRight = true;
+        }
+
+        instrSpriteSecond.position.set(...Store.view.instrumentConfigArr[1].location);
+
+    }
+    
 
     // // //
 

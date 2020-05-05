@@ -233,11 +233,19 @@ export default {
             {
                 assetPath: 'assets/fish/blue_fish_01.png',
                 location: [-20, 0, -10],
+                active: false,
                 directionRight: true,
             },
             {
                 assetPath: 'assets/fish/green_fish_02.png',
-                location: [-20, 0, 10],
+                location: [-20, 0, -10],
+                active: false,
+                directionRight: true,
+            },
+            {
+                assetPath: 'assets/fish/red_fish_01.png',
+                location: [-20, 0, -10],
+                active: false,
                 directionRight: true,
             },
         ],
