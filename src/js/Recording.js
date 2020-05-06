@@ -15,12 +15,13 @@ export default class Recording {
         // const player = new Tone.Player("./assets/song/aintno_vocals_01.wav").toMaster();
         // player.autostart = true;
 
-        Store.recording.playerFirst = new Tone.Player("./assets/song/aintno_vocals_01.wav").toMaster();
+        // Store.recording.playerFirst = new Tone.Player("./assets/song/aintno_vocals_01.wav").toMaster();
+        Store.recording.playerFirst = new Tone.Player("./assets/fish/bubble-pop_vocals-only_01.wav").toMaster();
 
         setTimeout(function() {
             // Tone.Transport.start();
             // player.start();
-            // Store.recording.playerFirst.start();
+            Store.recording.playerFirst.start();
         }, 6000);
         
     }

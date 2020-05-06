@@ -74,7 +74,8 @@ export default class Physics {
         if (Store.view.stage.size === 'underwater') {
             posArr = [0, 24, 0];
             // sizeArr = [60, 60, 5];
-            sizeArr = [30, 60, 2];
+            // sizeArr = [30, 60, 2]; // not long enough backwards
+            sizeArr = [2000, 60, 2];
         }
 
         // FLOOR
@@ -455,11 +456,12 @@ export default class Physics {
         // body.position.set((sphere) ? -xPos : xPos, yPos, zPos); // PREV
 
         // TODO: multiple location Store values for each fish
-        if (location == null) {
-            body.position.set(...location);
-        } else {
-            body.position.set(...location);
-        }
+        // if (location == null) {
+        //     body.position.set(...location);
+        // } else {
+        //     body.position.set(...location);
+        // }
+        body.position.set(...Store.view.instrumentConfigArr[index].location);
 
         body.linearDamping = Store.damping; // 0.01
         // body.linearDamping = 0.01; // v0.2, v0.3

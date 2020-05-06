@@ -388,7 +388,7 @@ if (Store.view.showStaff.bass === true) {
 // 
 
 let instrSprite, instrSpriteSecond;
-let spritePos, spritePosSecond;
+// let spritePos, spritePosSecond;
 let spriteTexture, spriteTextureSecond;
 
 const spriteBackwardOffset = 0.05;
@@ -435,7 +435,7 @@ if (Store.view.showLogoSprite === true) {
     // spriteMaterial.rotation.x = Math.PI / 2; // err
 
     instrSprite = new THREE.Sprite(spriteMaterial);
-    spritePos = Store.view.instrumentConfig.location;
+    // spritePos = Store.view.instrumentConfig.location;
     // instrSprite.position.set(...spritePos);
     instrSprite.position.set(...Store.view.instrumentConfigArr[0].location);
     instrSprite.scale.set(5, 5, 5);
@@ -503,12 +503,12 @@ let animate = () => {
     }
 
     // console.log(instrSprite.position);
-    if (spritePos[2] < 20 && Store.view.instrumentConfig.directionRight) {
-        spritePos[0] += spriteBackwardOffset; // back / front
-        spritePos[2] += spriteSpeed;
-    } else if (spritePos[2] > -20) {
-        spritePos[0] += spriteBackwardOffset;
-        spritePos[2] -= spriteSpeed;
+    if (Store.view.instrumentConfigArr[0].location[2] < 20 && Store.view.instrumentConfig.directionRight) {
+        Store.view.instrumentConfigArr[0].location[0] += spriteBackwardOffset; // back / front
+        Store.view.instrumentConfigArr[0].location[2] += spriteSpeed;
+    } else if (Store.view.instrumentConfigArr[0].location[2] > -20) {
+        Store.view.instrumentConfigArr[0].location[0] += spriteBackwardOffset;
+        Store.view.instrumentConfigArr[0].location[2] -= spriteSpeed;
 
         // https://stackoverflow.com/a/23684251/7639084
         spriteTexture.repeat.set(-1, 1);
@@ -520,7 +520,7 @@ let animate = () => {
         spriteTexture.offset.set(0, 0);
         Store.view.instrumentConfig.directionRight = true;
     }
-    instrSprite.position.set(...spritePos);
+    instrSprite.position.set(...Store.view.instrumentConfigArr[0].location);
 
     if (Store.view.instrumentConfigArr[1].active === true) {
         if (Store.view.instrumentConfigArr[1].location[2] < 20 && Store.view.instrumentConfigArr[1].directionRight) {
