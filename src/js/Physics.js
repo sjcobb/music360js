@@ -482,6 +482,8 @@ export default class Physics {
         
         Store.world.add(body);
 
+        // end Cannon.js specific portion
+
         body.userData = {
             opts: options
         };
@@ -627,16 +629,28 @@ export default class Physics {
 
                     // console.log('shape2Mesh -> options: ', options);
 
-                    let stripedVariation = false; //TODO: cleanup, use ternary operator 
+                    let stripedVariation = false; // TODO: cleanup, use ternary operator 
                     if (options.variation === 'striped') {
                         stripedVariation = true;
                     }
                     const poolTexture = helpers.ballTexture(options.ballDesc, stripedVariation, fillStyleMapping, 512);
 
+                    // https://threejs.org/docs/#api/en/materials/MeshLambertMaterial
                     // const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 }); //PREV
-                    // const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0xf3f3f3 });
-                    const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
-                    poolBallMaterial.map = poolTexture;
+                    const poolBallMaterial = new THREE.MeshLambertMaterial({ 
+                        color: 0xffffff,
+                        // map: poolTexture, // PREV - pool ball letters
+                        //
+                        // // map: new THREE.TextureLoader().load(`assets/skybox/${Store.view.skyboxTheme}/ft.png`),
+                        map: new THREE.TextureLoader().load(`assets/bubble/bubble_pop_one/bubble_pop_frame_01.png`),
+                        side: THREE.DoubleSide,
+                        transparent: true,
+                        // opacity: 0.5,
+                        // color: 0xffffff,
+                        // color: 0x000000,
+                        // rotation: 2,
+                    });
+                    // poolBallMaterial.map = poolTexture;
 
                     const sphereGeo = new THREE.SphereGeometry(shape.radius, 8, 8);
 
