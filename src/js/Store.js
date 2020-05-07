@@ -215,6 +215,10 @@ export default {
         posBehindY: -2,
         posBehindZ: 0,
 
+        bubbleAssetPath: 'assets/bubble/bubble_pop_one/bubble_pop_frame_01.png',
+        // bubbleAssetPath: 'assets/bubble/bubble_pop_one/bubble_pop_frame_04.png',
+        // bubbleAssetPath: 'assets/bubble/bubble_pop_one/bubble_pop_frame_07.png',
+        
         instrumentConfig: {
             // assetPath: 'assets/logo/ai_robot_1.jpeg',
             assetPath: 'assets/fish/blue_fish_01.png',

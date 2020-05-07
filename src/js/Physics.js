@@ -372,10 +372,8 @@ export default class Physics {
             objMass = 50; // 808 sound pops
             //objMass = 1000;
         } else {
-            // objSize = 0.5; // v0.3
-            // objSize = 0.65; // too big for D maj chord
-            objSize = 0.50; // prev
-            // objSize = 0.75
+            // objSize = 0.50;
+            objSize = 0.75
 
             // xPosition += 2;
             // xPosition *= 20;
@@ -471,8 +469,7 @@ export default class Physics {
         // body.angularVelocity.z = options.size === 'xl' ? 10 : 20;
 
         // body.angularVelocity.z = options.size === 'xl' ? 8 : 18; // earthquake
-        // body.angularVelocity.z = options.size === 'xl' ? 8 : 24; // works
-        body.angularVelocity.z = options.size === 'xl' ? 8 : 26;
+        body.angularVelocity.z = options.size === 'xl' ? 8 : 0;
 
         if (options.type === 'animation') {
             flamePhysics.create({x: -xPos});
@@ -539,6 +536,8 @@ export default class Physics {
                 if (bodyCollideCount === 1) {
                     trigger.triggerNote(body);
                     notePlayed = true;
+
+                    // Store.view.bubbleAssetPath = 'assets/bubble/bubble_pop_one/bubble_pop_frame_04.png', // no effect
                 }
             } else if (Store.triggerOn === 'spinner') {
                 if (spinnerCollideCount === 1 && notePlayed !== true) { // 0.3
@@ -635,6 +634,19 @@ export default class Physics {
                     }
                     const poolTexture = helpers.ballTexture(options.ballDesc, stripedVariation, fillStyleMapping, 512);
 
+                    // // // //
+
+                    // https://threejs.org/docs/#api/en/textures/Texture
+                    // const bubbleTexture = new THREE.TextureLoader().load(`assets/bubble/bubble_pop_one/bubble_pop_frame_01.png`);
+                    const bubbleTexture = new THREE.TextureLoader().load(Store.view.bubbleAssetPath);
+
+                    // bubbleTexture.wrapS = THREE.RepeatWrapping; // IMPORTANT - adds back face of bubble
+                    bubbleTexture.wrapT = THREE.RepeatWrapping;
+                    
+                    // bubbleTexture.repeat.set(1, 1);
+                    bubbleTexture.repeat.set(2, 1); // yes
+                    // bubbleTexture.repeat.set(4, 4);
+
                     // https://threejs.org/docs/#api/en/materials/MeshLambertMaterial
                     // const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 }); //PREV
                     const poolBallMaterial = new THREE.MeshLambertMaterial({ 
@@ -642,15 +654,40 @@ export default class Physics {
                         // map: poolTexture, // PREV - pool ball letters
                         //
                         // // map: new THREE.TextureLoader().load(`assets/skybox/${Store.view.skyboxTheme}/ft.png`),
-                        map: new THREE.TextureLoader().load(`assets/bubble/bubble_pop_one/bubble_pop_frame_01.png`),
-                        side: THREE.DoubleSide,
+                        // map: new THREE.TextureLoader().load(`assets/bubble/bubble_pop_one/bubble_pop_frame_01.png`),
+                        map: bubbleTexture,
+                        //
+                        // side: THREE.DoubleSide,
                         transparent: true,
                         // opacity: 0.5,
-                        // color: 0xffffff,
                         // color: 0x000000,
+
+                        // https://stackoverflow.com/a/30154137/7639084
                         // rotation: 2,
+                        // rotation: Math.PI / 2, // too far right
+                        // rotation: Math.PI, // no difference
+                        // rotation: 3.1,
+                        // rotation: new THREE.Vector3(0, 0, Math.PI / 2),
+                        // rotation: new THREE.Vector3(Math.PI / 2, 0, 0),
+                        // rotation: new THREE.Vector3(Math.PI, 0, 0),
+
+                        // center: new THREE.Vector2(0.5, 0.5),
+                        // side: THREE.DoubleSide,
+
+                        // type: THREE.SphericalReflectionMapping, // err
+                        // format: THREE.SphericalReflectionMapping, // no effect
+                        // mapping: THREE.SphericalReflectionMapping, // no effect
                     });
-                    // poolBallMaterial.map = poolTexture;
+
+                    // https://threejs.org/docs/#api/en/constants/Textures
+                    // THREE.UVMapping
+                    // THREE.CubeReflectionMapping
+                    // THREE.CubeRefractionMapping
+                    // THREE.EquirectangularReflectionMapping
+                    // THREE.EquirectangularRefractionMapping
+                    // THREE.SphericalReflectionMapping
+                    // THREE.CubeUVReflectionMapping
+                    // THREE.CubeUVRefractionMapping
 
                     const sphereGeo = new THREE.SphereGeometry(shape.radius, 8, 8);
 

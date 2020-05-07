@@ -404,9 +404,9 @@ if (Store.view.showLogoSprite === true) {
     // // spriteTexture.flipX = false; // no effect
     // spriteTexture.repeat.set(-1, 1); // works
     // spriteTexture.offset.set( 1, 0); // works
-    console.log({spriteTexture});
-    console.log('spriteTexture.repeat: ', spriteTexture.repeat);
-    console.log('spriteTexture.offset', spriteTexture.offset);
+    // console.log({spriteTexture});
+    // console.log('spriteTexture.repeat: ', spriteTexture.repeat);
+    // console.log('spriteTexture.offset', spriteTexture.offset);
 
     spriteTextureSecond = Store.loader.load(Store.view.instrumentConfigArr[1].assetPath);
 
@@ -444,7 +444,7 @@ if (Store.view.showLogoSprite === true) {
     // instrSprite.rotation.y = Math.PI / 2; // no effect
     // instrSprite.rotation.y = Math.PI; // no effect
     instrSprite.rotation.y = Math.PI / 3;
-    console.log(instrSprite.rotation);
+    // console.log(instrSprite.rotation);
 
     Store.scene.add(instrSprite);
 
