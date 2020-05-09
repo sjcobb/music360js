@@ -537,8 +537,18 @@ export default class Physics {
                     trigger.triggerNote(body);
                     notePlayed = true;
 
-                    Store.view.bubbleAssetPath = 'assets/bubble/bubble_pop_one/bubble_pop_frame_04.png'; // no effect
-                    // Store.view.bubbleTexture = new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/bubble_pop_frame_04.png');
+                    // TODO: dispose and update bubble texture
+                    // https://discourse.threejs.org/t/updating-material-map/2381/4
+                    // https://jsfiddle.net/f2Lommf5/4991/
+                    
+                    //  
+                    // Store.view.bubbleAssetPath = 'assets/bubble/bubble_pop_one/4.png';
+                    // Store.view.bubbleTexture = new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/4.png');
+                    //
+                    setTimeout(() => {
+                        console.log('CONTACT -> Timeout... ...');
+                        Store.view.instrumentConfigArr[0].bubbleTexture = Store.view.instrumentConfigArr[1].bubbleTexture;
+                    }, 2000);
                 }
             } else if (Store.triggerOn === 'spinner') {
                 if (spinnerCollideCount === 1 && notePlayed !== true) { // 0.3
@@ -647,6 +657,11 @@ export default class Physics {
                     // bubbleTexture.repeat.set(1, 1);
                     bubbleTexture.repeat.set(2, 1); // yes
                     // bubbleTexture.repeat.set(4, 4);
+                    
+                    // // 
+
+                    // Store.view.instrumentConfigArr[0].bubbleTexture.wrapT = THREE.RepeatWrapping;
+                    // Store.view.instrumentConfigArr[0].bubbleTexture.repeat.set(2, 1);
 
                     // https://threejs.org/docs/#api/en/materials/MeshLambertMaterial
                     // const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 }); //PREV
@@ -657,7 +672,8 @@ export default class Physics {
                         // // map: new THREE.TextureLoader().load(`assets/skybox/${Store.view.skyboxTheme}/ft.png`),
                         // map: new THREE.TextureLoader().load(`assets/bubble/bubble_pop_one/bubble_pop_frame_01.png`),
 
-                        map: bubbleTexture, // USE
+                        // map: bubbleTexture, // USE
+                        map: Store.view.instrumentConfigArr[0].bubbleTexture,
                         // map: Store.view.bubbleTexture, // TODO: animate through frames and wrap around sphere correctly
                         
                         //

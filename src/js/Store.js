@@ -215,10 +215,10 @@ export default {
         posBehindY: -2,
         posBehindZ: 0,
 
-        bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/bubble_pop_frame_01.png'),
-        bubbleAssetPath: 'assets/bubble/bubble_pop_one/bubble_pop_frame_01.png',
-        // bubbleAssetPath: 'assets/bubble/bubble_pop_one/bubble_pop_frame_04.png',
-        // bubbleAssetPath: 'assets/bubble/bubble_pop_one/bubble_pop_frame_07.png',
+        bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/1.png'),
+        bubbleAssetPath: 'assets/bubble/bubble_pop_one/1.png',
+        // bubbleAssetPath: 'assets/bubble/bubble_pop_one/4.png',
+        // bubbleAssetPath: 'assets/bubble/bubble_pop_one/7.png',
         
         instrumentConfig: {
             // assetPath: 'assets/logo/ai_robot_1.jpeg',
@@ -241,6 +241,10 @@ export default {
                 active: false,
                 directionRight: true,
                 animationFrame: 1, // TODO: split bubbleAssetPath string and add frame number (how to update after bubble already in progress? multiple bubbles per instrument?)
+                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/1.png', function (texture) {
+                    texture.wrapT = THREE.RepeatWrapping;
+                    texture.repeat.set(2, 1);
+                }),
             },
             {
                 assetPath: 'assets/fish/green_fish_02.png',
@@ -248,6 +252,10 @@ export default {
                 active: false,
                 directionRight: true,
                 animationFrame: 1,
+                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/4.png', function (texture) {
+                    texture.wrapT = THREE.RepeatWrapping;
+                    texture.repeat.set(2, 1);
+                }),
             },
             {
                 assetPath: 'assets/fish/red_fish_01.png',
