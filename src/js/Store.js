@@ -245,6 +245,11 @@ export default {
                     texture.wrapT = THREE.RepeatWrapping;
                     texture.repeat.set(2, 1);
                 }),
+                // ballMaterial: new THREE.MeshLambertMaterial({ 
+                //     color: 0xffffff,
+                //     map: Store.view.instrumentConfigArr[0].bubbleTexture,
+                //     transparent: true,
+                // }),
             },
             {
                 assetPath: 'assets/fish/green_fish_02.png',

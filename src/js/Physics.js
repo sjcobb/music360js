@@ -485,7 +485,13 @@ export default class Physics {
             opts: options
         };
 
-        this.addVisual(body, (sphere) ? 'sphere' : 'box', true, false, options);
+        if (options.material == null) {
+            this.addVisual(body, (sphere) ? 'sphere' : 'box', true, false, options);
+        } else {
+            // Store.scene.add(options.material); // err
+            Store.scene.add(options.mesh);
+            // Store.scene.add(mesh);
+        }
 
         let notePlayed = false;
         let bodyCollideCount = 0;
@@ -540,7 +546,7 @@ export default class Physics {
                     // TODO: dispose and update bubble texture
                     // https://discourse.threejs.org/t/updating-material-map/2381/4
                     // https://jsfiddle.net/f2Lommf5/4991/
-                    
+
                     //  
                     // Store.view.bubbleAssetPath = 'assets/bubble/bubble_pop_one/4.png';
                     // Store.view.bubbleTexture = new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/4.png');
@@ -665,6 +671,9 @@ export default class Physics {
 
                     // https://threejs.org/docs/#api/en/materials/MeshLambertMaterial
                     // const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 }); //PREV
+                    
+                    // TODO: entire poolBallMaterial needs to be in Store so .map can be updated after contact
+                    // https://jsfiddle.net/f2Lommf5/4991/
                     const poolBallMaterial = new THREE.MeshLambertMaterial({ 
                         color: 0xffffff,
                         // map: poolTexture, // PREV - pool ball letters
