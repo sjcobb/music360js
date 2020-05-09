@@ -537,7 +537,8 @@ export default class Physics {
                     trigger.triggerNote(body);
                     notePlayed = true;
 
-                    // Store.view.bubbleAssetPath = 'assets/bubble/bubble_pop_one/bubble_pop_frame_04.png', // no effect
+                    Store.view.bubbleAssetPath = 'assets/bubble/bubble_pop_one/bubble_pop_frame_04.png'; // no effect
+                    // Store.view.bubbleTexture = new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/bubble_pop_frame_04.png');
                 }
             } else if (Store.triggerOn === 'spinner') {
                 if (spinnerCollideCount === 1 && notePlayed !== true) { // 0.3
@@ -655,7 +656,10 @@ export default class Physics {
                         //
                         // // map: new THREE.TextureLoader().load(`assets/skybox/${Store.view.skyboxTheme}/ft.png`),
                         // map: new THREE.TextureLoader().load(`assets/bubble/bubble_pop_one/bubble_pop_frame_01.png`),
-                        map: bubbleTexture,
+
+                        map: bubbleTexture, // USE
+                        // map: Store.view.bubbleTexture, // TODO: animate through frames and wrap around sphere correctly
+                        
                         //
                         // side: THREE.DoubleSide,
                         transparent: true,

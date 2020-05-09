@@ -215,6 +215,7 @@ export default {
         posBehindY: -2,
         posBehindZ: 0,
 
+        bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/bubble_pop_frame_01.png'),
         bubbleAssetPath: 'assets/bubble/bubble_pop_one/bubble_pop_frame_01.png',
         // bubbleAssetPath: 'assets/bubble/bubble_pop_one/bubble_pop_frame_04.png',
         // bubbleAssetPath: 'assets/bubble/bubble_pop_one/bubble_pop_frame_07.png',
@@ -239,18 +240,21 @@ export default {
                 location: [-20, 0, -10],
                 active: false,
                 directionRight: true,
+                animationFrame: 1, // TODO: split bubbleAssetPath string and add frame number (how to update after bubble already in progress? multiple bubbles per instrument?)
             },
             {
                 assetPath: 'assets/fish/green_fish_02.png',
                 location: [-20, 0, -10],
                 active: false,
                 directionRight: true,
+                animationFrame: 1,
             },
             {
                 assetPath: 'assets/fish/red_fish_01.png',
                 location: [-20, 0, -10],
                 active: false,
                 directionRight: true,
+                animationFrame: 1,
             },
         ],
             
