@@ -51,19 +51,16 @@ var introPart = new Tone.Part(function(time, instr) {
 
     Store.view.instrumentConfigArr[1].active = true;
 
-    instr.material = new THREE.MeshLambertMaterial({ 
-        color: 0xffffff,
-        // map: Store.view.instrumentConfigArr[0].bubbleTexture,
-        map: Store.view.instrumentConfigArr[1].bubbleTexture,
-        transparent: true,
-    });
-
-    const obj = new THREE.Object3D();
-    const sphereGeo = new THREE.SphereGeometry(4, 8, 8); // first param = radius
-
-    const mesh = new THREE.Mesh(sphereGeo, instr.material);
-
-    instr.mesh = mesh;
+    // instr.material = new THREE.MeshLambertMaterial({ 
+    //     color: 0xffffff,
+    //     // map: Store.view.instrumentConfigArr[0].bubbleTexture,
+    //     map: Store.view.instrumentConfigArr[1].bubbleTexture,
+    //     transparent: true,
+    // });
+    // const obj = new THREE.Object3D();
+    // const sphereGeo = new THREE.SphereGeometry(4, 8, 8); // first param = radius
+    // const mesh = new THREE.Mesh(sphereGeo, instr.material);
+    // instr.mesh = mesh;
 
     physics.addBody(true, Store.dropPosX, instr, 1);
 

@@ -4,6 +4,9 @@
 /*jshint esversion: 6 */
 
 import * as Tonal from "tonal";
+import * as THREE from 'three';
+
+import Store from './Store.js';
 
 //-----INIT INSTRUMENT MAPPING------//
 //TODO: instrumentMapping obj should be part of getInstrumentMapping() so default params can be set for optional configs, ex: movement = 'physics'
@@ -153,9 +156,20 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             movement: movement, //default: 'physics', or 'static'
             type: 'drum',
             variation: 'hihat',
-            // originalPosition: { x: -3, y: 1.5, z: 1 }
-            // originalPosition: { x: 0, y: 0, z: 10 }
-            originalPosition: { x: 0, y: 0, z: 5 }
+            originalPosition: { x: 0, y: 0, z: 5 },
+            texture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/4.png', function (texture) {
+                texture.wrapT = THREE.RepeatWrapping;
+                texture.repeat.set(2, 1);
+            }),
+            material: new THREE.MeshLambertMaterial({ 
+                color: 0xffffff,
+                map: Store.view.instrumentConfigArr[0].bubbleTexture,
+                transparent: true,
+            }),
+
+            // TODO: add to addBody for bubble popping animation
+            // mesh.scale.set(1.35, 1.35, 1.35)
+            // mesh.userData.type = 'physics';
         },
         hiHatOpen: {
             ballDesc: 'H',
