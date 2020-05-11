@@ -488,8 +488,9 @@ export default class Physics {
             options.mesh = new THREE.Mesh(sphereGeo, options.material);
 
             options.mesh.rotation.set(0, -1.5, 0);
-            options.mesh.scale.set(1.35, 1.35, 1.35);
+            options.mesh.scale.set(1.35, 1.35, 1.35); // USE
             // options.mesh.scale.set(0.5, 0.5, 0.5);
+            options.mesh.scale.set(5, 5, 5); // for debugging
 
             // body.shapes.forEach(function(shape) {
             // // TODO: is all this needed? // //
@@ -505,13 +506,15 @@ export default class Physics {
             obj.add(options.mesh)
             // obj.name = 'tbd';
 
-
-            console.log({obj})
+            // console.log({obj})
             Store.scene.add(obj);
 
             // Store.scene.add(options.mesh);
+            // Store.scene.add(mesh); // PREV - earthquake, v0.5
 
-            // Store.scene.add(mesh); // PREV
+            // setTimeout(() => {
+            //     options.material.map = Store.view.instrumentConfigArr[1].bubbleTexture;
+            // }, 2000);
         }
 
         Store.world.add(body);
@@ -579,10 +582,14 @@ export default class Physics {
                     // Store.view.bubbleAssetPath = 'assets/bubble/bubble_pop_one/4.png';
                     // Store.view.bubbleTexture = new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/4.png');
                     //
-                    setTimeout(() => {
-                        console.log('CONTACT -> Timeout... ...');
-                        // Store.view.instrumentConfigArr[0].bubbleTexture = Store.view.instrumentConfigArr[1].bubbleTexture;
-                    }, 2000);
+
+                    if (options.material != null) {
+                        setTimeout(() => {
+                            options.material.map = Store.view.instrumentConfigArr[1].bubbleTexture;
+                        // }, 2000);
+                        }, 10);
+                    }
+                    
                 }
             } else if (Store.triggerOn === 'spinner') {
                 if (spinnerCollideCount === 1 && notePlayed !== true) { // 0.3
