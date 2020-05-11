@@ -157,10 +157,10 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             type: 'drum',
             variation: 'hihat',
             originalPosition: { x: 0, y: 0, z: 5 },
-            texture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/4.png', function (texture) {
-                texture.wrapT = THREE.RepeatWrapping;
-                texture.repeat.set(2, 1);
-            }),
+            // texture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/4.png', function (texture) {
+            //     texture.wrapT = THREE.RepeatWrapping;
+            //     texture.repeat.set(2, 1);
+            // }),
             material: new THREE.MeshLambertMaterial({ 
                 color: 0xffffff,
                 map: Store.view.instrumentConfigArr[0].bubbleTexture,
@@ -170,6 +170,8 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             // TODO: add to addBody for bubble popping animation
             // mesh.scale.set(1.35, 1.35, 1.35)
             // mesh.userData.type = 'physics';
+            // mesh.castShadow = true;
+            // mesh.receiveShadow = true;
         },
         hiHatOpen: {
             ballDesc: 'H',

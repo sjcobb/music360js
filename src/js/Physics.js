@@ -470,11 +470,11 @@ export default class Physics {
             return;
         }
         
-        Store.world.add(body);
+        // Store.world.add(body);
 
-        /////////////////////////////////////
-        // end Cannon.js specific portion //
-        ///////////////////////////////////
+        /////////////////////
+        // BUBBLE PNG MESH //
+        /////////////////////
         body.userData = {
             opts: options
         };
@@ -484,19 +484,23 @@ export default class Physics {
         } else {
 
             const obj = new THREE.Object3D();
-            const sphereGeo = new THREE.SphereGeometry(4, 8, 8); // first param = radius
+            const sphereGeo = new THREE.SphereGeometry(0.75, 8, 8); // first param = radius
             options.mesh = new THREE.Mesh(sphereGeo, options.material);
 
+            options.mesh.rotation.set(0, -1.5, 0);
+            options.mesh.scale.set(1.35, 1.35, 1.35);
+            // options.mesh.scale.set(0.5, 0.5, 0.5);
+
             // body.shapes.forEach(function(shape) {
-            // TODO: is all this needed?
+            // // TODO: is all this needed? // //
             // });
             // let index = 0;
             // const o = body.shapeOffsets[index];
             // const q = body.shapeOrientations[index++];
             // options.mesh.position.set(o.x, o.y, o.z);
             // options.mesh.quaternion.set(q.x, q.y, q.z, q.w);
-            //
-            // // body.threemesh = options.mesh;
+            
+            body.threemesh = options.mesh; // IMPORTANT
 
             obj.add(options.mesh)
             // obj.name = 'tbd';
@@ -509,6 +513,13 @@ export default class Physics {
 
             // Store.scene.add(mesh); // PREV
         }
+
+        Store.world.add(body);
+
+
+        ////////////////////////
+        // COLLISION TRIGGER //
+        ///////////////////////
 
         let notePlayed = false;
         let bodyCollideCount = 0;
@@ -635,7 +646,7 @@ export default class Physics {
             mesh.castShadow = castShadow;
             mesh.receiveShadow = receiveShadow;
 
-            console.log({mesh})
+            // console.log({mesh})
             Store.scene.add(mesh);
         }
     }
@@ -691,8 +702,8 @@ export default class Physics {
                     const poolBallMaterial = new THREE.MeshLambertMaterial({ 
                         color: 0xffffff,
                         // map: poolTexture, // PREV - pool ball letters
-                        // map: bubbleTexture, // USE
-                        map: Store.view.instrumentConfigArr[0].bubbleTexture,
+                        map: bubbleTexture, // USE
+                        // map: Store.view.instrumentConfigArr[0].bubbleTexture,
                         // map: Store.view.bubbleTexture,
                         //
                         // side: THREE.DoubleSide,
@@ -706,6 +717,7 @@ export default class Physics {
                         // center: new THREE.Vector2(0.5, 0.5),
                     });
 
+                    // console.log('shape.radius: ', shape.radius);
                     const sphereGeo = new THREE.SphereGeometry(shape.radius, 8, 8);
 
                     // TODO: if options.size is 'xl' make sphere larger, need to fix Cannon addShape so physics still work

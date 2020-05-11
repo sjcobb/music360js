@@ -241,7 +241,8 @@ export default {
                 active: false,
                 directionRight: true,
                 animationFrame: 1, // TODO: split bubbleAssetPath string and add frame number (how to update after bubble already in progress? multiple bubbles per instrument?)
-                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/1.png', function (texture) {
+                // bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/1.png', function (texture) {
+                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/4.png', function (texture) {
                     texture.wrapT = THREE.RepeatWrapping;
                     texture.repeat.set(2, 1);
                 }),
