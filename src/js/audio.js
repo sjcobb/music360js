@@ -62,7 +62,8 @@ var introPart = new Tone.Part(function(time, instr) {
     // const mesh = new THREE.Mesh(sphereGeo, instr.material);
     // instr.mesh = mesh;
 
-    physics.addBody(true, Store.dropPosX, instr, 1);
+    physics.addBody(true, Store.dropPosX, instr, 0); // blue fish
+    // physics.addBody(true, Store.dropPosX, instr, 1); // green fish
 
     // physics.addBody(true, time * Store.multiplierPosX, instr); // sine wave
 }, [
@@ -72,17 +73,19 @@ var introPart = new Tone.Part(function(time, instr) {
     // ["0:3:0", Store.instr.hiHatClosed],
     // ["0:4:0", Store.instr.hiHatClosed],
     // ["0:5:0", Store.instr.hiHatClosed],
-    // ["0:6:0", Store.instr.hiHatClosed],
+    ["0:6:0", Store.instr.hiHatClosed],
     // ["0:7:0", Store.instr.hiHatClosed],
     // ["0:8:0", Store.instr.hiHatClosed],
     // ["0:9:0", Store.instr.hiHatClosed],
     // ["0:10:0", Store.instr.hiHatClosed],
-    ["0:11:0", Store.instr.hiHatClosed],
+    // ["0:11:0", Store.instr.hiHatClosed],
     // // ["0:0:0", Store.instr.hiHatOpen],
 ]);
 // introPart.loop = 6;
 introPart.loop = true;
-introPart.start(6);
+// introPart.start(6);
+introPart.start(0);
+
 // introPart.start("1:0:0");
 // introPart.start("3:0:0");
 

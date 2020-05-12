@@ -455,7 +455,7 @@ const recordingPart = new Tone.Part(function(time, datum){
 // // recordingPart.start("0:0:0");
 
 // recordingPart.playbackRate = 0.2;
-recordingPart.start(0);
+// recordingPart.start(0);
 
 const recordingSecondPart = new Tone.Part(function(time, datum){
     // console.log(time);

@@ -479,13 +479,22 @@ export default class Physics {
             opts: options
         };
 
+        let instrMaterial;
         if (options.material == null) {
             this.addVisual(body, (sphere) ? 'sphere' : 'box', true, false, options);
         } else {
 
+            // https://www.samanthaming.com/tidbits/70-3-ways-to-clone-objects/
+            // console.log(typeof options.material);
+            // instrMaterial = options.material;
+            // instrMaterial = {...options.material}; // err
+            // instrMaterial = Object.assign({}, options.material); // err
+            // instrMaterial = JSON.parse(JSON.stringify(options.material)); // nothing
+            console.log({instrMaterial});
+
             const obj = new THREE.Object3D();
             const sphereGeo = new THREE.SphereGeometry(0.75, 8, 8); // first param = radius
-            options.mesh = new THREE.Mesh(sphereGeo, options.material);
+            options.mesh = new THREE.Mesh(sphereGeo, instrMaterial);
 
             options.mesh.rotation.set(0, -1.5, 0);
             options.mesh.scale.set(1.35, 1.35, 1.35); // USE
@@ -513,7 +522,7 @@ export default class Physics {
             // Store.scene.add(mesh); // PREV - earthquake, v0.5
 
             // setTimeout(() => {
-            //     options.material.map = Store.view.instrumentConfigArr[1].bubbleTexture;
+            //     instrMaterial.map = Store.view.instrumentConfigArr[1].bubbleTexture;
             // }, 2000);
         }
 
@@ -584,10 +593,19 @@ export default class Physics {
                     //
 
                     if (options.material != null) {
+                        // instrMaterial.map = Store.view.instrumentConfigArr[0].bubbleTexture;
+
                         setTimeout(() => {
-                            options.material.map = Store.view.instrumentConfigArr[1].bubbleTexture;
-                        // }, 2000);
-                        }, 10);
+                            instrMaterial.map = Store.view.instrumentConfigArr[1].bubbleTexture;
+                        }, 500);
+
+                        setTimeout(() => {
+                            instrMaterial.map = Store.view.instrumentConfigArr[2].bubbleTexture;
+                        }, 1000);
+
+                        // setTimeout(() => {
+                        //     instrMaterial.map = Store.view.instrumentConfigArr[3].bubbleTexture;
+                        // }, 1500);
                     }
                     
                 }

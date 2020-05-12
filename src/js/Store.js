@@ -258,7 +258,7 @@ export default {
                 active: false,
                 directionRight: true,
                 animationFrame: 1,
-                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/5.png', function (texture) {
+                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/3.png', function (texture) {
                     texture.wrapT = THREE.RepeatWrapping;
                     texture.repeat.set(2, 1);
                 }),
@@ -269,6 +269,10 @@ export default {
                 active: false,
                 directionRight: true,
                 animationFrame: 1,
+                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/6.png', function (texture) {
+                    texture.wrapT = THREE.RepeatWrapping;
+                    texture.repeat.set(2, 1);
+                }),
             },
         ],
             
