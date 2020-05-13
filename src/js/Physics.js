@@ -484,22 +484,46 @@ export default class Physics {
             this.addVisual(body, (sphere) ? 'sphere' : 'box', true, false, options);
         } else {
 
+            // https://stackoverflow.com/a/22640465/7639084 - Object3D.clone()
             // https://www.samanthaming.com/tidbits/70-3-ways-to-clone-objects/
-            // console.log(typeof options.material);
-            // instrMaterial = options.material;
+            // err -> https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript#comment49126408_5344074
+            // err: Uncaught TypeError: Cannot read property 'toString' of undefined at WebGLPrograms.getProgramCode
+
+            // instrMaterial = options.material; // prev
             // instrMaterial = {...options.material}; // err
-            // instrMaterial = Object.assign({}, options.material); // err
+            // instrMaterial = Object.assign({}, options.material); 
             // instrMaterial = JSON.parse(JSON.stringify(options.material)); // nothing
-            console.log({instrMaterial});
+
+            // const helpers = new Helpers();
+            // instrMaterial = helpers.clone(options.material); // err
+
+            instrMaterial = options.material.clone();
+
+            // console.log({instrMaterial});
 
             const obj = new THREE.Object3D();
             const sphereGeo = new THREE.SphereGeometry(0.75, 8, 8); // first param = radius
-            options.mesh = new THREE.Mesh(sphereGeo, instrMaterial);
+            // sphereGeo.rotation.set(0, -1.5, 0); // err
 
-            options.mesh.rotation.set(0, -1.5, 0);
+            // obj.rotation.set(0, -1.5, 0); // IMPORTANT
+            // obj.rotation.set(0, -1.5, 0); 
+            // obj.rotation.y = -1.5;
+            // console.log({obj});
+            
+            // console.log({sphereGeo});
+            options.mesh = new THREE.Mesh(sphereGeo, instrMaterial);
+            // options.mesh.rotation.set(0, -1.5, 0); 
+
+            // options.mesh.rotation.set(0, -1.5, 0);
+            // options.mesh.rotation = new THREE.Vector3(0, 0, 0); // err
+            // DEBUG: rotation: Euler {_x: -9.270926266260985e-1}
+            // console.log(options.mesh.rotation);
+            // options.mesh.rotation.set(0, 0, Math.PI);
+            // options.mesh.rotation.x = 0;
+
             options.mesh.scale.set(1.35, 1.35, 1.35); // USE
             // options.mesh.scale.set(0.5, 0.5, 0.5);
-            options.mesh.scale.set(5, 5, 5); // for debugging
+            // options.mesh.scale.set(5, 5, 5); // for debugging
 
             // body.shapes.forEach(function(shape) {
             // // TODO: is all this needed? // //
@@ -510,20 +534,33 @@ export default class Physics {
             // options.mesh.position.set(o.x, o.y, o.z);
             // options.mesh.quaternion.set(q.x, q.y, q.z, q.w);
             
+            //voptions.mesh.rotation.set(0, -1.5, 0); 
+            options.mesh.rotation.set(0, 0, 0); 
+            
+            // console.log('new mesh: ', options.mesh);
+            // console.log({body});
+
             body.threemesh = options.mesh; // IMPORTANT
+            
+            obj.rotation.set(0, -1.5, 0); 
 
             obj.add(options.mesh)
             // obj.name = 'tbd';
 
             // console.log({obj})
+            // console.log(obj.children[0].rotation.x);
+
+            // obj.rotation.set(0, -1.5, 0); 
+            // obj.rotation.y = -1.5;
+
+            // obj.rotation.z = 0;
+            // obj.rotation.y = -1.5;
+
             Store.scene.add(obj);
 
             // Store.scene.add(options.mesh);
             // Store.scene.add(mesh); // PREV - earthquake, v0.5
 
-            // setTimeout(() => {
-            //     instrMaterial.map = Store.view.instrumentConfigArr[1].bubbleTexture;
-            // }, 2000);
         }
 
         Store.world.add(body);
@@ -593,15 +630,16 @@ export default class Physics {
                     //
 
                     if (options.material != null) {
+                        
                         // instrMaterial.map = Store.view.instrumentConfigArr[0].bubbleTexture;
 
                         setTimeout(() => {
                             instrMaterial.map = Store.view.instrumentConfigArr[1].bubbleTexture;
-                        }, 500);
+                        }, 50);
 
                         setTimeout(() => {
                             instrMaterial.map = Store.view.instrumentConfigArr[2].bubbleTexture;
-                        }, 1000);
+                        }, 100);
 
                         // setTimeout(() => {
                         //     instrMaterial.map = Store.view.instrumentConfigArr[3].bubbleTexture;
@@ -750,7 +788,8 @@ export default class Physics {
                     sphereGeo.name = 'sphereGeo'; //*** important for rotation when Store.view.cameraPositionBehind true
 
                     mesh = new THREE.Mesh(sphereGeo, poolBallMaterial); //prev: material
-                    
+                    console.log('reg mesh: ', mesh);
+
                     // TODO: add configurable height / size
                     mesh.scale.set(1.35, 1.35, 1.35);
                     break;

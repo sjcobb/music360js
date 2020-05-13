@@ -163,8 +163,12 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             // }),
             material: new THREE.MeshLambertMaterial({ 
                 color: 0xffffff,
+                // map: Store.view.instrumentConfigArr[0].bubbleTexture,
                 map: Store.view.instrumentConfigArr[0].bubbleTexture,
                 transparent: true,
+                // rotation: new THREE.Vector3(0, 0, 0),
+                // rotation: new THREE.Vector3(0, 0, Math.PI / 2),
+                // rotation: Math.PI / 2,
             }),
 
             // TODO: add to addBody for bubble popping animation
