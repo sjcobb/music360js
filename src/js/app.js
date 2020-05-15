@@ -396,7 +396,7 @@ const spriteSpeed = 0.1;
 
 if (Store.view.showLogoSprite === true) {
 
-    musicianFirst = new Musician('blue_fish_01');
+    musicianFirst = new Musician('blue_fish_01', [-20, 0, -10]);
     // musicianFirst.init('assets/fish/blue_fish_01.png', 2000);
     musicianFirst.init('assets/fish/red_fish_01.png', 2000);
 
