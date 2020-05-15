@@ -386,7 +386,7 @@ if (Store.view.showStaff.bass === true) {
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_materials_cubemap_dynamic.html
 // 
 
-let musicianFirst;
+let musicianFirst, musicianSecond, musicianThird;
 
 let instrSprite, instrSpriteSecond;
 let spriteTexture, spriteTextureSecond;
@@ -396,22 +396,32 @@ const spriteSpeed = 0.1;
 
 if (Store.view.showLogoSprite === true) {
 
-    musicianFirst = new Musician('blue_fish_01', [-20, 0, -10]);
+    musicianFirst = new Musician('fish_1', [-20, 0, -10]);
     // musicianFirst.init('assets/fish/blue_fish_01.png', 2000);
-    musicianFirst.init('assets/fish/red_fish_01.png', 2000);
+    musicianFirst.init('assets/fish/red_fish_01.png', 1000);
+    
+    //
+
+    musicianSecond = new Musician('fish_2', [-20, -5, -10]);
+    musicianSecond.init('assets/fish/blue_fish_01.png', 3000);
+
+    //
+
+    musicianThird = new Musician('fish_3', [-20, -10, -10]);
+    musicianThird.init('assets/fish/green_fish_02.png', 5000);
 
     // OLD
-    spriteTextureSecond = Store.loader.load(Store.view.instrumentConfigArr[1].assetPath);
-    const spriteMaterialSecond = new THREE.SpriteMaterial({
-        map: spriteTextureSecond,
-        transparent: true,
-    });
-    instrSpriteSecond = new THREE.Sprite(spriteMaterialSecond);
-    instrSpriteSecond.position.set(...Store.view.instrumentConfigArr[1].location);
-    instrSpriteSecond.scale.set(5, 5, 5);
-    setTimeout(function() {
-        Store.scene.add(instrSpriteSecond);
-    }, 9000);
+    // spriteTextureSecond = Store.loader.load(Store.view.instrumentConfigArr[1].assetPath);
+    // const spriteMaterialSecond = new THREE.SpriteMaterial({
+    //     map: spriteTextureSecond,
+    //     transparent: true,
+    // });
+    // instrSpriteSecond = new THREE.Sprite(spriteMaterialSecond);
+    // instrSpriteSecond.position.set(...Store.view.instrumentConfigArr[1].location);
+    // instrSpriteSecond.scale.set(5, 5, 5);
+    // setTimeout(function() {
+    //     Store.scene.add(instrSpriteSecond);
+    // }, 9000);
    
 }
 
@@ -459,29 +469,32 @@ let animate = () => {
         Store.screenShake.update(Store.camera);
     }
 
-    if (Store.view.instrumentConfigArr[1].active === true) {
-        if (Store.view.instrumentConfigArr[1].location[2] < 20 && Store.view.instrumentConfigArr[1].directionRight) {
-            Store.view.instrumentConfigArr[1].location[0] += spriteBackwardOffset; // back / front
-            Store.view.instrumentConfigArr[1].location[2] += spriteSpeed;
-        } else if (Store.view.instrumentConfigArr[1].location[2] > -20) {
-            Store.view.instrumentConfigArr[1].location[0] += spriteBackwardOffset;
-            Store.view.instrumentConfigArr[1].location[2] -= spriteSpeed;
+    // if (Store.view.instrumentConfigArr[1].active === true) {
+    //     if (Store.view.instrumentConfigArr[1].location[2] < 20 && Store.view.instrumentConfigArr[1].directionRight) {
+    //         Store.view.instrumentConfigArr[1].location[0] += spriteBackwardOffset; // back / front
+    //         Store.view.instrumentConfigArr[1].location[2] += spriteSpeed;
+    //     } else if (Store.view.instrumentConfigArr[1].location[2] > -20) {
+    //         Store.view.instrumentConfigArr[1].location[0] += spriteBackwardOffset;
+    //         Store.view.instrumentConfigArr[1].location[2] -= spriteSpeed;
 
-            spriteTextureSecond.repeat.set(-1, 1);
-            spriteTextureSecond.offset.set( 1, 0);
+    //         spriteTextureSecond.repeat.set(-1, 1);
+    //         spriteTextureSecond.offset.set( 1, 0);
 
-            Store.view.instrumentConfigArr[1].directionRight = false;
-        } else {
-            spriteTextureSecond.repeat.set(1, 1);
-            spriteTextureSecond.offset.set(0, 0);
-            Store.view.instrumentConfigArr[1].directionRight = true;
-        }
+    //         Store.view.instrumentConfigArr[1].directionRight = false;
+    //     } else {
+    //         spriteTextureSecond.repeat.set(1, 1);
+    //         spriteTextureSecond.offset.set(0, 0);
+    //         Store.view.instrumentConfigArr[1].directionRight = true;
+    //     }
 
-        instrSpriteSecond.position.set(...Store.view.instrumentConfigArr[1].location);
+    //     instrSpriteSecond.position.set(...Store.view.instrumentConfigArr[1].location);
 
-    }
+    // }
     
     musicianFirst.update();
+    musicianSecond.update();
+    musicianThird.update();
+
     // // //
 
     physics.updateBodies(Store.world);

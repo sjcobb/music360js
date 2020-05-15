@@ -3,19 +3,21 @@ import Store from './Store.js';
 
 export default class Musician {
 
-    constructor(name, startLocation) {
+    constructor(name, location) {
         // super();
 
         // https://stackoverflow.com/a/31924233/7639084
+
         this.name = name;
-        // this.instrSprite = {};
-        this.instrSprite = new THREE.Sprite();
-        this.location = startLocation;
+        this.sprite = {};
+        this.texture = {};
+        this.location = location;
+        this.directionRight = true;
     }
 
-    init(assetPath, startTime, location) { 
+    init(assetPath, startTime) { 
         console.log('(Musician) - init() -> this.name: ', this.name);
-        // console.log('(Musician) - init() -> this.instrSprite: ', this.instrSprite);
+        // console.log('(Musician) - init() -> this.sprite: ', this.sprite);
 
         let instrSprite;
         let spriteTexture;
@@ -33,36 +35,38 @@ export default class Musician {
         });
 
         instrSprite = new THREE.Sprite(spriteMaterial);
-        console.log('instrSprite: ', instrSprite);
+        // console.log('instrSprite: ', instrSprite);
 
         instrSprite.position.set(...this.location);
         instrSprite.scale.set(5, 5, 5);
 
-        // this.instrSprite = instrSprite;
+        // this.sprite = instrSprite;
 
         const musicianObj = {
             sprite: instrSprite,
             texture: spriteTexture,
+            location: this.location,
         };
         Store.musicians.push(musicianObj);
         // Store.musicians.push(instrSprite);
 
-        this.instrSprite = musicianObj.sprite;
+        this.texture = musicianObj.texture;
+        this.sprite = musicianObj.sprite;
 
-        console.log('PRE this.instrSprite: ', this.instrSprite);
+        // console.log('PRE this.sprite: ', this.sprite);
 
         setTimeout(function() {
-            // console.log(typeof this.instrSprite)
-            // Store.scene.add(this.instrSprite);
+            // console.log(typeof this.sprite)
+            // Store.scene.add(this.sprite);
             // Store.scene.add(instrSprite);
 
             // Store.scene.add(Store.musicians[0]);
 
-            this.instrSprite = musicianObj.sprite;
-            console.log('setTimeout -> this.instrSprite: ', this.instrSprite);
+            this.sprite = musicianObj.sprite;
+            // console.log('setTimeout -> this.sprite: ', this.sprite);
             
             // Store.scene.add(Store.musicians[0].sprite);
-            Store.scene.add(this.instrSprite);
+            Store.scene.add(this.sprite);
         }, startTime);
         // }, 9000);
        
@@ -81,7 +85,8 @@ export default class Musician {
         const spriteSpeed = 0.1;
 
         // console.log('this.location: ', this.location);
-        if (this.location[2] < 20 && Store.view.instrumentConfig.directionRight) {
+        // if (this.location[2] < 20 && Store.view.instrumentConfig.directionRight) {
+        if (this.location[2] < 20 && this.directionRight) {
             this.location[0] += spriteBackwardOffset; // back / front
             this.location[2] += spriteSpeed;
         } else if (this.location[2] > -20) {
@@ -89,27 +94,29 @@ export default class Musician {
             this.location[2] -= spriteSpeed;
     
             // https://stackoverflow.com/a/23684251/7639084
-            // spriteTexture.repeat.set(-1, 1);
-            // spriteTexture.offset.set(1, 0);
+            this.texture.repeat.set(-1, 1);
+            this.texture.offset.set(1, 0);
 
-            Store.musicians[0].texture.repeat.set(-1, 1);
-            Store.musicians[0].texture.offset.set(1, 0);
+            // Store.musicians[0].texture.repeat.set(-1, 1);
+            // Store.musicians[0].texture.offset.set(1, 0);
     
-            Store.view.instrumentConfig.directionRight = false;
+            // Store.view.instrumentConfig.directionRight = false;
+            this.directionRight = false;
         } else {
-            // spriteTexture.repeat.set(1, 1);
-            // spriteTexture.offset.set(0, 0);
+            this.texture.repeat.set(1, 1);
+            this.texture.offset.set(0, 0);
 
-            Store.musicians[0].texture.repeat.set(1, 1);
-            Store.musicians[0].texture.offset.set(0, 0);
+            // Store.musicians[0].texture.repeat.set(1, 1);
+            // Store.musicians[0].texture.offset.set(0, 0);
 
-            Store.view.instrumentConfig.directionRight = true;
+            // Store.view.instrumentConfig.directionRight = true;
+            this.directionRight = true;
         }
-        // this.instrSprite.position.set(...this.location);
+        // this.sprite.position.set(...this.location);
         // Store.musicians[0].position.set(...this.location);
 
-        // console.log('update -> this.instrSprite: ', this.instrSprite);
+        // console.log('update -> this.sprite: ', this.sprite);
         // Store.musicians[0].sprite.position.set(...this.location); // prev
-        this.instrSprite.position.set(...this.location);
+        this.sprite.position.set(...this.location);
     }
 }
