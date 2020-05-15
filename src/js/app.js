@@ -16,7 +16,7 @@ import InstrumentMappings from './InstrumentMappings.js';
 import { getInstrumentMappingTemplate } from './InstrumentMappings.js';
 import Light from './Light.js';
 import Physics from './Physics.js';
-
+import Musician from './Musician.js';
 import Recording from './Recording.js';
 // import * as recordingFirstNotes from '../../assets/recording/1.json'
 // console.log({recordingFirstNotes});
@@ -386,8 +386,9 @@ if (Store.view.showStaff.bass === true) {
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_materials_cubemap_dynamic.html
 // 
 
+let musicianFirst;
+
 let instrSprite, instrSpriteSecond;
-// let spritePos, spritePosSecond;
 let spriteTexture, spriteTextureSecond;
 
 const spriteBackwardOffset = 0.05;
@@ -395,62 +396,19 @@ const spriteSpeed = 0.1;
 
 if (Store.view.showLogoSprite === true) {
 
-    // const spriteAssetPath = "assets/logo/ai_robot_1.jpeg";
-    const spriteAssetPath = Store.view.instrumentConfigArr[0].assetPath;
-    spriteTexture = Store.loader.load(spriteAssetPath);
-    // // // var spriteTexture = Store.loader.load('/assets/ai_robot_1.jpg', onTextureLoaded);
-    // // spriteTexture.flipY = false; // upside down
-    // // spriteTexture.flipX = false; // no effect
-    // spriteTexture.repeat.set(-1, 1); // works
-    // spriteTexture.offset.set( 1, 0); // works
-    // console.log({spriteTexture});
-    // console.log('spriteTexture.repeat: ', spriteTexture.repeat);
-    // console.log('spriteTexture.offset', spriteTexture.offset);
+    musicianFirst = new Musician('blue_fish_01');
+    // musicianFirst.init('assets/fish/blue_fish_01.png', 2000);
+    musicianFirst.init('assets/fish/red_fish_01.png', 2000);
 
+    // OLD
     spriteTextureSecond = Store.loader.load(Store.view.instrumentConfigArr[1].assetPath);
-
-    // https://threejs.org/docs/#api/en/materials/SpriteMaterial.color
-    const spriteMaterial = new THREE.SpriteMaterial({
-        map: spriteTexture,
-        transparent: true, 
-        // opacity: 0.5,
-        // color: 0xffffff,
-        // color: 0x000000,
-        // rotation: 2,
-        // rotation: 32,
-        // rotation: Math.PI / 2, // facing up
-        // rotation: Math.PI, // on head
-    });
-    spriteMaterial.side = THREE.DoubleSide;
-    // spriteMaterial.flipY = true; // no effect
-
     const spriteMaterialSecond = new THREE.SpriteMaterial({
         map: spriteTextureSecond,
         transparent: true,
     });
-
-    // TODO: pivot fish so facing opposite direction
-    // https://stackoverflow.com/questions/28848863/threejs-how-to-rotate-around-objects-own-center-instead-of-world-center
-    // spriteMaterial.rotation.x = Math.PI / 2; // err
-
-    instrSprite = new THREE.Sprite(spriteMaterial);
-    // spritePos = Store.view.instrumentConfig.location;
-    // instrSprite.position.set(...spritePos);
-    instrSprite.position.set(...Store.view.instrumentConfigArr[0].location);
-    instrSprite.scale.set(5, 5, 5);
-    // instrSprite.scale.x = -1;
-    // instrSprite.rotation.x = Math.PI / 2; // no effect
-    // instrSprite.rotation.y = Math.PI / 2; // no effect
-    // instrSprite.rotation.y = Math.PI; // no effect
-    // instrSprite.rotation.y = Math.PI / 3; // prev
-    // console.log(instrSprite.rotation);
-
-    Store.scene.add(instrSprite);
-
     instrSpriteSecond = new THREE.Sprite(spriteMaterialSecond);
     instrSpriteSecond.position.set(...Store.view.instrumentConfigArr[1].location);
     instrSpriteSecond.scale.set(5, 5, 5);
-
     setTimeout(function() {
         Store.scene.add(instrSpriteSecond);
     }, 9000);
@@ -501,26 +459,6 @@ let animate = () => {
         Store.screenShake.update(Store.camera);
     }
 
-    // console.log(instrSprite.position);
-    if (Store.view.instrumentConfigArr[0].location[2] < 20 && Store.view.instrumentConfig.directionRight) {
-        Store.view.instrumentConfigArr[0].location[0] += spriteBackwardOffset; // back / front
-        Store.view.instrumentConfigArr[0].location[2] += spriteSpeed;
-    } else if (Store.view.instrumentConfigArr[0].location[2] > -20) {
-        Store.view.instrumentConfigArr[0].location[0] += spriteBackwardOffset;
-        Store.view.instrumentConfigArr[0].location[2] -= spriteSpeed;
-
-        // https://stackoverflow.com/a/23684251/7639084
-        spriteTexture.repeat.set(-1, 1);
-        spriteTexture.offset.set(1, 0);
-
-        Store.view.instrumentConfig.directionRight = false;
-    } else {
-        spriteTexture.repeat.set(1, 1);
-        spriteTexture.offset.set(0, 0);
-        Store.view.instrumentConfig.directionRight = true;
-    }
-    instrSprite.position.set(...Store.view.instrumentConfigArr[0].location);
-
     if (Store.view.instrumentConfigArr[1].active === true) {
         if (Store.view.instrumentConfigArr[1].location[2] < 20 && Store.view.instrumentConfigArr[1].directionRight) {
             Store.view.instrumentConfigArr[1].location[0] += spriteBackwardOffset; // back / front
@@ -543,7 +481,7 @@ let animate = () => {
 
     }
     
-
+    musicianFirst.update();
     // // //
 
     physics.updateBodies(Store.world);

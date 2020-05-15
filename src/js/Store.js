@@ -146,6 +146,7 @@ export default {
     bodies: [],
     multiplierPosX: -2.5,
     musicActive: false,
+    musicians: [],
     patternInfinite: false,
     polySynth: {},
     groundMeshIncrementer: 0,

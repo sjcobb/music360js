@@ -12,6 +12,9 @@ const path = require('path');
 
 // TODO: include Three.js here instead of in index.html, resolve all in src folder and node_modules to fix GitHub Pages 404s
 const config = {
+    // entry: [
+    //     path.resolve(__dirname, 'src', 'main.js')
+    // ],
     entry: {
         'bundle.js': [
             path.resolve(__dirname, 'node_modules/stats.js/build/stats.min.js'),
@@ -32,6 +35,7 @@ const config = {
             path.resolve(__dirname, 'src/js/app.js'),
             path.resolve(__dirname, 'src/js/Audio.js'),
             path.resolve(__dirname, 'src/js/Recording.js'),
+            path.resolve(__dirname, 'src/js/Musician.js'),
             path.resolve(__dirname, 'src/js/ui.js')
         ]
     },

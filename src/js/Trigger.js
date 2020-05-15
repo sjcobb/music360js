@@ -21,7 +21,7 @@ import * as recordingThirdNotes from '../../assets/recording/3.json';
 // console.log({recordingFirstNotes});
 // // console.log(recordingFirstNotes.tracks[0].notes);
 // console.log({recordingSecondNotes});
-console.log({recordingThirdNotes});
+// console.log({recordingThirdNotes});
 
 //////////
 // TONE //
@@ -256,7 +256,7 @@ playerKick.volume.value = -6; // v0.6
 //     fadeOut: 0
 // }
 
-console.log({playerKick});
+// console.log({playerKick});
 
 const playerKickSecondary = new Player(Store.assets.kick).toMaster();
 // const playerKickSecondary = new Player("./assets/sounds/drum-kits/electronic/tom-high.mp3").toMaster();
