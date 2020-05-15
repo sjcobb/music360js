@@ -534,15 +534,17 @@ export default class Physics {
             // options.mesh.position.set(o.x, o.y, o.z);
             // options.mesh.quaternion.set(q.x, q.y, q.z, q.w);
             
-            //voptions.mesh.rotation.set(0, -1.5, 0); 
-            options.mesh.rotation.set(0, 0, 0); 
+            // options.mesh.rotation.set(0, -1.5, 0); 
+            // options.mesh.rotation.set(0, 0, 0); 
             
             // console.log('new mesh: ', options.mesh);
             // console.log({body});
 
             body.threemesh = options.mesh; // IMPORTANT
             
-            obj.rotation.set(0, -1.5, 0); 
+            // obj.rotation.set(0, -1.5, 0);
+            // obj.rotation.y = -1.5;
+            // options.mesh.rotation.set(0, -1.5, 0); // no effect
 
             obj.add(options.mesh)
             // obj.name = 'tbd';

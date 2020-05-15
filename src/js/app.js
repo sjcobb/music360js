@@ -124,7 +124,6 @@ physics.init();
 //////////////
 const recording = new Recording();
 recording.initSample();
-// recording.initInstruments(); // err: Tone not defined
 
 //-----GEOMETRY VARIABLES------//
 let box = new THREE.BoxGeometry(1, 1, 1);
@@ -443,7 +442,7 @@ if (Store.view.showLogoSprite === true) {
     // instrSprite.rotation.x = Math.PI / 2; // no effect
     // instrSprite.rotation.y = Math.PI / 2; // no effect
     // instrSprite.rotation.y = Math.PI; // no effect
-    instrSprite.rotation.y = Math.PI / 3;
+    // instrSprite.rotation.y = Math.PI / 3; // prev
     // console.log(instrSprite.rotation);
 
     Store.scene.add(instrSprite);

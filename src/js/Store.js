@@ -245,6 +245,17 @@ export default {
                 bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/1.png', function (texture) {
                     texture.wrapT = THREE.RepeatWrapping;
                     texture.repeat.set(2, 1);
+
+                    // texture.center = (0.5, 0.5);
+
+                    // https://threejs.org/docs/#api/en/textures/Texture.rotation
+                    // texture.rotation = Math.PI / 2;
+                    // texture.rotation = 1.5708; // 90 degrees
+                    // texture.rotation = 0.25;
+                    // texture.rotation = -0.12;
+
+                    // texture.flipY = false; // no effect
+
                 }),
                 // ballMaterial: new THREE.MeshLambertMaterial({ 
                 //     color: 0xffffff,

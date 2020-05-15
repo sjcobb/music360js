@@ -19,9 +19,9 @@ export default class Recording {
         Store.recording.playerFirst = new Tone.Player("./assets/fish/bubble-pop_vocals-only_01.wav").toMaster();
 
         setTimeout(function() {
-            // Tone.Transport.start();
-            // player.start();
-            Store.recording.playerFirst.start();
+            // // Tone.Transport.start();
+            // // player.start();
+            // Store.recording.playerFirst.start(); // use
         }, 6000);
         
     }
