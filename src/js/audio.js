@@ -83,8 +83,8 @@ var introPart = new Tone.Part(function(time, instr) {
 ]);
 // introPart.loop = 6;
 introPart.loop = true;
-// introPart.start(6);
-introPart.start(0);
+// // introPart.start(6);
+// introPart.start(0);
 
 // introPart.start("1:0:0");
 // introPart.start("3:0:0");

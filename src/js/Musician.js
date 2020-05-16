@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import Tone from 'Tone';
 import Store from './Store.js';
 
 export default class Musician {
@@ -13,7 +14,25 @@ export default class Musician {
         this.texture = {};
         this.location = location;
         this.directionRight = true;
+
+        this.active = false;
     }
+
+    // https://coryrylan.com/blog/javascript-es6-class-syntax
+    // get name() {
+    //     return this.name.toUpperCase();
+    // }
+    // set name(newName) {
+    //     this.name = newName;
+    // }
+
+    get activeStatus() {
+        return this.active;
+    }
+
+    // getActiveStatus() {
+    //     return this.active;
+    // }
 
     init(assetPath, startTime) { 
         console.log('(Musician) - init() -> this.name: ', this.name);
@@ -55,7 +74,8 @@ export default class Musician {
 
         // console.log('PRE this.sprite: ', this.sprite);
 
-        setTimeout(function() {
+        // setTimeout(function() {
+        setTimeout(() => {
             // console.log(typeof this.sprite)
             // Store.scene.add(this.sprite);
             // Store.scene.add(instrSprite);
@@ -67,8 +87,13 @@ export default class Musician {
             
             // Store.scene.add(Store.musicians[0].sprite);
             Store.scene.add(this.sprite);
+
+            this.active = true;
+            // console.log(this.active);
         }, startTime);
         // }, 9000);
+
+        // this.active = true;
        
     }
 
@@ -78,6 +103,17 @@ export default class Musician {
 
     attachAudio() { 
         console.log('(Musician) - attachAudio() -> this.name: ', this.name);
+
+        var introPart = new Tone.Part(function(time, instr) {
+            Store.view.instrumentConfigArr[1].active = true;
+            physics.addBody(true, Store.dropPosX, instr, 0);
+        }, [
+            ["0:0:0", Store.instr.hiHatClosed],
+            ["0:6:0", Store.instr.hiHatClosed],
+        ]);
+        introPart.loop = true;
+        introPart.start(0);
+        
     }
 
     update() {

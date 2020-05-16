@@ -403,11 +403,13 @@ if (Store.view.showLogoSprite === true) {
     //
 
     musicianSecond = new Musician('fish_2', [-20, -5, -10]);
+    // musicianSecond = new Musician('fish_2', [-20, -5, -30]);
     musicianSecond.init('assets/fish/blue_fish_01.png', 3000);
 
     //
 
     musicianThird = new Musician('fish_3', [-20, -10, -10]);
+    // musicianThird = new Musician('fish_3', [-20, -10, -50]); 
     musicianThird.init('assets/fish/green_fish_02.png', 5000);
 
     // OLD
@@ -491,9 +493,19 @@ let animate = () => {
 
     // }
     
-    musicianFirst.update();
-    musicianSecond.update();
-    musicianThird.update();
+    // TODO: only update musician if already added to scene so they aren't all in same spot
+    if (musicianFirst.active === true) {
+        musicianFirst.update();
+    }
+
+    // console.log({musicianSecond});
+    if (musicianSecond.active === true) {
+        musicianSecond.update();
+    }
+
+    if (musicianThird.active === true) {
+        musicianThird.update();
+    }
 
     // // //
 
