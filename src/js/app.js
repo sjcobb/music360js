@@ -493,19 +493,9 @@ let animate = () => {
 
     // }
     
-    // TODO: only update musician if already added to scene so they aren't all in same spot
-    if (musicianFirst.active === true) {
-        musicianFirst.update();
-    }
-
-    // console.log({musicianSecond});
-    if (musicianSecond.active === true) {
-        musicianSecond.update();
-    }
-
-    if (musicianThird.active === true) {
-        musicianThird.update();
-    }
+    musicianFirst.update();
+    musicianSecond.update();
+    musicianThird.update();
 
     // // //
 

@@ -93,7 +93,9 @@ export default class Musician {
         }, startTime);
         // }, 9000);
 
-        // this.active = true;
+        // if (this.name === 'fish_1') {
+        //     this.attachAudio();
+        // }
        
     }
 
@@ -113,46 +115,47 @@ export default class Musician {
         ]);
         introPart.loop = true;
         introPart.start(0);
-        
     }
 
     update() {
         const spriteBackwardOffset = 0.05;
         const spriteSpeed = 0.1;
 
-        // console.log('this.location: ', this.location);
-        // if (this.location[2] < 20 && Store.view.instrumentConfig.directionRight) {
-        if (this.location[2] < 20 && this.directionRight) {
-            this.location[0] += spriteBackwardOffset; // back / front
-            this.location[2] += spriteSpeed;
-        } else if (this.location[2] > -20) {
-            this.location[0] += spriteBackwardOffset;
-            this.location[2] -= spriteSpeed;
-    
-            // https://stackoverflow.com/a/23684251/7639084
-            this.texture.repeat.set(-1, 1);
-            this.texture.offset.set(1, 0);
+        if (this.active === true) {
+            // console.log('this.location: ', this.location);
+            // if (this.location[2] < 20 && Store.view.instrumentConfig.directionRight) {
+            if (this.location[2] < 20 && this.directionRight) {
+                this.location[0] += spriteBackwardOffset; // back / front
+                this.location[2] += spriteSpeed;
+            } else if (this.location[2] > -20) {
+                this.location[0] += spriteBackwardOffset;
+                this.location[2] -= spriteSpeed;
+        
+                // https://stackoverflow.com/a/23684251/7639084
+                this.texture.repeat.set(-1, 1);
+                this.texture.offset.set(1, 0);
 
-            // Store.musicians[0].texture.repeat.set(-1, 1);
-            // Store.musicians[0].texture.offset.set(1, 0);
-    
-            // Store.view.instrumentConfig.directionRight = false;
-            this.directionRight = false;
-        } else {
-            this.texture.repeat.set(1, 1);
-            this.texture.offset.set(0, 0);
+                // Store.musicians[0].texture.repeat.set(-1, 1);
+                // Store.musicians[0].texture.offset.set(1, 0);
+        
+                // Store.view.instrumentConfig.directionRight = false;
+                this.directionRight = false;
+            } else {
+                this.texture.repeat.set(1, 1);
+                this.texture.offset.set(0, 0);
 
-            // Store.musicians[0].texture.repeat.set(1, 1);
-            // Store.musicians[0].texture.offset.set(0, 0);
+                // Store.musicians[0].texture.repeat.set(1, 1);
+                // Store.musicians[0].texture.offset.set(0, 0);
 
-            // Store.view.instrumentConfig.directionRight = true;
-            this.directionRight = true;
+                // Store.view.instrumentConfig.directionRight = true;
+                this.directionRight = true;
+            }
+            // this.sprite.position.set(...this.location);
+            // Store.musicians[0].position.set(...this.location);
+
+            // console.log('update -> this.sprite: ', this.sprite);
+            // Store.musicians[0].sprite.position.set(...this.location); // prev
+            this.sprite.position.set(...this.location);
         }
-        // this.sprite.position.set(...this.location);
-        // Store.musicians[0].position.set(...this.location);
-
-        // console.log('update -> this.sprite: ', this.sprite);
-        // Store.musicians[0].sprite.position.set(...this.location); // prev
-        this.sprite.position.set(...this.location);
     }
 }
