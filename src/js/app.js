@@ -404,14 +404,14 @@ if (Store.view.showLogoSprite === true) {
 
     musicianSecond = new Musician('fish_2', [-20, -5, -10]);
     musicianSecond.init('assets/fish/red_fish_01.png', 5000);
-    // musicianSecond.setAudio([["0:0:0", Store.instr.hiHatClosed]], 0);
-    musicianSecond.setAudio([["0:0:0", Store.instr.hiHatClosed]], 5); // TODO: figure out timing of Tone start 5 vs setTimeout 5000
+    // musicianSecond.setAudio([["0:0:0", Store.instr.hiHatClosed]], 5); // TODO: figure out timing of Tone start 5 vs setTimeout 5000
     // TODO: update texture for instruments other than hiHatClosed
 
     //
 
     musicianThird = new Musician('fish_3', [-20, -10, -10]);
     musicianThird.init('assets/fish/green_fish_02.png', 8000);
+    musicianSecond.setAudio(Store.recording.parts[0], 8);
 
     // OLD
     // spriteTextureSecond = Store.loader.load(Store.view.instrumentConfigArr[1].assetPath);

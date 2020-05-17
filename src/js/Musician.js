@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import Tone from 'Tone';
 import Store from './Store.js';
 import Physics from './Physics.js';
+import { generateInstrMetadata } from './InstrumentMappings';
 
 export default class Musician {
 
@@ -127,12 +128,26 @@ export default class Musician {
 
         const physics = new Physics();
 
-        var introPart = new Tone.Part(function(time, instr) {
-            physics.addBody(true, Store.dropPosX, instr, 0, tempLocation);
-        }, noteArr);
-
-        introPart.loop = true;
-        introPart.start(startTime);
+        let tonePart;
+        if (this.name === 'fish_3') {
+            tonePart = new Tone.Part(function(time, datum){
+                const instrMapped = generateInstrMetadata(datum.name);
+                console.log({instrMapped});
+                // instrMapped.color = '#64b5f6'; // human blue
+                // instrMapped.originalPosition.z += 10;
+                // instrMapped.duration = datum.duration;
+                // instrMapped.variation = 'guitar';
+                physics.addBody(true, Store.dropPosX, instrMapped, 0, tempLocation);
+            // }, Store.recording.parts[0]);
+            }, noteArr);
+        } else {
+            tonePart = new Tone.Part(function(time, instr) {
+                physics.addBody(true, Store.dropPosX, instr, 0, tempLocation);
+            }, noteArr);
+        }
+        
+        tonePart.loop = true;
+        tonePart.start(startTime);
     }
 
     update() {

@@ -309,7 +309,7 @@ export default class Physics {
             options = defaultInstr.hiHatClosed;
         }
 
-        // console.log('addBody -> options: ', options);       
+        console.log('addBody -> options: ', options);       
 
         const trigger = new Trigger();
 
@@ -317,7 +317,7 @@ export default class Physics {
         // zPos = options.originalPosition !== undefined ? options.originalPosition.z : Math.random() * (15 - 5) - 2;
         // // zPos = Store.dropPosY; // drum spinner (v0.3)
 
-        zPos = options.originalPosition.z || 0;
+        // zPos = options.originalPosition.z || 0;
         // zPos += 20;
 
         let sphereRestitution = 0.3;
@@ -507,7 +507,7 @@ export default class Physics {
             // instrMaterial.needsUpdate = true;
             // instrMaterial.rotation = 1.1;
 
-            console.log({instrMaterial});
+            // console.log({instrMaterial});
 
             const obj = new THREE.Object3D();
             const sphereGeo = new THREE.SphereGeometry(0.75, 8, 8); // first param = radius
@@ -829,7 +829,7 @@ export default class Physics {
                     sphereGeo.name = 'sphereGeo'; //*** important for rotation when Store.view.cameraPositionBehind true
 
                     mesh = new THREE.Mesh(sphereGeo, poolBallMaterial); //prev: material
-                    console.log('reg mesh: ', mesh);
+                    // console.log('reg mesh: ', mesh);
 
                     // TODO: add configurable height / size
                     mesh.scale.set(1.35, 1.35, 1.35);
