@@ -161,17 +161,23 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             //     texture.wrapT = THREE.RepeatWrapping;
             //     texture.repeat.set(2, 1);
             // }),
-            material: new THREE.MeshLambertMaterial({ 
-                color: 0xffffff,
+            // material: new THREE.MeshLambertMaterial({ 
+            //     color: 0xffffff,
+            //     // map: Store.view.instrumentConfigArr[0].bubbleTexture,
+            //     map: Store.view.instrumentConfigArr[0].bubbleTexture,
+            //     transparent: true,
+            //     // https://stackoverflow.com/a/30154137/7639084
+            //     // rotation: new THREE.Vector3(0, 0, 0),
+            //     // rotation: new THREE.Vector3(0, 0, Math.PI / 2),
+            //     // rotation: new THREE.Vector3(Math.PI / 2, 0, 0),
+            //     // rotation: new THREE.Vector3(Math.PI / 2, 0, 0), // no effect
+            //     // rotation: Math.PI / 2,
+            // }),
+            material: new THREE.SpriteMaterial({
                 // map: Store.view.instrumentConfigArr[0].bubbleTexture,
-                map: Store.view.instrumentConfigArr[0].bubbleTexture,
+                // map: Store.loader.load(Store.view.instrumentConfigArr[1].assetPath),
+                map: Store.loader.load('assets/bubble/bubble_pop_one/1.png'),
                 transparent: true,
-                // https://stackoverflow.com/a/30154137/7639084
-                // rotation: new THREE.Vector3(0, 0, 0),
-                // rotation: new THREE.Vector3(0, 0, Math.PI / 2),
-                // rotation: new THREE.Vector3(Math.PI / 2, 0, 0),
-                // rotation: new THREE.Vector3(Math.PI / 2, 0, 0), // no effect
-                // rotation: Math.PI / 2,
             }),
 
             // TODO: add to addBody for bubble popping animation

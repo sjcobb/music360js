@@ -507,7 +507,7 @@ export default class Physics {
             // instrMaterial.needsUpdate = true;
             // instrMaterial.rotation = 1.1;
 
-            // console.log({instrMaterial});
+            console.log({instrMaterial});
 
             const obj = new THREE.Object3D();
             const sphereGeo = new THREE.SphereGeometry(0.75, 8, 8); // first param = radius
@@ -520,7 +520,9 @@ export default class Physics {
             // console.log(obj.DefaultUp);
             
             // console.log({sphereGeo});
-            options.mesh = new THREE.Mesh(sphereGeo, instrMaterial);
+            // options.mesh = new THREE.Mesh(sphereGeo, instrMaterial); // prev
+            options.mesh = new THREE.Sprite(instrMaterial);
+
             // options.mesh.rotation.set(0, -1.5, 0); 
 
             // options.mesh.rotation.set(0, -1.5, 0);
@@ -530,9 +532,9 @@ export default class Physics {
             // options.mesh.rotation.set(0, 0, Math.PI);
             // options.mesh.rotation.x = 0;
 
-            options.mesh.scale.set(1.35, 1.35, 1.35); // USE
+            // options.mesh.scale.set(1.35, 1.35, 1.35);
             // options.mesh.scale.set(0.5, 0.5, 0.5);
-            // options.mesh.scale.set(5, 5, 5); // for debugging
+            options.mesh.scale.set(2, 2, 2);
 
             // body.shapes.forEach(function(shape) {
             // // TODO: is all this needed? // //
@@ -680,9 +682,9 @@ export default class Physics {
                             instrMaterial.map = Store.view.instrumentConfigArr[2].bubbleTexture;
                         }, 100);
 
-                        // setTimeout(() => {
-                        //     instrMaterial.map = Store.view.instrumentConfigArr[3].bubbleTexture;
-                        // }, 1500);
+                        setTimeout(() => {
+                            instrMaterial.map = Store.view.instrumentConfigArr[3].bubbleTexture;
+                        }, 200);
                     }
                     
                 }
