@@ -95,7 +95,6 @@ export default class Musician {
         // }, 9000);
 
         if (this.name === 'fish_1') {
-            console.log('fish_1 in the house');
             this.attachAudio();
         }
        

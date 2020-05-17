@@ -453,7 +453,7 @@ export default class Physics {
         // zPos = options.originalPosition.z;
 
         // body.position.set((sphere) ? -xPos : xPos, yPos, zPos); // PREV - earthquake, v0.5
-        console.log({location});
+        // console.log({location});
         if (location) {
             body.position.set(...location);
         } else {
@@ -504,6 +504,8 @@ export default class Physics {
             // instrMaterial = helpers.clone(options.material); // err
 
             instrMaterial = options.material.clone();
+            // instrMaterial.needsUpdate = true;
+            // instrMaterial.rotation = 1.1;
 
             // console.log({instrMaterial});
 
@@ -515,6 +517,7 @@ export default class Physics {
             // obj.rotation.set(0, -1.5, 0); 
             // obj.rotation.y = -1.5;
             // console.log({obj});
+            // console.log(obj.DefaultUp);
             
             // console.log({sphereGeo});
             options.mesh = new THREE.Mesh(sphereGeo, instrMaterial);
@@ -543,13 +546,41 @@ export default class Physics {
             // options.mesh.rotation.set(0, -1.5, 0); 
             // options.mesh.rotation.set(0, 0, 0); 
             
+            // https://stackoverflow.com/a/24001626/7639084
+
+            // // options.mesh.updateMatrix(); 
+            // // options.mesh.geometry.applyMatrix(options.mesh.matrix);
+            // // options.mesh.matrix.identity();
+
+            // esh.position.set( 0, 0, 0 );
+            // options.mesh.rotation.set(0, -1.5, 0);
+            // options.mesh.scale.set(1, 1, 1);
+
             // console.log('new mesh: ', options.mesh);
             // console.log({body});
 
+            // options.mesh.rotation.y = -1.5;
+
+            // options.mesh.rotation.set(Math.PI/2, Math.PI/4, Math.PI/4);
+
+            // options.mesh.rotation.set(Math.PI/2, -1.5, 0); 
+            // options.mesh.rotation.getRotationFromMatrix(options.mesh.matrix);
+            // options.mesh.matrix.setRotationFromEuler(options.mesh.rotation);
+            // https://github.com/mrdoob/three.js/issues/910#issuecomment-6690660
+
             body.threemesh = options.mesh; // IMPORTANT
             
+            // obj.eulerOrder = 'YXZ';
+
+            // obj rotates around world axis, NOT obj, see link:
+            // https://github.com/mrdoob/three.js/issues/910#issuecomment-3162743
+            // sprite issues: https://github.com/mrdoob/three.js/issues/7956
+            // https://stackoverflow.com/a/11060965/7639084
+
             // obj.rotation.set(0, -1.5, 0);
             // obj.rotation.y = -1.5;
+            // obj.rotation.x = Math.PI / 2; // messes up physics, shoots to side
+
             // options.mesh.rotation.set(0, -1.5, 0); // no effect
 
             obj.add(options.mesh)

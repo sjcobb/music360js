@@ -166,8 +166,11 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
                 // map: Store.view.instrumentConfigArr[0].bubbleTexture,
                 map: Store.view.instrumentConfigArr[0].bubbleTexture,
                 transparent: true,
+                // https://stackoverflow.com/a/30154137/7639084
                 // rotation: new THREE.Vector3(0, 0, 0),
                 // rotation: new THREE.Vector3(0, 0, Math.PI / 2),
+                // rotation: new THREE.Vector3(Math.PI / 2, 0, 0),
+                // rotation: new THREE.Vector3(Math.PI / 2, 0, 0), // no effect
                 // rotation: Math.PI / 2,
             }),
 
