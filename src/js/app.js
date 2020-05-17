@@ -398,11 +398,15 @@ if (Store.view.showLogoSprite === true) {
 
     musicianFirst = new Musician('fish_1', [-20, 0, -10]);
     musicianFirst.init('assets/fish/blue_fish_01.png', 1000);
+    musicianFirst.setAudio([["0:0:0", Store.instr.hiHatClosed], ["0:6:0", Store.instr.hiHatClosed]], 0);
     
     //
 
     musicianSecond = new Musician('fish_2', [-20, -5, -10]);
     musicianSecond.init('assets/fish/red_fish_01.png', 5000);
+    // musicianSecond.setAudio([["0:0:0", Store.instr.hiHatClosed]], 0);
+    musicianSecond.setAudio([["0:0:0", Store.instr.hiHatClosed]], 5); // TODO: figure out timing of Tone start 5 vs setTimeout 5000
+    // TODO: update texture for instruments other than hiHatClosed
 
     //
 

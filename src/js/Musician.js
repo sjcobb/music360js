@@ -94,9 +94,9 @@ export default class Musician {
         }, startTime);
         // }, 9000);
 
-        if (this.name === 'fish_1') {
-            this.attachAudio();
-        }
+        // if (this.name === 'fish_1') {
+        //     this.attachAudio();
+        // }
        
     }
 
@@ -104,21 +104,35 @@ export default class Musician {
         console.log('(Musician) - createVisuals() -> this.name: ', this.name);
     }
 
-    attachAudio() { 
+    // attachAudio() { 
+    //     console.log('(Musician) - attachAudio() -> this.name: ', this.name);
+    //     const tempLocation = this.location;
+
+    //     const physics = new Physics();
+
+    //     var introPart = new Tone.Part(function(time, instr) {
+    //         // physics.addBody(true, Store.dropPosX, instr, 0, this.location);
+    //         physics.addBody(true, Store.dropPosX, instr, 0, tempLocation);
+    //     }, [
+    //         ["0:0:0", Store.instr.hiHatClosed],
+    //         ["0:6:0", Store.instr.hiHatClosed],
+    //     ]);
+    //     introPart.loop = true;
+    //     introPart.start(0);
+    // }
+
+    setAudio(noteArr, startTime) { 
         console.log('(Musician) - attachAudio() -> this.name: ', this.name);
         const tempLocation = this.location;
 
         const physics = new Physics();
 
         var introPart = new Tone.Part(function(time, instr) {
-            // physics.addBody(true, Store.dropPosX, instr, 0, this.location);
             physics.addBody(true, Store.dropPosX, instr, 0, tempLocation);
-        }, [
-            ["0:0:0", Store.instr.hiHatClosed],
-            ["0:6:0", Store.instr.hiHatClosed],
-        ]);
+        }, noteArr);
+
         introPart.loop = true;
-        introPart.start(0);
+        introPart.start(startTime);
     }
 
     update() {
