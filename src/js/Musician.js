@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import Tone from 'Tone';
 import Store from './Store.js';
+import Physics from './Physics.js';
 
 export default class Musician {
 
@@ -93,9 +94,10 @@ export default class Musician {
         }, startTime);
         // }, 9000);
 
-        // if (this.name === 'fish_1') {
-        //     this.attachAudio();
-        // }
+        if (this.name === 'fish_1') {
+            console.log('fish_1 in the house');
+            this.attachAudio();
+        }
        
     }
 
@@ -105,10 +107,13 @@ export default class Musician {
 
     attachAudio() { 
         console.log('(Musician) - attachAudio() -> this.name: ', this.name);
+        const tempLocation = this.location;
+
+        const physics = new Physics();
 
         var introPart = new Tone.Part(function(time, instr) {
-            Store.view.instrumentConfigArr[1].active = true;
-            physics.addBody(true, Store.dropPosX, instr, 0);
+            // physics.addBody(true, Store.dropPosX, instr, 0, this.location);
+            physics.addBody(true, Store.dropPosX, instr, 0, tempLocation);
         }, [
             ["0:0:0", Store.instr.hiHatClosed],
             ["0:6:0", Store.instr.hiHatClosed],

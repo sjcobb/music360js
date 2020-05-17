@@ -397,20 +397,17 @@ const spriteSpeed = 0.1;
 if (Store.view.showLogoSprite === true) {
 
     musicianFirst = new Musician('fish_1', [-20, 0, -10]);
-    // musicianFirst.init('assets/fish/blue_fish_01.png', 2000);
-    musicianFirst.init('assets/fish/red_fish_01.png', 1000);
+    musicianFirst.init('assets/fish/blue_fish_01.png', 1000);
     
     //
 
     musicianSecond = new Musician('fish_2', [-20, -5, -10]);
-    // musicianSecond = new Musician('fish_2', [-20, -5, -30]);
-    musicianSecond.init('assets/fish/blue_fish_01.png', 3000);
+    musicianSecond.init('assets/fish/red_fish_01.png', 5000);
 
     //
 
     musicianThird = new Musician('fish_3', [-20, -10, -10]);
-    // musicianThird = new Musician('fish_3', [-20, -10, -50]); 
-    musicianThird.init('assets/fish/green_fish_02.png', 5000);
+    musicianThird.init('assets/fish/green_fish_02.png', 8000);
 
     // OLD
     // spriteTextureSecond = Store.loader.load(Store.view.instrumentConfigArr[1].assetPath);

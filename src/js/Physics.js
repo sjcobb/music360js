@@ -300,7 +300,8 @@ export default class Physics {
     }
 
     // addBody(sphere = true, xPosition = 5.5, options = '', timeout = 0) {
-    addBody(sphere = true, xPosition=5.5, options = '', index=0, location=Store.view.instrumentConfig.location) { 
+    // addBody(sphere = true, xPosition=5.5, options = '', index=0, location=Store.view.instrumentConfig.location) { 
+    addBody(sphere = true, xPosition=5.5, options = '', index=0, location) { 
 
         if (options === '') {
             const instrument = new InstrumentMappings();
@@ -452,7 +453,12 @@ export default class Physics {
         // zPos = options.originalPosition.z;
 
         // body.position.set((sphere) ? -xPos : xPos, yPos, zPos); // PREV - earthquake, v0.5
-        body.position.set(...Store.view.instrumentConfigArr[index].location);
+        console.log({location});
+        if (location) {
+            body.position.set(...location);
+        } else {
+            body.position.set(...Store.view.instrumentConfigArr[index].location);
+        }
 
         body.linearDamping = Store.damping; // 0.01
         // body.linearDamping = 0.01; // v0.2, v0.3
