@@ -254,36 +254,35 @@ export default {
                 //     // texture.rotation = -0.12;
                 //     // texture.flipY = false; // no effect
                 // }),
-                
-                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/1.png', function (texture) {}),
-                
                 // ballMaterial: new THREE.MeshLambertMaterial({ 
                 //     color: 0xffffff,
                 //     map: Store.view.instrumentConfigArr[0].bubbleTexture,
                 //     transparent: true,
                 // }),
+                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/1.png', function (texture) {}),
             },
             {
                 assetPath: 'assets/fish/green_fish_02.png',
-                location: [-20, 0, -10],
-                active: false,
-                directionRight: true,
-                animationFrame: 1,
-                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/3.png', function (texture) {
-                    texture.wrapT = THREE.RepeatWrapping;
-                    texture.repeat.set(2, 1);
+                // location: [-20, 0, -10],
+                // active: false,
+                // directionRight: true,
+                // animationFrame: 1,
+                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/2.png', function (texture) {
+                    // texture.wrapT = THREE.RepeatWrapping;
+                    // texture.repeat.set(2, 1);
                 }),
             },
             {
-                assetPath: 'assets/fish/red_fish_01.png',
-                location: [-20, 0, -10],
-                active: false,
-                directionRight: true,
-                animationFrame: 1,
-                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/5.png', function (texture) {
-                    texture.wrapT = THREE.RepeatWrapping;
-                    texture.repeat.set(2, 1);
-                }),
+                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/3.png', function (texture) {}),
+            },
+            {
+                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/4.png', function (texture) {}),
+            },
+            {
+                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/5.png', function (texture) {}),
+            },
+            {
+                bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/6.png', function (texture) {}),
             },
             {
                 bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/7.png', function (texture) {

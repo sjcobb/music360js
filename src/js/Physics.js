@@ -309,7 +309,7 @@ export default class Physics {
             options = defaultInstr.hiHatClosed;
         }
 
-        console.log('addBody -> options: ', options);       
+        // console.log('addBody -> options: ', options);       
 
         const trigger = new Trigger();
 
@@ -486,6 +486,8 @@ export default class Physics {
         };
 
         let instrMaterial;
+        let obj3D;
+        
         if (options.material == null) {
             this.addVisual(body, (sphere) ? 'sphere' : 'box', true, false, options);
         } else {
@@ -509,15 +511,17 @@ export default class Physics {
 
             // console.log({instrMaterial});
 
-            const obj = new THREE.Object3D();
+            // const obj3D = new THREE.Object3D();
+            obj3D = new THREE.Object3D();
+
             const sphereGeo = new THREE.SphereGeometry(0.75, 8, 8); // first param = radius
             // sphereGeo.rotation.set(0, -1.5, 0); // err
 
-            // obj.rotation.set(0, -1.5, 0); // IMPORTANT
-            // obj.rotation.set(0, -1.5, 0); 
-            // obj.rotation.y = -1.5;
-            // console.log({obj});
-            // console.log(obj.DefaultUp);
+            // obj3D.rotation.set(0, -1.5, 0); // IMPORTANT
+            // obj3D.rotation.set(0, -1.5, 0); 
+            // obj3D.rotation.y = -1.5;
+            // console.log({obj3D});
+            // console.log(obj3D.DefaultUp);
             
             // console.log({sphereGeo});
             // options.mesh = new THREE.Mesh(sphereGeo, instrMaterial); // prev
@@ -572,32 +576,32 @@ export default class Physics {
 
             body.threemesh = options.mesh; // IMPORTANT
             
-            // obj.eulerOrder = 'YXZ';
+            // obj3D.eulerOrder = 'YXZ';
 
-            // obj rotates around world axis, NOT obj, see link:
+            // obj3D rotates around world axis, NOT obj3D, see link:
             // https://github.com/mrdoob/three.js/issues/910#issuecomment-3162743
             // sprite issues: https://github.com/mrdoob/three.js/issues/7956
             // https://stackoverflow.com/a/11060965/7639084
 
-            // obj.rotation.set(0, -1.5, 0);
-            // obj.rotation.y = -1.5;
-            // obj.rotation.x = Math.PI / 2; // messes up physics, shoots to side
+            // obj3D.rotation.set(0, -1.5, 0);
+            // obj3D.rotation.y = -1.5;
+            // obj3D.rotation.x = Math.PI / 2; // messes up physics, shoots to side
 
             // options.mesh.rotation.set(0, -1.5, 0); // no effect
 
-            obj.add(options.mesh)
-            // obj.name = 'tbd';
+            obj3D.add(options.mesh)
+            // obj3D.name = 'tbd';
 
-            // console.log({obj})
-            // console.log(obj.children[0].rotation.x);
+            // console.log({obj3D})
+            // console.log(obj3D.children[0].rotation.x);
 
-            // obj.rotation.set(0, -1.5, 0); 
-            // obj.rotation.y = -1.5;
+            // obj3D.rotation.set(0, -1.5, 0); 
+            // obj3D.rotation.y = -1.5;
 
-            // obj.rotation.z = 0;
-            // obj.rotation.y = -1.5;
+            // obj3D.rotation.z = 0;
+            // obj3D.rotation.y = -1.5;
 
-            Store.scene.add(obj);
+            Store.scene.add(obj3D);
 
             // Store.scene.add(options.mesh);
             // Store.scene.add(mesh); // PREV - earthquake, v0.5
@@ -605,7 +609,6 @@ export default class Physics {
         }
 
         Store.world.add(body);
-
 
         ////////////////////////
         // COLLISION TRIGGER //
@@ -684,7 +687,25 @@ export default class Physics {
 
                         setTimeout(() => {
                             instrMaterial.map = Store.view.instrumentConfigArr[3].bubbleTexture;
+                        }, 150);
+
+                        setTimeout(() => {
+                            instrMaterial.map = Store.view.instrumentConfigArr[4].bubbleTexture;
                         }, 200);
+
+                        setTimeout(() => {
+                            instrMaterial.map = Store.view.instrumentConfigArr[5].bubbleTexture;
+                        }, 250);
+
+                        setTimeout(() => {
+                            instrMaterial.map = Store.view.instrumentConfigArr[6].bubbleTexture;
+                        }, 300);
+
+                        setTimeout(() => {
+                            // console.log('bubble removed...')
+                            Store.scene.remove(obj3D);
+                            Store.world.remove(body);
+                        }, 350);
                     }
                     
                 }

@@ -411,7 +411,7 @@ if (Store.view.showLogoSprite === true) {
 
     musicianThird = new Musician('fish_3', [-20, -10, -10]);
     musicianThird.init('assets/fish/green_fish_02.png', 8000);
-    musicianSecond.setAudio(Store.recording.parts[0], 8);
+    musicianThird.setAudio(Store.recording.parts[0], 8);
 
     // OLD
     // spriteTextureSecond = Store.loader.load(Store.view.instrumentConfigArr[1].assetPath);

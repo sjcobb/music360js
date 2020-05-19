@@ -108,6 +108,13 @@ export function generateInstrMetadata(note) {
         // instrMapped.color = '#64b5f6'; // human blue
         instrMapped.color = '#FFFF00'; // yellow
     }
+
+    if (instrMapped.material == null) {
+        instrMapped.material = new THREE.SpriteMaterial({
+            map: Store.loader.load('assets/bubble/bubble_pop_one/1.png'),
+            transparent: true,
+        });
+    }
     
     return instrMapped;
 }

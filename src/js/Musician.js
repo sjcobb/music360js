@@ -129,10 +129,11 @@ export default class Musician {
         const physics = new Physics();
 
         let tonePart;
+        console.log(this)
         if (this.name === 'fish_3') {
             tonePart = new Tone.Part(function(time, datum){
                 const instrMapped = generateInstrMetadata(datum.name);
-                console.log({instrMapped});
+                // console.log({instrMapped});
                 // instrMapped.color = '#64b5f6'; // human blue
                 // instrMapped.originalPosition.z += 10;
                 // instrMapped.duration = datum.duration;
@@ -144,9 +145,10 @@ export default class Musician {
             tonePart = new Tone.Part(function(time, instr) {
                 physics.addBody(true, Store.dropPosX, instr, 0, tempLocation);
             }, noteArr);
+            tonePart.loop = true;
         }
         
-        tonePart.loop = true;
+        // tonePart.loop = true;
         tonePart.start(startTime);
     }
 
