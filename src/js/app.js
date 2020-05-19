@@ -398,12 +398,24 @@ if (Store.view.showLogoSprite === true) {
 
     musicianFirst = new Musician('fish_1', [-20, 0, -10]);
     musicianFirst.init('assets/fish/blue_fish_01.png', 1000);
-    musicianFirst.setAudio([["0:0:0", Store.instr.hiHatClosed], ["0:6:0", Store.instr.hiHatClosed]], 0);
+    const musicianFirstAudioConfig = {
+        type: 'default',
+        notes: [["0:0:0", Store.instr.hiHatClosed], ["0:6:0", Store.instr.hiHatClosed]],
+        loop: true,
+    };
+    musicianFirst.setAudio(musicianFirstAudioConfig, 0);
+    // musicianFirst.setAudio([["0:0:0", Store.instr.hiHatClosed], ["0:6:0", Store.instr.hiHatClosed]], 0);
     
     //
 
     musicianSecond = new Musician('fish_2', [-20, -5, -10]);
     musicianSecond.init('assets/fish/red_fish_01.png', 5000);
+    const musicianSecondAudioConfig = {
+        type: 'default',
+        notes: [["0:0:0", Store.instr.hiHatOpen]],
+        loop: true,
+    };
+    musicianSecond.setAudio(musicianSecondAudioConfig, 4);
     // musicianSecond.setAudio([["0:0:0", Store.instr.hiHatClosed]], 5); // TODO: figure out timing of Tone start 5 vs setTimeout 5000
     // TODO: update texture for instruments other than hiHatClosed
 
@@ -411,7 +423,13 @@ if (Store.view.showLogoSprite === true) {
 
     musicianThird = new Musician('fish_3', [-20, -10, -10]);
     musicianThird.init('assets/fish/green_fish_02.png', 8000);
-    musicianThird.setAudio(Store.recording.parts[0], 8);
+    const musicianThirdAudioConfig = {
+        type: 'midi',
+        notes: Store.recording.parts[0],
+        loop: false,
+    };
+    musicianThird.setAudio(musicianThirdAudioConfig, 8);
+    // musicianThird.setAudio(Store.recording.parts[0], 8);
 
     // OLD
     // spriteTextureSecond = Store.loader.load(Store.view.instrumentConfigArr[1].assetPath);

@@ -203,7 +203,11 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             type: 'drum',
             variation: 'hihat-open',
             // originalPosition: { x: 0, y: 0, z: -3 }
-            originalPosition: { x: 0, y: 0, z: 5 }
+            originalPosition: { x: 0, y: 0, z: 5 },
+            material: new THREE.SpriteMaterial({
+                map: Store.loader.load('assets/bubble/bubble_pop_one/1.png'),
+                transparent: true,
+            }),
         },
         snarePrimary: {
             ballDesc: 'S',
@@ -214,7 +218,11 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             variation: 'snare',
             // originalPosition: { x: 0, y: 0, z: (globalStaffLineSecondZ + 5) }
             // originalPosition: { x: -3, y: 1.5, z: 1 } // v0.5
-            originalPosition: { x: 0, y: 0, z: -5 }
+            originalPosition: { x: 0, y: 0, z: -5 },
+            material: new THREE.SpriteMaterial({
+                map: Store.loader.load('assets/bubble/bubble_pop_one/1.png'),
+                transparent: true,
+            }),
         },
         kickPrimary: {
             // ballDesc: 'K', // beat-v1
@@ -225,9 +233,12 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             keyInput: '4',
             type: 'drum',
             variation: 'kick',
-            // originalPosition: { x: 0, y: 0, z: 2 }, // B
             originalPosition: { x: 0, y: 0, z: 0 }, // B
             size: 'xl',
+            material: new THREE.SpriteMaterial({
+                map: Store.loader.load('assets/bubble/bubble_pop_one/1.png'),
+                transparent: true,
+            }),
         },
         kickSecondary: {
             // ballDesc: 'K', // beat-v1
@@ -241,6 +252,10 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             // originalPosition: { x: 0, y: 0, z: 2 }, // B
             originalPosition: { x: 0, y: 0, z: 0 }, // B
             size: 'xl',
+            material: new THREE.SpriteMaterial({
+                map: Store.loader.load('assets/bubble/bubble_pop_one/1.png'),
+                transparent: true,
+            }),
         },
         crashPrimary: {
             ballDesc: 'Cr',
@@ -250,9 +265,11 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             keyInput: '5',
             type: 'drum',
             variation: 'crash', //aka clap
-            // originalPosition: { x: 0, y: 0, z: -4 }
-            // originalPosition: { x: 0, y: 0, z: 2 }
-            originalPosition: { x: 0, y: 0, z: -5 }
+            originalPosition: { x: 0, y: 0, z: -5 },
+            material: new THREE.SpriteMaterial({
+                map: Store.loader.load('assets/bubble/bubble_pop_one/1.png'),
+                transparent: true,
+            }),
         },
         ridePrimary: {
             ballDesc: 'R',
@@ -261,7 +278,11 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             keyInput: '6',
             type: 'drum',
             variation: 'ride',
-            originalPosition: { x: 0, y: 0, z: -2 }
+            originalPosition: { x: 0, y: 0, z: -2 },
+            material: new THREE.SpriteMaterial({
+                map: Store.loader.load('assets/bubble/bubble_pop_one/1.png'),
+                transparent: true,
+            }),
         },
         tomHigh: {
             ballDesc: 'T',
@@ -270,7 +291,11 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             keyInput: '7',
             type: 'drum',
             variation: 'tom-high',
-            originalPosition: { x: 0, y: 0, z: 0 }
+            originalPosition: { x: 0, y: 0, z: 0 },
+            material: new THREE.SpriteMaterial({
+                map: Store.loader.load('assets/bubble/bubble_pop_one/1.png'),
+                transparent: true,
+            }),
         },
         sphereChordG1: {
             ballDesc: 'G',

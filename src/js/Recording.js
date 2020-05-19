@@ -11,18 +11,23 @@ export default class Recording {
     // activeSources = [];
 
     initSample() {
-        console.log('Recording -> initSample()');
         // const player = new Tone.Player("./assets/song/aintno_vocals_01.wav").toMaster();
         // player.autostart = true;
-
+        
         // Store.recording.playerFirst = new Tone.Player("./assets/song/aintno_vocals_01.wav").toMaster();
         Store.recording.playerFirst = new Tone.Player("./assets/fish/bubble-pop_vocals-only_01.wav").toMaster();
+        Store.recording.playerFirst.volume.value = -24;
+        // console.log('(Recording - initSample) -> Store.recording.playerFirst: ', Store.recording.playerFirst);
 
-        setTimeout(function() {
-            // // Tone.Transport.start();
-            // // player.start();
-            // Store.recording.playerFirst.start(); // use
-        }, 6000);
+        // setTimeout(function() {
+        //     // // Tone.Transport.start();
+        //     // // player.start();
+        //     // Store.recording.playerFirst.start(); // use
+        // }, 6000);
+
+        setTimeout(() => {
+            Store.recording.playerFirst.start();
+        }, 12000);
         
     }
 

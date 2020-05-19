@@ -37,7 +37,7 @@ export default class Musician {
     // }
 
     init(assetPath, startTime) { 
-        console.log('(Musician) - init() -> this.name: ', this.name);
+        // console.log('(Musician) - init() -> this.name: ', this.name);
         // console.log('(Musician) - init() -> this.sprite: ', this.sprite);
 
         let instrSprite;
@@ -103,34 +103,19 @@ export default class Musician {
 
     createVisuals() { 
         console.log('(Musician) - createVisuals() -> this.name: ', this.name);
+        // TODO: split up init into separate functions
     }
 
-    // attachAudio() { 
-    //     console.log('(Musician) - attachAudio() -> this.name: ', this.name);
-    //     const tempLocation = this.location;
-
-    //     const physics = new Physics();
-
-    //     var introPart = new Tone.Part(function(time, instr) {
-    //         // physics.addBody(true, Store.dropPosX, instr, 0, this.location);
-    //         physics.addBody(true, Store.dropPosX, instr, 0, tempLocation);
-    //     }, [
-    //         ["0:0:0", Store.instr.hiHatClosed],
-    //         ["0:6:0", Store.instr.hiHatClosed],
-    //     ]);
-    //     introPart.loop = true;
-    //     introPart.start(0);
-    // }
-
-    setAudio(noteArr, startTime) { 
-        console.log('(Musician) - attachAudio() -> this.name: ', this.name);
+    setAudio(config, startTime) { 
+        // console.log('(Musician) - attachAudio() -> this.name: ', this.name);
         const tempLocation = this.location;
 
         const physics = new Physics();
 
         let tonePart;
-        console.log(this)
-        if (this.name === 'fish_3') {
+        // console.log(this)
+        // if (this.name === 'fish_3') {
+        if (config.type === 'midi') {
             tonePart = new Tone.Part(function(time, datum){
                 const instrMapped = generateInstrMetadata(datum.name);
                 // console.log({instrMapped});
@@ -140,15 +125,18 @@ export default class Musician {
                 // instrMapped.variation = 'guitar';
                 physics.addBody(true, Store.dropPosX, instrMapped, 0, tempLocation);
             // }, Store.recording.parts[0]);
-            }, noteArr);
-        } else {
+            }, config.notes);
+        } else if (config.type === 'default') {
             tonePart = new Tone.Part(function(time, instr) {
                 physics.addBody(true, Store.dropPosX, instr, 0, tempLocation);
-            }, noteArr);
+            }, config.notes);
+            // tonePart.loop = true;
+        }
+
+        if (config.loop === true) {
             tonePart.loop = true;
         }
         
-        // tonePart.loop = true;
         tonePart.start(startTime);
     }
 
