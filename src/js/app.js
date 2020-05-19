@@ -379,7 +379,7 @@ if (Store.view.showStaff.bass === true) {
 }
 
 ////////////////////
-// SPRITE (FISH) //
+// MUSICIANS (FISH) //
 ///////////////////
 // TODO: how to maintain png transparency
 // TODO: bubble animation -  https://medium.com/@soffritti.pierfrancesco/animations-with-alpha-textures-in-three-js-52a33654e137 
@@ -387,49 +387,53 @@ if (Store.view.showStaff.bass === true) {
 // 
 
 let musicianFirst, musicianSecond, musicianThird;
+// let tempMusician;
+// TODO: dynamic forEach generation of fish in Store.musicians
 
-let instrSprite, instrSpriteSecond;
-let spriteTexture, spriteTextureSecond;
+for (let i=0; i<=5; i++) {
+    const defaultAudioConfig = {
+        type: 'default',
+        notes: [["0:0:0", Store.instr.hiHatClosed], ["0:6:0", Store.instr.hiHatClosed]],
+        loop: true,
+    };
+    const tempMusician = new Musician('temm_fish_' + i, [-20, -(i + 2), -10]);
+    tempMusician.init('assets/fish/blue_fish_01.png', 1000);
+    tempMusician.setAudio(defaultAudioConfig, 0);
+    Store.musicians.push(tempMusician);
+}
 
-const spriteBackwardOffset = 0.05;
-const spriteSpeed = 0.1;
-
-if (Store.view.showLogoSprite === true) {
+if (Store.view.showFishAnimation === true) {
 
     musicianFirst = new Musician('fish_1', [-20, 0, -10]);
-    musicianFirst.init('assets/fish/blue_fish_01.png', 1000);
     const musicianFirstAudioConfig = {
         type: 'default',
         notes: [["0:0:0", Store.instr.hiHatClosed], ["0:6:0", Store.instr.hiHatClosed]],
         loop: true,
     };
-    musicianFirst.setAudio(musicianFirstAudioConfig, 0);
-    // musicianFirst.setAudio([["0:0:0", Store.instr.hiHatClosed], ["0:6:0", Store.instr.hiHatClosed]], 0);
+    // musicianFirst.init('assets/fish/blue_fish_01.png', 1000);
+    // musicianFirst.setAudio(musicianFirstAudioConfig, 0);
     
     //
 
     musicianSecond = new Musician('fish_2', [-20, -5, -10]);
-    musicianSecond.init('assets/fish/red_fish_01.png', 5000);
     const musicianSecondAudioConfig = {
         type: 'default',
         notes: [["0:0:0", Store.instr.hiHatOpen]],
         loop: true,
     };
-    musicianSecond.setAudio(musicianSecondAudioConfig, 4);
-    // musicianSecond.setAudio([["0:0:0", Store.instr.hiHatClosed]], 5); // TODO: figure out timing of Tone start 5 vs setTimeout 5000
-    // TODO: update texture for instruments other than hiHatClosed
+    // musicianSecond.init('assets/fish/red_fish_01.png', 5000);
+    // musicianSecond.setAudio(musicianSecondAudioConfig, 4);
 
     //
 
     musicianThird = new Musician('fish_3', [-20, -10, -10]);
-    musicianThird.init('assets/fish/green_fish_02.png', 8000);
     const musicianThirdAudioConfig = {
         type: 'midi',
         notes: Store.recording.parts[0],
         loop: false,
     };
-    musicianThird.setAudio(musicianThirdAudioConfig, 8);
-    // musicianThird.setAudio(Store.recording.parts[0], 8);
+    // musicianThird.init('assets/fish/green_fish_02.png', 8000);
+    // musicianThird.setAudio(musicianThirdAudioConfig, 8);
 
     // OLD
     // spriteTextureSecond = Store.loader.load(Store.view.instrumentConfigArr[1].assetPath);
@@ -515,6 +519,11 @@ let animate = () => {
     musicianFirst.update();
     musicianSecond.update();
     musicianThird.update();
+
+    Store.musicians.forEach((element, index) => {
+        Store.musicians[index].update()
+    });
+    // tempMusician.update();
 
     // // //
 

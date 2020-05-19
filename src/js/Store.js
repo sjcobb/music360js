@@ -296,7 +296,7 @@ export default {
         songAutoStart: true,
         songAutoStartTime: 3000,
         showDashboard: false,
-        showLogoSprite: true,
+        showFishAnimation: true,
         showRadio: false,
         showStats: true,
         showStaff: {

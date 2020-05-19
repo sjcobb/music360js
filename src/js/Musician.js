@@ -68,8 +68,7 @@ export default class Musician {
             texture: spriteTexture,
             location: this.location,
         };
-        Store.musicians.push(musicianObj);
-        // Store.musicians.push(instrSprite);
+        // Store.musicians.push(musicianObj);
 
         this.texture = musicianObj.texture;
         this.sprite = musicianObj.sprite;
