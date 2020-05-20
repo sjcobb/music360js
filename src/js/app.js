@@ -385,8 +385,9 @@ if (Store.view.showStaff.bass === true) {
 // TODO: bubble animation -  https://medium.com/@soffritti.pierfrancesco/animations-with-alpha-textures-in-three-js-52a33654e137 
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_materials_cubemap_dynamic.html
 // 
+// Blue, Red, Green, Yellow, Purple
 
-let musicianFirst, musicianSecond, musicianThird;
+let musicianFirst, musicianSecond, musicianThird, musicianFourth, musicianFifth, musicianSixth;
 // let tempMusician;
 // TODO: dynamic forEach generation of fish in Store.musicians
 
@@ -397,21 +398,22 @@ for (let i=0; i<=5; i++) {
         loop: true,
     };
     const tempMusician = new Musician('temm_fish_' + i, [-20, -(i + 2), -10]);
-    tempMusician.init('assets/fish/blue_fish_01.png', 1000);
-    tempMusician.setAudio(defaultAudioConfig, 0);
-    Store.musicians.push(tempMusician);
+    // tempMusician.init('assets/fish/blue_fish_01.png', 1000);
+    // tempMusician.setAudio(defaultAudioConfig, 0);
+    // Store.musicians.push(tempMusician);
 }
 
 if (Store.view.showFishAnimation === true) {
 
+    // TODO: how to synch timing?
     musicianFirst = new Musician('fish_1', [-20, 0, -10]);
     const musicianFirstAudioConfig = {
         type: 'default',
         notes: [["0:0:0", Store.instr.hiHatClosed], ["0:6:0", Store.instr.hiHatClosed]],
         loop: true,
     };
-    // musicianFirst.init('assets/fish/blue_fish_01.png', 1000);
-    // musicianFirst.setAudio(musicianFirstAudioConfig, 0);
+    musicianFirst.init('assets/fish/blue_fish_01.png', 12000);
+    musicianFirst.setAudio(musicianFirstAudioConfig, 12);
     
     //
 
@@ -421,8 +423,8 @@ if (Store.view.showFishAnimation === true) {
         notes: [["0:0:0", Store.instr.hiHatOpen]],
         loop: true,
     };
-    // musicianSecond.init('assets/fish/red_fish_01.png', 5000);
-    // musicianSecond.setAudio(musicianSecondAudioConfig, 4);
+    musicianSecond.init('assets/fish/red_fish_01.png', 26000);
+    musicianSecond.setAudio(musicianSecondAudioConfig, 26);
 
     //
 
@@ -432,8 +434,21 @@ if (Store.view.showFishAnimation === true) {
         notes: Store.recording.parts[0],
         loop: false,
     };
-    // musicianThird.init('assets/fish/green_fish_02.png', 8000);
+    musicianThird.init('assets/fish/red_fish_01.png', 26000);
     // musicianThird.setAudio(musicianThirdAudioConfig, 8);
+
+    //
+
+    musicianFourth = new Musician('fish_4', [-20, -5, -10]);
+    musicianFourth.init('assets/fish/green_fish_01.png', 41000);
+
+    //
+
+    musicianFifth = new Musician('fish_5', [-20, -10, -10]);
+    musicianFifth.init('assets/fish/green_fish_01.png', 41000);
+
+    musicianSixth = new Musician('fish_5', [-20, -10, -10]);
+    musicianSixth.init('assets/fish/green_fish_01.png', 41000);
 
     // OLD
     // spriteTextureSecond = Store.loader.load(Store.view.instrumentConfigArr[1].assetPath);
@@ -467,7 +482,7 @@ let animate = () => {
     // TODO: fix logs - why not updating correctly?
     // console.log('ticks: ', Tone.Transport.ticks); //ex. 10 
     // console.log('position: ', Tone.Transport.position); //ex: 0:0:0.124
-    // console.log('seconds: ', Tone.Transport.seconds);
+    console.log('seconds: ', Tone.Transport.seconds);
     // console.log(Store.ticks);
     // console.log(Store.clock.elapsedTime);
 
@@ -519,6 +534,9 @@ let animate = () => {
     musicianFirst.update();
     musicianSecond.update();
     musicianThird.update();
+    musicianFourth.update();
+    musicianFifth.update();
+    musicianSixth.update();
 
     Store.musicians.forEach((element, index) => {
         Store.musicians[index].update()
