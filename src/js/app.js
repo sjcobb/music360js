@@ -405,11 +405,15 @@ for (let i=0; i<=5; i++) {
 
 if (Store.view.showFishAnimation === true) {
 
-    // TODO: how to synch timing?
+    // TODO: how to sync timing?
     musicianFirst = new Musician('fish_1', [-20, 0, -10]);
     const musicianFirstAudioConfig = {
         type: 'default',
-        notes: [["0:0:0", Store.instr.hiHatClosed], ["0:6:0", Store.instr.hiHatClosed]],
+        defaultDuration: '2n',
+        notes: [
+            ["0:0:0", Store.instr.sphereChordC4, '8n'], // TODO: pass duration for each note
+            ["0:6:0", Store.instr.sphereChordF4, '2n']
+        ],
         loop: true,
     };
     musicianFirst.init('assets/fish/blue_fish_01.png', 12000);
@@ -424,7 +428,7 @@ if (Store.view.showFishAnimation === true) {
         loop: true,
     };
     musicianSecond.init('assets/fish/red_fish_01.png', 26000);
-    musicianSecond.setAudio(musicianSecondAudioConfig, 26);
+    // musicianSecond.setAudio(musicianSecondAudioConfig, 26);
 
     //
 
@@ -482,7 +486,7 @@ let animate = () => {
     // TODO: fix logs - why not updating correctly?
     // console.log('ticks: ', Tone.Transport.ticks); //ex. 10 
     // console.log('position: ', Tone.Transport.position); //ex: 0:0:0.124
-    console.log('seconds: ', Tone.Transport.seconds);
+    // console.log('seconds: ', Tone.Transport.seconds);
     // console.log(Store.ticks);
     // console.log(Store.clock.elapsedTime);
 

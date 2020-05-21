@@ -126,7 +126,10 @@ export default class Musician {
             // }, Store.recording.parts[0]);
             }, config.notes);
         } else if (config.type === 'default') {
+            console.log(config.notes);
             tonePart = new Tone.Part(function(time, instr) {
+                instr.duration = config.defaultDuration;
+                console.log(instr.duration)
                 physics.addBody(true, Store.dropPosX, instr, 0, tempLocation);
             }, config.notes);
             // tonePart.loop = true;

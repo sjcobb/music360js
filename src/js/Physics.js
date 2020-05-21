@@ -489,8 +489,10 @@ export default class Physics {
         let obj3D;
         
         if (options.material == null) {
-            this.addVisual(body, (sphere) ? 'sphere' : 'box', true, false, options);
-        } else {
+            // this.addVisual(body, (sphere) ? 'sphere' : 'box', true, false, options);
+
+            options.material = Store.instr.hiHatClosed.material;
+        } // else {
 
             // https://stackoverflow.com/a/22640465/7639084 - Object3D.clone()
             // https://www.samanthaming.com/tidbits/70-3-ways-to-clone-objects/
@@ -606,7 +608,7 @@ export default class Physics {
             // Store.scene.add(options.mesh);
             // Store.scene.add(mesh); // PREV - earthquake, v0.5
 
-        }
+        // }
 
         Store.world.add(body);
 
