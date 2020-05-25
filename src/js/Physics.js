@@ -681,33 +681,32 @@ export default class Physics {
 
                         setTimeout(() => {
                             instrMaterial.map = Store.view.instrumentConfigArr[1].bubbleTexture;
-                        }, 50);
+                        }, 10);
 
                         setTimeout(() => {
                             instrMaterial.map = Store.view.instrumentConfigArr[2].bubbleTexture;
-                        }, 100);
+                        }, 20);
 
                         setTimeout(() => {
                             instrMaterial.map = Store.view.instrumentConfigArr[3].bubbleTexture;
-                        }, 150);
+                        }, 30);
 
                         setTimeout(() => {
                             instrMaterial.map = Store.view.instrumentConfigArr[4].bubbleTexture;
-                        }, 200);
+                        }, 40);
 
                         setTimeout(() => {
                             instrMaterial.map = Store.view.instrumentConfigArr[5].bubbleTexture;
-                        }, 250);
+                        }, 50);
 
                         setTimeout(() => {
                             instrMaterial.map = Store.view.instrumentConfigArr[6].bubbleTexture;
-                        }, 300);
+                        }, 60);
 
                         setTimeout(() => {
-                            // console.log('bubble removed...')
                             Store.scene.remove(obj3D);
                             Store.world.remove(body);
-                        }, 350);
+                        }, 70);
                     }
                     
                 }

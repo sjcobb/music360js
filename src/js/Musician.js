@@ -128,8 +128,9 @@ export default class Musician {
         } else if (config.type === 'default') {
             console.log(config.notes);
             tonePart = new Tone.Part(function(time, instr) {
-                instr.duration = config.defaultDuration;
-                console.log(instr.duration)
+                if (config.defaultDuration) {
+                    instr.duration = config.defaultDuration;
+                }
                 physics.addBody(true, Store.dropPosX, instr, 0, tempLocation);
             }, config.notes);
             // tonePart.loop = true;
@@ -144,7 +145,7 @@ export default class Musician {
 
     update() {
         const spriteBackwardOffset = 0.05;
-        const spriteSpeed = 0.1;
+        const spriteSpeed = 0.15;
 
         if (this.active === true) {
             // console.log('this.location: ', this.location);

@@ -405,15 +405,23 @@ for (let i=0; i<=5; i++) {
 
 if (Store.view.showFishAnimation === true) {
 
+    const yStartPos = 5;
+
     // TODO: how to sync timing?
-    musicianFirst = new Musician('fish_1', [-20, 0, -10]);
+    musicianFirst = new Musician('fish_1', [-20, 5, -10]);
     const musicianFirstAudioConfig = {
         type: 'default',
-        defaultDuration: '2n',
+        // type: 'midi',
+        // defaultDuration: '2n',
+        defaultDuration: '4n',
         notes: [
             ["0:0:0", Store.instr.sphereChordC4, '8n'], // TODO: pass duration for each note
-            ["0:6:0", Store.instr.sphereChordF4, '2n']
+            ["0:3:0", Store.instr.sphereChordF4, '8n'],
+            ["0:6:0", Store.instr.sphereChordC4, '8n'], 
+            ["0:9:0", Store.instr.sphereChordG4, '8n'], 
         ],
+        // notes: Store.recording.parts[0],
+        // notes: Store.recording.parts[1],
         loop: true,
     };
     musicianFirst.init('assets/fish/blue_fish_01.png', 12000);
@@ -421,38 +429,50 @@ if (Store.view.showFishAnimation === true) {
     
     //
 
-    musicianSecond = new Musician('fish_2', [-20, -5, -10]);
+    musicianSecond = new Musician('fish_2', [-20, 5, -10]);
     const musicianSecondAudioConfig = {
         type: 'default',
-        notes: [["0:0:0", Store.instr.hiHatOpen]],
+        notes: [
+            ["0:0:0", Store.instr.hiHatClosed],
+            ["0:2:0", Store.instr.hiHatClosed],
+            ["0:4:0", Store.instr.hiHatClosed],
+            ["0:6:0", Store.instr.hiHatClosed],
+            ["0:8:0", Store.instr.hiHatClosed],
+            ["0:10:0", Store.instr.hiHatClosed],
+        ],
         loop: true,
     };
     musicianSecond.init('assets/fish/red_fish_01.png', 26000);
-    // musicianSecond.setAudio(musicianSecondAudioConfig, 26);
+    musicianSecond.setAudio(musicianSecondAudioConfig, 26);
 
     //
 
-    musicianThird = new Musician('fish_3', [-20, -10, -10]);
+    musicianThird = new Musician('fish_3', [-20, 5, -20]);
     const musicianThirdAudioConfig = {
-        type: 'midi',
-        notes: Store.recording.parts[0],
-        loop: false,
+        type: 'default',
+        notes: [
+            ["0:1:0", Store.instr.hiHatClosed],
+            ["0:3:0", Store.instr.hiHatClosed],
+            ["0:5:0", Store.instr.hiHatClosed],
+            ["0:7:0", Store.instr.hiHatClosed],
+            ["0:9:0", Store.instr.hiHatClosed],
+            ["0:11:0", Store.instr.hiHatClosed],
+        ],
+        loop: true,
     };
     musicianThird.init('assets/fish/red_fish_01.png', 26000);
-    // musicianThird.setAudio(musicianThirdAudioConfig, 8);
+    musicianThird.setAudio(musicianThirdAudioConfig, 26);
 
     //
 
-    musicianFourth = new Musician('fish_4', [-20, -5, -10]);
+    musicianFourth = new Musician('fish_4', [-20, 5, -10]);
     musicianFourth.init('assets/fish/green_fish_01.png', 41000);
 
-    //
-
-    musicianFifth = new Musician('fish_5', [-20, -10, -10]);
+    musicianFifth = new Musician('fish_5', [-20, 5, -20]);
     musicianFifth.init('assets/fish/green_fish_01.png', 41000);
 
-    musicianSixth = new Musician('fish_5', [-20, -10, -10]);
-    musicianSixth.init('assets/fish/green_fish_01.png', 41000);
+    musicianSixth = new Musician('fish_5', [-20, 5, -30]);
+    musicianSixth.init('assets/fish/green_fish_01.png', 41000);''
 
     // OLD
     // spriteTextureSecond = Store.loader.load(Store.view.instrumentConfigArr[1].assetPath);
