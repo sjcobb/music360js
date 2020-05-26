@@ -101,121 +101,13 @@
                     "velocity": 0.5905511811023622
                 },
                 {
-                    "duration": 0.09791666666666732,
-                    "durationTicks": 188,
+                    "duration": 0.09218750000000009,
+                    "durationTicks": 177,
                     "midi": 41,
                     "name": "F2",
-                    "ticks": 8258,
-                    "time": 4.301041666666666,
+                    "ticks": 6491,
+                    "time": 4.271041666666666,
                     "velocity": 0.6929133858267716
-                },
-                {
-                    "duration": 0.09999999999999964,
-                    "durationTicks": 192,
-                    "midi": 36,
-                    "name": "C2",
-                    "ticks": 9181,
-                    "time": 4.781770833333334,
-                    "velocity": 0.5984251968503937
-                },
-                {
-                    "duration": 0.10468749999999982,
-                    "durationTicks": 201,
-                    "midi": 41,
-                    "name": "F2",
-                    "ticks": 9990,
-                    "time": 5.203125,
-                    "velocity": 0.6929133858267716
-                },
-                {
-                    "duration": 0.10364583333333321,
-                    "durationTicks": 199,
-                    "midi": 36,
-                    "name": "C2",
-                    "ticks": 10921,
-                    "time": 5.688020833333334,
-                    "velocity": 0.6377952755905512
-                },
-                {
-                    "duration": 0.10104166666666625,
-                    "durationTicks": 194,
-                    "midi": 41,
-                    "name": "F2",
-                    "ticks": 11808,
-                    "time": 6.15,
-                    "velocity": 0.6929133858267716
-                },
-                {
-                    "duration": 0.09166666666666679,
-                    "durationTicks": 176,
-                    "midi": 36,
-                    "name": "C2",
-                    "ticks": 12701,
-                    "time": 6.615104166666667,
-                    "velocity": 0.6299212598425197
-                },
-                {
-                    "duration": 0.10000000000000053,
-                    "durationTicks": 192,
-                    "midi": 41,
-                    "name": "F2",
-                    "ticks": 13559,
-                    "time": 7.061979166666666,
-                    "velocity": 0.6929133858267716
-                },
-                {
-                    "duration": 0.10885416666666625,
-                    "durationTicks": 209,
-                    "midi": 36,
-                    "name": "C2",
-                    "ticks": 14490,
-                    "time": 7.546875,
-                    "velocity": 0.6062992125984252
-                },
-                {
-                    "duration": 0.08125000000000071,
-                    "durationTicks": 156,
-                    "midi": 41,
-                    "name": "F2",
-                    "ticks": 15323,
-                    "time": 7.980729166666666,
-                    "velocity": 0.6929133858267716
-                },
-                {
-                    "duration": 0.09010416666666643,
-                    "durationTicks": 173,
-                    "midi": 36,
-                    "name": "C2",
-                    "ticks": 16162,
-                    "time": 8.417708333333334,
-                    "velocity": 0.6377952755905512
-                },
-                {
-                    "duration": 0.08854166666666607,
-                    "durationTicks": 170,
-                    "midi": 41,
-                    "name": "F2",
-                    "ticks": 17033,
-                    "time": 8.871354166666666,
-                    "velocity": 0.6850393700787402
-                },
-                {
-                    "duration": 0.10885416666666536,
-                    "durationTicks": 209,
-                    "midi": 36,
-                    "name": "C2",
-                    "ticks": 17894,
-                    "time": 9.319791666666667,
-                    "velocity": 0.6141732283464567
-                },
-                {
-                    "duration": 0.07395833333333357,
-                    "durationTicks": 142,
-                    "midi": 41,
-                    "name": "F2",
-                    "ticks": 18826,
-                    "time": 9.805208333333333,
-                    "velocity": 0.6771653543307087
                 }
             ]
         }

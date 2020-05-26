@@ -17,6 +17,7 @@ import Flame from './Flame';
 import * as recordingFirstNotes from '../../assets/recording/1.json';
 import * as recordingSecondNotes from '../../assets/recording/2.json';
 import * as recordingThirdNotes from '../../assets/recording/3.json';
+import * as recordingFourthNotes from '../../assets/recording/4.json';
 
 // console.log({recordingFirstNotes});
 // // console.log(recordingFirstNotes.tracks[0].notes);
@@ -417,6 +418,7 @@ const physics = new Physics();
 Store.recording.parts[0] = recordingFirstNotes.tracks[0].notes;
 Store.recording.parts[1] = recordingSecondNotes.tracks[0].notes;
 Store.recording.parts[2] = recordingThirdNotes.tracks[0].notes;
+Store.recording.parts[3] = recordingFourthNotes.tracks[0].notes;
 
 // console.log({recordingNotes});
 

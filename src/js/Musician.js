@@ -150,10 +150,10 @@ export default class Musician {
         if (this.active === true) {
             // console.log('this.location: ', this.location);
             // if (this.location[2] < 20 && Store.view.instrumentConfig.directionRight) {
-            if (this.location[2] < 20 && this.directionRight) {
+            if (this.location[2] < 30 && this.directionRight) {
                 this.location[0] += spriteBackwardOffset; // back / front
                 this.location[2] += spriteSpeed;
-            } else if (this.location[2] > -20) {
+            } else if (this.location[2] > -30) {
                 this.location[0] += spriteBackwardOffset;
                 this.location[2] -= spriteSpeed;
         

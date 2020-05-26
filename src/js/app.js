@@ -410,18 +410,18 @@ if (Store.view.showFishAnimation === true) {
     // TODO: how to sync timing?
     musicianFirst = new Musician('fish_1', [-20, 5, -10]);
     const musicianFirstAudioConfig = {
-        type: 'default',
-        // type: 'midi',
+        // type: 'default',
+        type: 'midi',
         // defaultDuration: '2n',
         defaultDuration: '4n',
-        notes: [
-            ["0:0:0", Store.instr.sphereChordC4, '8n'], // TODO: pass duration for each note
-            ["0:3:0", Store.instr.sphereChordF4, '8n'],
-            ["0:6:0", Store.instr.sphereChordC4, '8n'], 
-            ["0:9:0", Store.instr.sphereChordG4, '8n'], 
-        ],
+        // notes: [
+        //     ["0:0:0", Store.instr.sphereChordC4, '8n'], // TODO: pass duration for each note
+        //     ["0:3:0", Store.instr.sphereChordF4, '8n'],
+        //     ["0:6:0", Store.instr.sphereChordC4, '8n'], 
+        //     ["0:9:0", Store.instr.sphereChordG4, '8n'], 
+        // ],
         // notes: Store.recording.parts[0],
-        // notes: Store.recording.parts[1],
+        notes: Store.recording.parts[1],
         loop: true,
     };
     musicianFirst.init('assets/fish/blue_fish_01.png', 12000);
@@ -431,15 +431,17 @@ if (Store.view.showFishAnimation === true) {
 
     musicianSecond = new Musician('fish_2', [-20, 5, -10]);
     const musicianSecondAudioConfig = {
-        type: 'default',
-        notes: [
-            ["0:0:0", Store.instr.hiHatClosed],
-            ["0:2:0", Store.instr.hiHatClosed],
-            ["0:4:0", Store.instr.hiHatClosed],
-            ["0:6:0", Store.instr.hiHatClosed],
-            ["0:8:0", Store.instr.hiHatClosed],
-            ["0:10:0", Store.instr.hiHatClosed],
-        ],
+        // type: 'default',
+        type: 'midi',
+        // notes: [
+        //     ["0:0:0", Store.instr.hiHatClosed],
+        //     ["0:2:0", Store.instr.hiHatClosed],
+        //     ["0:4:0", Store.instr.hiHatClosed],
+        //     ["0:6:0", Store.instr.hiHatClosed],
+        //     ["0:8:0", Store.instr.hiHatClosed],
+        //     ["0:10:0", Store.instr.hiHatClosed],
+        // ],
+        notes: Store.recording.parts[2],
         loop: true,
     };
     musicianSecond.init('assets/fish/red_fish_01.png', 26000);
@@ -451,12 +453,12 @@ if (Store.view.showFishAnimation === true) {
     const musicianThirdAudioConfig = {
         type: 'default',
         notes: [
-            ["0:1:0", Store.instr.hiHatClosed],
-            ["0:3:0", Store.instr.hiHatClosed],
-            ["0:5:0", Store.instr.hiHatClosed],
-            ["0:7:0", Store.instr.hiHatClosed],
-            ["0:9:0", Store.instr.hiHatClosed],
-            ["0:11:0", Store.instr.hiHatClosed],
+            // ["0:1:0", Store.instr.hiHatClosed],
+            // ["0:3:0", Store.instr.hiHatClosed],
+            // ["0:5:0", Store.instr.hiHatClosed],
+            // ["0:7:0", Store.instr.hiHatClosed],
+            // ["0:9:0", Store.instr.hiHatClosed],
+            // ["0:11:0", Store.instr.hiHatClosed],
         ],
         loop: true,
     };
