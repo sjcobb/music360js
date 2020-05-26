@@ -449,21 +449,23 @@ if (Store.view.showFishAnimation === true) {
 
     //
 
-    musicianThird = new Musician('fish_3', [-20, 5, -20]);
+    musicianThird = new Musician('fish_3', [-20, 5, -10]);
     const musicianThirdAudioConfig = {
-        type: 'default',
-        notes: [
-            // ["0:1:0", Store.instr.hiHatClosed],
-            // ["0:3:0", Store.instr.hiHatClosed],
-            // ["0:5:0", Store.instr.hiHatClosed],
-            // ["0:7:0", Store.instr.hiHatClosed],
-            // ["0:9:0", Store.instr.hiHatClosed],
-            // ["0:11:0", Store.instr.hiHatClosed],
-        ],
+        // type: 'default',
+        type: 'midi',
+        // notes: [
+        //     ["0:1:0", Store.instr.hiHatClosed],
+        //     ["0:3:0", Store.instr.hiHatClosed],
+        //     ["0:5:0", Store.instr.hiHatClosed],
+        //     ["0:7:0", Store.instr.hiHatClosed],
+        //     ["0:9:0", Store.instr.hiHatClosed],
+        //     ["0:11:0", Store.instr.hiHatClosed],
+        // ],
+        notes: Store.recording.parts[2],
         loop: true,
     };
-    musicianThird.init('assets/fish/red_fish_01.png', 26000);
-    musicianThird.setAudio(musicianThirdAudioConfig, 26);
+    musicianThird.init('assets/fish/red_fish_01.png', 28000);
+    musicianThird.setAudio(musicianThirdAudioConfig, 28);
 
     //
 
