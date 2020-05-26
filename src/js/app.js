@@ -388,6 +388,7 @@ if (Store.view.showStaff.bass === true) {
 // Blue, Red, Green, Yellow, Purple
 
 let musicianFirst, musicianSecond, musicianThird, musicianFourth, musicianFifth, musicianSixth;
+let musician7, musician8, musician9, musician10, musician11, musician12, musician13, musician14, musician15, musician16;
 // let tempMusician;
 // TODO: dynamic forEach generation of fish in Store.musicians
 
@@ -475,8 +476,40 @@ if (Store.view.showFishAnimation === true) {
     musicianFifth = new Musician('fish_5', [-20, 5, -20]);
     musicianFifth.init('assets/fish/green_fish_01.png', 41000);
 
-    musicianSixth = new Musician('fish_5', [-20, 5, -30]);
-    musicianSixth.init('assets/fish/green_fish_01.png', 41000);''
+    musicianSixth = new Musician('fish_6', [-20, 5, -30]);
+    musicianSixth.init('assets/fish/green_fish_01.png', 41000);
+
+    //
+
+    musician7 = new Musician('fish_7', [-20, 5, -10]);
+    musician7.init('assets/fish/yellow_fish_01.png', 54000);
+
+    musician8 = new Musician('fish_8', [-20, 5, -20]);
+    musician8.init('assets/fish/yellow_fish_01.png', 54000);
+
+    musician9 = new Musician('fish_9', [-20, 5, -30]);
+    musician9.init('assets/fish/yellow_fish_01.png', 54000);
+
+    musician10 = new Musician('fish_10', [-20, 5, -40]);
+    musician10.init('assets/fish/yellow_fish_01.png', 54000);
+
+    //
+
+    musician11 = new Musician('fish_11', [-20, 5, -10]);
+    musician11.init('assets/fish/purple_fish_01.png', 66000);
+
+    musician12 = new Musician('fish_12', [-20, 5, -20]);
+    musician12.init('assets/fish/purple_fish_01.png', 66000);
+
+    musician13 = new Musician('fish_13', [-20, 5, -30]);
+    musician13.init('assets/fish/purple_fish_01.png', 66000);
+
+    musician14 = new Musician('fish_14', [-20, 5, -40]);
+    musician14.init('assets/fish/purple_fish_01.png', 66000);
+
+    musician15 = new Musician('fish_15', [-20, 5, -50]);
+    musician15.init('assets/fish/purple_fish_01.png', 66000);
+
 
     // OLD
     // spriteTextureSecond = Store.loader.load(Store.view.instrumentConfigArr[1].assetPath);
@@ -560,11 +593,26 @@ let animate = () => {
     // }
     
     musicianFirst.update();
+
     musicianSecond.update();
     musicianThird.update();
+
     musicianFourth.update();
     musicianFifth.update();
     musicianSixth.update();
+
+    musician7.update(); 
+    musician8.update();
+    musician9.update();
+    musician10.update();
+
+    musician11.update();
+    musician12.update();
+    musician13.update();
+    musician14.update();
+    musician15.update();
+
+    //
 
     Store.musicians.forEach((element, index) => {
         Store.musicians[index].update()
