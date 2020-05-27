@@ -378,9 +378,9 @@ if (Store.view.showStaff.bass === true) {
     addStaffLines(0xffffff, 2, -1000, staffLineLengthEnd, lineYHeight, 0, 2);
 }
 
-////////////////////
+//////////////////////
 // MUSICIANS (FISH) //
-///////////////////
+//////////////////////
 // TODO: how to maintain png transparency
 // TODO: bubble animation -  https://medium.com/@soffritti.pierfrancesco/animations-with-alpha-textures-in-three-js-52a33654e137 
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_materials_cubemap_dynamic.html
@@ -432,16 +432,7 @@ if (Store.view.showFishAnimation === true) {
 
     musicianSecond = new Musician('fish_2', [-20, 5, -10]);
     const musicianSecondAudioConfig = {
-        // type: 'default',
         type: 'midi',
-        // notes: [
-        //     ["0:0:0", Store.instr.hiHatClosed],
-        //     ["0:2:0", Store.instr.hiHatClosed],
-        //     ["0:4:0", Store.instr.hiHatClosed],
-        //     ["0:6:0", Store.instr.hiHatClosed],
-        //     ["0:8:0", Store.instr.hiHatClosed],
-        //     ["0:10:0", Store.instr.hiHatClosed],
-        // ],
         notes: Store.recording.parts[2],
         loop: true,
     };
@@ -481,34 +472,61 @@ if (Store.view.showFishAnimation === true) {
 
     //
 
+    const hihatFirstAudioConfig = {
+        type: 'default',
+        notes: [
+            ["0:0:0", Store.instr.hiHatClosed],
+            ["0:2:0", Store.instr.hiHatClosed],
+            ["0:4:0", Store.instr.hiHatClosed],
+            ["0:6:0", Store.instr.hiHatClosed],
+            ["0:8:0", Store.instr.hiHatClosed],
+            ["0:10:0", Store.instr.hiHatClosed],
+        ],
+        loop: true,
+    };
+    const hihatSecondAudioConfig = {
+        type: 'default',
+        notes: [
+            ["0:1:0", Store.instr.hiHatClosed],
+            ["0:3:0", Store.instr.hiHatClosed],
+            ["0:5:0", Store.instr.hiHatClosed],
+            ["0:7:0", Store.instr.hiHatClosed],
+            ["0:9:0", Store.instr.hiHatClosed],
+            ["0:11:0", Store.instr.hiHatClosed],
+        ],
+        loop: true,
+    };
+
     musician7 = new Musician('fish_7', [-20, 5, -10]);
-    musician7.init('assets/fish/yellow_fish_01.png', 54000);
+    musician7.init('assets/fish/yellow_fish_01.png', 56000);
+    musician7.setAudio(hihatFirstAudioConfig, 56);
 
-    musician8 = new Musician('fish_8', [-20, 5, -20]);
-    musician8.init('assets/fish/yellow_fish_01.png', 54000);
+    musician8 = new Musician('fish_8', [-20, 10, -15]);
+    musician8.init('assets/fish/yellow_fish_01.png', 56000);
 
-    musician9 = new Musician('fish_9', [-20, 5, -30]);
-    musician9.init('assets/fish/yellow_fish_01.png', 54000);
+    musician9 = new Musician('fish_9', [-20, 5, -20]);
+    musician9.init('assets/fish/yellow_fish_01.png', 56000);
+    musician9.setAudio(hihatSecondAudioConfig, 56);
 
-    musician10 = new Musician('fish_10', [-20, 5, -40]);
-    musician10.init('assets/fish/yellow_fish_01.png', 54000);
+    musician10 = new Musician('fish_10', [-20, 10, -25]);
+    musician10.init('assets/fish/yellow_fish_01.png', 56000);
 
     //
 
     musician11 = new Musician('fish_11', [-20, 5, -10]);
-    musician11.init('assets/fish/purple_fish_01.png', 66000);
+    musician11.init('assets/fish/purple_fish_01.png', 72000);
 
     musician12 = new Musician('fish_12', [-20, 5, -20]);
-    musician12.init('assets/fish/purple_fish_01.png', 66000);
+    musician12.init('assets/fish/purple_fish_01.png', 72000);
 
     musician13 = new Musician('fish_13', [-20, 5, -30]);
-    musician13.init('assets/fish/purple_fish_01.png', 66000);
+    musician13.init('assets/fish/purple_fish_01.png', 72000);
 
     musician14 = new Musician('fish_14', [-20, 5, -40]);
-    musician14.init('assets/fish/purple_fish_01.png', 66000);
+    musician14.init('assets/fish/purple_fish_01.png', 72000);
 
     musician15 = new Musician('fish_15', [-20, 5, -50]);
-    musician15.init('assets/fish/purple_fish_01.png', 66000);
+    musician15.init('assets/fish/purple_fish_01.png', 72000);
 
 
     // OLD
@@ -543,7 +561,7 @@ let animate = () => {
     // TODO: fix logs - why not updating correctly?
     // console.log('ticks: ', Tone.Transport.ticks); //ex. 10 
     // console.log('position: ', Tone.Transport.position); //ex: 0:0:0.124
-    // console.log('seconds: ', Tone.Transport.seconds);
+    console.log('seconds: ', Tone.Transport.seconds);
     // console.log(Store.ticks);
     // console.log(Store.clock.elapsedTime);
 
