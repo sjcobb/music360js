@@ -145,7 +145,8 @@ export default class Musician {
 
     update() {
         const spriteBackwardOffset = 0.07;
-        const spriteSpeed = 0.15;
+        // const spriteSpeed = 0.15; // decent
+        const spriteSpeed = 0.20; 
 
         if (this.active === true) {
             // console.log('this.location: ', this.location);

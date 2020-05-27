@@ -457,19 +457,29 @@ if (Store.view.showFishAnimation === true) {
         notes: Store.recording.parts[3],
         loop: true,
     };
+    // chorusAudioConfig.playbackRate = 0.9;
+
+    const chorusAltAudioConfig = {
+        type: 'midi',
+        notes: Store.recording.parts[4],
+        loop: true,
+    };
+
 
     musicianFourth = new Musician('fish_4', [-20, 5, -10]);
     musicianFourth.init('assets/fish/green_fish_01.png', 41000);
+    musicianFourth.setAudio(chorusAudioConfig, 41);
 
     musicianFifth = new Musician('fish_5', [-20, 5, -20]);
     musicianFifth.init('assets/fish/green_fish_01.png', 41000);
-    musicianFifth.setAudio(chorusAudioConfig, 41);
 
     musicianSixth = new Musician('fish_6', [-20, 5, -30]);
     musicianSixth.init('assets/fish/green_fish_01.png', 41000);
+    // musicianSixth.setAudio(chorusAltAudioConfig, 41);
 
     // // //
 
+    // TODO: adjust playbackRate or bpm to match vocals bpm, adjust physics gravity / obj mass (different for drums vs. synth?)
     const hihatFirstAudioConfig = {
         type: 'default',
         notes: [
@@ -514,9 +524,9 @@ if (Store.view.showFishAnimation === true) {
     const drumsMainAudioConfig = {
         type: 'default',
         notes: [
-            ["0:0:0", Store.instr.snarePrimary],
-            ["0:1:0", Store.instr.snarePrimary],
-            ["0:5:0", Store.instr.crashPrimary],
+            ["0:0:0", Store.instr.crashPrimary],
+            ["0:1:0", Store.instr.crashPrimary],
+            ["0:3:0", Store.instr.snarePrimary],
         ],
         loop: true,
     };
