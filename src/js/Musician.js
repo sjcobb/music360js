@@ -144,7 +144,7 @@ export default class Musician {
     }
 
     update() {
-        const spriteBackwardOffset = 0.05;
+        const spriteBackwardOffset = 0.07;
         const spriteSpeed = 0.15;
 
         if (this.active === true) {

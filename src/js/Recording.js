@@ -16,7 +16,7 @@ export default class Recording {
         
         // Store.recording.playerFirst = new Tone.Player("./assets/song/aintno_vocals_01.wav").toMaster();
         Store.recording.playerFirst = new Tone.Player("./assets/fish/bubble-pop_vocals-only_01.wav").toMaster();
-        Store.recording.playerFirst.volume.value = -24;
+        Store.recording.playerFirst.volume.value = -30;
         // console.log('(Recording - initSample) -> Store.recording.playerFirst: ', Store.recording.playerFirst);
 
         // setTimeout(function() {

@@ -195,7 +195,8 @@ Store.polySynth = new Tone.PolySynth(10, Tone.Synth, {
 }).toMaster();
 
 // Store.polySynth.volume.value = -8; // v0.4, v0.5
-Store.polySynth.volume.value = -18;
+// Store.polySynth.volume.value = -18; // too low
+Store.polySynth.volume.value = -10;
 
 // Store.polySynth.set("detune", +1200); // octave = 12 semitones of 100 cents each
 // Store.polySynth.set("detune", +1200);
@@ -205,7 +206,8 @@ bounceSynth.volume.value = 2;
 bounceSynth.toMaster();
 
 var toneSnare = new Tone.NoiseSynth({
-    "volume": -5.0,
+    // "volume": -5.0, // prev
+    "volume": -9.0,
     "envelope": {
         "attack": 0.001,
         "decay": 0.2,

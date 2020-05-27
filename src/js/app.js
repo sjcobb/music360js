@@ -428,7 +428,7 @@ if (Store.view.showFishAnimation === true) {
     musicianFirst.init('assets/fish/blue_fish_01.png', 12000);
     musicianFirst.setAudio(musicianFirstAudioConfig, 12);
     
-    //
+    // // //
 
     musicianSecond = new Musician('fish_2', [-20, 5, -10]);
     const musicianSecondAudioConfig = {
@@ -439,38 +439,36 @@ if (Store.view.showFishAnimation === true) {
     musicianSecond.init('assets/fish/red_fish_01.png', 26000);
     musicianSecond.setAudio(musicianSecondAudioConfig, 26);
 
-    //
+    // // //
 
     musicianThird = new Musician('fish_3', [-20, 5, -10]);
     const musicianThirdAudioConfig = {
-        // type: 'default',
         type: 'midi',
-        // notes: [
-        //     ["0:1:0", Store.instr.hiHatClosed],
-        //     ["0:3:0", Store.instr.hiHatClosed],
-        //     ["0:5:0", Store.instr.hiHatClosed],
-        //     ["0:7:0", Store.instr.hiHatClosed],
-        //     ["0:9:0", Store.instr.hiHatClosed],
-        //     ["0:11:0", Store.instr.hiHatClosed],
-        // ],
         notes: Store.recording.parts[2],
         loop: true,
     };
     musicianThird.init('assets/fish/red_fish_01.png', 28000);
     musicianThird.setAudio(musicianThirdAudioConfig, 28);
 
-    //
+    // // //
+
+    const chorusAudioConfig = {
+        type: 'midi',
+        notes: Store.recording.parts[3],
+        loop: true,
+    };
 
     musicianFourth = new Musician('fish_4', [-20, 5, -10]);
     musicianFourth.init('assets/fish/green_fish_01.png', 41000);
 
     musicianFifth = new Musician('fish_5', [-20, 5, -20]);
     musicianFifth.init('assets/fish/green_fish_01.png', 41000);
+    musicianFifth.setAudio(chorusAudioConfig, 41);
 
     musicianSixth = new Musician('fish_6', [-20, 5, -30]);
     musicianSixth.init('assets/fish/green_fish_01.png', 41000);
 
-    //
+    // // //
 
     const hihatFirstAudioConfig = {
         type: 'default',
@@ -511,10 +509,21 @@ if (Store.view.showFishAnimation === true) {
     musician10 = new Musician('fish_10', [-20, 10, -25]);
     musician10.init('assets/fish/yellow_fish_01.png', 56000);
 
-    //
+    // // //
+
+    const drumsMainAudioConfig = {
+        type: 'default',
+        notes: [
+            ["0:0:0", Store.instr.snarePrimary],
+            ["0:1:0", Store.instr.snarePrimary],
+            ["0:5:0", Store.instr.crashPrimary],
+        ],
+        loop: true,
+    };
 
     musician11 = new Musician('fish_11', [-20, 5, -10]);
     musician11.init('assets/fish/purple_fish_01.png', 72000);
+    musician11.setAudio(drumsMainAudioConfig, 72);
 
     musician12 = new Musician('fish_12', [-20, 5, -20]);
     musician12.init('assets/fish/purple_fish_01.png', 72000);
