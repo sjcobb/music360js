@@ -196,7 +196,7 @@ Store.polySynth = new Tone.PolySynth(10, Tone.Synth, {
 
 // Store.polySynth.volume.value = -8; // v0.4, v0.5
 // Store.polySynth.volume.value = -18; // too low
-Store.polySynth.volume.value = -10;
+Store.polySynth.volume.value = -8;
 
 // Store.polySynth.set("detune", +1200); // octave = 12 semitones of 100 cents each
 // Store.polySynth.set("detune", +1200);
@@ -223,9 +223,12 @@ var toneSnare = new Tone.NoiseSynth({
 // const player808HiHat = new Player(`${sampleBaseUrl}/808-hihat-vh.mp3`).toMaster();
 // const playerHiHatOpen = new Tone.Player("./assets/sounds/drum-kits/dubstep/hihat-open.mp3").toMaster(); //PREV
 const playerHiHatOpen = new Player("./assets/sounds/drum-kits/dubstep/hihat-open.mp3").toMaster();
-const playerHiHat = new Player("./assets/sounds/drum-kits/dubstep/hihat-closed.mp3").toMaster();
-playerHiHatOpen.volume.value = -8;
-playerHiHat.volume.value = -8;
+playerHiHatOpen.volume.value = -14;
+
+// http://soundbible.com/2067-Blop.html
+// const playerHiHat = new Player("./assets/sounds/drum-kits/dubstep/hihat-closed.mp3").toMaster();
+const playerHiHat = new Player("./assets/sounds/bubble_pop_01.mp3").toMaster();
+playerHiHat.volume.value = -14;
 
 // const playerKick = new Player("./assets/sounds/drum-kits/analog/kick.mp3").toMaster(); //aka dubstep - 808?
 // const playerKick = new Player("./assets/sounds/drum-kits/dubstep/kick.mp3").toMaster(); //aka analog - PREV
@@ -241,9 +244,9 @@ const playerKick = new Player(Store.assets.kick).toMaster();
 
 // const playerKick = new Player("./assets/sounds/drum-kits/hiphop/kick.mp3").toMaster(); //v2, v3, v4 (boring, but not distorted)
 // playerKick.volume.value = +2; // v0.5
-playerKick.volume.value = -6; // v0.6
+// playerKick.volume.value = -6; // v0.6
 // playerKick.volume.value = +2;
-// playerKick.volume.value = -20;
+playerKick.volume.value = -14;
 
 // playerKick.volume.value = -6; // -6 broken
 // playerKick.input.value = -4; //err
@@ -298,7 +301,7 @@ export default class Trigger {
 
         Store.musicActive = true; //remove?
 
-        // console.log('Trigger -> addBody - opts: ', obj.userData.opts);
+        console.log('Trigger -> addBody - opts: ', obj.userData.opts);
         
         let triggerObj = {};
         let combinedNote = 'C1';

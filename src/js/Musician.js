@@ -122,6 +122,15 @@ export default class Musician {
                 // instrMapped.originalPosition.z += 10;
                 // instrMapped.duration = datum.duration;
                 // instrMapped.variation = 'guitar';
+
+                if (config.defaultDuration) {
+                    instrMapped.duration = config.defaultDuration;
+                }
+
+                if (config.variation) {
+                    instrMapped.variation = config.variation;
+                }
+
                 physics.addBody(true, Store.dropPosX, instrMapped, 0, tempLocation);
             // }, Store.recording.parts[0]);
             }, config.notes);
@@ -154,7 +163,7 @@ export default class Musician {
             if (this.location[2] < 30 && this.directionRight) {
                 this.location[0] += spriteBackwardOffset; // back / front
                 this.location[2] += spriteSpeed;
-            } else if (this.location[2] > -30) {
+            } else if (this.location[2] > -50) {
                 this.location[0] += spriteBackwardOffset;
                 this.location[2] -= spriteSpeed;
         

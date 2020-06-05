@@ -36,7 +36,8 @@ export default class Physics {
 
         // Store.world.gravity.set(0, -40, 0); // PREV - normal earth-like
         
-        Store.world.gravity.set(0, 5, 0); // underwater 
+        // Store.world.gravity.set(0, 5, 0); // underwater prev
+        Store.world.gravity.set(0, 7, 0); // underwater
 
         // this.debugRenderer = new THREE.CannonDebugRenderer(Store.scene, Store.world);
 
@@ -72,7 +73,9 @@ export default class Physics {
         }
 
         if (Store.view.stage.size === 'underwater') {
-            posArr = [0, 24, 0];
+            // posArr = [0, 24, 0]; // prev
+            posArr = [0, 26, 0];
+
             // sizeArr = [60, 60, 5];
             // sizeArr = [30, 60, 2]; // not long enough backwards
             sizeArr = [2000, 60, 2];
@@ -542,6 +545,10 @@ export default class Physics {
             // options.mesh.scale.set(0.5, 0.5, 0.5);
             options.mesh.scale.set(2, 2, 2);
 
+            if (options.size === 'xl') {
+                options.mesh.scale.set(10, 10, 10);
+            }
+
             // body.shapes.forEach(function(shape) {
             // // TODO: is all this needed? // //
             // });
@@ -681,32 +688,32 @@ export default class Physics {
 
                         setTimeout(() => {
                             instrMaterial.map = Store.view.instrumentConfigArr[1].bubbleTexture;
-                        }, 10);
-
-                        setTimeout(() => {
-                            instrMaterial.map = Store.view.instrumentConfigArr[2].bubbleTexture;
                         }, 20);
 
                         setTimeout(() => {
-                            instrMaterial.map = Store.view.instrumentConfigArr[3].bubbleTexture;
-                        }, 30);
-
-                        setTimeout(() => {
-                            instrMaterial.map = Store.view.instrumentConfigArr[4].bubbleTexture;
+                            instrMaterial.map = Store.view.instrumentConfigArr[2].bubbleTexture;
                         }, 40);
 
                         setTimeout(() => {
+                            instrMaterial.map = Store.view.instrumentConfigArr[3].bubbleTexture;
+                        }, 60);
+
+                        setTimeout(() => {
+                            instrMaterial.map = Store.view.instrumentConfigArr[4].bubbleTexture;
+                        }, 80);
+
+                        setTimeout(() => {
                             instrMaterial.map = Store.view.instrumentConfigArr[5].bubbleTexture;
-                        }, 50);
+                        }, 100);
 
                         setTimeout(() => {
                             instrMaterial.map = Store.view.instrumentConfigArr[6].bubbleTexture;
-                        }, 60);
+                        }, 120);
 
                         setTimeout(() => {
                             Store.scene.remove(obj3D);
                             Store.world.remove(body);
-                        }, 70);
+                        }, 140);
                     }
                     
                 }

@@ -414,7 +414,7 @@ if (Store.view.showFishAnimation === true) {
         // type: 'default',
         type: 'midi',
         // defaultDuration: '2n',
-        defaultDuration: '4n',
+        defaultDuration: '8n',
         // notes: [
         //     ["0:0:0", Store.instr.sphereChordC4, '8n'], // TODO: pass duration for each note
         //     ["0:3:0", Store.instr.sphereChordF4, '8n'],
@@ -424,6 +424,7 @@ if (Store.view.showFishAnimation === true) {
         // notes: Store.recording.parts[0],
         notes: Store.recording.parts[1],
         loop: true,
+        variation: 'guitar',
     };
     musicianFirst.init('assets/fish/blue_fish_01.png', 12000);
     musicianFirst.setAudio(musicianFirstAudioConfig, 12);
@@ -433,8 +434,13 @@ if (Store.view.showFishAnimation === true) {
     musicianSecond = new Musician('fish_2', [-20, 5, -10]);
     const musicianSecondAudioConfig = {
         type: 'midi',
+        // defaultDuration: '2n',
+        defaultDuration: '4n',
         notes: Store.recording.parts[2],
         loop: true,
+        // variation: 'saxophone',
+        variation: 'violin',
+        // variation: 'guitar',
     };
     musicianSecond.init('assets/fish/red_fish_01.png', 26000);
     musicianSecond.setAudio(musicianSecondAudioConfig, 26);
@@ -444,8 +450,10 @@ if (Store.view.showFishAnimation === true) {
     musicianThird = new Musician('fish_3', [-20, 5, -10]);
     const musicianThirdAudioConfig = {
         type: 'midi',
+        defaultDuration: '4n',
         notes: Store.recording.parts[2],
         loop: true,
+        variation: 'violin',
     };
     musicianThird.init('assets/fish/red_fish_01.png', 28000);
     musicianThird.setAudio(musicianThirdAudioConfig, 28);
@@ -456,6 +464,7 @@ if (Store.view.showFishAnimation === true) {
         type: 'midi',
         notes: Store.recording.parts[3],
         loop: true,
+        // variation: 'guitar',
     };
     // chorusAudioConfig.playbackRate = 0.9;
 
@@ -524,9 +533,10 @@ if (Store.view.showFishAnimation === true) {
     const drumsMainAudioConfig = {
         type: 'default',
         notes: [
-            ["0:0:0", Store.instr.crashPrimary],
-            ["0:1:0", Store.instr.crashPrimary],
-            ["0:3:0", Store.instr.snarePrimary],
+            // ["0:0:0", Store.instr.crashPrimary],
+            // ["0:1:0", Store.instr.crashPrimary],
+            // ["0:3:0", Store.instr.snarePrimary],
+            ["0:0:0", Store.instr.kickPrimary],
         ],
         loop: true,
     };
@@ -537,14 +547,15 @@ if (Store.view.showFishAnimation === true) {
 
     musician12 = new Musician('fish_12', [-20, 5, -20]);
     musician12.init('assets/fish/purple_fish_01.png', 72000);
+    // musician12.setAudio(drumsMainAudioConfig, 72);
 
     musician13 = new Musician('fish_13', [-20, 5, -30]);
     musician13.init('assets/fish/purple_fish_01.png', 72000);
 
-    musician14 = new Musician('fish_14', [-20, 5, -40]);
+    musician14 = new Musician('fish_14', [-20, 0, -15]);
     musician14.init('assets/fish/purple_fish_01.png', 72000);
 
-    musician15 = new Musician('fish_15', [-20, 5, -50]);
+    musician15 = new Musician('fish_15', [-20, 0, -25]);
     musician15.init('assets/fish/purple_fish_01.png', 72000);
 
 
@@ -580,7 +591,7 @@ let animate = () => {
     // TODO: fix logs - why not updating correctly?
     // console.log('ticks: ', Tone.Transport.ticks); //ex. 10 
     // console.log('position: ', Tone.Transport.position); //ex: 0:0:0.124
-    console.log('seconds: ', Tone.Transport.seconds);
+    // console.log('seconds: ', Tone.Transport.seconds);
     // console.log(Store.ticks);
     // console.log(Store.clock.elapsedTime);
 
