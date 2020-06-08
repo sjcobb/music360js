@@ -299,7 +299,7 @@ export default {
         showDashboard: false,
         showFishAnimation: true,
         showRadio: false,
-        showStats: true,
+        showStats: false,
         showStaff: {
             bass: false,
             treble: false,

@@ -19,15 +19,15 @@ export default class Recording {
         Store.recording.playerFirst.volume.value = -30;
         // console.log('(Recording - initSample) -> Store.recording.playerFirst: ', Store.recording.playerFirst);
 
-        // setTimeout(function() {
-        //     // // Tone.Transport.start();
-        //     // // player.start();
-        //     // Store.recording.playerFirst.start(); // use
-        // }, 6000);
+        // // setTimeout(function() {
+        // //     // // Tone.Transport.start();
+        // //     // // player.start();
+        // //     // Store.recording.playerFirst.start(); // use
+        // // }, 6000);
 
-        setTimeout(() => {
-            Store.recording.playerFirst.start();
-        }, 12000);
+        // setTimeout(() => {
+        //     Store.recording.playerFirst.start();
+        // }, 12000);
         
     }
 

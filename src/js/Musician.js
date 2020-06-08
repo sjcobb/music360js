@@ -40,6 +40,9 @@ export default class Musician {
         // console.log('(Musician) - init() -> this.name: ', this.name);
         // console.log('(Musician) - init() -> this.sprite: ', this.sprite);
 
+        // this.location[0] -= 20; // moves closer to camera
+        this.location[2] -= 20; // moves further to left
+
         let instrSprite;
         let spriteTexture;
 
@@ -125,6 +128,10 @@ export default class Musician {
 
                 if (config.defaultDuration) {
                     instrMapped.duration = config.defaultDuration;
+                }
+
+                if (config.customDuration) {
+                    instrMapped.duration *= 2;
                 }
 
                 if (config.variation) {

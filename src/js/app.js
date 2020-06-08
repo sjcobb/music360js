@@ -415,6 +415,7 @@ if (Store.view.showFishAnimation === true) {
         type: 'midi',
         // defaultDuration: '2n',
         defaultDuration: '8n',
+        // customDuration: true,
         // notes: [
         //     ["0:0:0", Store.instr.sphereChordC4, '8n'], // TODO: pass duration for each note
         //     ["0:3:0", Store.instr.sphereChordF4, '8n'],
@@ -436,6 +437,7 @@ if (Store.view.showFishAnimation === true) {
         type: 'midi',
         // defaultDuration: '2n',
         defaultDuration: '4n',
+        // customDuration: true,
         notes: Store.recording.parts[2],
         loop: true,
         // variation: 'saxophone',
@@ -451,6 +453,7 @@ if (Store.view.showFishAnimation === true) {
     const musicianThirdAudioConfig = {
         type: 'midi',
         defaultDuration: '4n',
+        // customDuration: true,
         notes: Store.recording.parts[2],
         loop: true,
         variation: 'violin',
