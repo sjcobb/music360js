@@ -10,17 +10,20 @@ export default {
     // activeInstrColor: '#567d46', //grass green (md)
     // activeInstrColor: '#edc9af', //desert sand
     // activeInstrColor: '#e9be9f', // sand (md)
-    // activeInstrColor: '#e5b38f', //PREV - sand (md2)
+    // activeInstrColor: '#e5b38f', // sand (md2)
     // activeInstrColor: '#d8d8d8',
     // activeInstrColor: '#00A29C', // teal: https://www.color-hex.com/color-palette/4666
     // activeInstrColor: '#66b2b2', // lt teal
     // activeInstrColor: '#003366', // spinner midnight blue
     // activeInstrColor: '#001f3e',
     // activeInstrColor: '#1f1f1f',
-    // activeInstrColor: '#343434', // PREV (gray)
+    // activeInstrColor: '#343434', // gray
     // activeInstrColor: '#ffffff',
     // activeInstrColor: '#0047bb', // blue screen
-    activeInstrColor: '#FF0000', // blue screen
+    // activeInstrColor: '#FF0000', // red
+    // activeInstrColor: '#70483c', // earth brown
+    activeInstrColor: '#808487', // cyan-blue
+    // activeInstrColor: '#5A4D41', // rock
     ai: {
         enabled: false,
     },
@@ -49,7 +52,7 @@ export default {
     bpm: 180,
     camera: new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000),
     // cameraCircularAnimation: false, // true - drum spinner (v0.3), NOW view.drumCircle
-    cameraLookUp: true,
+    cameraLookUp: false,
     cameraShakeEnabled: true,
     cameraShakeActive: false,
     clock: new THREE.Clock(),
@@ -168,7 +171,7 @@ export default {
     },
     view: {
         drumCircle: true,
-        skybox: false,
+        skybox: true,
         cameraPositionBehind: true,
         cameraAutoStart: true,
         // posBehindX: -70,

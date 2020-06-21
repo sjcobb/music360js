@@ -125,7 +125,7 @@ playerKick.volume.value = -6; // v0.6
 //     fadeOut: 0
 // }
 
-console.log({playerKick});
+// console.log({playerKick});
 
 const playerKickSecondary = new Player(Store.assets.kick).toMaster();
 // const playerKickSecondary = new Player("./assets/sounds/drum-kits/electronic/tom-high.mp3").toMaster();
