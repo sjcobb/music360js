@@ -81,7 +81,7 @@ Store.loader = new THREE.TextureLoader();
 // BACKGROUND //
 ////////////////
 // // Store.scene.background = new THREE.Color( 0xff0000 ); // red
-// Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
+Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
 // // Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
 
 // update viewport on resize
@@ -404,6 +404,30 @@ for (let i=0; i<=5; i++) {
     // Store.musicians.push(tempMusician);
 }
 
+if (Store.view.showCloudAnimation === true) {
+    // musicianFirst = new Musician('cloud_1', [-20, 5, -10]);  // too low
+    musicianFirst = new Musician('cloud_1', [-20, 25, -10]);
+    const musicianFirstAudioConfig = {
+        // type: 'default',
+        type: 'midi',
+        // defaultDuration: '2n',
+        defaultDuration: '8n',
+        // customDuration: true,
+        // notes: [
+        //     ["0:0:0", Store.instr.sphereChordC4, '8n'], // TODO: pass duration for each note
+        //     ["0:3:0", Store.instr.sphereChordF4, '8n'],
+        //     ["0:6:0", Store.instr.sphereChordC4, '8n'], 
+        //     ["0:9:0", Store.instr.sphereChordG4, '8n'], 
+        // ],
+        // notes: Store.recording.parts[0],
+        notes: Store.recording.parts[1],
+        loop: true,
+        variation: 'guitar',
+    };
+    musicianFirst.init('assets/cloud/cloud_white_1.png', 2000);
+    musicianFirst.setAudio(musicianFirstAudioConfig, 2);
+}
+
 if (Store.view.showFishAnimation === true) {
 
     const yStartPos = 5;
@@ -642,26 +666,29 @@ let animate = () => {
     //     instrSpriteSecond.position.set(...Store.view.instrumentConfigArr[1].location);
 
     // }
+
+    // // //
+    // TODO: add feature flag for configurable musician update
     
     musicianFirst.update();
 
-    musicianSecond.update();
-    musicianThird.update();
+    // musicianSecond.update();
+    // musicianThird.update();
 
-    musicianFourth.update();
-    musicianFifth.update();
-    musicianSixth.update();
+    // musicianFourth.update();
+    // musicianFifth.update();
+    // musicianSixth.update();
 
-    musician7.update(); 
-    musician8.update();
-    musician9.update();
-    musician10.update();
+    // musician7.update(); 
+    // musician8.update();
+    // musician9.update();
+    // musician10.update();
 
-    musician11.update();
-    musician12.update();
-    musician13.update();
-    musician14.update();
-    musician15.update();
+    // musician11.update();
+    // musician12.update();
+    // musician13.update();
+    // musician14.update();
+    // musician15.update();
 
     //
 

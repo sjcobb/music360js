@@ -62,7 +62,8 @@ export default class Musician {
         // console.log('instrSprite: ', instrSprite);
 
         instrSprite.position.set(...this.location);
-        instrSprite.scale.set(5, 5, 5);
+        // instrSprite.scale.set(5, 5, 5); // too small
+        instrSprite.scale.set(15, 15, 15);
 
         // this.sprite = instrSprite;
 
@@ -162,7 +163,9 @@ export default class Musician {
     update() {
         const spriteBackwardOffset = 0.07;
         // const spriteSpeed = 0.15; // decent
-        const spriteSpeed = 0.20; 
+        // const spriteSpeed = 0.20; // too fast
+
+        const spriteSpeed = 0.10; 
 
         if (this.active === true) {
             // console.log('this.location: ', this.location);
@@ -175,20 +178,14 @@ export default class Musician {
                 this.location[2] -= spriteSpeed;
         
                 // https://stackoverflow.com/a/23684251/7639084
-                this.texture.repeat.set(-1, 1);
-                this.texture.offset.set(1, 0);
-
-                // Store.musicians[0].texture.repeat.set(-1, 1);
-                // Store.musicians[0].texture.offset.set(1, 0);
+                // this.texture.repeat.set(-1, 1);
+                // this.texture.offset.set(1, 0);
         
                 // Store.view.instrumentConfig.directionRight = false;
                 this.directionRight = false;
             } else {
-                this.texture.repeat.set(1, 1);
-                this.texture.offset.set(0, 0);
-
-                // Store.musicians[0].texture.repeat.set(1, 1);
-                // Store.musicians[0].texture.offset.set(0, 0);
+                this.texture.repeat.set(1, 1); // flips sprite when hits right edge
+                this.texture.offset.set(0, 0); // flips sprite when hits right edge
 
                 // Store.view.instrumentConfig.directionRight = true;
                 this.directionRight = true;

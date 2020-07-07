@@ -34,10 +34,9 @@ export default class Physics {
 
         // // Store.world.gravity.set(0, -10, 0);
 
-        // Store.world.gravity.set(0, -40, 0); // PREV - normal earth-like
-        
-        // Store.world.gravity.set(0, 5, 0); // underwater prev
-        Store.world.gravity.set(0, 7, 0); // underwater
+        // TODO: add Store gravity feature flag
+        Store.world.gravity.set(0, -40, 0); // PREV - normal earth-like
+        // Store.world.gravity.set(0, 7, 0); // underwater
 
         // this.debugRenderer = new THREE.CannonDebugRenderer(Store.scene, Store.world);
 
@@ -52,7 +51,7 @@ export default class Physics {
 
         // this.addSpinner();
 
-        // this.createFloor([0, -1, 0], [130, 130, 0.1], 1); // picnic
+        this.createFloor([0, -1, 0], [130, 130, 0.1], 1); // picnic
     }
 
     initGroundContactMaterial(posArr=[0, -6, 0], sizeArr=[5000, 10, 5]) {

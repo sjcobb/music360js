@@ -200,21 +200,23 @@ export default {
     view: {
 
         drumCircle: true,
-        skybox: true,
+        skybox: false,
         skyboxTheme: 'underwater',
+
+        // TODO: reorg all camera vars inside single view.camera obj
         cameraPositionBehind: true,
         cameraAutoStart: true,
         cameraLookAtSprite: false,
-        // posBehindX: -70,
-        // posBehindY: 8,
-        // posBehindZ: 1,
+        posBehindX: -70,
+        posBehindY: 8,
+        posBehindZ: 1,
 
         // posBehindX: -70,
         // posBehindX: -45, // earthquake
-        posBehindX: -65,
-        // posBehindY: 12,
-        posBehindY: -2,
-        posBehindZ: 0,
+
+        // posBehindX: -65, // underwater
+        // posBehindY: -2,  // underwater
+        // posBehindZ: 0,   // underwater
 
         bubbleTexture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/1.png'),
         bubbleAssetPath: 'assets/bubble/bubble_pop_one/1.png',
@@ -297,7 +299,8 @@ export default {
         // songAutoStartTime: 3000,
         songAutoStartTime: 0,
         showDashboard: false,
-        showFishAnimation: true,
+        showFishAnimation: false,
+        showCloudAnimation: true,
         showRadio: false,
         showStats: false,
         showStaff: {
@@ -306,9 +309,10 @@ export default {
         },
         stage: {
             // size: 'large',
-            // size: 'medium',
-            // size: 'small',
-            size: 'underwater',
+            // size: 'medium', // invalid
+            size: 'small',
+            // size: 'underwater',
+            // background: 'green', // TODO: add to app -> Store.scene.background -> 0x00b140 
         }
     },
     world: new CANNON.World(),
