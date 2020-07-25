@@ -266,13 +266,27 @@ export default class Physics {
 
         const floorTexture = Store.loader.load(assetUrl);
 
+        // https://discourse.threejs.org/t/how-do-i-repeat-texture-with-fixed-size/9158/9
         // https://threejs.org/docs/#api/en/textures/Texture.repeat
         // floorTexture.repeat = new THREE.Vector2(1, 1);
         // floorTexture.repeat = new THREE.Vector2(2, 2);
-        // floorTexture.repeat.set(4, 4);
-        floorTexture.wrapY = THREE.RepeatWrapping;
+        // floorTexture.repeat = new THREE.Vector2(1, 1);
 
+        floorTexture.repeat = new THREE.Vector2(16, 3);
+        
+        // floorTexture.repeat.set(4, 4);
+        floorTexture.wrapY = THREE.RepeatWrapping; // PREV
+        // floorTexture.wrapY = THREE.MirroredRepeatWrapping;
+        // floorTexture.wrapY = THREE.ClampToEdgeWrapping;
+        
+        // https://threejs.org/docs/#api/en/textures/Texture.wrapS
+        floorTexture.wrapS = THREE.RepeatWrapping;
+        
+        floorTexture.wrapT = THREE.RepeatWrapping;
+        
+        console.log({floorTexture});
         const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture } );
+
         // floorMaterial.map.center.set(0.5, 0.5);
         // floorMaterial.transparent = true;
         // floorMaterial.color = new THREE.Color(Store.activeInstrColor); // no effect
@@ -439,6 +453,8 @@ export default class Physics {
             if (Store.view.showStaff.treble === true) {
                 zPos += 2;
             }
+
+            zPos += 10; // v rain-rain
         }
 
         if (Store.cameraCircularAnimation === true) {

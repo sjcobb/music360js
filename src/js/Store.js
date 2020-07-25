@@ -201,7 +201,8 @@ export default {
 
         drumCircle: true,
         skybox: false,
-        skyboxTheme: 'underwater',
+        // skyboxTheme: 'underwater',
+        skyboxTheme: 'nightsky',
 
         // TODO: reorg all camera vars inside single view.camera obj
         cameraPositionBehind: true,
@@ -305,8 +306,8 @@ export default {
         showRadio: false,
         showStats: false,
         showStaff: {
-            bass: true,
-            treble: true,
+            bass: false,
+            treble: false,
         },
         stage: {
             size: 'large',
