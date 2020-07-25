@@ -209,7 +209,7 @@ export default {
         cameraAutoStart: true,
         cameraLookAtSprite: false,
         // posBehindX: -70, // PREV
-        posBehindX: -55,
+        posBehindX: -65,
         posBehindY: 8,
         posBehindZ: 1,
 

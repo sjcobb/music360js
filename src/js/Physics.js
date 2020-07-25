@@ -560,7 +560,10 @@ export default class Physics {
 
             // options.mesh.scale.set(1.35, 1.35, 1.35);
             // options.mesh.scale.set(0.5, 0.5, 0.5);
-            options.mesh.scale.set(2, 2, 2);
+            // options.mesh.scale.set(2, 2, 2); // PREV
+
+            options.mesh.scale.set(0.25, 3.5, 1);
+
 
             if (options.size === 'xl') {
                 options.mesh.scale.set(10, 10, 10);

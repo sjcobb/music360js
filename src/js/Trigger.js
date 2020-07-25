@@ -116,6 +116,9 @@ Store.sampler.guitar = new Tone.Sampler({
     // Store.sampler.guitar.triggerAttackRelease("A3");
 }).toMaster();
 
+// Store.sampler.guitar.set("detune", +1200); // no effect
+// Store.sampler.guitar.set("detune", -1200); // no effect
+
 Store.sampler.guitar.volume.value = -20;
 // console.log(Store.sampler.guitar);
 

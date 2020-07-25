@@ -409,7 +409,8 @@ for (let i=0; i<=5; i++) {
 
 if (Store.view.showCloudAnimation === true) {
     // musicianFirst = new Musician('cloud_1', [-20, 5, -10]);  // too low
-    musicianFirst = new Musician('cloud_1', [-20, 25, -10], false);
+    // musicianFirst = new Musician('cloud_1', [-20, 25, -10], false);
+    musicianFirst = new Musician('cloud_1', [-20, 30, -10], false);
     const musicianFirstAudioConfig = {
         // type: 'default',
         type: 'midi',

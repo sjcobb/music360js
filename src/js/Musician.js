@@ -68,7 +68,8 @@ export default class Musician {
         // console.log('instrSprite: ', instrSprite);
 
         instrSprite.position.set(...this.location);
-        instrSprite.scale.set(2, 2, 2);
+        instrSprite.scale.set(1, 1, 1);
+        // instrSprite.scale.set(2, 2, 2);
         // instrSprite.scale.set(15, 15, 15);
 
         // this.sprite = instrSprite;
