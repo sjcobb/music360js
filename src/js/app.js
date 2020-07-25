@@ -368,8 +368,11 @@ function addStaffLines(color = 0x000000, offset, posXstart, posXend, posY, posZ,
     }
 }
 
-const staffLineLengthEnd = 8000;
-const lineYHeight = -0.95;
+// const staffLineLengthEnd = 8000; // PREV
+const staffLineLengthEnd = 1000;
+
+// const lineYHeight = -0.95; // PREV
+const lineYHeight = -0.80;
 if (Store.view.showStaff.treble === true) {
     addStaffLines(0xffffff, -10, -1000, staffLineLengthEnd, lineYHeight, 0, 2);
     addStaffLines(0xffffff, -20, -1000, staffLineLengthEnd, lineYHeight, 0, 2, true, true); // two dashed lines above treble clef
@@ -406,7 +409,7 @@ for (let i=0; i<=5; i++) {
 
 if (Store.view.showCloudAnimation === true) {
     // musicianFirst = new Musician('cloud_1', [-20, 5, -10]);  // too low
-    musicianFirst = new Musician('cloud_1', [-20, 25, -10]);
+    musicianFirst = new Musician('cloud_1', [-20, 25, -10], false);
     const musicianFirstAudioConfig = {
         // type: 'default',
         type: 'midi',
@@ -419,9 +422,9 @@ if (Store.view.showCloudAnimation === true) {
         //     ["0:6:0", Store.instr.sphereChordC4, '8n'], 
         //     ["0:9:0", Store.instr.sphereChordG4, '8n'], 
         // ],
-        // notes: Store.recording.parts[0],
-        notes: Store.recording.parts[1],
-        loop: true,
+        notes: Store.recording.parts[0],
+        // notes: Store.recording.parts[1],
+        loop: false,
         variation: 'guitar',
     };
     musicianFirst.init('assets/cloud/cloud_white_1.png', 2000);

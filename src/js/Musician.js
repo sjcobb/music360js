@@ -6,7 +6,7 @@ import { generateInstrMetadata } from './InstrumentMappings';
 
 export default class Musician {
 
-    constructor(name, location) {
+    constructor(name, location, animateSideways) {
         // super();
 
         // https://stackoverflow.com/a/31924233/7639084
@@ -16,6 +16,7 @@ export default class Musician {
         this.texture = {};
         this.location = location;
         this.directionRight = true;
+        this.animateSideways = animateSideways;
 
         this.active = false;
     }
@@ -41,7 +42,12 @@ export default class Musician {
         // console.log('(Musician) - init() -> this.sprite: ', this.sprite);
 
         // this.location[0] -= 20; // moves closer to camera
-        this.location[2] -= 20; // moves further to left
+
+        if (this.animateSideways === true) { 
+            this.location[2] -= 20; // moves further to left
+        } else {
+            this.location[2] = 0; 
+        }
 
         let instrSprite;
         let spriteTexture;
@@ -161,21 +167,33 @@ export default class Musician {
     }
 
     update() {
-        const spriteBackwardOffset = 0.07;
+        // const spriteBackwardOffset = 0.07; // PREV
+        const spriteBackwardOffset = 0.25;
+
         // const spriteSpeed = 0.15; // decent
         // const spriteSpeed = 0.20; // too fast
 
-        const spriteSpeed = 0.10; 
+        const spriteSpeed = 0.10;
+
+        if (this.animateSideways === false) { 
+            this.location[2] = 0; 
+        }
 
         if (this.active === true) {
-            // console.log('this.location: ', this.location);
-            // if (this.location[2] < 20 && Store.view.instrumentConfig.directionRight) {
+            
+            // console.log(this);
             if (this.location[2] < 30 && this.directionRight) {
                 this.location[0] += spriteBackwardOffset; // back / front
-                this.location[2] += spriteSpeed;
+
+                if (this.animateSideways === true) {
+                    this.location[2] += spriteSpeed;
+                }
             } else if (this.location[2] > -50) {
                 this.location[0] += spriteBackwardOffset;
-                this.location[2] -= spriteSpeed;
+
+                if (this.animateSideways === true) {
+                    this.location[2] -= spriteSpeed;
+                }
         
                 // https://stackoverflow.com/a/23684251/7639084
                 // this.texture.repeat.set(-1, 1);
@@ -184,8 +202,11 @@ export default class Musician {
                 // Store.view.instrumentConfig.directionRight = false;
                 this.directionRight = false;
             } else {
-                this.texture.repeat.set(1, 1); // flips sprite when hits right edge
-                this.texture.offset.set(0, 0); // flips sprite when hits right edge
+
+                if (this.animateSideways === true) {
+                    this.texture.repeat.set(1, 1); // flips sprite when hits right edge
+                    this.texture.offset.set(0, 0); // flips sprite when hits right edge
+                }
 
                 // Store.view.instrumentConfig.directionRight = true;
                 this.directionRight = true;

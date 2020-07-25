@@ -42,7 +42,7 @@ export default {
         // kick: "./assets/sounds/drum-kits/808/808-choppa.wav", // too low
         // kick: "./assets/sounds/drum-kits/808/808-yc.wav",
     },
-    autoScroll: false,
+    autoScroll: true,
 
     // bpm: 120, // v0.4
     // bpm: 140,
@@ -207,7 +207,8 @@ export default {
         cameraPositionBehind: true,
         cameraAutoStart: true,
         cameraLookAtSprite: false,
-        posBehindX: -70,
+        // posBehindX: -70, // PREV
+        posBehindX: -100,
         posBehindY: 8,
         posBehindZ: 1,
 
@@ -304,13 +305,13 @@ export default {
         showRadio: false,
         showStats: false,
         showStaff: {
-            bass: false,
-            treble: false,
+            bass: true,
+            treble: true,
         },
         stage: {
-            // size: 'large',
+            size: 'large',
             // size: 'medium', // invalid
-            size: 'small',
+            // size: 'small',
             // size: 'underwater',
             // background: 'green', // TODO: add to app -> Store.scene.background -> 0x00b140 
         }

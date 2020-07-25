@@ -51,7 +51,8 @@ export default class Physics {
 
         // this.addSpinner();
 
-        this.createFloor([0, -1, 0], [130, 130, 0.1], 1); // picnic
+        // this.createFloor([0, -1, 0], [130, 130, 0.1], 1); // PREV - small picnic
+        this.createFloor([0, -1, 0], [1000, 130, 0.1], 1); // picnic
     }
 
     initGroundContactMaterial(posArr=[0, -6, 0], sizeArr=[5000, 10, 5]) {
@@ -319,7 +320,7 @@ export default class Physics {
         // zPos = options.originalPosition !== undefined ? options.originalPosition.z : Math.random() * (15 - 5) - 2;
         // // zPos = Store.dropPosY; // drum spinner (v0.3)
 
-        // zPos = options.originalPosition.z || 0;
+        zPos = options.originalPosition.z || 0; // IMPORTANT
         // zPos += 20;
 
         let sphereRestitution = 0.3;
@@ -457,6 +458,7 @@ export default class Physics {
         // body.position.set((sphere) ? -xPos : xPos, yPos, zPos); // PREV - earthquake, v0.5
         // console.log({location});
         if (location) {
+            location[2] = zPos;
             body.position.set(...location);
         } else {
             body.position.set(...Store.view.instrumentConfigArr[index].location);
