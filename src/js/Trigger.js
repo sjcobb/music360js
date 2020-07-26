@@ -158,6 +158,7 @@ Store.sampler.saxophone = new Tone.Sampler({
 }, function(){
     // Store.sampler.saxophone.triggerAttackRelease("G3");
 }).toMaster();
+Store.sampler.saxophone.volume.value = -20;
 
 ///////////
 // SYNTH //

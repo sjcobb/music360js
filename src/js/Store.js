@@ -208,7 +208,7 @@ export default {
         cameraAutoStart: true,
         cameraLookAtSprite: false,
         // posBehindX: -70, // PREV
-        posBehindX: -100,
+        posBehindX: -55,
         posBehindY: 8,
         posBehindZ: 1,
 
@@ -297,8 +297,8 @@ export default {
             
 
         songAutoStart: true,
-        // songAutoStartTime: 3000,
-        songAutoStartTime: 0,
+        songAutoStartTime: 5000,
+        // songAutoStartTime: 0,
         showDashboard: false,
         showFishAnimation: false,
         showCloudAnimation: true,

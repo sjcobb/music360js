@@ -52,7 +52,7 @@ export default class Physics {
         // this.addSpinner();
 
         // this.createFloor([0, -1, 0], [130, 130, 0.1], 1); // PREV - small picnic
-        this.createFloor([0, -1, 0], [1000, 130, 0.1], 1); // picnic
+        this.createFloor([0, -1, 0], [2000, 130, 0.1], 1); // picnic
     }
 
     initGroundContactMaterial(posArr=[0, -6, 0], sizeArr=[5000, 10, 5]) {

@@ -413,8 +413,8 @@ if (Store.view.showCloudAnimation === true) {
     const musicianFirstAudioConfig = {
         // type: 'default',
         type: 'midi',
-        // defaultDuration: '2n',
-        defaultDuration: '8n',
+        defaultDuration: '2n',
+        // defaultDuration: '8n',
         // customDuration: true,
         // notes: [
         //     ["0:0:0", Store.instr.sphereChordC4, '8n'], // TODO: pass duration for each note
@@ -426,8 +426,11 @@ if (Store.view.showCloudAnimation === true) {
         // notes: Store.recording.parts[1],
         loop: false,
         variation: 'guitar',
+        // variation: 'violin',
+        // variation: 'saxophone',
     };
-    musicianFirst.init('assets/cloud/cloud_white_1.png', 2000);
+    // musicianFirst.init('assets/cloud/cloud_white_1.png', 2000);
+    musicianFirst.init('assets/tracker.png', 2000);
     musicianFirst.setAudio(musicianFirstAudioConfig, 2);
 }
 
