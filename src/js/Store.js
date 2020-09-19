@@ -155,7 +155,7 @@ export default {
         posBehindY: 4,
         posBehindZ: 0,
 
-        songAutoStart: true,
+        songAutoStart: false,
         showDashboard: false,
         showLogoSprite: false,
         showStats: false,
