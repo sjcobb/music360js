@@ -126,6 +126,10 @@ export default {
     polySynth: {},
     groundMeshIncrementer: 0,
     renderer: new THREE.WebGLRenderer(),
+    sampler: {
+        strings: {},
+        guitar: {},
+    },
     scene: new THREE.Scene(),
     spinnerBody: {},
     // staffLineInitZ: 8,    // remove

@@ -4,7 +4,11 @@ import { getInstrumentMappingTemplate, generateInstrMetadata, getInstrByInputNot
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 import Light from './Light.js';
 import Physics from './Physics.js';
-import Stats from 'stats.js';
+
+import Recording from './Recording.js';
+// import * as recordingFirstNotes from '../../assets/recording/1.json'
+// console.log({recordingFirstNotes});
+// console.log(recordingFirstNotes.tracks[0].notes);
 
 /***
  *** SCENE SETUP ***

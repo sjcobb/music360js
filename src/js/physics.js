@@ -219,9 +219,13 @@ export default class Physics {
         body.linearDamping = Store.damping; // 0.01
         // body.linearDamping = 0.01; // v0.2, v0.3
 
-        // body.angularVelocity.z = 12; //too much rotation - hard to read note letter
-        // body.angularVelocity.z = 6; //prev
-        body.angularVelocity.z = 0;
+        // // // IMPORTANT - rotation spped // // //
+        // body.angularVelocity.z = 10; // prev
+        // body.angularVelocity.z = options.size === 'xl' ? 10 : 20;
+
+        // body.angularVelocity.z = options.size === 'xl' ? 8 : 18; // earthquake
+        // body.angularVelocity.z = options.size === 'xl' ? 8 : 24; // works
+        body.angularVelocity.z = options.size === 'xl' ? 8 : 26;
 
         if (options.type === 'animation') {
             flamePhysics.create({x: -xPos});
