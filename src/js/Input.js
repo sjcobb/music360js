@@ -68,11 +68,12 @@ function onActiveInputChange(id) {
         console.log({input});
 
         let noteStartTime = 0;
-        let noteMaxDuration = 1000;
-        let notePlayedDuration = 1000;
+        let noteMaxDuration = 4000;
+        // let notePlayedDuration = 1000;
+        let notePlayedDuration;
 
-        var delta = Store.clock.getDelta();
-        console.log({delta});
+        // var delta = Store.clock.getDelta();
+        // console.log({delta});
 
         // Store.clockNote.start();
 
@@ -93,7 +94,9 @@ function onActiveInputChange(id) {
             // console.log({delta});
 
             setTimeout(function(){
-                humanKeyDown(e.note.number, e.velocity, notePlayedDuration);
+                if (notePlayedDuration != null) {
+                    humanKeyDown(e.note.number, e.velocity, notePlayedDuration);
+                }
             }, noteMaxDuration);
 
         });
@@ -110,27 +113,28 @@ function onActiveInputChange(id) {
             humanKeyUp(e.note.number, tempNoteLength);
 
             // https://threejs.org/docs/#api/en/core/Clock
-            console.log('NOTEOFF...');
-            console.log('Store.clockNote: ', Store.clockNote);
-            // console.log('Store.clockNote.elapsedTime: ', Store.clockNote.elapsedTime);
-            console.log('Store.clockNote.elapsedTime: ', Store.clockNote.getElapsedTime());
+            // console.log('NOTEOFF...');
+            // console.log('Store.clockNote: ', Store.clockNote);
+            // // console.log('Store.clockNote.elapsedTime: ', Store.clockNote.elapsedTime);
+            // console.log('Store.clockNote.elapsedTime: ', Store.clockNote.getElapsedTime());
 
             notePlayedDuration = Store.clockNote.getElapsedTime();
-            // console.log({delta});
-            // console.log(Store.clock);
-            console.log(Store.clockNote);
+            // // console.log({delta});
+            // // console.log(Store.clock);
+            // console.log(Store.clockNote);
             Store.clockNote.stop();
-            // autoStart: true
-            // elapsedTime: 47.74227999999857
-            // oldTime: 48934.40999999439
-            // running: true
-            // startTime: 1192.1299999958137
-            // __proto__:
-            // getDelta: ƒ ()
-            // getElapsedTime: ƒ ()
-            // start: ƒ ()
-            // stop: ƒ ()
-            console.log('...');
+            // Debug (clockNote):
+                // autoStart: true
+                // elapsedTime: 47.74227999999857
+                // oldTime: 48934.40999999439
+                // running: true
+                // startTime: 1192.1299999958137
+                // __proto__:
+                // getDelta: ƒ ()
+                // getElapsedTime: ƒ ()
+                // start: ƒ ()
+                // stop: ƒ ()
+            // console.log('...');
         });
 
         // input.addListener('pitchbend', 1, e => {
@@ -197,7 +201,9 @@ let humanKeyAdds = [],
 function humanKeyDown(note, velocity = 0.7, duration) {
     // console.log('(humanKeyDown) -> note: ', note);
     // console.log('(humanKeyDown) -> velocity: ', velocity);
-    console.log('(humanKeyDown) -> duration: ', duration);
+    // console.log('(humanKeyDown) -> duration: ', duration);
+
+    // duration = duration * 1000;
 
     playNote(note, duration);
 
@@ -241,16 +247,19 @@ function humanKeyUp(note, timestampLength) {
 }
 
 function playNote(note, duration = 250) {
+    // console.log('(playNote - ', note, ' -> duration: ', duration);
+
     if (note < MIN_NOTE || note > MAX_NOTE) return;
 
     const instrMapped = generateInstrMetadata(note);
 
-    const maxNoteLength = 500;
-    duration = duration > maxNoteLength ? maxNoteLength : duration;
+    // const maxNoteLength = 500;
+    // duration = duration > maxNoteLength ? maxNoteLength : duration;
 
     // TODO: change instr length property to duration
     // instrMapped.length = duration / 1000; // IMPORTANT - so length is in milliseconds 
-    instrMapped.length = duration;
+    // instrMapped.length = duration;
+    instrMapped.duration = duration;
 
     // // if (note !== 72 && note !== 71 && note !== 67 && note !== 66) { // B5, C6, G5, Gb5
     if (true) {

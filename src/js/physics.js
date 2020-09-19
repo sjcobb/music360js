@@ -265,6 +265,7 @@ export default class Physics {
 
             if (Store.triggerOn === 'contact') {
                 if (bodyCollideCount === 1) {
+                    // console.log({body});
                     trigger.triggerNote(body);
                     notePlayed = true;
                 }
