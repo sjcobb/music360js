@@ -79,14 +79,15 @@ const light = new Light();
 light.addLights(Store.renderer);
 
 const physics = new Physics();
-physics.init();
+// physics.init();
+physics.initPhysics();
 
 /////////////// 
 // RECORDING //
 //////////////
-const recording = new Recording();
-recording.initSample();
-recording.initInstruments();
+// const recording = new Recording();
+// recording.initSample();
+// recording.initInstruments();
 
 //-----GEOMETRY VARIABLES------//
 let box = new THREE.BoxGeometry(1, 1, 1);

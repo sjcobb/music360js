@@ -128,10 +128,31 @@ export default class Physics {
                 // sphereRestitution = options.length / 2;
                 // sphereRestitution = options.duration * 0.65; // PREV
 
-                sphereRestitution = options.duration * 0.55; // higher decimal = higher bounce
-                // sphereRestitution = options.duration * 0.58; // twinkle star
+                // console.log(options.duration);
 
-                // sphereRestitution = options.length * 1;
+                // // const maxDuration = 2.5; // too bouncy
+                const maxDuration = 1.7;
+                const minDuration = 0.50;
+
+                // options.duration = options.duration < minDuration ? minDuration : options.duration;
+                options.duration = options.duration > maxDuration ? maxDuration : options.duration;
+
+                // // sphereRestitution = options.duration * 0.65; // v0.5
+                // // sphereRestitution = options.duration * 1.5; // too bouncy
+
+                // // sphereRestitution = options.duration * 1.40;
+
+                // sphereRestitution = options.duration * 1.44; // earthquake
+
+                // sphereRestitution = options.duration * 0.45;
+                sphereRestitution = options.duration * 0.5;
+
+                // console.log(sphereRestitution);
+
+                const minRestitution = 0.3;
+                sphereRestitution = sphereRestitution < minRestitution ? minRestitution : sphereRestitution;
+
+                // sphereRestitution = options.duration * 0.58; // PREV (twinkle)
 
                 // TODO: clean up bounciness default and min / max height
                 // if (sphereRestitution < 0.225) {

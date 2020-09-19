@@ -125,6 +125,29 @@ export default {
     patternInfinite: false,
     polySynth: {},
     groundMeshIncrementer: 0,
+    recording: {
+        playerFirst: {},
+        parts: [
+            {
+                notes: [],
+            },
+            {
+                notes: [],
+            },
+            {
+                notes: [],
+            },
+        ],
+        // first: {
+        //     notes: [],
+        // },
+        // second: {
+        //     notes: [],
+        // },
+        // third: {
+        //     notes: [],
+        // },
+    },
     renderer: new THREE.WebGLRenderer(),
     sampler: {
         strings: {},
@@ -160,7 +183,7 @@ export default {
         posBehindY: 4,
         posBehindZ: 0,
 
-        songAutoStart: false,
+        songAutoStart: true,
         showDashboard: false,
         showLogoSprite: false,
         showStats: false,
