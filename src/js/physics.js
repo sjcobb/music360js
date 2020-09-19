@@ -144,13 +144,14 @@ export default class Physics {
 
                 // sphereRestitution = options.duration * 1.44; // earthquake
 
-                // sphereRestitution = options.duration * 0.45;
-                sphereRestitution = options.duration * 0.5;
+                sphereRestitution = options.duration * 0.48;
+                // sphereRestitution = options.duration * 0.5; // prev
 
-                // console.log(sphereRestitution);
-
-                const minRestitution = 0.3;
+                // const minRestitution = 0.3; //prev
+                const minRestitution = 0.125;
                 sphereRestitution = sphereRestitution < minRestitution ? minRestitution : sphereRestitution;
+
+                // console.log({sphereRestitution});
 
                 // sphereRestitution = options.duration * 0.58; // PREV (twinkle)
 
@@ -246,7 +247,9 @@ export default class Physics {
 
         // body.angularVelocity.z = options.size === 'xl' ? 8 : 18; // earthquake
         // body.angularVelocity.z = options.size === 'xl' ? 8 : 24; // works
-        body.angularVelocity.z = options.size === 'xl' ? 8 : 26;
+        // body.angularVelocity.z = options.size === 'xl' ? 8 : 26; // earthquake, prev
+
+        body.angularVelocity.z = options.size === 'xl' ? 8 : 0; 
 
         if (options.type === 'animation') {
             flamePhysics.create({x: -xPos});
@@ -293,7 +296,25 @@ export default class Physics {
                     // console.log({body});
                     trigger.triggerNote(body);
                     notePlayed = true;
-                }
+
+                    // if (options.material != null) {
+                        
+                        // // instrMaterial.map = Store.view.instrumentConfigArr[0].bubbleTexture;
+
+                        // setTimeout(() => {
+                        //     instrMaterial.map = Store.view.instrumentConfigArr[1].bubbleTexture;
+                        // }, 20);
+
+                        // setTimeout(() => {
+                        //     instrMaterial.map = Store.view.instrumentConfigArr[6].bubbleTexture;
+                        // }, 120);
+
+                        setTimeout(() => {
+                            // Store.scene.remove(obj3D);
+                            Store.world.remove(body);
+                        }, 600);
+                    // }
+                } 
             } else if (Store.triggerOn === 'spinner') {
                 if (spinnerCollideCount === 1 && notePlayed !== true) { // 0.3
                     trigger.triggerNote(body);

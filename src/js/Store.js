@@ -24,7 +24,7 @@ export default {
     },
     autoScroll: true,
     // autoStartTime: 4500,
-    autoStartTime: 2000,
+    autoStartTime: 6000,
     // bpm: 120, // v0.4
     // bpm: 140,
     // bpm: 160,
@@ -179,7 +179,7 @@ export default {
         // posBehindY: 8,
         // posBehindZ: 1,
 
-        posBehindX: -70,
+        posBehindX: -60, 
         posBehindY: 4,
         posBehindZ: 0,
 
