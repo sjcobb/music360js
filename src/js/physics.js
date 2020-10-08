@@ -49,7 +49,7 @@ export default class Physics {
 
         if (Store.view.showStaff.treble === true && Store.view.showStaff.bass === true) {
             posArr = [0, -6, -2];
-            sizeArr = [5000, 15, 5];
+            sizeArr = [12000, 20, 5];
         }
 
         if (Store.view.stage.size === 'lg') {

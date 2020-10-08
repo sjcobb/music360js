@@ -90,6 +90,9 @@ export function generateInstrMetadata(note) {
     const instrMapped = getInstrByInputNote(baseNote);
 
     if (tonalNote.length === 3) {
+        // console.log('(generateInstrMetadata) -> tonalNote condition...');
+        // console.log({baseNote});
+        // console.log({tonalNote});
         instrMapped.note = tonalNote[0] + tonalNote[1];
         instrMapped.ballDesc = tonalNote[0] + tonalNote[1];
         // instrMapped.ballDesc = tonalNote;
@@ -546,6 +549,56 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             chord: ['C6', 'E6', 'G6'],
             type: 'chord',
             originalPosition: { x: 0, y: 0, z: -16 }
+        },
+        sphereChordD6: {
+            ballDesc: 'D',
+            color: '#680896', //II - purple
+            keyInput: '?',
+            note: 'D',
+            octave: 6,
+            chord: ['D6', 'F6', 'A6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -17 }
+        },
+        sphereChordE6: {
+            ballDesc: 'E',
+            color: '#FF001F', //III - redorange
+            keyInput: '?',
+            note: 'E',
+            octave: 6,
+            chord: ['E6', 'G6', 'B6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -18 }
+        },
+        sphereChordF6: {
+            ballDesc: 'F',
+            color: '#006CFA', //IV - medblue
+            keyInput: '?',
+            note: 'F',
+            octave: 6,
+            chord: ['F6', 'A6', 'C7'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -19 }
+        },
+        sphereChordG6: {
+            ballDesc: 'G',
+            color: '#4B0AA1', //V - dkblue
+            keyInput: '?',
+            note: 'G',
+            octave: 6,
+            chord: ['G6', 'B6', 'D6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -20 }
+        },
+        sphereChordA6: {
+            ballDesc: 'A',
+            color: '#C6018B', //VI - pink
+            keyInput: '?',
+            note: 'A',
+            octave: 6,
+            chord: ['A6', 'C7', 'E7'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -21 }
         },
         // Db2, Eb2, Gb2, Ab2, Bb2, Db3, Eb3, Gb3, Ab3, Bb3
     };

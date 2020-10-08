@@ -406,6 +406,7 @@ const recordingPart = new Tone.Part(function(time, datum){
     instrMapped.duration = datum.duration;
 
     // instrMapped.variation = 'guitar';
+    // instrMapped.variation = 'violin';
 
     physics.addBody(true, Store.dropPosX, instrMapped, 0);
 

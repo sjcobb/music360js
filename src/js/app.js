@@ -329,8 +329,8 @@ function createCharts(showGrid = false) {
         },
         // color: ['#fff000'],
         color: [
-            '#FFFF00', // yellow
-            // '#64b5f6', // human blue
+            // '#FFFF00', // yellow
+            '#64b5f6', // human blue
             '#c12e34','#e6b600','#0098d9','#2b821d',
             '#005eaa','#339ca8','#cda819','#32a487'
         ],
@@ -542,7 +542,7 @@ function createCharts(showGrid = false) {
         dataset: {
             source: Store.dashboard.noteCountsArr,
             dimensions: ['note', 'octave', 'count'],
-            // imensions: ['note', 'noteCount', 'octave', 'octaveCount', 'time'],
+            // dimensions: ['note', 'noteCount', 'octave', 'octaveCount', 'time'],
         },
     };
 
