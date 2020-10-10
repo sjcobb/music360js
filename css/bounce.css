@@ -258,14 +258,13 @@ button#btn-drums-1 {
 
 .dashboard-container {
     /* display: none; */
+    width: 350px;
+    margin: 0 auto;
     position: absolute;
-    /* top: 0; */
     top: -85px;
-    right: 0px;
+    right: 0;
     bottom: auto;
-    left: auto;
-    /* margin: 0 auto; */
-    /* background: #fff; */
+    left: 0;
     z-index: 10;
     padding: 5px;
     transition: right 2s;
@@ -330,6 +329,17 @@ button#btn-drums-1 {
 
 .img-container.alternate {
     opacity: 0;
+}
+
+#divider {
+    background-color: #00b140; /* green screen */
+    background-color: #0047bb; /* blue screen */
+    width: 20px;
+    height: 1080px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
 }
 
 

@@ -41,6 +41,7 @@ Tone.Transport.timeSignature = 12; // v0.4, v0.5
 // SAMPLER //
 /////////////
 // https://tonejs.github.io/docs/r11/Sampler
+// https://github.com/nbrosowsky/tonejs-instruments
 
 const samplerAssetPath = './assets/samples/violin/'
 Store.sampler.strings = new Tone.Sampler({
@@ -114,6 +115,98 @@ Store.sampler.guitar = new Tone.Sampler({
 
 Store.sampler.guitar.volume.value = -20;
 // console.log(Store.sampler.guitar);
+
+const samplerAssetPathThird = './assets/samples/piano/'
+Store.sampler.piano = new Tone.Sampler({
+    'A0': samplerAssetPathThird + 'A0.[mp3|ogg]',
+    'A1': samplerAssetPathThird + 'A1.[mp3|ogg]',
+    'A2': samplerAssetPathThird + 'A2.[mp3|ogg]',
+    'A3': samplerAssetPathThird + 'A3.[mp3|ogg]',
+    'A4': samplerAssetPathThird + 'A4.[mp3|ogg]',
+    'A5': samplerAssetPathThird + 'A5.[mp3|ogg]',
+    'A6': samplerAssetPathThird + 'A6.[mp3|ogg]',
+    'A#0': samplerAssetPathThird + 'As0.[mp3|ogg]',
+    'A#1': samplerAssetPathThird + 'As1.[mp3|ogg]',
+    'A#2': samplerAssetPathThird + 'As2.[mp3|ogg]',
+    'A#3': samplerAssetPathThird + 'As3.[mp3|ogg]',
+    'A#4': samplerAssetPathThird + 'As4.[mp3|ogg]',
+    'A#5': samplerAssetPathThird + 'As5.[mp3|ogg]',
+    'A#6': samplerAssetPathThird + 'As6.[mp3|ogg]',
+    'B0': samplerAssetPathThird + 'B0.[mp3|ogg]',
+    'B1': samplerAssetPathThird + 'B1.[mp3|ogg]',
+    'B2': samplerAssetPathThird + 'B2.[mp3|ogg]',
+    'B3': samplerAssetPathThird + 'B3.[mp3|ogg]',
+    'B4': samplerAssetPathThird + 'B4.[mp3|ogg]',
+    'B5': samplerAssetPathThird + 'B5.[mp3|ogg]',
+    'B6': samplerAssetPathThird + 'B6.[mp3|ogg]',
+    'C0': samplerAssetPathThird + 'C0.[mp3|ogg]',
+    'C1': samplerAssetPathThird + 'C1.[mp3|ogg]',
+    'C2': samplerAssetPathThird + 'C2.[mp3|ogg]',
+    'C3': samplerAssetPathThird + 'C3.[mp3|ogg]',
+    'C4': samplerAssetPathThird + 'C4.[mp3|ogg]',
+    'C5': samplerAssetPathThird + 'C5.[mp3|ogg]',
+    'C6': samplerAssetPathThird + 'C6.[mp3|ogg]',
+    'C7': samplerAssetPathThird + 'C7.[mp3|ogg]',
+    'C#0': samplerAssetPathThird + 'Cs0.[mp3|ogg]',
+    'C#1': samplerAssetPathThird + 'Cs1.[mp3|ogg]',
+    'C#2': samplerAssetPathThird + 'Cs2.[mp3|ogg]',
+    'C#3': samplerAssetPathThird + 'Cs3.[mp3|ogg]',
+    'C#4': samplerAssetPathThird + 'Cs4.[mp3|ogg]',
+    'C#5': samplerAssetPathThird + 'Cs5.[mp3|ogg]',
+    'C#6': samplerAssetPathThird + 'Cs6.[mp3|ogg]',
+    'D0': samplerAssetPathThird + 'D0.[mp3|ogg]',
+    'D1': samplerAssetPathThird + 'D1.[mp3|ogg]',
+    'D2': samplerAssetPathThird + 'D2.[mp3|ogg]',
+    'D3': samplerAssetPathThird + 'D3.[mp3|ogg]',
+    'D4': samplerAssetPathThird + 'D4.[mp3|ogg]',
+    'D5': samplerAssetPathThird + 'D5.[mp3|ogg]',
+    'D6': samplerAssetPathThird + 'D6.[mp3|ogg]',
+    'D#0': samplerAssetPathThird + 'Ds0.[mp3|ogg]',
+    'D#1': samplerAssetPathThird + 'Ds1.[mp3|ogg]',
+    'D#2': samplerAssetPathThird + 'Ds2.[mp3|ogg]',
+    'D#3': samplerAssetPathThird + 'Ds3.[mp3|ogg]',
+    'D#4': samplerAssetPathThird + 'Ds4.[mp3|ogg]',
+    'D#5': samplerAssetPathThird + 'Ds5.[mp3|ogg]',
+    'D#6': samplerAssetPathThird + 'Ds6.[mp3|ogg]',
+    'E0': samplerAssetPathThird + 'E0.[mp3|ogg]',
+    'E1': samplerAssetPathThird + 'E1.[mp3|ogg]',
+    'E2': samplerAssetPathThird + 'E2.[mp3|ogg]',
+    'E3': samplerAssetPathThird + 'E3.[mp3|ogg]',
+    'E4': samplerAssetPathThird + 'E4.[mp3|ogg]',
+    'E5': samplerAssetPathThird + 'E5.[mp3|ogg]',
+    'E6': samplerAssetPathThird + 'E6.[mp3|ogg]',
+    'F0': samplerAssetPathThird + 'F0.[mp3|ogg]',
+    'F1': samplerAssetPathThird + 'F1.[mp3|ogg]',
+    'F2': samplerAssetPathThird + 'F2.[mp3|ogg]',
+    'F3': samplerAssetPathThird + 'F3.[mp3|ogg]',
+    'F4': samplerAssetPathThird + 'F4.[mp3|ogg]',
+    'F5': samplerAssetPathThird + 'F5.[mp3|ogg]',
+    'F6': samplerAssetPathThird + 'F6.[mp3|ogg]',
+    'F#0': samplerAssetPathThird + 'Fs0.[mp3|ogg]',
+    'F#1': samplerAssetPathThird + 'Fs1.[mp3|ogg]',
+    'F#2': samplerAssetPathThird + 'Fs2.[mp3|ogg]',
+    'F#3': samplerAssetPathThird + 'Fs3.[mp3|ogg]',
+    'F#4': samplerAssetPathThird + 'Fs4.[mp3|ogg]',
+    'F#5': samplerAssetPathThird + 'Fs5.[mp3|ogg]',
+    'F#6': samplerAssetPathThird + 'Fs6.[mp3|ogg]',
+    'G0': samplerAssetPathThird + 'G0.[mp3|ogg]',
+    'G1': samplerAssetPathThird + 'G1.[mp3|ogg]',
+    'G2': samplerAssetPathThird + 'G2.[mp3|ogg]',
+    'G3': samplerAssetPathThird + 'G3.[mp3|ogg]',
+    'G4': samplerAssetPathThird + 'G4.[mp3|ogg]',
+    'G5': samplerAssetPathThird + 'G5.[mp3|ogg]',
+    'G6': samplerAssetPathThird + 'G6.[mp3|ogg]',
+    'G#0': samplerAssetPathThird + 'Gs0.[mp3|ogg]',
+    'G#1': samplerAssetPathThird + 'Gs1.[mp3|ogg]',
+    'G#2': samplerAssetPathThird + 'Gs2.[mp3|ogg]',
+    'G#3': samplerAssetPathThird + 'Gs3.[mp3|ogg]',
+    'G#4': samplerAssetPathThird + 'Gs4.[mp3|ogg]',
+    'G#5': samplerAssetPathThird + 'Gs5.[mp3|ogg]',
+    'G#6': samplerAssetPathThird + 'Gs6.[mp3|ogg]'
+}, function(){
+    // Store.sampler.piano.triggerAttackRelease("A3");
+}).toMaster();
+Store.sampler.piano.volume.value = -14;
 
 ///////////
 // SYNTH //
@@ -354,6 +447,8 @@ export default class Trigger {
                 Store.sampler.strings.triggerAttackRelease(combinedNote, noteLength); 
             } else if (triggerObj.variation === 'guitar') {
                 Store.sampler.guitar.triggerAttackRelease(combinedNote, noteLength); 
+            } else if (triggerObj.variation === 'piano') {
+                Store.sampler.piano.triggerAttackRelease(combinedNote, noteLength); 
             } else {
                 Store.polySynth.triggerAttackRelease(combinedNote, noteLength); 
             }
@@ -395,7 +490,8 @@ const recordingPart = new Tone.Part(function(time, datum){
 
     // instrMapped.color = '#008b8b';
     // instrMapped.color = '#800000'; // dkred
-    instrMapped.color = '#64b5f6'; // human blue
+    // instrMapped.color = '#64b5f6'; // human blue
+    instrMapped.color = '#AC3E24'; // beethoven red
 
     // instrMapped.originalPosition.z -= 15;
     // instrMapped.originalPosition.z -= 18;
@@ -407,6 +503,7 @@ const recordingPart = new Tone.Part(function(time, datum){
 
     // instrMapped.variation = 'guitar';
     // instrMapped.variation = 'violin';
+    instrMapped.variation = 'piano';
 
     physics.addBody(true, Store.dropPosX, instrMapped, 0);
 

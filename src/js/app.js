@@ -1,3 +1,7 @@
+import Tone from 'Tone';
+// import * as THREE from 'three';
+import Stats from 'stats.js';
+
 import Store from './Store.js';
 import InstrumentMappings from './InstrumentMappings.js';
 import { getInstrumentMappingTemplate, generateInstrMetadata, getInstrByInputNote } from './InstrumentMappings.js';
@@ -17,8 +21,9 @@ import Recording from './Recording.js';
  * TODO: update to most recent of both libs
  ***/
 
+let stats;
 if (Store.view.showStats === true) {
-    var stats = new Stats();
+    stats = new Stats();
     stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
     document.body.appendChild( stats.dom );
 }
@@ -31,15 +36,43 @@ Store.instr = getInstrumentMappingTemplate();
  *** 3D ENVIRONMENT ***
  ***/
 
-Store.scene.background = new THREE.Color(0, 0, 0);
+/////////////
+// CAMERAS //
+/////////////
+let left = 0;
+let bottom = 0;
+var width = window.innerWidth;
+var height = window.innerHeight;
+const createCamera = () => {
+    // const width = 1280;
+    // const height = 720;
 
+    // // //
+
+    // const width = 1920;
+    // const height = 1080;
+
+    //
+    const fov = 45;
+    const aspect = width / height;
+    const near = 1;
+    const far = 100000;
+    const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+    return camera;
+};
+
+// Store.scene.background = new THREE.Color(0, 0, 0);
+
+//-----CAMERA 1------//
+Store.camera = createCamera();
 Store.camera.position.set(0, 16, 26); 
 Store.camera.lookAt(new THREE.Vector3(0, -2.5, 0)); // v0.5
 
 if (Store.view.cameraPositionBehind === true) {
     Store.camera.position.set(Store.view.posBehindX, Store.view.posBehindY, Store.view.posBehindZ);
     // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ));
-    Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 12, Store.view.posBehindZ));
+    Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ - 15));
+    // // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX - 200, 12, Store.view.posBehindZ)); // rear view
 }
 
 if (Store.cameraLookUp === true) {
@@ -51,20 +84,42 @@ if (Store.view.showStaff.treble === true && Store.view.showStaff.bass === true) 
     Store.view.posBehindX -= 10;
 }
 
+console.log('Store.camera: ', Store.camera);
+
+//-----CAMERA 2------//
+// https://observablehq.com/@vicapow/threejs-example-of-multiple-camera-viewports
+// https://threejs.org/examples/webgl_multiple_views.html
+const cameraTop = createCamera();
+cameraTop.position.z = 0.1; // -0.1 (flips)
+cameraTop.position.y = 100;
+cameraTop.lookAt(new THREE.Vector3(0, 0, 0));
+console.log({cameraTop});
+
+//////////////
+// RENDERER //
+//////////////
+
 Store.renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(Store.renderer.domElement);
 Store.renderer.domElement.id = 'canvas-scene-primary';
 
 // update viewport on resize
 window.addEventListener('resize', function() {
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-    Store.renderer.setSize(width, height);
-    Store.camera.aspect = width / height; //aspect ratio
-    Store.camera.updateProjectionMatrix();
+    // var width = window.innerWidth;
+    // var height = window.innerHeight;
+    // Store.renderer.setSize(width, height);
+    // Store.camera.aspect = width / height; // aspect ratio
+    // Store.camera.updateProjectionMatrix();
+
+    // //
+    // cameraTop.aspect = Math.floor(width / 2) / height;
+    // cameraTop.updateProjectionMatrix();
 });
 
-// CONTROLS: https://threejs.org/examples/#misc_controls_fly
+//////////////
+// CONTROLS //
+//////////////
+// https://threejs.org/examples/#misc_controls_fly
 Store.controls = new FlyControls(Store.camera);
 Store.controls.movementSpeed = 1; //prev: 10
 Store.controls.domElement = Store.renderer.domElement;
@@ -72,8 +127,18 @@ Store.controls.rollSpeed = Math.PI / 40;
 Store.controls.autoForward = false;
 Store.controls.dragToLook = true;
 
-//*** LOADER ***
+/////////////
+// LOADER //
+////////////
 Store.loader = new THREE.TextureLoader();
+
+
+////////////////
+// BACKGROUND //
+////////////////
+// // Store.scene.background = new THREE.Color( 0xff0000 ); // red
+// Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
+Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
 
 const light = new Light();
 light.addLights(Store.renderer);
@@ -221,25 +286,68 @@ let animate = () => {
     // console.log(Store.clock.elapsedTime);
 
     if (Store.autoScroll === true) {
-        const ticksMultiplier = 12; // v0.5
+        // const ticksMultiplier = 12; // v0.5
         // const ticksMultiplier = 18; 
+        const ticksMultiplier = 24;
 
         Store.ticks += (delta * ticksMultiplier); // Too fast, balls dropped too far left
         if (Store.view.cameraPositionBehind === true) {
             if (Store.view.cameraAutoStart === true) {
                 Store.camera.position.x = Store.view.posBehindX + (Store.ticks);
+
+                cameraTop.position.x = (Store.view.posBehindX + 30) + (Store.ticks);
             }
         } else {
-            Store.camera.position.x = (Store.ticks) - 35;
+            Store.camera.position.x = (Store.ticks) - 35; // prev
+            // Store.camera.position.x = (Store.ticks) - 55; 
         }
     }
 
     physics.updateBodies(Store.world);
     Store.world.step(Store.fixedTimeStep);
 
-    Store.controls.update(delta);
+    Store.controls.update(delta); // IMPORTANT
 
+    // https://stackoverflow.com/questions/14740076/one-scene-but-multiple-viewports-with-their-own-camera-three-js
+    // https://stemkoski.github.io/Three.js/Multiple-Cameras.html
+    // https://observablehq.com/@vicapow/threejs-example-of-multiple-camera-viewports
+    // https://github.com/mrdoob/three.js/blob/dev/examples/webgl_multiple_views.html#L258
+
+    // TODO: reusable updateCamera method
+
+    left = 0;
+    // console.log({left}); // 0
+    // console.log({bottom}); // 0
+    Store.renderer.setViewport(left, bottom, Math.floor(width / 2), height);
+    // Store.renderer.setScissor(left, bottom, Math.floor(width / 2), height); 
+    Store.renderer.setScissor(left, bottom, Math.floor(width / 2), height);
+    Store.renderer.setScissorTest(true);
+    Store.renderer.setClearColor(new THREE.Color(1, 1, 1));
+    Store.camera.aspect = Math.floor(width / 2) / height;
+    Store.camera.updateProjectionMatrix();
+    // console.log('Store.camera: ', Store.camera);
     Store.renderer.render(Store.scene, Store.camera);
+
+    // // //
+
+    left = Math.floor(width / 2);
+    // console.log({left}); // 640
+    // console.log({bottom}); // 0
+    Store.renderer.setViewport(left, bottom, Math.floor(width / 2), height);
+    Store.renderer.setScissor(left, bottom, Math.floor(width / 2), height);
+    Store.renderer.setScissorTest(true);
+    Store.renderer.setClearColor(new THREE.Color(1, 1, 1));
+    cameraTop.aspect = Math.floor(width / 2) / height;
+    cameraTop.updateProjectionMatrix();
+    // cameraTop.position.z = 0.1; // -0.1 (flips)
+    // cameraTop.position.y = 100;
+    // cameraTop.lookAt(new THREE.Vector3(0, 0, 0));
+    // console.log('cameraTop: ', cameraTop);
+    Store.renderer.render(Store.scene, cameraTop);
+
+    // // //
+
+    // https://gamedev.stackexchange.com/questions/40704/what-is-the-purpose-of-glscissor
 
     if (Store.view.showStats === true) {
         stats.end();
@@ -268,6 +376,15 @@ window.onload = () => {
                 case ('z'):
                     // physics.addBody(true, Store.dropPosX, keyMapped);
                     // Store.dropPosX -= 1.3;
+                    break;
+                case ('Escape'):
+                    Tone.Transport.stop();
+                    // Store.recording.playerFirst.stop();
+                    console.error('... ESCAPE -> Tone.Transport & recording stopped ...');
+                    break;
+                case ('Enter'):
+                    Tone.Transport.start();
+                    console.info('... ENTER -> Tone.Transport started ...');
                     break;
                 case(' '):
                     console.error('... SPACEBAR RESET -> polySynth.triggerRelease() ...');
@@ -330,7 +447,8 @@ function createCharts(showGrid = false) {
         // color: ['#fff000'],
         color: [
             // '#FFFF00', // yellow
-            '#64b5f6', // human blue
+            // '#64b5f6', // human blue
+            '#AC3E24', // beethoven red
             '#c12e34','#e6b600','#0098d9','#2b821d',
             '#005eaa','#339ca8','#cda819','#32a487'
         ],
@@ -616,5 +734,12 @@ if (Store.view.showDashboard === true) {
             // addDashboard3D();
         }
     }, 100);
+
+
+    // setInterval(() => {
+    //     console.log(Store.dashboard.noteCountsObj);
+    //     console.log(Store.dashboard.noteCountsArr);
+    // }, 12000);
+    
 
 }

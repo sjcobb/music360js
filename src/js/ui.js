@@ -122,9 +122,9 @@ document.addEventListener("visibilitychange", function() {
 //     Store.camera.lookAt(new THREE.Vector3(0, 1, 10));
 //     // Store.camera.lookAt(new THREE.Vector3(-1, 1, 10));
 // // }, Store.autoStartTime + 32000); //Store.autoStartTime = 9000
-// }, Store.autoStartTime + 46000); 
+// // }, Store.autoStartTime + 46000); 
 // // }, 33000);
-// // }, 1000);
+// }, 1000);
 
 // Store.view.cameraPositionBehind = false;
 // // camera.position.set(0, 5, 35);

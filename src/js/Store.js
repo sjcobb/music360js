@@ -28,7 +28,8 @@ export default {
     // bpm: 120,
     // bpm: 140,
     bpm: 160,
-    camera: new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000),
+    // camera: new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000), // PREV
+    camera: {},
     // cameraCircularAnimation: false, // true - drum spinner (v0.3), NOW view.drumCircle
     cameraLookUp: false,
     clock: new THREE.Clock(),
@@ -54,9 +55,24 @@ export default {
         recentPlayedNotes: [],
         noteCountsObj: {
             // TODO: final data structure chosen for bar3D, clean up others
+            A3: {note: "A", octave: 3, count: 0},
+            A4: {note: "A", octave: 4, count: 0},
+            A5: {note: "A", octave: 5, count: 0},
+            A6: {note: "A", octave: 6, count: 0},
+            C6: {note: "C", octave: 6, count: 0},
         },
         noteCountsArr: [
-            // {note: 'A', octave: 3, count: 0},
+            // {note: 'C', octave: 6, count: 0},
+            // {note: 'A', octave: 5, count: 0},
+            // {note: 'A', octave: 4, count: 0},
+            // {note: 'G', octave: 3, count: 0},
+            // {note: 'B', octave: 3, count: 0},
+            // {note: 'G', octave: 4, count: 0},
+            // {note: 'B', octave: 4, count: 0},
+            // {note: 'G', octave: 5, count: 0},
+            // {note: 'B', octave: 5, count: 0},
+            // {note: 'G', octave: 6, count: 0},
+            // {note: 'B', octave: 6, count: 0},
         ],
         instrData: [],
         // https://echarts.apache.org/en/option.html#dataset.source
@@ -147,7 +163,8 @@ export default {
         //     notes: [],
         // },
     },
-    renderer: new THREE.WebGLRenderer(),
+    // renderer: new THREE.WebGLRenderer(),
+    renderer: new THREE.WebGLRenderer({ antialias: true }),
     sampler: {
         strings: {},
         guitar: {},
@@ -178,14 +195,14 @@ export default {
         // posBehindY: 8,
         // posBehindZ: 1,
 
-        posBehindX: -60, 
+        posBehindX: -95, 
         posBehindY: 4,
         posBehindZ: 0,
 
         songAutoStart: true,
         showDashboard: true,
         showLogoSprite: false,
-        showStats: false,
+        showStats: true,
         showStaff: {
             bass: true,
             treble: true,
