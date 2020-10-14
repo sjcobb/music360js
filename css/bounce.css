@@ -332,6 +332,7 @@ button#btn-drums-1 {
 }
 
 #divider {
+    display: none;
     background-color: #00b140; /* green screen */
     background-color: #0047bb; /* blue screen */
     width: 20px;

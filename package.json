@@ -37,6 +37,7 @@
     "webpack-dev-server": "^3.7.2"
   },
   "devDependencies": {
+    "json5-loader": "^4.0.1",
     "webpack-cli": "^3.3.4"
   }
 }

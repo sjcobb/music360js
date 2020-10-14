@@ -45,7 +45,17 @@ const config = {
         publicPath: '/dist/',
         watchContentBase: true, //for html
         historyApiFallback: true
-    }
+    },
+    // https://json5.org/
+    // module: {
+    //     rules: [
+    //         {
+    //             test: /\.json5$/i,
+    //             loader: 'json5-loader',
+    //             type: 'javascript/auto',
+    //         },
+    //     ],
+    // },
 };
 
 module.exports = config;

@@ -70,8 +70,8 @@ Store.camera.lookAt(new THREE.Vector3(0, -2.5, 0)); // v0.5
 
 if (Store.view.cameraPositionBehind === true) {
     Store.camera.position.set(Store.view.posBehindX, Store.view.posBehindY, Store.view.posBehindZ);
-    // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ));
-    Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ - 15));
+    Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ));
+    // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ - 15)); // slightly to left
     // // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX - 200, 12, Store.view.posBehindZ)); // rear view
 }
 
@@ -89,11 +89,14 @@ console.log('Store.camera: ', Store.camera);
 //-----CAMERA 2------//
 // https://observablehq.com/@vicapow/threejs-example-of-multiple-camera-viewports
 // https://threejs.org/examples/webgl_multiple_views.html
-const cameraTop = createCamera();
-cameraTop.position.z = 0.1; // -0.1 (flips)
-cameraTop.position.y = 100;
-cameraTop.lookAt(new THREE.Vector3(0, 0, 0));
-console.log({cameraTop});
+
+if (Store.view.showCameraTop === true) {
+    const cameraTop = createCamera();
+    cameraTop.position.z = 0.1; // -0.1 (flips)
+    cameraTop.position.y = 100;
+    cameraTop.lookAt(new THREE.Vector3(0, 0, 0));
+    console.log({cameraTop});
+}
 
 //////////////
 // RENDERER //
@@ -294,8 +297,10 @@ let animate = () => {
         if (Store.view.cameraPositionBehind === true) {
             if (Store.view.cameraAutoStart === true) {
                 Store.camera.position.x = Store.view.posBehindX + (Store.ticks);
-
-                cameraTop.position.x = (Store.view.posBehindX + 30) + (Store.ticks);
+                
+                if (Store.view.showCameraTop === true) {
+                    cameraTop.position.x = (Store.view.posBehindX + 30) + (Store.ticks);
+                }
             }
         } else {
             Store.camera.position.x = (Store.ticks) - 35; // prev
@@ -316,34 +321,34 @@ let animate = () => {
     // TODO: reusable updateCamera method
 
     left = 0;
-    // console.log({left}); // 0
-    // console.log({bottom}); // 0
-    Store.renderer.setViewport(left, bottom, Math.floor(width / 2), height);
-    // Store.renderer.setScissor(left, bottom, Math.floor(width / 2), height); 
-    Store.renderer.setScissor(left, bottom, Math.floor(width / 2), height);
+    
+    if (Store.view.showCameraTop === true) {
+        width = (width / 2);
+    }
+    Store.renderer.setViewport(left, bottom, Math.floor(width), height);
+    // Store.renderer.setScissor(left, bottom, Math.floor(width), height); 
+    Store.renderer.setScissor(left, bottom, Math.floor(width), height);
     Store.renderer.setScissorTest(true);
     Store.renderer.setClearColor(new THREE.Color(1, 1, 1));
-    Store.camera.aspect = Math.floor(width / 2) / height;
+    Store.camera.aspect = Math.floor(width) / height;
     Store.camera.updateProjectionMatrix();
     // console.log('Store.camera: ', Store.camera);
     Store.renderer.render(Store.scene, Store.camera);
 
     // // //
 
-    left = Math.floor(width / 2);
-    // console.log({left}); // 640
-    // console.log({bottom}); // 0
-    Store.renderer.setViewport(left, bottom, Math.floor(width / 2), height);
-    Store.renderer.setScissor(left, bottom, Math.floor(width / 2), height);
-    Store.renderer.setScissorTest(true);
-    Store.renderer.setClearColor(new THREE.Color(1, 1, 1));
-    cameraTop.aspect = Math.floor(width / 2) / height;
-    cameraTop.updateProjectionMatrix();
-    // cameraTop.position.z = 0.1; // -0.1 (flips)
-    // cameraTop.position.y = 100;
-    // cameraTop.lookAt(new THREE.Vector3(0, 0, 0));
-    // console.log('cameraTop: ', cameraTop);
-    Store.renderer.render(Store.scene, cameraTop);
+    if (Store.view.showCameraTop === true) {
+        left = Math.floor(width);
+        Store.renderer.setViewport(left, bottom, Math.floor(width), height);
+        Store.renderer.setScissor(left, bottom, Math.floor(width), height);
+        Store.renderer.setScissorTest(true);
+        Store.renderer.setClearColor(new THREE.Color(1, 1, 1));
+        cameraTop.aspect = Math.floor(width) / height;
+        cameraTop.updateProjectionMatrix();
+        Store.renderer.render(Store.scene, cameraTop);
+    }
+    
+
 
     // // //
 

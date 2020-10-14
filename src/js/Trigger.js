@@ -14,10 +14,14 @@ import { getInstrByNote } from './InstrumentMappings';
 import Physics from './Physics';
 import Flame from './Flame';
 
-import * as recordingFirstNotes from '../../assets/recording/1.json';
+// import * as recordingFirstNotes from '../../assets/recording/1.jsonc'; // err - no jsonc webpack loader
+// import * as recordingFirstNotes from '../../assets/recording/1.json';
+// https://json5.org/
+// import * as recordingFirstNotes from '../../assets/recording/1.json5';
+import * as recordingFirstNotes from '../../assets/recording/1.js';
 import * as recordingSecondNotes from '../../assets/recording/2.json';
 
-// console.log({recordingFirstNotes});
+console.log({recordingFirstNotes});
 // console.log(recordingFirstNotes.tracks[0].notes);
 // console.log({recordingSecondNotes});
 
@@ -206,6 +210,9 @@ Store.sampler.piano = new Tone.Sampler({
 }, function(){
     // Store.sampler.piano.triggerAttackRelease("A3");
 }).toMaster();
+
+// Store.sampler.piano.set("detune", -1200);    // no effect
+// Store.sampler.piano.set("detune", +1200);    // no effect
 Store.sampler.piano.volume.value = -14;
 
 ///////////
@@ -247,7 +254,7 @@ Store.polySynth = new Tone.PolySynth(10, Tone.Synth, {
 Store.polySynth.volume.value = -18;
 
 // Store.polySynth.set("detune", +1200); // octave = 12 semitones of 100 cents each
-// Store.polySynth.set("detune", +1200);
+Store.polySynth.set("detune", -1200);
 
 const bounceSynth = new Tone.Synth();
 bounceSynth.volume.value = 2;
@@ -476,7 +483,9 @@ export default class Trigger {
 
 const physics = new Physics();
 
-Store.recording.parts[0] = recordingFirstNotes.tracks[0].notes;
+// TODO: reorg recording init, use .json5 or jsonc 
+// Store.recording.parts[0] = recordingFirstNotes.tracks[0].notes;
+Store.recording.parts[0] = recordingFirstNotes.default.tracks[0].notes;
 Store.recording.parts[1] = recordingSecondNotes.tracks[0].notes;
 
 // console.log({recordingNotes});
@@ -498,8 +507,9 @@ const recordingPart = new Tone.Part(function(time, datum){
     // instrMapped.originalPosition.z += 10;
 
     // instrMapped.duration = datum.duration / 2;
-    // instrMapped.duration = datum.duration * 2;
-    instrMapped.duration = datum.duration;
+    // instrMapped.duration = datum.duration * 2; // too long
+    instrMapped.duration = datum.duration * 1.25; // piano
+    // instrMapped.duration = datum.duration; // ghost v1
 
     // instrMapped.variation = 'guitar';
     // instrMapped.variation = 'violin';
