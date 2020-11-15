@@ -14,7 +14,8 @@ export default class Light {
 
         // LIGHTS
         // const ambient = new THREE.AmbientLight(0x888888);
-        const ambient = new THREE.AmbientLight(0xf2f2f2);
+        // const ambient = new THREE.AmbientLight(0x343434);
+        const ambient = new THREE.AmbientLight(0xf2f2f2); // beethoven 25
         Store.scene.add(ambient);
 
         const light = new THREE.DirectionalLight(0xdddddd);
@@ -37,7 +38,7 @@ export default class Light {
         light.shadow.mapSize.height = 0;
 
         this.sun = light;
-        Store.scene.add(light);
+        // Store.scene.add(light);
 
         // const fogColor = new THREE.Color(0xffffff);
         const fogColor = new THREE.Color(0xE5E5E5); 

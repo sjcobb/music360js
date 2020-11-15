@@ -12,6 +12,7 @@ let flamePhysics = new Flame();
 
 /*
  *** PHYSICS ***
+ * https://github.com/sjcobb/music360js/blob/rain-go-away-1/src/js/Physics.js
  */
 
 export default class Physics {
@@ -53,8 +54,10 @@ export default class Physics {
         }
 
         if (Store.view.stage.size === 'lg') {
+            // posArr = [0, -6, -2];
+            // sizeArr = [5000, 50, 5];
             posArr = [0, -6, -2];
-            sizeArr = [5000, 50, 5];
+            sizeArr = [12000, 50, 5];
         }
 
         // FLOOR
@@ -85,19 +88,13 @@ export default class Physics {
         groundBody.addShape(groundShape);
         Store.world.add(groundBody);
 
-        // if (this.useVisuals) this.helper.this.addVisual(groundBody, 'ground', false, true);
-        this.addVisual(groundBody, 'ground', false, true);
-
-        // https://github.com/schteppe/cannon.js/issues/300
-        // https://github.com/schteppe/cannon.js/blob/master/demos/bounce.html
-        // restitutionValue = 200;
-        // const material = new CANNON.Material(); //why both tempMaterial and material needed?
-        // const restitutionGround = new CANNON.ContactMaterial(tempMaterial, material, { friction: 0.0, restitution: restitutionValue });
-        // Store.world.addContactMaterial(restitutionGround);
+        // this.addVisual(groundBody, 'ground', false, true);
     }
 
     // addBody(sphere = true, xPosition = 5.5, options = '', timeout = 0) {
     addBody(sphere = true, xPosition=5.5, options = '', index=0) { // TODO: take yPosition from Store.dropCoordCircleInterval[] loop, swap yPos to zPos
+
+        const helpers = new Helpers();
 
         if (options === '') {
             const instrument = new InstrumentMappings();
@@ -144,8 +141,8 @@ export default class Physics {
 
                 // sphereRestitution = options.duration * 1.44; // earthquake
 
-                sphereRestitution = options.duration * 0.48;
-                // sphereRestitution = options.duration * 0.5; // prev
+                // sphereRestitution = options.duration * 0.48; // prev
+                sphereRestitution = options.duration * 0.41; 
 
                 // const minRestitution = 0.3; //prev
                 const minRestitution = 0.125;
@@ -243,11 +240,8 @@ export default class Physics {
 
         // // // IMPORTANT - rotation spped // // //
         // body.angularVelocity.z = 10; // prev
-        // body.angularVelocity.z = options.size === 'xl' ? 10 : 20;
-
         // body.angularVelocity.z = options.size === 'xl' ? 8 : 18; // earthquake
-        // body.angularVelocity.z = options.size === 'xl' ? 8 : 24; // works
-        // body.angularVelocity.z = options.size === 'xl' ? 8 : 26; // earthquake, prev
+        // body.angularVelocity.z = options.size === 'xl' ? 8 : 26; // very large
 
         body.angularVelocity.z = options.size === 'xl' ? 8 : 0; 
 
@@ -256,15 +250,65 @@ export default class Physics {
             Store.flameCounter++;
             return;
         }
-        
-        Store.world.add(body);
 
+        ///////////////////////////////
+        // BODY VISUAL CUSTOMIZATION //
+        ///////////////////////////////
         body.userData = {
             opts: options
         };
+        // console.log({options});
 
-        this.addVisual(body, (sphere) ? 'sphere' : 'box', true, false, options);
+        let instrMaterial;
+        let obj3D;
 
+        obj3D = new THREE.Object3D();
+        // obj3D.rotation.set(0, -1.5, 0);
+
+        // const sphereGeo = new THREE.SphereGeometry(0.75, 8, 8);
+        
+        if (Store.view.showInstrSprite === true) {
+            instrMaterial = options.material.clone();
+            options.mesh = new THREE.Sprite(instrMaterial);
+            options.mesh.scale.set(2, 2, 2);
+        } else {
+            // // this.addVisual(body, (sphere) ? 'sphere' : 'box', true, false, options); // PREV
+
+            // const fillStyleMapping = options.color;
+            // let stripedVariation = false;
+            // const poolTexture = helpers.ballTexture(options.ballDesc, stripedVariation, fillStyleMapping, 512);
+            // const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
+            // poolBallMaterial.map = poolTexture;
+            // const sphereGeo = new THREE.SphereGeometry(0.5, 8, 8); // first value = radius
+            // sphereGeo.name = 'sphereGeo';
+            // options.mesh = new THREE.Mesh(sphereGeo, poolBallMaterial);
+            // options.mesh.scale.set(1.35, 1.35, 1.35);
+            
+            // // const o = {x: 0, y: 0, z: 0};
+            // // const q = {x: 0, y: 0, z: 0, w: 1};
+            // // options.mesh.quaternion.set(q.x, q.y, q.z, q.w); // no effect
+
+            // // body.rotation.set(0, -1.5, 0); // err: Cannot read property 'set' of undefined
+            // // options.mesh.rotation.set(0, -1.5, 0); // no effect
+            // // options.mesh.rotation.set(-1.5, 0, 0);
+
+            // // obj3D.rotation.set(0, -1.5, 0); // balls disappears
+
+            options.mesh = this.shape2Mesh(body, true, true, options);
+
+            // console.log({body});
+            // console.log({options});
+        }
+
+        body.threemesh = options.mesh;
+        obj3D.add(options.mesh);
+
+        Store.scene.add(obj3D);
+        Store.world.add(body);
+
+        ////////////////////////
+        // COLLISION TRIGGER //
+        ///////////////////////
         let notePlayed = false;
         let bodyCollideCount = 0;
         let spinnerCollideCount = 0;
@@ -310,9 +354,15 @@ export default class Physics {
                         // }, 120);
 
                         setTimeout(() => {
-                            // Store.scene.remove(obj3D);
+                            // // Store.scene.remove(obj3D);
                             Store.world.remove(body);
-                        }, 600);
+                        // }, 2000);
+                        }, 600); // beethoven 
+
+                        setTimeout(() => {
+                            Store.scene.remove(obj3D);
+                        }, 2000);
+                        // // }, 700);
                     // }
                 } 
             } else if (Store.triggerOn === 'spinner') {
@@ -416,6 +466,7 @@ export default class Physics {
                     poolBallMaterial.map = poolTexture;
 
                     const sphereGeo = new THREE.SphereGeometry(shape.radius, 8, 8);
+                    // console.log(shape.radius); // 0.5
 
                     // TODO: if options.size is 'xl' make sphere larger, need to fix Cannon addShape so physics still work
                     // const sphereGeo = new THREE.SphereGeometry(12, 12, 12);
@@ -589,8 +640,8 @@ export default class Physics {
 
             var o = body.shapeOffsets[index];
             var q = body.shapeOrientations[index++];
-            mesh.position.set(o.x, o.y, o.z);
 
+            mesh.position.set(o.x, o.y, o.z);
             mesh.quaternion.set(q.x, q.y, q.z, q.w);
 
             if (mesh.geometry) {

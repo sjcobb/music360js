@@ -108,11 +108,11 @@ Store.renderer.domElement.id = 'canvas-scene-primary';
 
 // update viewport on resize
 window.addEventListener('resize', function() {
-    // var width = window.innerWidth;
-    // var height = window.innerHeight;
-    // Store.renderer.setSize(width, height);
-    // Store.camera.aspect = width / height; // aspect ratio
-    // Store.camera.updateProjectionMatrix();
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    Store.renderer.setSize(width, height);
+    Store.camera.aspect = width / height; // aspect ratio
+    Store.camera.updateProjectionMatrix();
 
     // //
     // cameraTop.aspect = Math.floor(width / 2) / height;
@@ -746,5 +746,67 @@ if (Store.view.showDashboard === true) {
     //     console.log(Store.dashboard.noteCountsArr);
     // }, 12000);
     
+}
 
+// https://discourse.threejs.org/t/how-to-completely-clean-up-a-three-js-scene-from-a-web-app-once-the-scene-is-no-longer-needed/1549/15
+// setInterval(() => {
+
+    // clearThree(Store.scene);
+
+    // // //
+
+    // Store.scene.traverse(object => {
+    //     if (!object.isMesh) return
+        
+    //     console.log('dispose geometry!')
+    //     object.geometry.dispose()
+    
+    //     if (object.material.isMaterial) {
+    //         cleanMaterial(object.material)
+    //     } else {
+    //         // an array of materials
+    //         for (const material of object.material) cleanMaterial(material)
+    //     }
+    // })
+// }, 5000);
+// }, 25000);
+
+// const cleanMaterial = material => {
+// 	console.log('dispose material!')
+// 	material.dispose()
+
+// 	// dispose textures
+// 	for (const key of Object.keys(material)) {
+// 		const value = material[key]
+// 		if (value && typeof value === 'object' && 'minFilter' in value) {
+// 			console.log('dispose texture!')
+// 			value.dispose()
+// 		}
+// 	}
+// }
+
+// OR //
+
+// https://stackoverflow.com/a/48768960/7639084
+function clearThree(obj) {
+    console.log('clearThree()... ... ...');
+    while(obj.children.length > 0){ 
+        clearThree(obj.children[0]);
+        obj.remove(obj.children[0]);
+    }
+    if (obj.geometry) {
+        obj.geometry.dispose();
+    }
+
+    if(obj.material){ 
+        Object.keys(obj.material).forEach(prop => {
+            if (!obj.material[prop]) {
+                return
+            }       
+            if (obj.material[prop] !== null && typeof obj.material[prop].dispose === 'function') {
+                obj.material[prop].dispose(); 
+            }                                                                                 
+        });
+        obj.material.dispose();
+    }
 }

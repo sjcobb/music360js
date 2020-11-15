@@ -221,41 +221,43 @@ Store.sampler.piano.volume.value = -14;
 // https://tonejs.github.io/examples/polySynth.html
 // https://tonejs.github.io/docs/13.8.25/PolySynth
 
-// var polySynth = new Tone.PolySynth(6, Tone.Synth, {
-// Store.polySynth = new Tone.PolySynth(4, Tone.Synth, { // default
+
 Store.polySynth = new Tone.PolySynth(10, Tone.Synth, {
-    // oscillator: {
-    //     type: "triangle", // sine, square, sawtooth, triangle (default), custom
-    //     // frequency: 440 ,
-    //     // detune: 0 ,
-    //     // phase: 0 ,
-    //     // partials: [] ,
-    //    partialCount: 0
-    // },
-    // // https://tonejs.github.io/docs/13.8.25/Envelope
+    envelope: {
+        attack: 0.02,
+        decay: 0.1,
+        sustain: 0.3, // prev
+        // sustain: 0.2,
+        // release: 0.5,
+        release: 1, // prev
+    },
+    // // https://tonejs.github.io/docs/13.8.25/Filter#type
+    // filter: {
+    //     // type: "highpass", // lowpass, highpass, bandpass, lowshelf, highshelf, notch, allpass, peaking
+    //     type: "lowpass",
+    //     frequency: 350 ,
+    //     rolloff: -12 ,
+    //     Q: 1 ,
+    //     gain: 0
+	// },
+}).toMaster();
+Store.polySynth.volume.value = -18;
+Store.polySynth.set("detune", -1200);
+
+// // //
+
+Store.polySynthAlt = new Tone.PolySynth(10, Tone.Synth, {
     envelope: {
         attack: 0.02,
         decay: 0.1,
         sustain: 0.3,
         release: 1,
-        // attack: 0.1,
-        // decay: 0.2,
-        // sustain: 1, // v0.5
-        // sustain: 0.5, 
-        // release: 0.8,
     },
-    // // https://tonejs.github.io/docs/13.8.25/Filter#type
-    // filter: {
-	// 	// type: "highpass", // lowpass, highpass, bandpass, lowshelf, highshelf, notch, allpass, peaking
-	// },
 }).toMaster();
+Store.polySynthAlt.volume.value = -18;
+Store.polySynthAlt.set("detune", -1200);
 
-// Store.polySynth.volume.value = -8; // v0.4, v0.5
-Store.polySynth.volume.value = -18;
-
-// Store.polySynth.set("detune", +1200); // octave = 12 semitones of 100 cents each
-Store.polySynth.set("detune", -1200);
-
+// // //
 const bounceSynth = new Tone.Synth();
 bounceSynth.volume.value = 2;
 bounceSynth.toMaster();
@@ -351,6 +353,9 @@ export default class Trigger {
         let triggerObj = {};
         let combinedNote = 'C1';
         if (obj.userData.opts.type !== 'drum') {
+            
+            obj.userData.opts.octave -= 1;
+
             combinedNote = obj.userData.opts.note ? (obj.userData.opts.note + obj.userData.opts.octave) : 'C4';
             // console.log({combinedNote});
 
@@ -443,11 +448,12 @@ export default class Trigger {
             }
             drumIndex++;
         } else if (triggerObj.type === 'chord') { // TODO: rename, universal chord / note accessor
-            // console.log('triggerNote (chord) -> combinedNote: ', combinedNote);
+            console.log('triggerNote (chord) -> combinedNote: ', combinedNote);
             // console.log('triggerNote (chord) -> triggerObj: ', triggerObj);
 
             // console.log('triggerNote (chord) -> obj.userData.opts.duration: ', obj.userData.opts.duration);
             // console.log('triggerNote (chord - ', combinedNote, ') -> obj.userData.opts.duration: ', obj.userData.opts.duration);
+            
             const noteLength = obj.userData.opts.duration ? obj.userData.opts.duration : 0.15;
 
             if (triggerObj.variation === 'violin') {
@@ -456,8 +462,14 @@ export default class Trigger {
                 Store.sampler.guitar.triggerAttackRelease(combinedNote, noteLength); 
             } else if (triggerObj.variation === 'piano') {
                 Store.sampler.piano.triggerAttackRelease(combinedNote, noteLength); 
+            } else if (triggerObj.octave >= 4) {
+                Store.sampler.guitar.triggerAttackRelease(combinedNote, noteLength);
+                // Store.polySynthAlt.triggerAttackRelease(combinedNote, noteLength);
+                // Store.sampler.strings.triggerAttackRelease(combinedNote, noteLength); 
             } else {
-                Store.polySynth.triggerAttackRelease(combinedNote, noteLength); 
+                // Store.polySynth.triggerAttackRelease(combinedNote, noteLength);
+                // Store.sampler.strings.triggerAttackRelease(combinedNote, noteLength); 
+                Store.sampler.guitar.triggerAttackRelease(combinedNote, noteLength);
             }
         } else {
             bounceSynth.triggerAttackRelease(combinedNote, "8n");
@@ -498,22 +510,23 @@ const recordingPart = new Tone.Part(function(time, datum){
     const instrMapped = generateInstrMetadata(datum.name);
 
     // instrMapped.color = '#008b8b';
-    // instrMapped.color = '#800000'; // dkred
+    instrMapped.color = '#800000'; // dkred
     // instrMapped.color = '#64b5f6'; // human blue
-    instrMapped.color = '#AC3E24'; // beethoven red
+    // instrMapped.color = '#AC3E24'; // beethoven red
+    // instrMapped.color = '#00b140'; // green screen
 
     // instrMapped.originalPosition.z -= 15;
     // instrMapped.originalPosition.z -= 18;
     // instrMapped.originalPosition.z += 10;
 
     // instrMapped.duration = datum.duration / 2;
-    // instrMapped.duration = datum.duration * 2; // too long
-    instrMapped.duration = datum.duration * 1.25; // piano
+    instrMapped.duration = datum.duration * 2; // too long
+    // instrMapped.duration = datum.duration * 1.5; // piano
     // instrMapped.duration = datum.duration; // ghost v1
 
     // instrMapped.variation = 'guitar';
     // instrMapped.variation = 'violin';
-    instrMapped.variation = 'piano';
+    // instrMapped.variation = 'piano';
 
     physics.addBody(true, Store.dropPosX, instrMapped, 0);
 

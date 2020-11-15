@@ -4,6 +4,8 @@
 /*jshint esversion: 6 */
 
 import * as Tonal from "tonal";
+import * as THREE from 'three';
+import Store from './Store.js';
 
 //-----INIT INSTRUMENT MAPPING------//
 //TODO: instrumentMapping obj should be part of getInstrumentMapping() so default params can be set for optional configs, ex: movement = 'physics'
@@ -108,6 +110,14 @@ export function generateInstrMetadata(note) {
 
     if (instrMapped === undefined) {
         console.log('(generateInstrMetadata) -> UNDEF note: ', note);
+        // return false;
+    }
+
+    if (instrMapped.material == null) {
+        instrMapped.material = new THREE.SpriteMaterial({
+            map: Store.loader.load('assets/bubble/bubble_pop_one/1.png'),
+            transparent: true,
+        });
     }
     // console.log(instrMapped);
     

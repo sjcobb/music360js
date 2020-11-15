@@ -195,22 +195,25 @@ export default {
         // posBehindY: 8,
         // posBehindZ: 1,
 
+        
         posBehindX: -95, 
         posBehindY: 4,
-        posBehindZ: 0,
-
+        posBehindZ: -5,
+        // posBehindZ: 0, // prev
+        
         songAutoStart: true,
-
+        
         showCameraTop: false, // TODO: add configurable cameraTop
         showDashboard: false,
+        showInstrSprite: false, // bubble
         showLogoSprite: false,
         showStats: true,
         showStaff: {
-            bass: true,
-            treble: true,
+            bass: false,
+            treble: false,
         },
         stage: {
-            // size: 'lg',
+            size: 'lg',
         }
     },
     world: new CANNON.World(),

@@ -181,8 +181,8 @@ export default class Helpers {
             // ctx.font = "normal " + (textH) + "px Geneva"; 
             // ctx.font = "bold " + (textH) + "px Geneva"; 
             ctx.font = "bold " + (textH) + "px Verdana"; 
-            ctx.fillStyle = "#000000"; //PREV (text color)
-            // ctx.fillStyle = "#ffffff"; // text color
+            // ctx.fillStyle = "#000000"; //PREV (text color)
+            ctx.fillStyle = "#ffffff"; // text color
             var textW = ctx.measureText(textData).width;
             
             //TODO: adjust textOffset position here
