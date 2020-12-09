@@ -180,7 +180,7 @@ export default class Helpers {
             // ctx.font = "bold " + (textH - 6) + "px Geneva"; 
             // ctx.font = "normal " + (textH) + "px Geneva"; 
             // ctx.font = "bold " + (textH) + "px Geneva"; 
-            ctx.font = "bold " + (textH) + "px Verdana"; 
+            ctx.font = "normal " + (textH) + "px Verdana"; 
             // ctx.fillStyle = "#000000"; //PREV (text color)
             ctx.fillStyle = "#ffffff"; // text color
             var textW = ctx.measureText(textData).width;

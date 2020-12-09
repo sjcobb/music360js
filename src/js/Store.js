@@ -131,6 +131,9 @@ export default {
     instrumentCounter: 0,
     // keysOnly: true,
     lastColor: '#000000',
+    // lightPrimary: new THREE.SpotLight(0xffffff, 1),
+    lightPrimary: new THREE.PointLight(0xf7ffd8, 2, 50),
+    lightObj: {},
     loader: new THREE.TextureLoader(),
     machineTrigger: false,
     meshes: [],
@@ -196,7 +199,8 @@ export default {
         // posBehindZ: 1,
 
         
-        posBehindX: -95, 
+        posBehindX: -95, // a minor
+        // posBehindX: -105,
         posBehindY: 4,
         posBehindZ: -5,
         // posBehindZ: 0, // prev
@@ -212,6 +216,7 @@ export default {
             bass: false,
             treble: false,
         },
+        showStage: false,
         stage: {
             size: 'lg',
         }

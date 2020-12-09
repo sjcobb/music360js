@@ -88,7 +88,9 @@ export default class Physics {
         groundBody.addShape(groundShape);
         Store.world.add(groundBody);
 
-        // this.addVisual(groundBody, 'ground', false, true);
+        if (Store.view.showStage === true) {
+            this.addVisual(groundBody, 'ground', false, true);
+        }
     }
 
     // addBody(sphere = true, xPosition = 5.5, options = '', timeout = 0) {
@@ -128,7 +130,10 @@ export default class Physics {
                 // console.log(options.duration);
 
                 // // const maxDuration = 2.5; // too bouncy
-                const maxDuration = 1.7;
+                // const maxDuration = 1.7; // beethoven
+
+                const maxDuration = 1.0;
+
                 const minDuration = 0.50;
 
                 // options.duration = options.duration < minDuration ? minDuration : options.duration;
@@ -165,7 +170,7 @@ export default class Physics {
 
         // https://schteppe.github.io/cannon.js/docs/classes/Body.html
         // const body = new CANNON.Body({ mass: 5, material: material }); // v0.3, v0.4
-        const body = new CANNON.Body({ mass: 550, material: material });
+        const body = new CANNON.Body({ mass: 550, material: material }); // beethoven
         
         this.shapes = {};
         // this.shapes.sphere = new CANNON.Sphere(0.5);
@@ -193,7 +198,8 @@ export default class Physics {
         // https://stackoverflow.com/questions/44630265/how-can-i-set-z-up-coordinate-system-in-three-js
         // const yPos = 20; // v0.4, v0.5
         // const yPos = 1;
-        const yPos = 30;
+        // const yPos = 30; // beethoven
+        const yPos = 38;
 
         /*** Randomized Y drop point ***/
         // const y = Math.random() * (10 - 5) + 5; //rdm b/w 5 and 10
@@ -353,11 +359,11 @@ export default class Physics {
                         //     instrMaterial.map = Store.view.instrumentConfigArr[6].bubbleTexture;
                         // }, 120);
 
-                        setTimeout(() => {
-                            // // Store.scene.remove(obj3D);
-                            Store.world.remove(body);
-                        // }, 2000);
-                        }, 600); // beethoven 
+                        // setTimeout(() => {
+                        //     // // Store.scene.remove(obj3D);
+                        //     Store.world.remove(body); // freezes (a minor improv)
+                        // // }, 2000);
+                        // }, 600); // beethoven 
 
                         setTimeout(() => {
                             Store.scene.remove(obj3D);

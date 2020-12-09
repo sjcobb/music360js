@@ -448,7 +448,7 @@ export default class Trigger {
             }
             drumIndex++;
         } else if (triggerObj.type === 'chord') { // TODO: rename, universal chord / note accessor
-            console.log('triggerNote (chord) -> combinedNote: ', combinedNote);
+            // console.log('triggerNote (chord) -> combinedNote: ', combinedNote);
             // console.log('triggerNote (chord) -> triggerObj: ', triggerObj);
 
             // console.log('triggerNote (chord) -> obj.userData.opts.duration: ', obj.userData.opts.duration);
@@ -462,10 +462,10 @@ export default class Trigger {
                 Store.sampler.guitar.triggerAttackRelease(combinedNote, noteLength); 
             } else if (triggerObj.variation === 'piano') {
                 Store.sampler.piano.triggerAttackRelease(combinedNote, noteLength); 
-            } else if (triggerObj.octave >= 4) {
-                Store.sampler.guitar.triggerAttackRelease(combinedNote, noteLength);
-                // Store.polySynthAlt.triggerAttackRelease(combinedNote, noteLength);
-                // Store.sampler.strings.triggerAttackRelease(combinedNote, noteLength); 
+            // } else if (triggerObj.octave >= 4) {
+            //     Store.sampler.guitar.triggerAttackRelease(combinedNote, noteLength);
+            //     // Store.polySynthAlt.triggerAttackRelease(combinedNote, noteLength);
+            //     // Store.sampler.strings.triggerAttackRelease(combinedNote, noteLength); 
             } else {
                 // Store.polySynth.triggerAttackRelease(combinedNote, noteLength);
                 // Store.sampler.strings.triggerAttackRelease(combinedNote, noteLength); 
@@ -509,8 +509,9 @@ const recordingPart = new Tone.Part(function(time, datum){
 
     const instrMapped = generateInstrMetadata(datum.name);
 
-    // instrMapped.color = '#008b8b';
-    instrMapped.color = '#800000'; // dkred
+    instrMapped.color = '#191970';    // midnight blue
+    // instrMapped.color = '#008b8b';;
+    // instrMapped.color = '#800000'; // dkred
     // instrMapped.color = '#64b5f6'; // human blue
     // instrMapped.color = '#AC3E24'; // beethoven red
     // instrMapped.color = '#00b140'; // green screen
@@ -520,7 +521,9 @@ const recordingPart = new Tone.Part(function(time, datum){
     // instrMapped.originalPosition.z += 10;
 
     // instrMapped.duration = datum.duration / 2;
-    instrMapped.duration = datum.duration * 2; // too long
+    // instrMapped.duration = datum.duration * 2; // beethove, a minor
+    instrMapped.duration = datum.duration;
+
     // instrMapped.duration = datum.duration * 1.5; // piano
     // instrMapped.duration = datum.duration; // ghost v1
 
@@ -553,6 +556,7 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
     // instrMapped.color = '#0000cd';
     // instrMapped.color = '#003366'; 
 
+    // instrMapped.color = '#191970';    // midnight blue
     instrMapped.color = '#800000'; // dkred
     // instrMapped.color = '#64b5f6'; // human blue
 

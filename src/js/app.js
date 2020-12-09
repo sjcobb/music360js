@@ -70,7 +70,8 @@ Store.camera.lookAt(new THREE.Vector3(0, -2.5, 0)); // v0.5
 
 if (Store.view.cameraPositionBehind === true) {
     Store.camera.position.set(Store.view.posBehindX, Store.view.posBehindY, Store.view.posBehindZ);
-    Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ));
+    // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ)); // beethoven
+    Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 6, Store.view.posBehindZ)); // beethoven
     // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ - 15)); // slightly to left
     // // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX - 200, 12, Store.view.posBehindZ)); // rear view
 }
@@ -140,8 +141,8 @@ Store.loader = new THREE.TextureLoader();
 // BACKGROUND //
 ////////////////
 // // Store.scene.background = new THREE.Color( 0xff0000 ); // red
-// Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
-Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
+Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
+// Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
 
 const light = new Light();
 light.addLights(Store.renderer);
@@ -297,6 +298,12 @@ let animate = () => {
         if (Store.view.cameraPositionBehind === true) {
             if (Store.view.cameraAutoStart === true) {
                 Store.camera.position.x = Store.view.posBehindX + (Store.ticks);
+
+                // Store.lightObj.position.x = (Store.camera.position.x + 15);
+                Store.lightPrimary.position.x = (Store.camera.position.x + 15);
+
+                // Store.lightPrimary.target.position.set( 0, 0, -1 );
+                // Store.lightPrimary.target.position.x = (Store.camera.position.x + 25);
                 
                 if (Store.view.showCameraTop === true) {
                     cameraTop.position.x = (Store.view.posBehindX + 30) + (Store.ticks);
@@ -305,7 +312,14 @@ let animate = () => {
         } else {
             Store.camera.position.x = (Store.ticks) - 35; // prev
             // Store.camera.position.x = (Store.ticks) - 55; 
+
+            Store.lightObj.position.x = (Store.camera.position.x);
+            Store.lightPrimary.position.x = (Store.camera.position.x);
         }
+
+        // Store.lightPrimary.position.set(...lightPos);
+        // Store.lightPrimary.position.x = Store.camera.position.x;
+        // Store.lightPrimary.position.x = Store.view.posBehindX + (Store.ticks);
     }
 
     physics.updateBodies(Store.world);
