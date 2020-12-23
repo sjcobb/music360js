@@ -359,10 +359,10 @@ export default class Physics {
                         //     instrMaterial.map = Store.view.instrumentConfigArr[6].bubbleTexture;
                         // }, 120);
 
-                        // setTimeout(() => {
-                        //     // // Store.scene.remove(obj3D);
-                        //     Store.world.remove(body); // freezes (a minor improv)
-                        // // }, 2000);
+                        setTimeout(() => {
+                            // // Store.scene.remove(obj3D);
+                            Store.world.remove(body); // freezes (a minor improv)
+                        }, 2000);
                         // }, 600); // beethoven 
 
                         setTimeout(() => {
