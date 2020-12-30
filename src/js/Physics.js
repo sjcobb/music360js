@@ -38,7 +38,9 @@ export default class Physics {
         this.shapes.box = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5));
 
         // this.animate();
-        this.initGroundContactMaterial(0.3);
+
+        this.initGroundContactMaterial(0.3); // twinkle
+
         // this.initGroundContactMaterial(0.3, [0, 10, 0]);
         // this.initGroundContactMaterial(0.3, [0, 5, 0], [2, 2, 0.1]);
 
