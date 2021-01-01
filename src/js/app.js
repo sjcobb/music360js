@@ -139,6 +139,7 @@ Store.loader = new THREE.TextureLoader();
 // // Store.scene.background = new THREE.Color( 0xff0000 ); // red
 // Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
 Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
+// Store.scene.background = new THREE.Color( 0x000000 ); // black
 
 const light = new Light();
 light.addLights(Store.renderer);
