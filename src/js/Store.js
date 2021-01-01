@@ -23,8 +23,8 @@ export default {
         enabled: false,
     },
     autoScroll: true,
-    // autoStartTime: 4500,
-    autoStartTime: 12000,
+    autoStartTime: 4500,
+    // autoStartTime: 12000,
     // bpm: 120,
     // bpm: 140,
     bpm: 160,
@@ -199,10 +199,14 @@ export default {
         // posBehindZ: 1,
 
         
-        posBehindX: -95, // a minor
-        // posBehindX: -105,
-        posBehindY: 4,
-        posBehindZ: -5,
+        // posBehindX: -95, // a minor
+        // posBehindY: 4, // a minor
+        // posBehindZ: -5, // a minor
+
+        posBehindX: -105,
+        posBehindY: 8,
+        posBehindZ: -20,
+
         // posBehindZ: 0, // prev
         
         songAutoStart: true,

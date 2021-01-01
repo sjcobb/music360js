@@ -19,7 +19,9 @@ import Flame from './Flame';
 // https://json5.org/
 // import * as recordingFirstNotes from '../../assets/recording/1.json5';
 import * as recordingFirstNotes from '../../assets/recording/1.js';
-import * as recordingSecondNotes from '../../assets/recording/2.json';
+import * as recordingSecondNotes from '../../assets/recording/2.js';
+
+// import * as recordingSecondNotes from '../../assets/recording/2.json';
 
 console.log({recordingFirstNotes});
 // console.log(recordingFirstNotes.tracks[0].notes);
@@ -498,7 +500,9 @@ const physics = new Physics();
 // TODO: reorg recording init, use .json5 or jsonc 
 // Store.recording.parts[0] = recordingFirstNotes.tracks[0].notes;
 Store.recording.parts[0] = recordingFirstNotes.default.tracks[0].notes;
-Store.recording.parts[1] = recordingSecondNotes.tracks[0].notes;
+Store.recording.parts[1] = recordingSecondNotes.default.tracks[0].notes;
+
+// Store.recording.parts[1] = recordingSecondNotes.tracks[0].notes;
 
 // console.log({recordingNotes});
 // console.log('Store.recording: ', Store.recording);
@@ -557,8 +561,12 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
     // instrMapped.color = '#003366'; 
 
     // instrMapped.color = '#191970';    // midnight blue
-    instrMapped.color = '#800000'; // dkred
+    // instrMapped.color = '#800000'; // dkred
     // instrMapped.color = '#64b5f6'; // human blue
+
+    // instrMapped.color = '#9955bb'; // purple light
+    // instrMapped.color = '#4d004d'; // purple dark
+    instrMapped.color = '#451970';
 
     // instrMapped.originalPosition.z += 15;
     instrMapped.originalPosition.z -= 10;
@@ -569,7 +577,7 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
     instrMapped.duration = datum.duration;
 
     // instrMapped.variation = 'sample';
-    instrMapped.variation = 'violin';
+    // instrMapped.variation = 'violin';
 
     physics.addBody(true, Store.dropPosX, instrMapped, 0);
 
@@ -577,7 +585,7 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
 // }, recordingSecondNotes);  // bah bah black sheep
 
 // // recordingSecondPart.loop = true;
-// recordingSecondPart.start("0:0:0");
+recordingSecondPart.start("0:0:0");
 // recordingSecondPart.start("4:0:0"); // little too early
 // recordingSecondPart.start("4:4:0"); // decent
 // recordingSecondPart.start("5:0:0"); // too late
