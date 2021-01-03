@@ -513,7 +513,10 @@ const recordingPart = new Tone.Part(function(time, datum){
 
     const instrMapped = generateInstrMetadata(datum.name);
 
-    instrMapped.color = '#191970';    // midnight blue
+    // instrMapped.color = '#191970';    // midnight blue
+    instrMapped.color = '#101046';    // midnighter blue
+
+
     // instrMapped.color = '#008b8b';;
     // instrMapped.color = '#800000'; // dkred
     // instrMapped.color = '#64b5f6'; // human blue
@@ -566,7 +569,8 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
 
     // instrMapped.color = '#9955bb'; // purple light
     // instrMapped.color = '#4d004d'; // purple dark
-    instrMapped.color = '#451970';
+    // instrMapped.color = '#451970';
+    instrMapped.color = '#3c1f41';
 
     // instrMapped.originalPosition.z += 15;
     instrMapped.originalPosition.z -= 10;

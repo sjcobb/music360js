@@ -122,47 +122,22 @@ export default class Physics {
             // sphereRestitution = 0.3; //prev: 0.9, 0.1 = one bounce
             sphereRestitution = 0.2;
         } else {
-            // console.log('options.duration: ', options.duration);
             if (options.duration > 0) { // TODO: rename options.noteLength so not confusing with arr length
-                // sphereRestitution = options.length / 2;
-                // sphereRestitution = options.duration * 0.65; // PREV
-
                 // console.log(options.duration);
-
-                // // const maxDuration = 2.5; // too bouncy
-                // const maxDuration = 1.7; // beethoven
-
-                const maxDuration = 1.0;
-
+                const maxDuration = 1.20;
                 const minDuration = 0.50;
 
                 // options.duration = options.duration < minDuration ? minDuration : options.duration;
                 options.duration = options.duration > maxDuration ? maxDuration : options.duration;
 
-                // // sphereRestitution = options.duration * 0.65; // v0.5
-                // // sphereRestitution = options.duration * 1.5; // too bouncy
+                sphereRestitution = options.duration * 0.55;
+                // sphereRestitution = options.duration * 0.41; 
 
-                // // sphereRestitution = options.duration * 1.40;
-
-                // sphereRestitution = options.duration * 1.44; // earthquake
-
-                // sphereRestitution = options.duration * 0.48; // prev
-                sphereRestitution = options.duration * 0.41; 
-
-                // const minRestitution = 0.3; //prev
-                const minRestitution = 0.125;
+                // const minRestitution = 0.3; // prev
+                const minRestitution = 0.4; 
+                // const minRestitution = 0.125;
                 sphereRestitution = sphereRestitution < minRestitution ? minRestitution : sphereRestitution;
-
                 // console.log({sphereRestitution});
-
-                // sphereRestitution = options.duration * 0.58; // PREV (twinkle)
-
-                // TODO: clean up bounciness default and min / max height
-                // if (sphereRestitution < 0.225) {
-                // if (sphereRestitution < 0.19) {
-                //     sphereRestitution = 0.19;
-                //     // sphereRestitution = 0.225;
-                // }
             }
             // console.log({sphereRestitution});
         }
@@ -359,16 +334,15 @@ export default class Physics {
                         //     instrMaterial.map = Store.view.instrumentConfigArr[6].bubbleTexture;
                         // }, 120);
 
-                        setTimeout(() => {
-                            // // Store.scene.remove(obj3D);
-                            Store.world.remove(body); // freezes (a minor improv)
-                        }, 2000);
+                        // setTimeout(() => {
+                        //     // // Store.scene.remove(obj3D);
+                        //     Store.world.remove(body); // freezes (a minor improv)
                         // }, 600); // beethoven 
 
                         setTimeout(() => {
                             Store.scene.remove(obj3D);
-                        }, 2000);
-                        // // }, 700);
+                            Store.world.remove(body);
+                        }, 3000);
                     // }
                 } 
             } else if (Store.triggerOn === 'spinner') {
