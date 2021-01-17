@@ -745,12 +745,11 @@ if (Store.view.showDashboard === true) {
 }
 
 setInterval(() => {
-    console.log(Store.dashboard.noteCountsObj);
-    console.log(Store.dashboard.noteCountsArr);
+    console.log(Store.dashboard);
     if (Store.dashboard.chordsPlayed[0]) {
         console.log('addChord -> : ', Store.dashboard.chordsPlayed[0]);
 
         const tempChordBodyParams = [false, 0, Store.dashboard.chordsPlayed[0]]
-        physics.addBody(...tempChordBodyParams);
+        // physics.addBody(...tempChordBodyParams);
     }
 }, 8000);

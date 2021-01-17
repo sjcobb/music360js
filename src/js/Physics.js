@@ -116,7 +116,7 @@ export default class Physics {
             objSize = 0.50;
         }
 
-        console.log('addBody -> options: ', options);
+        // console.log('addBody -> options: ', options);
 
         const trigger = new Trigger();
 

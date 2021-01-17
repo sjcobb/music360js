@@ -120,7 +120,7 @@
                     "duration": 1.2,
                     "durationTicks": 0,
                     "midi": 60,
-                    "name": "D4",
+                    "name": "C4",
                     "ticks": 0,
                     "time": 0,
                     "velocity": 0.5433070866141733
@@ -129,7 +129,7 @@
                     "duration": 1.2,
                     "durationTicks": 1920,
                     "midi": 48,
-                    "name": "F4",
+                    "name": "E4",
                     "ticks": 0,
                     "time": 0,
                     "velocity": 0.5118110236220472
@@ -138,7 +138,7 @@
                     "duration": 1.2,
                     "durationTicks": 0,
                     "midi": 60,
-                    "name": "A4",
+                    "name": "G4",
                     "ticks": 0,
                     "time": 0,
                     "velocity": 0.5984251968503937
@@ -147,7 +147,7 @@
                     "duration": 1.2,
                     "durationTicks": 0,
                     "midi": 60,
-                    "name": "C5",
+                    "name": "B4",
                     "ticks": 0,
                     "time": 0,
                     "velocity": 0.5984251968503937
@@ -187,43 +187,6 @@
                     "name": "F#5",
                     "ticks": 0,
                     "time": 1.2,
-                    "velocity": 0.5984251968503937
-                },
-
-                {
-                    "duration": 1.2,
-                    "durationTicks": 0,
-                    "midi": 60,
-                    "name": "C4",
-                    "ticks": 0,
-                    "time": 1.9,
-                    "velocity": 0.5433070866141733
-                },
-                {
-                    "duration": 1.2,
-                    "durationTicks": 1920,
-                    "midi": 48,
-                    "name": "E4",
-                    "ticks": 0,
-                    "time": 1.9,
-                    "velocity": 0.5118110236220472
-                },
-                {
-                    "duration": 1.2,
-                    "durationTicks": 0,
-                    "midi": 60,
-                    "name": "G4",
-                    "ticks": 0,
-                    "time": 1.9,
-                    "velocity": 0.5984251968503937
-                },
-                {
-                    "duration": 1.2,
-                    "durationTicks": 0,
-                    "midi": 60,
-                    "name": "B4",
-                    "ticks": 0,
-                    "time": 1.9,
                     "velocity": 0.5984251968503937
                 }
             ]
