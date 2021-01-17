@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/sjcobb/music360js#readme",
   "dependencies": {
-    "@tonaljs/midi": "^3.3.1",
+    "@tonaljs/tonal": "^4.0.0",
     "gulp": "^4.0.2",
     "lodash": "^4.17.19",
     "stats.js": "^0.17.0",

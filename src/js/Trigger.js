@@ -1,5 +1,7 @@
 import Tone from 'Tone';
 import { Transport, Player, Players, Part, Time, Volume } from 'Tone';
+// import * as Tonal from "tonal";
+import { Note, Interval, Scale, Chord, ChordDetect, ChordType } from "@tonaljs/tonal";
 
 import { generateInstrMetadata } from './InstrumentMappings';
 
@@ -465,6 +467,53 @@ export default class Trigger {
             if (triggerObj.type !== 'drum') {
                 Store.activeInstrColor = triggerObj.color;
             }
+        }
+
+        console.log(Store.dashboard);
+        if (Store.dashboard.allPlayedNotes.length === 4) {
+            // console.log(Tonal);
+            // Tonal.ChordDetect.detect(Store.dashboard.allPlayedNotes);
+
+            console.log(Chord);
+            const currentChord = Chord.detect(Store.dashboard.allPlayedNotes);
+            console.log(currentChord);
+            // console.log(ChordType.get(currentChord[1]));
+
+            // console.log(Chord.get(currentChord[1]));
+            // console.log(Chord.name(currentChord));
+
+            const currentChordNoRoot = currentChord[0].slice(0, currentChord[0].length - 2);
+            console.log(currentChordNoRoot);
+            
+            const currentChordInfo = Chord.get(currentChordNoRoot);
+            const currentChordDisplayName = currentChordInfo.name;
+            console.log(currentChordDisplayName);
+            
+            // console.log(Chord.getChord(currentChord[0]));
+            // console.log(Chord.getChord("maj7", "G4", "B4"));
+
+            // https://github.com/tonaljs/tonal/tree/master/packages/chord
+            // ...
+            // Chord.getChord("maj7", "G4", "B4"); // =>
+            // {
+            //   empty: false,
+            //   name: "G major seventh over B",
+            //   symbol: "Gmaj7/B",
+            //   tonic: "G4",
+            //   root: "B4",
+            //   rootDegree: 2,
+            //   setNum: 2193,
+            //   type: "major seventh",
+            //   aliases: ["maj7", "Δ", "ma7", "M7", "Maj7"],
+            //   chroma: "100010010001",
+            //   intervals: ["3M", "5P", "7M", "8P"],
+            //   normalized: "100010010001",
+            //   notes: ["B4", "D5", "F#5", "G5"],
+            //   quality: "Major",
+            // }
+
+            // Chord.reduced("Cmaj7"); // => ["C5", "CM"]
+
         }
     }
 

@@ -144,13 +144,13 @@
                     "velocity": 0.5984251968503937
                 },
                 {
-                    "duration": 0.6,
+                    "duration": 1.2,
                     "durationTicks": 0,
-                    "midi": 67,
-                    "name": "C5",
-                    "ticks": 1920,
-                    "time": 0.6,
-                    "velocity": 0.6850393700787402
+                    "midi": 60,
+                    "name": "B4",
+                    "ticks": 0,
+                    "time": 0,
+                    "velocity": 0.5984251968503937
                 },
                 {
                     "duration": 0.6,
