@@ -152,14 +152,42 @@
                     "time": 0,
                     "velocity": 0.5984251968503937
                 },
+
                 {
-                    "duration": 0.6,
+                    "duration": 1.2,
                     "durationTicks": 0,
-                    "midi": 67,
-                    "name": "C5",
-                    "ticks": 1920,
+                    "midi": 60,
+                    "name": "G4",
+                    "ticks": 0,
                     "time": 1.2,
-                    "velocity": 0.6850393700787402
+                    "velocity": 0.5433070866141733
+                },
+                {
+                    "duration": 1.2,
+                    "durationTicks": 1920,
+                    "midi": 48,
+                    "name": "B4",
+                    "ticks": 0,
+                    "time": 1.2,
+                    "velocity": 0.5118110236220472
+                },
+                {
+                    "duration": 1.2,
+                    "durationTicks": 0,
+                    "midi": 60,
+                    "name": "D5",
+                    "ticks": 0,
+                    "time": 1.2,
+                    "velocity": 0.5984251968503937
+                },
+                {
+                    "duration": 1.2,
+                    "durationTicks": 0,
+                    "midi": 60,
+                    "name": "F#5",
+                    "ticks": 0,
+                    "time": 1.2,
+                    "velocity": 0.5984251968503937
                 }
             ]
         }

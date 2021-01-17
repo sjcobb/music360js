@@ -44,6 +44,7 @@ export default {
     damping: 0.01, // effects bounciness, lag
     dashboard: {
         chart: {},
+        chordsPlayed: [],
         // lastNote: 'C4',
         lastNote: '',
         lastNoteLength: 0,

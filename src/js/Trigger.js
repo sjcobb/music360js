@@ -469,26 +469,37 @@ export default class Trigger {
             }
         }
 
-        console.log(Store.dashboard);
-        if (Store.dashboard.allPlayedNotes.length === 4) {
+        // if (Store.dashboard.allPlayedNotes.length === 4) {
+        if (Store.dashboard.allPlayedNotes.length % 4 === 0) {
             // console.log(Tonal);
             // Tonal.ChordDetect.detect(Store.dashboard.allPlayedNotes);
 
             console.log(Chord);
             const currentChord = Chord.detect(Store.dashboard.allPlayedNotes);
-            console.log(currentChord);
-            // console.log(ChordType.get(currentChord[1]));
+            console.log({currentChord});
 
-            // console.log(Chord.get(currentChord[1]));
-            // console.log(Chord.name(currentChord));
+            if (currentChord.length) {
+                const currentChordNoRoot = currentChord[0].slice(0, currentChord[0].length - 2);
+                // console.log(currentChordNoRoot);
 
-            const currentChordNoRoot = currentChord[0].slice(0, currentChord[0].length - 2);
-            console.log(currentChordNoRoot);
-            
-            const currentChordInfo = Chord.get(currentChordNoRoot);
-            const currentChordDisplayName = currentChordInfo.name;
-            console.log(currentChordDisplayName);
-            
+                const currentChordSplit = currentChord[0].split('/');
+                console.log({currentChordSplit});
+
+                // const currentChordInfo = Chord.get(currentChordNoRoot);
+                const currentChordInfo = Chord.get(currentChordSplit[0]);
+                const currentChordDisplayName = currentChordInfo.name;
+                console.log(currentChordDisplayName);
+                
+                if (currentChordDisplayName) {
+                    Store.dashboard.currentChordDisplayName = currentChordDisplayName;
+                    Store.dashboard.currentChordInfo = currentChordInfo;
+
+                    Store.dashboard.allPlayedNotes = Store.dashboard.allPlayedNotes.slice(4);
+
+                    Store.dashboard.chordsPlayed.push(currentChordInfo);
+                }
+            }
+
             // console.log(Chord.getChord(currentChord[0]));
             // console.log(Chord.getChord("maj7", "G4", "B4"));
 
@@ -515,6 +526,7 @@ export default class Trigger {
             // Chord.reduced("Cmaj7"); // => ["C5", "CM"]
 
         }
+        console.log(Store.dashboard);
     }
 
 }
