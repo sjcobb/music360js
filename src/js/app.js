@@ -286,7 +286,7 @@ let animate = () => {
     // console.log(Store.ticks);
     // console.log(Store.clock.elapsedTime);
 
-    if (Store.autoScroll === true) {
+    if (Store.view.autoScroll === true) {
         // const ticksMultiplier = 12; // v0.5
         // const ticksMultiplier = 18; 
         const ticksMultiplier = 24;

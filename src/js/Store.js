@@ -23,9 +23,6 @@ export default {
     ai: {
         enabled: false,
     },
-    autoScroll: true,
-    // autoStartTime: 4500,
-    autoStartTime: 6000,
     // bpm: 120,
     // bpm: 140,
     bpm: 160,
@@ -188,6 +185,9 @@ export default {
         }
     },
     view: {
+        autoScroll: true,
+        // autoStartTime: 6000,
+        autoStartTime: 0,
         drumCircle: true,
         skybox: false,
         cameraPositionBehind: true,

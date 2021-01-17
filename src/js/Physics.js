@@ -187,7 +187,7 @@ export default class Physics {
         let xRand = Math.random() * (15 - 1) + 1; //rdm b/w 1 and 15
         let xPos = xPosition; //TODO: remove xPosition param if not used
         
-        if (Store.autoScroll === true) {
+        if (Store.view.autoScroll === true) {
             if (options.type === 'drum') {
                 xPos = -(Store.ticks);
             } else {
