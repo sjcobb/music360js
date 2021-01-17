@@ -552,7 +552,7 @@ const recordingPart = new Tone.Part(function(time, datum){
 // recordingPart.start("0:5:0");
 // recordingPart.start("0:0:0");
 console.log('pre-start -> recordingPart', recordingPart);
-recordingPart.start(0);
+// recordingPart.start(0);
 
 const recordingSecondPart = new Tone.Part(function(time, datum){
     // console.log(time);
@@ -589,7 +589,9 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
 // }, recordingSecondNotes);  // bah bah black sheep
 
 // // recordingSecondPart.loop = true;
+
 recordingSecondPart.start("0:0:0");
+
 // recordingSecondPart.start("4:0:0"); // little too early
 // recordingSecondPart.start("4:4:0"); // decent
 // recordingSecondPart.start("5:0:0"); // too late

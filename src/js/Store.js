@@ -205,7 +205,7 @@ export default {
 
         posBehindX: -125,
         posBehindY: 9,
-        posBehindZ: -8,
+        posBehindZ: -24,
 
         // posBehindZ: 0, // prev
         
