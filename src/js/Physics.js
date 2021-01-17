@@ -116,7 +116,7 @@ export default class Physics {
             objSize = 0.50;
         }
 
-        // console.log('addBody -> options: ', options);       
+        console.log('addBody -> options: ', options);
 
         const trigger = new Trigger();
 
@@ -468,6 +468,8 @@ export default class Physics {
                     break;
 
                 case CANNON.Shape.types.BOX:
+                    // TODO: refactor so BOX can be chords instead of only floor
+
                     ///////////
                     // FLOOR //
                     // https://github.com/sjcobb/ice-cavern/blob/master/js/scene.js#L73

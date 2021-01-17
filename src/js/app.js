@@ -741,6 +741,16 @@ if (Store.view.showDashboard === true) {
     //     console.log(Store.dashboard.noteCountsObj);
     //     console.log(Store.dashboard.noteCountsArr);
     // }, 12000);
-    
 
 }
+
+setInterval(() => {
+    console.log(Store.dashboard.noteCountsObj);
+    console.log(Store.dashboard.noteCountsArr);
+    if (Store.dashboard.chordsPlayed[0]) {
+        console.log('addChord -> : ', Store.dashboard.chordsPlayed[0]);
+
+        const tempChordBodyParams = [false, 0, Store.dashboard.chordsPlayed[0]]
+        physics.addBody(...tempChordBodyParams);
+    }
+}, 8000);

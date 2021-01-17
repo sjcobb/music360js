@@ -474,21 +474,21 @@ export default class Trigger {
             // console.log(Tonal);
             // Tonal.ChordDetect.detect(Store.dashboard.allPlayedNotes);
 
-            console.log(Chord);
+            // console.log(Chord);
             const currentChord = Chord.detect(Store.dashboard.allPlayedNotes);
-            console.log({currentChord});
+            // console.log({currentChord});
 
             if (currentChord.length) {
                 const currentChordNoRoot = currentChord[0].slice(0, currentChord[0].length - 2);
                 // console.log(currentChordNoRoot);
 
                 const currentChordSplit = currentChord[0].split('/');
-                console.log({currentChordSplit});
+                // console.log({currentChordSplit});
 
                 // const currentChordInfo = Chord.get(currentChordNoRoot);
                 const currentChordInfo = Chord.get(currentChordSplit[0]);
                 const currentChordDisplayName = currentChordInfo.name;
-                console.log(currentChordDisplayName);
+                // console.log(currentChordDisplayName);
                 
                 if (currentChordDisplayName) {
                     Store.dashboard.currentChordDisplayName = currentChordDisplayName;
@@ -526,7 +526,7 @@ export default class Trigger {
             // Chord.reduced("Cmaj7"); // => ["C5", "CM"]
 
         }
-        console.log(Store.dashboard);
+        // console.log(Store.dashboard);
     }
 
 }
