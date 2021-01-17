@@ -2,23 +2,24 @@
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 
 export default {
-    // activeInstrColor: '#9F532A', //ltred
-    // activeInstrColor: '#800000', //dkred
-    // activeInstrColor: '#8F0000', //medred
-    // activeInstrColor: '#0018F9', //music wheel I blue
-    // activeInstrColor: '#7ec850', //grass green (lt)
-    // activeInstrColor: '#567d46', //grass green (md)
-    // activeInstrColor: '#edc9af', //desert sand
+    // activeInstrColor: '#9F532A', // ltred
+    // activeInstrColor: '#800000', // dkred
+    // activeInstrColor: '#8F0000', // medred
+    // activeInstrColor: '#0018F9', // music wheel I blue
+    // activeInstrColor: '#7ec850', // grass green (lt)
+    // activeInstrColor: '#567d46', // grass green (md)
+    // activeInstrColor: '#edc9af', // desert sand
     // activeInstrColor: '#e9be9f', // sand (md)
-    // activeInstrColor: '#e5b38f', //PREV - sand (md2)
+    // activeInstrColor: '#e5b38f', // sand (md2)
     // activeInstrColor: '#d8d8d8',
     // activeInstrColor: '#00A29C', // teal: https://www.color-hex.com/color-palette/4666
     // activeInstrColor: '#66b2b2', // lt teal
     // activeInstrColor: '#003366', // spinner midnight blue
     // activeInstrColor: '#001f3e',
     // activeInstrColor: '#1f1f1f',
-    activeInstrColor: '#343434', // PREV (gray)
+    activeInstrColor: '#343434', // gray
     // activeInstrColor: '#ffffff',
+    // activeInstrColor: '#FFFF00', // yellow
     ai: {
         enabled: false,
     },

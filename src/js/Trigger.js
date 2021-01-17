@@ -20,6 +20,7 @@ import * as recordingSecondNotes from '../../assets/recording/2.json';
 // console.log({recordingFirstNotes});
 // console.log(recordingFirstNotes.tracks[0].notes);
 // console.log({recordingSecondNotes});
+// // 
 
 //////////
 // TONE //
@@ -491,7 +492,8 @@ const recordingPart = new Tone.Part(function(time, datum){
     // instrMapped.color = '#008b8b';
     // instrMapped.color = '#800000'; // dkred
     // instrMapped.color = '#64b5f6'; // human blue
-    instrMapped.color = '#AC3E24'; // beethoven red
+    // instrMapped.color = '#AC3E24'; // beethoven red
+    instrMapped.color = '#FFFF00';
 
     // instrMapped.originalPosition.z -= 15;
     // instrMapped.originalPosition.z -= 18;

@@ -138,6 +138,7 @@ export default class Physics {
 
                 // options.duration = options.duration < minDuration ? minDuration : options.duration;
                 options.duration = options.duration > maxDuration ? maxDuration : options.duration;
+                // console.log(options.duration);
 
                 // // sphereRestitution = options.duration * 0.65; // v0.5
                 // // sphereRestitution = options.duration * 1.5; // too bouncy
@@ -146,8 +147,8 @@ export default class Physics {
 
                 // sphereRestitution = options.duration * 1.44; // earthquake
 
-                sphereRestitution = options.duration * 0.48;
-                // sphereRestitution = options.duration * 0.5; // prev
+                // sphereRestitution = options.duration * 0.48; // beethoven
+                sphereRestitution = options.duration * 0.26;
 
                 // const minRestitution = 0.3; //prev
                 const minRestitution = 0.125;
