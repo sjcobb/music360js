@@ -16,8 +16,12 @@
     <script src="vendor/Cannon/cannon.min.js"></script>
     <script src="vendor/Cannon/CannonDebugRenderer.js"></script>
 
+    <!-- only load if Store.view.showDashboard === true -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.6.0/echarts.min.js"></script>
     <script src="vendor/echarts-gl.min.js"></script>
+
+    <!-- <script type="text/javascript" src="../tonejs-instruments/Tonejs-Instruments.js"></script> -->
+    <script type="text/javascript" src="https://rawcdn.githack.com/sjcobb/tonejs-instruments/8ec9f43d6f07fdeb15e684df5a6c7efa2c3eedf6/Tonejs-Instruments.js"></script>
 </head>
 
 <body>
@@ -36,12 +40,14 @@
     </div>
 
     <div id="dashboard-container" class="dashboard-container">
-        <div id="chart" class="echarts-entry" style="width: 400px; height: 400px;"></div>
+        <div id="chart" class="echarts-entry" style="width: 350px; height: 350px;"></div>
     </div>
 
-    <div id="img-container" class="img-container">
+    <div id="divider" class="divider"></div>
+
+    <!-- <div id="img-container" class="img-container">
         <img src="assets/sheet-music/twinkle-star_sheet-music.png" alt="sheet music">
-    </div>
+    </div> -->
     
 
     <script src="dist/bundle.js"></script>

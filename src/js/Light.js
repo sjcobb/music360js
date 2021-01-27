@@ -13,7 +13,8 @@ export default class Light {
         renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
 
         // LIGHTS
-        const ambient = new THREE.AmbientLight(0x888888);
+        // const ambient = new THREE.AmbientLight(0x888888);
+        const ambient = new THREE.AmbientLight(0xf2f2f2);
         Store.scene.add(ambient);
 
         const light = new THREE.DirectionalLight(0xdddddd);

@@ -51,7 +51,12 @@ export default class Physics {
 
         if (Store.view.showStaff.treble === true && Store.view.showStaff.bass === true) {
             posArr = [0, -6, -2];
-            sizeArr = [5000, 15, 5];
+            sizeArr = [12000, 20, 5];
+        }
+
+        if (Store.view.stage.size === 'lg') {
+            posArr = [0, -6, -2];
+            sizeArr = [5000, 50, 5];
         }
 
         // FLOOR
@@ -117,14 +122,41 @@ export default class Physics {
 
         let sphereRestitution = 0.3;
         if (options.type === 'drum') {
-            sphereRestitution = 0.3; //prev: 0.9, 0.1 = one bounce
+            // sphereRestitution = 0.3; //prev: 0.9, 0.1 = one bounce
+            sphereRestitution = 0.2;
         } else {
             // console.log('options.duration: ', options.duration);
             if (options.duration > 0) { // TODO: rename options.noteLength so not confusing with arr length
                 // sphereRestitution = options.length / 2;
                 // sphereRestitution = options.duration * 0.65; // PREV
-                sphereRestitution = options.duration * 0.58;
-                // sphereRestitution = options.length * 1;
+
+                // console.log(options.duration);
+
+                // // const maxDuration = 2.5; // too bouncy
+                const maxDuration = 1.7;
+                const minDuration = 0.50;
+
+                // options.duration = options.duration < minDuration ? minDuration : options.duration;
+                options.duration = options.duration > maxDuration ? maxDuration : options.duration;
+                // console.log(options.duration);
+
+                // // sphereRestitution = options.duration * 0.65; // v0.5
+                // // sphereRestitution = options.duration * 1.5; // too bouncy
+
+                // // sphereRestitution = options.duration * 1.40;
+
+                // sphereRestitution = options.duration * 1.44; // earthquake
+
+                // sphereRestitution = options.duration * 0.48; // beethoven
+                sphereRestitution = options.duration * 0.26;
+
+                // const minRestitution = 0.3; //prev
+                const minRestitution = 0.125;
+                sphereRestitution = sphereRestitution < minRestitution ? minRestitution : sphereRestitution;
+
+                // console.log({sphereRestitution});
+
+                // sphereRestitution = options.duration * 0.58; // PREV (twinkle)
 
                 // TODO: clean up bounciness default and min / max height
                 // if (sphereRestitution < 0.225) {
@@ -184,11 +216,13 @@ export default class Physics {
             // https://codepen.io/danlong/pen/LJQYYN
             // zPos += 10; // PREV: see Store.staffLineInitZ and Store.staffLineSecondZ
 
-            zPos -= 8; // TODO: is this still needed?
+            // zPos -= 8; // TODO: is this still needed?
         } else {
             // zPos -= 3; // v0.4, v0.5
 
-            zPos += 2;
+            if (Store.view.showStaff.treble === true) {
+                zPos += 2;
+            }
         }
 
         if (Store.cameraCircularAnimation === true) {
@@ -210,9 +244,15 @@ export default class Physics {
         body.linearDamping = Store.damping; // 0.01
         // body.linearDamping = 0.01; // v0.2, v0.3
 
-        // body.angularVelocity.z = 12; //too much rotation - hard to read note letter
-        // body.angularVelocity.z = 6; //prev
-        body.angularVelocity.z = 0;
+        // // // IMPORTANT - rotation spped // // //
+        // body.angularVelocity.z = 10; // prev
+        // body.angularVelocity.z = options.size === 'xl' ? 10 : 20;
+
+        // body.angularVelocity.z = options.size === 'xl' ? 8 : 18; // earthquake
+        // body.angularVelocity.z = options.size === 'xl' ? 8 : 24; // works
+        // body.angularVelocity.z = options.size === 'xl' ? 8 : 26; // earthquake, prev
+
+        body.angularVelocity.z = options.size === 'xl' ? 8 : 0; 
 
         if (options.type === 'animation') {
             flamePhysics.create({x: -xPos});
@@ -256,9 +296,28 @@ export default class Physics {
 
             if (Store.triggerOn === 'contact') {
                 if (bodyCollideCount === 1) {
+                    // console.log({body});
                     trigger.triggerNote(body);
                     notePlayed = true;
-                }
+
+                    // if (options.material != null) {
+                        
+                        // // instrMaterial.map = Store.view.instrumentConfigArr[0].bubbleTexture;
+
+                        // setTimeout(() => {
+                        //     instrMaterial.map = Store.view.instrumentConfigArr[1].bubbleTexture;
+                        // }, 20);
+
+                        // setTimeout(() => {
+                        //     instrMaterial.map = Store.view.instrumentConfigArr[6].bubbleTexture;
+                        // }, 120);
+
+                        setTimeout(() => {
+                            // Store.scene.remove(obj3D);
+                            Store.world.remove(body);
+                        }, 600);
+                    // }
+                } 
             } else if (Store.triggerOn === 'spinner') {
                 if (spinnerCollideCount === 1 && notePlayed !== true) { // 0.3
                     trigger.triggerNote(body);
@@ -378,15 +437,12 @@ export default class Physics {
                     break;
 
                 case CANNON.Shape.types.PLANE:
-                    // geometry = new THREE.PlaneGeometry(10, 10, 4, 4); // too short
-                    // geometry = new THREE.PlaneGeometry(20, 10, 4, 4);
-                    geometry = new THREE.PlaneGeometry(0, 0, 0, 0);
+
+                    // Old floor (switched to box geometry)
+                    geometry = new THREE.PlaneGeometry(20, 10, 4, 4);
                     mesh = new THREE.Object3D();
-
-                    // TODO: try changing mesh.name to fix no color update
                     mesh.name = 'groundPlane';
-                    // geometry.colorsNeedUpdate = true; //no effect
-
+  
                     const submesh = new THREE.Object3D();
 
                     // const randColor = (Math.random()*0xFFFFFF<<0).toString(16);
@@ -400,10 +456,11 @@ export default class Physics {
 
                     const ground = new THREE.Mesh(geometry, material);
                     // ground.scale.set(500, 6, 100); // PREV
-                    ground.scale.set(10, 10, 10); // no effect
+                    // ground.scale.set(10, 10, 10); // no effect
                     ground.name = 'groundMesh';
 
                     //TODO: use correctly - https://threejs.org/docs/#manual/en/introduction/How-to-update-things
+                    // TODO: try changing mesh.name to fix no color update
                     // ground.colorsNeedUpdate = true;
 
                     submesh.add(ground);
@@ -411,19 +468,38 @@ export default class Physics {
                     break;
 
                 case CANNON.Shape.types.BOX:
-                    // NEW Ground for drum spinner, PLANE no longer used since infinite invisible contact not needed
-                    const boxGeometry = new THREE.BoxGeometry(shape.halfExtents.x * 2,
-                        shape.halfExtents.y * 2,
-                        shape.halfExtents.z * 2);
+                    ///////////
+                    // FLOOR //
+                    // https://github.com/sjcobb/ice-cavern/blob/master/js/scene.js#L73
+                    ///////////
+                    const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/frame_121.png');
+                    console.log({floorTexture});
 
-                    // console.log({shape});
+                    // https://threejs.org/docs/#api/en/textures/Texture.repeat
+
+                    // floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
+                    // floorTexture.repeat.set(3, 3);
+
+                    // const floorMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 });
+                    // const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+                    const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture } );
+                    floorMaterial.map.center.set(0.5, 0.5) 
+                    // floorMaterial.map.repeat = 1; // just black, no img
+                    console.log({floorMaterial});
+
+                    // NEW Ground for drum spinner, PLANE no longer used since infinite invisible contact not needed
+                    const boxGeometry = new THREE.BoxGeometry(shape.halfExtents.x * 2, shape.halfExtents.y * 2, shape.halfExtents.z * 2);
 
                     // const boxGeometry = new THREE.BoxGeometry(25, 25, 0.5); // does not coincide with contact surface size
 
-                    material.color = new THREE.Color(Store.activeInstrColor);;
+                    material.color = new THREE.Color(Store.activeInstrColor);
+
+                    // material.color = new THREE.Color('#9F532A'); // red
 
                     // boxGeometry.scale.set(10, 10, 10); // not a function
-                    mesh = new THREE.Mesh(boxGeometry, material);
+
+                    mesh = new THREE.Mesh(boxGeometry, material); // v0.5
+                    // mesh = new THREE.Mesh(boxGeometry, floorMaterial); // new earthquake asset
                     break;
 
                 case CANNON.Shape.types.CONVEXPOLYHEDRON:

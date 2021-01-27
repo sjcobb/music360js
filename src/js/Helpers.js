@@ -158,11 +158,16 @@ export default class Helpers {
             ctx.translate(w / 4, h / 2);
             
             // let textH = w / 4; // 128
-            let textH = 180;
+            let textH = 160; // prev
             if (textData.length > 2) {
-                textH = textH / 2.5;
+                textH = textH / 2.5; // ex: 808
             } else if (textData.length === 2) {
-                textH = textH / 1.2;
+                // TODO: how to make just # sign smaller than note letter
+                // console.log({textData});
+                // textH = textH / 1.2; // prev, too big
+                textH = textH / 1.5; // ex: G#
+            } else {
+                // textH = textH / 1.2;
             }
             // textH = textH / textData.length; // kind of works, but "Cr" too small
 
@@ -186,7 +191,8 @@ export default class Helpers {
 
             // let textOffsetY = 0.4; // v0.3, v0.4
             // let textOffsetY = -0.1; // move text up on ball
-            let textOffsetY = -0.033;
+            // let textOffsetY = -0.033; // prev, move text up on ball
+            let textOffsetY = 0.2;
 
             // if (textW > 100) {
             //     // console.log(textData); //TODO: make fillEllipse wider or font (textH) smaller when multiple characters

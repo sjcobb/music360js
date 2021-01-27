@@ -1,6 +1,6 @@
-// import Store from './Store.js';
-// import Tone from 'Tone';
-// import Physics from './Physics.js';
+import Store from './Store.js';
+import Tone from 'Tone';
+import Physics from './Physics.js';
 // import Flame from './Flame.js';
 
 // let flameAudio = new Flame();
@@ -10,55 +10,51 @@
 //  */
 
 
-// const physics = new Physics();
+const physics = new Physics();
 
-// //-----INSTRUMENT PARTS------//
-// var allDrumsPart = new Tone.Part(function(time, instr) {
-//     // physics.addBody(true, time * Store.multiplierPosX, instr);
-//     physics.addBody(true, Store.dropPosX, instr);
-// }, [
-//     ["0:0:0", Store.instr.kickPrimary],
-//     // ["0:0:0", Store.instr.snarePrimary],
+//-----INSTRUMENT PARTS------//
+var allDrumsPart = new Tone.Part(function(time, instr) {
+    // physics.addBody(true, time * Store.multiplierPosX, instr);
+    physics.addBody(true, Store.dropPosX, instr);
+}, [
+    ["0:0:0", Store.instr.kickPrimary],
+    ["0:1:0", Store.instr.kickPrimary],
+    ["0:2:0", Store.instr.kickPrimary],
 
-//     // ["0:6:0", Store.instr.kickPrimary],
-//     ["0:6:0", Store.instr.snarePrimary],
+    // ["0:4:0", Store.instr.crashPrimary],
 
-//     ["0:10:0", Store.instr.kickPrimary],
-//     // ["0:10:0", Store.instr.snarePrimary],
+    // ["0:8:0", Store.instr.snarePrimary],
+    // ["0:9:0", Store.instr.snarePrimary],
 
-//     // ["0:10:0", Store.instr.snarePrimary],
+    // ["0:4:0", Store.instr.tomHigh],
+]);
+allDrumsPart.loop = true;
+// allDrumsPart.start("0:0:0");
+// allDrumsPart.start("1:0:0");
 
-//     // ["0:8:0", Store.instr.crashPrimary],
-//     // ["0:8:0", Store.instr.snarePrimary],
-
-//     // ["0:4:0", Store.instr.tomHigh],
-// ]);
-// allDrumsPart.loop = true;
-// // allDrumsPart.start("1:0:0");
-
-// var introPart = new Tone.Part(function(time, instr) {
-//     // TODO: use Store.dropCoordCircle [0] and [719] for dropPosX and dropPosY (must be added as param to addBody) coordinates
-//     // console.log('introPart -> dropPosX, dropPosY: ', Store.dropPosX, '-', Store.dropPosY);
-//     physics.addBody(true, Store.dropPosX, instr, 0);
-//     // physics.addBody(true, time * Store.multiplierPosX, instr); // sine wave
-// }, [
-//     ["0:0:0", Store.instr.hiHatClosed],
-//     ["0:1:0", Store.instr.hiHatClosed],
-//     ["0:2:0", Store.instr.hiHatClosed],
-//     ["0:3:0", Store.instr.hiHatClosed],
-//     ["0:4:0", Store.instr.hiHatClosed],
-//     ["0:5:0", Store.instr.hiHatClosed],
-//     ["0:6:0", Store.instr.hiHatClosed],
-//     ["0:7:0", Store.instr.hiHatClosed],
-//     ["0:8:0", Store.instr.hiHatClosed],
-//     ["0:9:0", Store.instr.hiHatClosed],
-//     ["0:10:0", Store.instr.hiHatClosed],
-//     ["0:11:0", Store.instr.hiHatClosed],
-//     // ["0:0:0", Store.instr.hiHatOpen],
-// ]);
-// introPart.loop = 6;
-// introPart.loop = true;
-// // introPart.start("0:0:0");
+var introPart = new Tone.Part(function(time, instr) {
+    // TODO: use Store.dropCoordCircle [0] and [719] for dropPosX and dropPosY (must be added as param to addBody) coordinates
+    // console.log('introPart -> dropPosX, dropPosY: ', Store.dropPosX, '-', Store.dropPosY);
+    physics.addBody(true, Store.dropPosX, instr, 0);
+    // physics.addBody(true, time * Store.multiplierPosX, instr); // sine wave
+}, [
+    ["0:0:0", Store.instr.hiHatClosed],
+    ["0:1:0", Store.instr.hiHatClosed],
+    ["0:2:0", Store.instr.hiHatClosed],
+    ["0:3:0", Store.instr.hiHatClosed],
+    ["0:4:0", Store.instr.hiHatClosed],
+    ["0:5:0", Store.instr.hiHatClosed],
+    ["0:6:0", Store.instr.hiHatClosed],
+    ["0:7:0", Store.instr.hiHatClosed],
+    ["0:8:0", Store.instr.hiHatClosed],
+    ["0:9:0", Store.instr.hiHatClosed],
+    ["0:10:0", Store.instr.hiHatClosed],
+    ["0:11:0", Store.instr.hiHatClosed],
+    // ["0:0:0", Store.instr.hiHatOpen],
+]);
+introPart.loop = 6;
+introPart.loop = true;
+// introPart.start("3:0:0");
 
 // var secPosPart = new Tone.Part(function(time, instr) {
 //     physics.addBody(true, Store.dropPosX, instr, 1);

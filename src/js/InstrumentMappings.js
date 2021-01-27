@@ -90,6 +90,9 @@ export function generateInstrMetadata(note) {
     const instrMapped = getInstrByInputNote(baseNote);
 
     if (tonalNote.length === 3) {
+        // console.log('(generateInstrMetadata) -> tonalNote condition...');
+        // console.log({baseNote});
+        // console.log({tonalNote});
         instrMapped.note = tonalNote[0] + tonalNote[1];
         instrMapped.ballDesc = tonalNote[0] + tonalNote[1];
         // instrMapped.ballDesc = tonalNote;
@@ -97,10 +100,16 @@ export function generateInstrMetadata(note) {
 
     // console.log('(generateInstrMetadata) -> instrMapped: ', instrMapped);
     // TODO: best way to set color for machine, human, reg keyboard???
-    if (instrMapped.color) {
-        // instrMapped.color = '#64b5f6'; // human blue
-        instrMapped.color = '#FFFF00'; // yellow
+    // if (instrMapped.color) {
+    if (instrMapped !== undefined) {
+        instrMapped.color = '#64b5f6'; // human blue
+        // instrMapped.color = '#FFFF00'; // yellow
     }
+
+    if (instrMapped === undefined) {
+        console.log('(generateInstrMetadata) -> UNDEF note: ', note);
+    }
+    // console.log(instrMapped);
     
     return instrMapped;
 }
@@ -135,88 +144,90 @@ export function getInstrByNote(inputNote = 'C4') {
 export function getInstrumentMappingTemplate(movement = 'physics') {
     //const instrumentMapping = {
     return {
-        // flameCenter: {
-        //     type: 'animation',
-        //     triggerOn: 2,
-        //     timesTriggered: 0,
-        //     originalPosition: { x: 0, y: 0, z: -5 }
-        // },
-        // hiHatClosed: {
-        //     ballDesc: 'H',
-        //     // color: '#ff0000', //red
-        //     color: '#64b5f6', // human (lt blue)
-        //     keyInput: '1',
-        //     movement: movement, //default: 'physics', or 'static'
-        //     type: 'drum',
-        //     variation: 'hihat',
-        //     // originalPosition: { x: -3, y: 1.5, z: 1 }
-        //     originalPosition: { x: 0, y: 0, z: 10 }
-        // },
-        // hiHatOpen: {
-        //     ballDesc: 'H',
-        //     // ballDesc: 'H+',
-        //     // color: '#990000', //dkred
-        //     color: '#64b5f6', // human (lt blue)
-        //     keyInput: '2',
-        //     // movement: 'static',
-        //     type: 'drum',
-        //     variation: 'hihat-open',
-        //     originalPosition: { x: 0, y: 0, z: -3 }
-        // },
-        // snarePrimary: {
-        //     ballDesc: 'S',
-        //     // color: '#FFFF00', //yellow
-        //     color: '#64b5f6', // human (lt blue)
-        //     keyInput: '3',
-        //     type: 'drum',
-        //     variation: 'snare',
-        //     originalPosition: { x: -3, y: 1.5, z: 1 }
-        //     // originalPosition: { x: 0, y: 0, z: (globalStaffLineSecondZ + 5) }
-        // },
-        // kickPrimary: {
-        //     // ballDesc: 'K', // beat-v1
-        //     // ballDesc: 'B',
-        //     ballDesc: '808',
-        //     // color: '#003366', //midnight blue
-        //     color: '#64b5f6', // human (lt blue)
-        //     keyInput: '4',
-        //     type: 'drum',
-        //     variation: 'kick',
-        //     // originalPosition: { x: 0, y: 0, z: 5 }, // drum staff
-        //     // originalPosition: { x: 0, y: 0, z: 4 }, // B
-        //     originalPosition: { x: 0, y: 0, z: 2 }, // B
-        //     // originalPosition: { x: 0, y: 0, z: 1 },
-        //     size: 'xl',
-        // },
-        // crashPrimary: {
-        //     ballDesc: 'Cr',
-        //     // color: '#FFA500', //orange
-        //     color: '#8B008B', //darkmagenta
-        //     color: '#64b5f6', // human (lt blue)
-        //     keyInput: '5',
-        //     type: 'drum',
-        //     variation: 'crash', //aka clap
-        //     // originalPosition: { x: 0, y: 0, z: -4 }
-        //     originalPosition: { x: 0, y: 0, z: 2 }
-        // },
-        // ridePrimary: {
-        //     ballDesc: 'R',
-        //     // color: '#FFD700', //gold
-        //     color: '#64b5f6', // human (lt blue)
-        //     keyInput: '6',
-        //     type: 'drum',
-        //     variation: 'ride',
-        //     originalPosition: { x: 0, y: 0, z: -2 }
-        // },
-        // tomHigh: {
-        //     ballDesc: 'T',
-        //     // color: '#006400', //dkgreen
-        //     color: '#64b5f6', // human (lt blue)
-        //     keyInput: '7',
-        //     type: 'drum',
-        //     variation: 'tom-high',
-        //     originalPosition: { x: 0, y: 0, z: 0 }
-        // },
+        flameCenter: {
+            type: 'animation',
+            triggerOn: 2,
+            timesTriggered: 0,
+            originalPosition: { x: 0, y: 0, z: -5 }
+        },
+        hiHatClosed: {
+            ballDesc: 'H',
+            // color: '#ff0000', //red
+            color: '#64b5f6', // human (lt blue)
+            keyInput: '1',
+            movement: movement, //default: 'physics', or 'static'
+            type: 'drum',
+            variation: 'hihat',
+            // originalPosition: { x: -3, y: 1.5, z: 1 }
+            // originalPosition: { x: 0, y: 0, z: 10 }
+            originalPosition: { x: 0, y: 0, z: 5 }
+        },
+        hiHatOpen: {
+            ballDesc: 'H',
+            // ballDesc: 'H+',
+            // color: '#990000', //dkred
+            color: '#64b5f6', // human (lt blue)
+            keyInput: '2',
+            // movement: 'static',
+            type: 'drum',
+            variation: 'hihat-open',
+            // originalPosition: { x: 0, y: 0, z: -3 }
+            originalPosition: { x: 0, y: 0, z: 5 }
+        },
+        snarePrimary: {
+            ballDesc: 'S',
+            // color: '#FFFF00', //yellow
+            color: '#64b5f6', // human (lt blue)
+            keyInput: '3',
+            type: 'drum',
+            variation: 'snare',
+            // originalPosition: { x: 0, y: 0, z: (globalStaffLineSecondZ + 5) }
+            // originalPosition: { x: -3, y: 1.5, z: 1 } // v0.5
+            originalPosition: { x: 0, y: 0, z: -5 }
+        },
+        kickPrimary: {
+            // ballDesc: 'K', // beat-v1
+            // ballDesc: 'B',
+            ballDesc: '808',
+            // color: '#003366', //midnight blue
+            color: '#64b5f6', // human (lt blue)
+            keyInput: '4',
+            type: 'drum',
+            variation: 'kick',
+            // originalPosition: { x: 0, y: 0, z: 2 }, // B
+            originalPosition: { x: 0, y: 0, z: 0 }, // B
+            size: 'xl',
+        },
+        crashPrimary: {
+            ballDesc: 'Cr',
+            // color: '#FFA500', //orange
+            color: '#8B008B', //darkmagenta
+            color: '#64b5f6', // human (lt blue)
+            keyInput: '5',
+            type: 'drum',
+            variation: 'crash', //aka clap
+            // originalPosition: { x: 0, y: 0, z: -4 }
+            // originalPosition: { x: 0, y: 0, z: 2 }
+            originalPosition: { x: 0, y: 0, z: -5 }
+        },
+        ridePrimary: {
+            ballDesc: 'R',
+            // color: '#FFD700', //gold
+            color: '#64b5f6', // human (lt blue)
+            keyInput: '6',
+            type: 'drum',
+            variation: 'ride',
+            originalPosition: { x: 0, y: 0, z: -2 }
+        },
+        tomHigh: {
+            ballDesc: 'T',
+            // color: '#006400', //dkgreen
+            color: '#64b5f6', // human (lt blue)
+            keyInput: '7',
+            type: 'drum',
+            variation: 'tom-high',
+            originalPosition: { x: 0, y: 0, z: 0 }
+        },
         sphereChordG1: {
             ballDesc: 'G',
             color: '#4B0AA1', //V - dkblue
@@ -396,7 +407,7 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             chord: ['C4', 'E4', 'G4'],
             type: 'chord',
             // length: '8n', // '4n', '2n'
-            duration: '8n',
+            // duration: '8n',
             originalPosition: { x: 0, y: 0, z: -2 }
         },
         sphereChordD4: {
@@ -482,7 +493,7 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
         sphereChordE5: {
             ballDesc: 'E',
             color: '#FF001F', //III - redorange
-            keyInput: 'F',
+            keyInput: '?',
             note: 'E',
             octave: 5,
             chord: ['E5', 'G5', 'B5'],
@@ -508,6 +519,86 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             chord: ['G5', 'B5', 'D6'],
             type: 'chord',
             originalPosition: { x: 0, y: 0, z: -13 }
+        },
+        sphereChordA5: {
+            ballDesc: 'A',
+            color: '#C6018B', //VI - pink
+            keyInput: '?',
+            note: 'A',
+            octave: 5,
+            chord: ['A5', 'C6', 'E6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -14 }
+        },
+        sphereChordB5: {
+            ballDesc: 'B',
+            color: '#FF872B', //VII - orange
+            keyInput: '?',
+            note: 'B',
+            octave: 5,
+            chord: ['B5', 'D6', 'F6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -15 }
+        },
+        sphereChordC6: {
+            ballDesc: 'C',
+            color: '#0018F9', //I - blue
+            keyInput: '?',
+            note: 'C',
+            octave: 6,
+            chord: ['C6', 'E6', 'G6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -16 }
+        },
+        sphereChordD6: {
+            ballDesc: 'D',
+            color: '#680896', //II - purple
+            keyInput: '?',
+            note: 'D',
+            octave: 6,
+            chord: ['D6', 'F6', 'A6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -17 }
+        },
+        sphereChordE6: {
+            ballDesc: 'E',
+            color: '#FF001F', //III - redorange
+            keyInput: '?',
+            note: 'E',
+            octave: 6,
+            chord: ['E6', 'G6', 'B6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -18 }
+        },
+        sphereChordF6: {
+            ballDesc: 'F',
+            color: '#006CFA', //IV - medblue
+            keyInput: '?',
+            note: 'F',
+            octave: 6,
+            chord: ['F6', 'A6', 'C7'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -19 }
+        },
+        sphereChordG6: {
+            ballDesc: 'G',
+            color: '#4B0AA1', //V - dkblue
+            keyInput: '?',
+            note: 'G',
+            octave: 6,
+            chord: ['G6', 'B6', 'D6'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -20 }
+        },
+        sphereChordA6: {
+            ballDesc: 'A',
+            color: '#C6018B', //VI - pink
+            keyInput: '?',
+            note: 'A',
+            octave: 6,
+            chord: ['A6', 'C7', 'E7'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -21 }
         },
         // Db2, Eb2, Gb2, Ab2, Bb2, Db3, Eb3, Gb3, Ab3, Bb3
     };
