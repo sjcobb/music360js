@@ -753,3 +753,146 @@ setInterval(() => {
         // physics.addBody(...tempChordBodyParams);
     }
 }, 8000);
+
+
+////////////////////
+// DEPTH DETECTOR //
+////////////////////
+// https://github.com/sjcobb/webxr-chess-game/blob/master/chess/app.js
+
+class AppAR {
+    constructor() {
+        this.onXRFrame = this.onXRFrame.bind(this);
+        this.onEnterAR = this.onEnterAR.bind(this);
+        this.projector = new THREE.Projector();
+
+        this.init();
+        this.onClick = this.onClick.bind(this);
+        this.onDocumentMouseDown = this.onDocumentMouseDown.bind(this);
+    }
+
+    async init() {
+        if (navigator.xr && XRSession.prototype.requestHitTest) {
+            try {
+                this.device = await navigator.xr.requestDevice();
+            } catch (e) {
+                this.onNoXRDevice();
+                return;
+            }
+        } else {
+            this.onNoXRDevice();
+            return;
+        }
+        document.querySelector('#enter-ar').addEventListener('click', this.onEnterAR);
+    }
+
+    async onEnterAR() {
+        // https://github.com/sjcobb/webxr-chess-game/blob/master/chess/app.js#L139
+        // ...
+        // this.onSessionStarted(session);
+    }
+
+    async onSessionStarted(session) {
+        this.session = session;
+        document.body.classList.add('ar');
+        this.renderer = new THREE.WebGLRenderer({
+            alpha: true,
+            preserveDrawingBuffer: true,
+        });
+        this.renderer.autoClear = false;
+        this.gl = this.renderer.getContext();
+        await this.gl.setCompatibleXRDevice(this.session.device);
+        this.session.baseLayer = new XRWebGLLayer(this.session, this.gl);
+        this.scene = DemoUtils.createLitScene();
+
+        this.camera = new THREE.PerspectiveCamera();
+        this.camera.matrixAutoUpdate = false;
+
+        this.reticle = new Reticle(this.session, this.camera);
+
+        // ...
+
+        this.loadModels();
+        // this.updateCreditsInfo();
+
+        this.camera = new THREE.PerspectiveCamera();
+        this.camera.matrixAutoUpdate = false;
+
+        this.reticle = new Reticle(this.session, this.camera);
+        this.scene.add(this.reticle);
+
+        window.addEventListener('click', this.onClick);
+
+        this.frameOfRef = await this.session.requestFrameOfReference('eye-level');
+        this.session.requestAnimationFrame(this.onXRFrame);
+    }
+
+    loadModels() {
+        // https://github.com/sjcobb/webxr-chess-game/blob/master/chess/app.js#L265
+    }
+
+    onDocumentMouseDown(event) {
+        // https://github.com/sjcobb/webxr-chess-game/blob/master/chess/app.js#L362
+
+        event.preventDefault();
+
+        const tapPosition = new THREE.Vector2(
+            (event.clientX / window.innerWidth) * 2 - 1,
+            - (event.clientY / window.innerHeight) * 2 + 1
+        );
+
+        this.raycaster = this.raycaster || new THREE.Raycaster();
+        this.raycaster.setFromCamera(tapPosition, this.camera);
+
+        // new TWEEN.Tween(this.selectedPiece.position)
+
+    }
+
+    createChessBoard() {
+        // https://github.com/sjcobb/webxr-chess-game/blob/master/chess/app.js#L661
+    }
+
+    /**
+     * Called on the XRSession's requestAnimationFrame.
+     * Called with the time and XRPresentationFrame.
+     */
+    onXRFrame(time, frame) {
+        let session = frame.session;
+        let pose = frame.getDevicePose(this.frameOfRef);
+
+        this.gameStarted || this.reticle.update(this.frameOfRef);
+        if (this.reticle.visible && !this.stabilized) {
+            this.stabilized = true;
+            document.body.classList.add('stabilized');
+        }
+
+        // Queue up the next frame
+        session.requestAnimationFrame(this.onXRFrame);
+
+        TWEEN.update();
+
+        // Bind the framebuffer to our baseLayer's framebuffer
+        this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, this.session.baseLayer.framebuffer);
+
+        if (pose) {
+            // Our XRFrame has an array of views. In the VR case, we'll have
+            // two views, one for each eye. In mobile AR, however, we only
+            // have one view.
+            for (let view of frame.views) {
+                const viewport = session.baseLayer.getViewport(view);
+                this.renderer.setSize(viewport.width, viewport.height);
+
+                // Set the view matrix and projection matrix from XRDevicePose
+                // and XRView onto our THREE.Camera.
+                this.camera.projectionMatrix.fromArray(view.projectionMatrix);
+                const viewMatrix = new THREE.Matrix4().fromArray(pose.getViewMatrix(view));
+                this.camera.matrix.getInverse(viewMatrix);
+                this.camera.updateMatrixWorld(true);
+
+                // Render our scene with our THREE.WebGLRenderer
+                this.renderer.render(this.scene, this.camera);
+            }
+        }
+    }
+};
+// window.app = new AppAR();
