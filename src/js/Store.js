@@ -34,6 +34,7 @@ export default {
     clockNote: new THREE.Clock(),
     configColorAnimate: true,
     controls: '',
+    controller: '',
     // controls: new FlyControls(camera),
     // currentNoteLength: 0, // not needed
     currentNote: {
@@ -202,16 +203,19 @@ export default {
         posBehindZ: 0,
 
         songAutoStart: true,
-        showDashboard: true,
+        showDashboard: false,
         showLogoSprite: false,
         showStats: true,
         showStaff: {
-            bass: true,
-            treble: true,
+            bass: false,
+            treble: false,
         },
+        // TODO: fix splitScreen view
+        splitScreen: false,
         stage: {
-            // size: 'lg',
-        }
+            size: 'lg',
+        },
+        xr: true
     },
     world: new CANNON.World(),
 };

@@ -46,170 +46,168 @@ Tone.Transport.timeSignature = 12; // v0.4, v0.5
 // https://tonejs.github.io/docs/r11/Sampler
 // https://github.com/nbrosowsky/tonejs-instruments
 
-const samplerAssetPath = './assets/samples/violin/'
-Store.sampler.strings = new Tone.Sampler({
-    'A3': samplerAssetPath + 'A3.[mp3|ogg]',
-    'A4': samplerAssetPath + 'A4.[mp3|ogg]',
-    'A5': samplerAssetPath + 'A5.[mp3|ogg]',
-    'A6': samplerAssetPath + 'A6.[mp3|ogg]',
-    'C4': samplerAssetPath + 'C4.[mp3|ogg]',
-    'C5': samplerAssetPath + 'C5.[mp3|ogg]',
-    'C6': samplerAssetPath + 'C6.[mp3|ogg]',
-    'C7': samplerAssetPath + 'C7.[mp3|ogg]',
-    'E4': samplerAssetPath + 'E4.[mp3|ogg]',
-    'E5': samplerAssetPath + 'E5.[mp3|ogg]',
-    'E6': samplerAssetPath + 'E6.[mp3|ogg]',
-    'G4': samplerAssetPath + 'G4.[mp3|ogg]',
-    'G5': samplerAssetPath + 'G5.[mp3|ogg]',
-    'G6': samplerAssetPath + 'G6.[mp3|ogg]',
-}, function(){
-    // Store.sampler.strings.triggerAttackRelease("A3");
-    // Store.sampler.strings.triggerAttackRelease("A3", 3);
-}).toMaster();
-
-// Store.sampler.strings.volume.value = -32;
-Store.sampler.strings.volume.value = -26;
-// console.log(Store.sampler.strings);
+// const samplerAssetPath = './assets/samples/violin/'
+// Store.sampler.strings = new Tone.Sampler({
+//     'A3': samplerAssetPath + 'A3.[mp3|ogg]',
+//     'A4': samplerAssetPath + 'A4.[mp3|ogg]',
+//     'A5': samplerAssetPath + 'A5.[mp3|ogg]',
+//     'A6': samplerAssetPath + 'A6.[mp3|ogg]',
+//     'C4': samplerAssetPath + 'C4.[mp3|ogg]',
+//     'C5': samplerAssetPath + 'C5.[mp3|ogg]',
+//     'C6': samplerAssetPath + 'C6.[mp3|ogg]',
+//     'C7': samplerAssetPath + 'C7.[mp3|ogg]',
+//     'E4': samplerAssetPath + 'E4.[mp3|ogg]',
+//     'E5': samplerAssetPath + 'E5.[mp3|ogg]',
+//     'E6': samplerAssetPath + 'E6.[mp3|ogg]',
+//     'G4': samplerAssetPath + 'G4.[mp3|ogg]',
+//     'G5': samplerAssetPath + 'G5.[mp3|ogg]',
+//     'G6': samplerAssetPath + 'G6.[mp3|ogg]',
+// }, function(){
+//     // Store.sampler.strings.triggerAttackRelease("A3");
+//     // Store.sampler.strings.triggerAttackRelease("A3", 3);
+// }).toMaster();
+// // Store.sampler.strings.volume.value = -32;
+// Store.sampler.strings.volume.value = -26;
+// // console.log(Store.sampler.strings);
 
 // // //
 
-const samplerAssetPathSecond = './assets/samples/guitar-acoustic/'
-Store.sampler.guitar = new Tone.Sampler({
-    'F3': samplerAssetPathSecond + 'F3.[mp3|ogg]',
-    'F#1': samplerAssetPathSecond + 'Fs1.[mp3|ogg]',
-    'F#2': samplerAssetPathSecond + 'Fs2.[mp3|ogg]',
-    'F#3': samplerAssetPathSecond + 'Fs3.[mp3|ogg]',
-    'G1': samplerAssetPathSecond + 'G1.[mp3|ogg]',
-    'G2': samplerAssetPathSecond + 'G2.[mp3|ogg]',
-    'G3': samplerAssetPathSecond + 'G3.[mp3|ogg]',
-    'G#1': samplerAssetPathSecond + 'Gs1.[mp3|ogg]',
-    'G#2': samplerAssetPathSecond + 'Gs2.[mp3|ogg]',
-    'G#3': samplerAssetPathSecond + 'Gs3.[mp3|ogg]',
-    'A1': samplerAssetPathSecond + 'A1.[mp3|ogg]',
-    'A2': samplerAssetPathSecond + 'A2.[mp3|ogg]',
-    'A3': samplerAssetPathSecond + 'A3.[mp3|ogg]',
-    'A#1': samplerAssetPathSecond + 'As1.[mp3|ogg]',
-    'A#2': samplerAssetPathSecond + 'As2.[mp3|ogg]',
-    'A#3': samplerAssetPathSecond + 'As3.[mp3|ogg]',
-    'B1': samplerAssetPathSecond + 'B1.[mp3|ogg]',
-    'B2': samplerAssetPathSecond + 'B2.[mp3|ogg]',
-    'B3': samplerAssetPathSecond + 'B3.[mp3|ogg]',
-    'C2': samplerAssetPathSecond + 'C2.[mp3|ogg]',
-    'C3': samplerAssetPathSecond + 'C3.[mp3|ogg]',
-    'C4': samplerAssetPathSecond + 'C4.[mp3|ogg]',
-    'C#2': samplerAssetPathSecond + 'Cs2.[mp3|ogg]',
-    'C#3': samplerAssetPathSecond + 'Cs3.[mp3|ogg]',
-    'C#4': samplerAssetPathSecond + 'Cs4.[mp3|ogg]',
-    'D1': samplerAssetPathSecond + 'D1.[mp3|ogg]',
-    'D2': samplerAssetPathSecond + 'D2.[mp3|ogg]',
-    'D3': samplerAssetPathSecond + 'D3.[mp3|ogg]',
-    'D4': samplerAssetPathSecond + 'D4.[mp3|ogg]',
-    'D#1': samplerAssetPathSecond + 'Ds1.[mp3|ogg]',
-    'D#2': samplerAssetPathSecond + 'Ds2.[mp3|ogg]',
-    'D#3': samplerAssetPathSecond + 'Ds3.[mp3|ogg]',
-    'E1': samplerAssetPathSecond + 'E1.[mp3|ogg]',
-    'E2': samplerAssetPathSecond + 'E2.[mp3|ogg]',
-    'E3': samplerAssetPathSecond + 'E3.[mp3|ogg]',
-    'F1': samplerAssetPathSecond + 'F1.[mp3|ogg]',
-    'F2': samplerAssetPathSecond + 'F2.[mp3|ogg]',
-}, function(){
-    // Store.sampler.guitar.triggerAttackRelease("A3");
-}).toMaster();
+// const samplerAssetPathSecond = './assets/samples/guitar-acoustic/'
+// Store.sampler.guitar = new Tone.Sampler({
+//     'F3': samplerAssetPathSecond + 'F3.[mp3|ogg]',
+//     'F#1': samplerAssetPathSecond + 'Fs1.[mp3|ogg]',
+//     'F#2': samplerAssetPathSecond + 'Fs2.[mp3|ogg]',
+//     'F#3': samplerAssetPathSecond + 'Fs3.[mp3|ogg]',
+//     'G1': samplerAssetPathSecond + 'G1.[mp3|ogg]',
+//     'G2': samplerAssetPathSecond + 'G2.[mp3|ogg]',
+//     'G3': samplerAssetPathSecond + 'G3.[mp3|ogg]',
+//     'G#1': samplerAssetPathSecond + 'Gs1.[mp3|ogg]',
+//     'G#2': samplerAssetPathSecond + 'Gs2.[mp3|ogg]',
+//     'G#3': samplerAssetPathSecond + 'Gs3.[mp3|ogg]',
+//     'A1': samplerAssetPathSecond + 'A1.[mp3|ogg]',
+//     'A2': samplerAssetPathSecond + 'A2.[mp3|ogg]',
+//     'A3': samplerAssetPathSecond + 'A3.[mp3|ogg]',
+//     'A#1': samplerAssetPathSecond + 'As1.[mp3|ogg]',
+//     'A#2': samplerAssetPathSecond + 'As2.[mp3|ogg]',
+//     'A#3': samplerAssetPathSecond + 'As3.[mp3|ogg]',
+//     'B1': samplerAssetPathSecond + 'B1.[mp3|ogg]',
+//     'B2': samplerAssetPathSecond + 'B2.[mp3|ogg]',
+//     'B3': samplerAssetPathSecond + 'B3.[mp3|ogg]',
+//     'C2': samplerAssetPathSecond + 'C2.[mp3|ogg]',
+//     'C3': samplerAssetPathSecond + 'C3.[mp3|ogg]',
+//     'C4': samplerAssetPathSecond + 'C4.[mp3|ogg]',
+//     'C#2': samplerAssetPathSecond + 'Cs2.[mp3|ogg]',
+//     'C#3': samplerAssetPathSecond + 'Cs3.[mp3|ogg]',
+//     'C#4': samplerAssetPathSecond + 'Cs4.[mp3|ogg]',
+//     'D1': samplerAssetPathSecond + 'D1.[mp3|ogg]',
+//     'D2': samplerAssetPathSecond + 'D2.[mp3|ogg]',
+//     'D3': samplerAssetPathSecond + 'D3.[mp3|ogg]',
+//     'D4': samplerAssetPathSecond + 'D4.[mp3|ogg]',
+//     'D#1': samplerAssetPathSecond + 'Ds1.[mp3|ogg]',
+//     'D#2': samplerAssetPathSecond + 'Ds2.[mp3|ogg]',
+//     'D#3': samplerAssetPathSecond + 'Ds3.[mp3|ogg]',
+//     'E1': samplerAssetPathSecond + 'E1.[mp3|ogg]',
+//     'E2': samplerAssetPathSecond + 'E2.[mp3|ogg]',
+//     'E3': samplerAssetPathSecond + 'E3.[mp3|ogg]',
+//     'F1': samplerAssetPathSecond + 'F1.[mp3|ogg]',
+//     'F2': samplerAssetPathSecond + 'F2.[mp3|ogg]',
+// }, function(){
+//     // Store.sampler.guitar.triggerAttackRelease("A3");
+// }).toMaster();
+// Store.sampler.guitar.volume.value = -20;
+// // console.log(Store.sampler.guitar);
 
-Store.sampler.guitar.volume.value = -20;
-// console.log(Store.sampler.guitar);
-
-const samplerAssetPathThird = './assets/samples/piano/'
-Store.sampler.piano = new Tone.Sampler({
-    'A0': samplerAssetPathThird + 'A0.[mp3|ogg]',
-    'A1': samplerAssetPathThird + 'A1.[mp3|ogg]',
-    'A2': samplerAssetPathThird + 'A2.[mp3|ogg]',
-    'A3': samplerAssetPathThird + 'A3.[mp3|ogg]',
-    'A4': samplerAssetPathThird + 'A4.[mp3|ogg]',
-    'A5': samplerAssetPathThird + 'A5.[mp3|ogg]',
-    'A6': samplerAssetPathThird + 'A6.[mp3|ogg]',
-    'A#0': samplerAssetPathThird + 'As0.[mp3|ogg]',
-    'A#1': samplerAssetPathThird + 'As1.[mp3|ogg]',
-    'A#2': samplerAssetPathThird + 'As2.[mp3|ogg]',
-    'A#3': samplerAssetPathThird + 'As3.[mp3|ogg]',
-    'A#4': samplerAssetPathThird + 'As4.[mp3|ogg]',
-    'A#5': samplerAssetPathThird + 'As5.[mp3|ogg]',
-    'A#6': samplerAssetPathThird + 'As6.[mp3|ogg]',
-    'B0': samplerAssetPathThird + 'B0.[mp3|ogg]',
-    'B1': samplerAssetPathThird + 'B1.[mp3|ogg]',
-    'B2': samplerAssetPathThird + 'B2.[mp3|ogg]',
-    'B3': samplerAssetPathThird + 'B3.[mp3|ogg]',
-    'B4': samplerAssetPathThird + 'B4.[mp3|ogg]',
-    'B5': samplerAssetPathThird + 'B5.[mp3|ogg]',
-    'B6': samplerAssetPathThird + 'B6.[mp3|ogg]',
-    'C0': samplerAssetPathThird + 'C0.[mp3|ogg]',
-    'C1': samplerAssetPathThird + 'C1.[mp3|ogg]',
-    'C2': samplerAssetPathThird + 'C2.[mp3|ogg]',
-    'C3': samplerAssetPathThird + 'C3.[mp3|ogg]',
-    'C4': samplerAssetPathThird + 'C4.[mp3|ogg]',
-    'C5': samplerAssetPathThird + 'C5.[mp3|ogg]',
-    'C6': samplerAssetPathThird + 'C6.[mp3|ogg]',
-    'C7': samplerAssetPathThird + 'C7.[mp3|ogg]',
-    'C#0': samplerAssetPathThird + 'Cs0.[mp3|ogg]',
-    'C#1': samplerAssetPathThird + 'Cs1.[mp3|ogg]',
-    'C#2': samplerAssetPathThird + 'Cs2.[mp3|ogg]',
-    'C#3': samplerAssetPathThird + 'Cs3.[mp3|ogg]',
-    'C#4': samplerAssetPathThird + 'Cs4.[mp3|ogg]',
-    'C#5': samplerAssetPathThird + 'Cs5.[mp3|ogg]',
-    'C#6': samplerAssetPathThird + 'Cs6.[mp3|ogg]',
-    'D0': samplerAssetPathThird + 'D0.[mp3|ogg]',
-    'D1': samplerAssetPathThird + 'D1.[mp3|ogg]',
-    'D2': samplerAssetPathThird + 'D2.[mp3|ogg]',
-    'D3': samplerAssetPathThird + 'D3.[mp3|ogg]',
-    'D4': samplerAssetPathThird + 'D4.[mp3|ogg]',
-    'D5': samplerAssetPathThird + 'D5.[mp3|ogg]',
-    'D6': samplerAssetPathThird + 'D6.[mp3|ogg]',
-    'D#0': samplerAssetPathThird + 'Ds0.[mp3|ogg]',
-    'D#1': samplerAssetPathThird + 'Ds1.[mp3|ogg]',
-    'D#2': samplerAssetPathThird + 'Ds2.[mp3|ogg]',
-    'D#3': samplerAssetPathThird + 'Ds3.[mp3|ogg]',
-    'D#4': samplerAssetPathThird + 'Ds4.[mp3|ogg]',
-    'D#5': samplerAssetPathThird + 'Ds5.[mp3|ogg]',
-    'D#6': samplerAssetPathThird + 'Ds6.[mp3|ogg]',
-    'E0': samplerAssetPathThird + 'E0.[mp3|ogg]',
-    'E1': samplerAssetPathThird + 'E1.[mp3|ogg]',
-    'E2': samplerAssetPathThird + 'E2.[mp3|ogg]',
-    'E3': samplerAssetPathThird + 'E3.[mp3|ogg]',
-    'E4': samplerAssetPathThird + 'E4.[mp3|ogg]',
-    'E5': samplerAssetPathThird + 'E5.[mp3|ogg]',
-    'E6': samplerAssetPathThird + 'E6.[mp3|ogg]',
-    'F0': samplerAssetPathThird + 'F0.[mp3|ogg]',
-    'F1': samplerAssetPathThird + 'F1.[mp3|ogg]',
-    'F2': samplerAssetPathThird + 'F2.[mp3|ogg]',
-    'F3': samplerAssetPathThird + 'F3.[mp3|ogg]',
-    'F4': samplerAssetPathThird + 'F4.[mp3|ogg]',
-    'F5': samplerAssetPathThird + 'F5.[mp3|ogg]',
-    'F6': samplerAssetPathThird + 'F6.[mp3|ogg]',
-    'F#0': samplerAssetPathThird + 'Fs0.[mp3|ogg]',
-    'F#1': samplerAssetPathThird + 'Fs1.[mp3|ogg]',
-    'F#2': samplerAssetPathThird + 'Fs2.[mp3|ogg]',
-    'F#3': samplerAssetPathThird + 'Fs3.[mp3|ogg]',
-    'F#4': samplerAssetPathThird + 'Fs4.[mp3|ogg]',
-    'F#5': samplerAssetPathThird + 'Fs5.[mp3|ogg]',
-    'F#6': samplerAssetPathThird + 'Fs6.[mp3|ogg]',
-    'G0': samplerAssetPathThird + 'G0.[mp3|ogg]',
-    'G1': samplerAssetPathThird + 'G1.[mp3|ogg]',
-    'G2': samplerAssetPathThird + 'G2.[mp3|ogg]',
-    'G3': samplerAssetPathThird + 'G3.[mp3|ogg]',
-    'G4': samplerAssetPathThird + 'G4.[mp3|ogg]',
-    'G5': samplerAssetPathThird + 'G5.[mp3|ogg]',
-    'G6': samplerAssetPathThird + 'G6.[mp3|ogg]',
-    'G#0': samplerAssetPathThird + 'Gs0.[mp3|ogg]',
-    'G#1': samplerAssetPathThird + 'Gs1.[mp3|ogg]',
-    'G#2': samplerAssetPathThird + 'Gs2.[mp3|ogg]',
-    'G#3': samplerAssetPathThird + 'Gs3.[mp3|ogg]',
-    'G#4': samplerAssetPathThird + 'Gs4.[mp3|ogg]',
-    'G#5': samplerAssetPathThird + 'Gs5.[mp3|ogg]',
-    'G#6': samplerAssetPathThird + 'Gs6.[mp3|ogg]'
-}, function(){
-    // Store.sampler.piano.triggerAttackRelease("A3");
-}).toMaster();
-Store.sampler.piano.volume.value = -14;
+// const samplerAssetPathThird = './assets/samples/piano/'
+// Store.sampler.piano = new Tone.Sampler({
+//     'A0': samplerAssetPathThird + 'A0.[mp3|ogg]',
+//     'A1': samplerAssetPathThird + 'A1.[mp3|ogg]',
+//     'A2': samplerAssetPathThird + 'A2.[mp3|ogg]',
+//     'A3': samplerAssetPathThird + 'A3.[mp3|ogg]',
+//     'A4': samplerAssetPathThird + 'A4.[mp3|ogg]',
+//     'A5': samplerAssetPathThird + 'A5.[mp3|ogg]',
+//     'A6': samplerAssetPathThird + 'A6.[mp3|ogg]',
+//     'A#0': samplerAssetPathThird + 'As0.[mp3|ogg]',
+//     'A#1': samplerAssetPathThird + 'As1.[mp3|ogg]',
+//     'A#2': samplerAssetPathThird + 'As2.[mp3|ogg]',
+//     'A#3': samplerAssetPathThird + 'As3.[mp3|ogg]',
+//     'A#4': samplerAssetPathThird + 'As4.[mp3|ogg]',
+//     'A#5': samplerAssetPathThird + 'As5.[mp3|ogg]',
+//     'A#6': samplerAssetPathThird + 'As6.[mp3|ogg]',
+//     'B0': samplerAssetPathThird + 'B0.[mp3|ogg]',
+//     'B1': samplerAssetPathThird + 'B1.[mp3|ogg]',
+//     'B2': samplerAssetPathThird + 'B2.[mp3|ogg]',
+//     'B3': samplerAssetPathThird + 'B3.[mp3|ogg]',
+//     'B4': samplerAssetPathThird + 'B4.[mp3|ogg]',
+//     'B5': samplerAssetPathThird + 'B5.[mp3|ogg]',
+//     'B6': samplerAssetPathThird + 'B6.[mp3|ogg]',
+//     'C0': samplerAssetPathThird + 'C0.[mp3|ogg]',
+//     'C1': samplerAssetPathThird + 'C1.[mp3|ogg]',
+//     'C2': samplerAssetPathThird + 'C2.[mp3|ogg]',
+//     'C3': samplerAssetPathThird + 'C3.[mp3|ogg]',
+//     'C4': samplerAssetPathThird + 'C4.[mp3|ogg]',
+//     'C5': samplerAssetPathThird + 'C5.[mp3|ogg]',
+//     'C6': samplerAssetPathThird + 'C6.[mp3|ogg]',
+//     'C7': samplerAssetPathThird + 'C7.[mp3|ogg]',
+//     'C#0': samplerAssetPathThird + 'Cs0.[mp3|ogg]',
+//     'C#1': samplerAssetPathThird + 'Cs1.[mp3|ogg]',
+//     'C#2': samplerAssetPathThird + 'Cs2.[mp3|ogg]',
+//     'C#3': samplerAssetPathThird + 'Cs3.[mp3|ogg]',
+//     'C#4': samplerAssetPathThird + 'Cs4.[mp3|ogg]',
+//     'C#5': samplerAssetPathThird + 'Cs5.[mp3|ogg]',
+//     'C#6': samplerAssetPathThird + 'Cs6.[mp3|ogg]',
+//     'D0': samplerAssetPathThird + 'D0.[mp3|ogg]',
+//     'D1': samplerAssetPathThird + 'D1.[mp3|ogg]',
+//     'D2': samplerAssetPathThird + 'D2.[mp3|ogg]',
+//     'D3': samplerAssetPathThird + 'D3.[mp3|ogg]',
+//     'D4': samplerAssetPathThird + 'D4.[mp3|ogg]',
+//     'D5': samplerAssetPathThird + 'D5.[mp3|ogg]',
+//     'D6': samplerAssetPathThird + 'D6.[mp3|ogg]',
+//     'D#0': samplerAssetPathThird + 'Ds0.[mp3|ogg]',
+//     'D#1': samplerAssetPathThird + 'Ds1.[mp3|ogg]',
+//     'D#2': samplerAssetPathThird + 'Ds2.[mp3|ogg]',
+//     'D#3': samplerAssetPathThird + 'Ds3.[mp3|ogg]',
+//     'D#4': samplerAssetPathThird + 'Ds4.[mp3|ogg]',
+//     'D#5': samplerAssetPathThird + 'Ds5.[mp3|ogg]',
+//     'D#6': samplerAssetPathThird + 'Ds6.[mp3|ogg]',
+//     'E0': samplerAssetPathThird + 'E0.[mp3|ogg]',
+//     'E1': samplerAssetPathThird + 'E1.[mp3|ogg]',
+//     'E2': samplerAssetPathThird + 'E2.[mp3|ogg]',
+//     'E3': samplerAssetPathThird + 'E3.[mp3|ogg]',
+//     'E4': samplerAssetPathThird + 'E4.[mp3|ogg]',
+//     'E5': samplerAssetPathThird + 'E5.[mp3|ogg]',
+//     'E6': samplerAssetPathThird + 'E6.[mp3|ogg]',
+//     'F0': samplerAssetPathThird + 'F0.[mp3|ogg]',
+//     'F1': samplerAssetPathThird + 'F1.[mp3|ogg]',
+//     'F2': samplerAssetPathThird + 'F2.[mp3|ogg]',
+//     'F3': samplerAssetPathThird + 'F3.[mp3|ogg]',
+//     'F4': samplerAssetPathThird + 'F4.[mp3|ogg]',
+//     'F5': samplerAssetPathThird + 'F5.[mp3|ogg]',
+//     'F6': samplerAssetPathThird + 'F6.[mp3|ogg]',
+//     'F#0': samplerAssetPathThird + 'Fs0.[mp3|ogg]',
+//     'F#1': samplerAssetPathThird + 'Fs1.[mp3|ogg]',
+//     'F#2': samplerAssetPathThird + 'Fs2.[mp3|ogg]',
+//     'F#3': samplerAssetPathThird + 'Fs3.[mp3|ogg]',
+//     'F#4': samplerAssetPathThird + 'Fs4.[mp3|ogg]',
+//     'F#5': samplerAssetPathThird + 'Fs5.[mp3|ogg]',
+//     'F#6': samplerAssetPathThird + 'Fs6.[mp3|ogg]',
+//     'G0': samplerAssetPathThird + 'G0.[mp3|ogg]',
+//     'G1': samplerAssetPathThird + 'G1.[mp3|ogg]',
+//     'G2': samplerAssetPathThird + 'G2.[mp3|ogg]',
+//     'G3': samplerAssetPathThird + 'G3.[mp3|ogg]',
+//     'G4': samplerAssetPathThird + 'G4.[mp3|ogg]',
+//     'G5': samplerAssetPathThird + 'G5.[mp3|ogg]',
+//     'G6': samplerAssetPathThird + 'G6.[mp3|ogg]',
+//     'G#0': samplerAssetPathThird + 'Gs0.[mp3|ogg]',
+//     'G#1': samplerAssetPathThird + 'Gs1.[mp3|ogg]',
+//     'G#2': samplerAssetPathThird + 'Gs2.[mp3|ogg]',
+//     'G#3': samplerAssetPathThird + 'Gs3.[mp3|ogg]',
+//     'G#4': samplerAssetPathThird + 'Gs4.[mp3|ogg]',
+//     'G#5': samplerAssetPathThird + 'Gs5.[mp3|ogg]',
+//     'G#6': samplerAssetPathThird + 'Gs6.[mp3|ogg]'
+// }, function(){
+//     // Store.sampler.piano.triggerAttackRelease("A3");
+// }).toMaster();
+// Store.sampler.piano.volume.value = -14;
 
 ///////////
 // SYNTH //
@@ -469,64 +467,66 @@ export default class Trigger {
             }
         }
 
-        // if (Store.dashboard.allPlayedNotes.length === 4) {
-        if (Store.dashboard.allPlayedNotes.length % 4 === 0) {
-            // console.log(Tonal);
-            // Tonal.ChordDetect.detect(Store.dashboard.allPlayedNotes);
+        if (Store.view.chordDetect === true) {
+            // if (Store.dashboard.allPlayedNotes.length === 4) {
+            if (Store.dashboard.allPlayedNotes.length % 4 === 0) {
+                // console.log(Tonal);
+                // Tonal.ChordDetect.detect(Store.dashboard.allPlayedNotes);
 
-            // console.log(Chord);
-            const currentChord = Chord.detect(Store.dashboard.allPlayedNotes);
-            // console.log({currentChord});
+                // console.log(Chord);
+                const currentChord = Chord.detect(Store.dashboard.allPlayedNotes);
+                // console.log({currentChord});
 
-            if (currentChord.length) {
-                const currentChordNoRoot = currentChord[0].slice(0, currentChord[0].length - 2);
-                // console.log(currentChordNoRoot);
+                if (currentChord.length) {
+                    const currentChordNoRoot = currentChord[0].slice(0, currentChord[0].length - 2);
+                    // console.log(currentChordNoRoot);
 
-                const currentChordSplit = currentChord[0].split('/');
-                // console.log({currentChordSplit});
+                    const currentChordSplit = currentChord[0].split('/');
+                    // console.log({currentChordSplit});
 
-                // const currentChordInfo = Chord.get(currentChordNoRoot);
-                const currentChordInfo = Chord.get(currentChordSplit[0]);
-                const currentChordDisplayName = currentChordInfo.name;
-                // console.log(currentChordDisplayName);
-                
-                if (currentChordDisplayName) {
-                    Store.dashboard.currentChordDisplayName = currentChordDisplayName;
-                    Store.dashboard.currentChordInfo = currentChordInfo;
+                    // const currentChordInfo = Chord.get(currentChordNoRoot);
+                    const currentChordInfo = Chord.get(currentChordSplit[0]);
+                    const currentChordDisplayName = currentChordInfo.name;
+                    // console.log(currentChordDisplayName);
+                    
+                    if (currentChordDisplayName) {
+                        Store.dashboard.currentChordDisplayName = currentChordDisplayName;
+                        Store.dashboard.currentChordInfo = currentChordInfo;
 
-                    Store.dashboard.allPlayedNotes = Store.dashboard.allPlayedNotes.slice(4);
+                        Store.dashboard.allPlayedNotes = Store.dashboard.allPlayedNotes.slice(4);
 
-                    Store.dashboard.chordsPlayed.push(currentChordInfo);
+                        Store.dashboard.chordsPlayed.push(currentChordInfo);
+                    }
                 }
+
+                // console.log(Chord.getChord(currentChord[0]));
+                // console.log(Chord.getChord("maj7", "G4", "B4"));
+
+                // https://github.com/tonaljs/tonal/tree/master/packages/chord
+                // ...
+                // Chord.getChord("maj7", "G4", "B4"); // =>
+                // {
+                //   empty: false,
+                //   name: "G major seventh over B",
+                //   symbol: "Gmaj7/B",
+                //   tonic: "G4",
+                //   root: "B4",
+                //   rootDegree: 2,
+                //   setNum: 2193,
+                //   type: "major seventh",
+                //   aliases: ["maj7", "Δ", "ma7", "M7", "Maj7"],
+                //   chroma: "100010010001",
+                //   intervals: ["3M", "5P", "7M", "8P"],
+                //   normalized: "100010010001",
+                //   notes: ["B4", "D5", "F#5", "G5"],
+                //   quality: "Major",
+                // }
+
+                // Chord.reduced("Cmaj7"); // => ["C5", "CM"]
+
             }
-
-            // console.log(Chord.getChord(currentChord[0]));
-            // console.log(Chord.getChord("maj7", "G4", "B4"));
-
-            // https://github.com/tonaljs/tonal/tree/master/packages/chord
-            // ...
-            // Chord.getChord("maj7", "G4", "B4"); // =>
-            // {
-            //   empty: false,
-            //   name: "G major seventh over B",
-            //   symbol: "Gmaj7/B",
-            //   tonic: "G4",
-            //   root: "B4",
-            //   rootDegree: 2,
-            //   setNum: 2193,
-            //   type: "major seventh",
-            //   aliases: ["maj7", "Δ", "ma7", "M7", "Maj7"],
-            //   chroma: "100010010001",
-            //   intervals: ["3M", "5P", "7M", "8P"],
-            //   normalized: "100010010001",
-            //   notes: ["B4", "D5", "F#5", "G5"],
-            //   quality: "Major",
-            // }
-
-            // Chord.reduced("Cmaj7"); // => ["C5", "CM"]
-
+            // console.log(Store.dashboard);
         }
-        // console.log(Store.dashboard);
     }
 
 }
@@ -566,7 +566,7 @@ const recordingPart = new Tone.Part(function(time, datum){
 
     // instrMapped.variation = 'guitar';
     // instrMapped.variation = 'violin';
-    instrMapped.variation = 'piano';
+    // instrMapped.variation = 'piano';
 
     physics.addBody(true, Store.dropPosX, instrMapped, 0);
 
@@ -605,7 +605,7 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
     instrMapped.duration = datum.duration;
 
     // instrMapped.variation = 'sample';
-    instrMapped.variation = 'violin';
+    // instrMapped.variation = 'violin';
 
     physics.addBody(true, Store.dropPosX, instrMapped, 0);
 

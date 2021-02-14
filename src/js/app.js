@@ -1,6 +1,7 @@
 import Tone from 'Tone';
 // import * as THREE from 'three';
 import Stats from 'stats.js';
+import { ARButton } from './ARButton.js';
 
 import Store from './Store.js';
 import InstrumentMappings from './InstrumentMappings.js';
@@ -98,18 +99,31 @@ console.log({cameraTop});
 //////////////
 // RENDERER //
 //////////////
+// https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
+// https://threejs.org/docs/#api/en/renderers/WebGLRenderer.xr
 
 Store.renderer.setSize(window.innerWidth, window.innerHeight);
+
+if (Store.view.xr === true) {
+    Store.renderer.xr.enabled = true;
+    document.body.appendChild(ARButton.createButton( Store.renderer, { requiredFeatures: [ 'hit-test' ] } ));
+    Store.controller = Store.renderer.xr.getController(0);
+    Store.controller.addEventListener('select', onSelect);
+    Store.scene.add(Store.controller);
+}
+
+// // //
+
 document.body.appendChild(Store.renderer.domElement);
 Store.renderer.domElement.id = 'canvas-scene-primary';
 
 // update viewport on resize
 window.addEventListener('resize', function() {
-    // var width = window.innerWidth;
-    // var height = window.innerHeight;
-    // Store.renderer.setSize(width, height);
-    // Store.camera.aspect = width / height; // aspect ratio
-    // Store.camera.updateProjectionMatrix();
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    Store.renderer.setSize(width, height);
+    Store.camera.aspect = width / height; // aspect ratio
+    Store.camera.updateProjectionMatrix();
 
     // //
     // cameraTop.aspect = Math.floor(width / 2) / height;
@@ -138,7 +152,7 @@ Store.loader = new THREE.TextureLoader();
 ////////////////
 // // Store.scene.background = new THREE.Color( 0xff0000 ); // red
 // Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
-Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
+// Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
 // Store.scene.background = new THREE.Color( 0x000000 ); // black
 
 const light = new Light();
@@ -185,31 +199,32 @@ const objCenter = new THREE.Mesh(currentShape, currentMesh);
 objCenter.position.set(0, 0, Store.view.posBehindZ);
 // Store.scene.add(objCenter); //for absolute center reference
 
+
 //-----SKYBOX (LOAD TEXTURES)------//
-// https://github.com/hghazni/Three.js-Skybox/blob/master/js/script.js#L35
-// assets: http://www.custommapmakers.org/skyboxes.php
-
-const globalSkyboxTheme = 'nightsky';
-// const globalSkyboxTheme = 'hills'; //blurry
-// const globalSkyboxTheme = 'island'; //only unsupported .tga currently
-// const globalSkyboxTheme = 'bluefreeze';
-// const globalSkyboxTheme = 'mercury';
-
-var skyboxGeometry = new THREE.CubeGeometry(1800, 1800, 1800);
-
-var cubeMaterials = [
-    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/ft.png`), side: THREE.DoubleSide }), //front side
-    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/bk.png`), side: THREE.DoubleSide }), //back side
-    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/up.png`), side: THREE.DoubleSide }), //up side
-    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/dn.png`), side: THREE.DoubleSide }), //down side
-    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/rt.png`), side: THREE.DoubleSide }), //right side
-    // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/lf.png`), side: THREE.DoubleSide }) //left side
-];
-
-var cubeMaterial = new THREE.MeshFaceMaterial(cubeMaterials);
-var skyboxCubeMesh = new THREE.Mesh(skyboxGeometry, cubeMaterial); //nightsky skybox
-
 if (Store.view.skybox === true) {
+    // https://github.com/hghazni/Three.js-Skybox/blob/master/js/script.js#L35
+    // assets: http://www.custommapmakers.org/skyboxes.php
+
+    const globalSkyboxTheme = 'nightsky';
+    // const globalSkyboxTheme = 'hills'; //blurry
+    // const globalSkyboxTheme = 'island'; //only unsupported .tga currently
+    // const globalSkyboxTheme = 'bluefreeze';
+    // const globalSkyboxTheme = 'mercury';
+
+    var skyboxGeometry = new THREE.CubeGeometry(1800, 1800, 1800);
+
+    var cubeMaterials = [
+        // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/ft.png`), side: THREE.DoubleSide }), //front side
+        // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/bk.png`), side: THREE.DoubleSide }), //back side
+        // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/up.png`), side: THREE.DoubleSide }), //up side
+        // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/dn.png`), side: THREE.DoubleSide }), //down side
+        // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/rt.png`), side: THREE.DoubleSide }), //right side
+        // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/lf.png`), side: THREE.DoubleSide }) //left side
+    ];
+
+    var cubeMaterial = new THREE.MeshFaceMaterial(cubeMaterials);
+    var skyboxCubeMesh = new THREE.Mesh(skyboxGeometry, cubeMaterial); //nightsky skybox
+
     Store.scene.add(skyboxCubeMesh); //add nightsky skybox
 }
 
@@ -319,33 +334,33 @@ let animate = () => {
     left = 0;
     // console.log({left}); // 0
     // console.log({bottom}); // 0
-    Store.renderer.setViewport(left, bottom, Math.floor(width / 2), height);
+
+    if (Store.view.splitScreen === true) {
+        width = Math.floor(width / 2);
+    }
+    Store.renderer.setViewport(left, bottom, width, height);
     // Store.renderer.setScissor(left, bottom, Math.floor(width / 2), height); 
-    Store.renderer.setScissor(left, bottom, Math.floor(width / 2), height);
+    Store.renderer.setScissor(left, bottom, width, height);
     Store.renderer.setScissorTest(true);
     Store.renderer.setClearColor(new THREE.Color(1, 1, 1));
-    Store.camera.aspect = Math.floor(width / 2) / height;
+    Store.camera.aspect = width / height;
     Store.camera.updateProjectionMatrix();
+
     // console.log('Store.camera: ', Store.camera);
     Store.renderer.render(Store.scene, Store.camera);
 
     // // //
 
-    left = Math.floor(width / 2);
-    // console.log({left}); // 640
-    // console.log({bottom}); // 0
-    Store.renderer.setViewport(left, bottom, Math.floor(width / 2), height);
-    Store.renderer.setScissor(left, bottom, Math.floor(width / 2), height);
-    Store.renderer.setScissorTest(true);
-    Store.renderer.setClearColor(new THREE.Color(1, 1, 1));
-    cameraTop.aspect = Math.floor(width / 2) / height;
-    cameraTop.updateProjectionMatrix();
-    // cameraTop.position.z = 0.1; // -0.1 (flips)
-    // cameraTop.position.y = 100;
-    // cameraTop.lookAt(new THREE.Vector3(0, 0, 0));
-    // console.log('cameraTop: ', cameraTop);
-    Store.renderer.render(Store.scene, cameraTop);
-
+    if (Store.view.splitScreen === true) {
+        left = width;
+        Store.renderer.setViewport(left, bottom, width, height);
+        Store.renderer.setScissor(left, bottom, width, height);
+        Store.renderer.setScissorTest(true);
+        Store.renderer.setClearColor(new THREE.Color(1, 1, 1));
+        cameraTop.aspect = Math.floor(width / 2) / height;
+        cameraTop.updateProjectionMatrix();
+        Store.renderer.render(Store.scene, cameraTop);
+    }
     // // //
 
     // https://gamedev.stackexchange.com/questions/40704/what-is-the-purpose-of-glscissor
@@ -354,6 +369,10 @@ let animate = () => {
         stats.end();
     }
 
+    if (Store.view.xr === true) {
+        Store.renderer.setAnimationLoop(render);
+    }
+    
     requestAnimationFrame(animate);
 
 };
@@ -744,155 +763,64 @@ if (Store.view.showDashboard === true) {
 
 }
 
-setInterval(() => {
-    console.log(Store.dashboard);
-    if (Store.dashboard.chordsPlayed[0]) {
-        console.log('addChord -> : ', Store.dashboard.chordsPlayed[0]);
+if (Store.view.chordDetect === true) {
+    setInterval(() => {
+        console.log(Store.dashboard);
+        if (Store.dashboard.chordsPlayed[0]) {
+            console.log('addChord -> : ', Store.dashboard.chordsPlayed[0]);
 
-        const tempChordBodyParams = [false, 0, Store.dashboard.chordsPlayed[0]]
-        // physics.addBody(...tempChordBodyParams);
-    }
-}, 8000);
-
-
-////////////////////
-// DEPTH DETECTOR //
-////////////////////
-// https://github.com/sjcobb/webxr-chess-game/blob/master/chess/app.js
-
-class AppAR {
-    constructor() {
-        this.onXRFrame = this.onXRFrame.bind(this);
-        this.onEnterAR = this.onEnterAR.bind(this);
-        this.projector = new THREE.Projector();
-
-        this.init();
-        this.onClick = this.onClick.bind(this);
-        this.onDocumentMouseDown = this.onDocumentMouseDown.bind(this);
-    }
-
-    async init() {
-        if (navigator.xr && XRSession.prototype.requestHitTest) {
-            try {
-                this.device = await navigator.xr.requestDevice();
-            } catch (e) {
-                this.onNoXRDevice();
-                return;
-            }
-        } else {
-            this.onNoXRDevice();
-            return;
+            const tempChordBodyParams = [false, 0, Store.dashboard.chordsPlayed[0]]
+            // physics.addBody(...tempChordBodyParams);
         }
-        document.querySelector('#enter-ar').addEventListener('click', this.onEnterAR);
-    }
+    }, 8000);
+}
 
-    async onEnterAR() {
-        // https://github.com/sjcobb/webxr-chess-game/blob/master/chess/app.js#L139
-        // ...
-        // this.onSessionStarted(session);
-    }
+////////
+// XR //
+////////
+let reticle;
+let hitTestSource = null;
+let hitTestSourceRequested = false;
 
-    async onSessionStarted(session) {
-        this.session = session;
-        document.body.classList.add('ar');
-        this.renderer = new THREE.WebGLRenderer({
-            alpha: true,
-            preserveDrawingBuffer: true,
-        });
-        this.renderer.autoClear = false;
-        this.gl = this.renderer.getContext();
-        await this.gl.setCompatibleXRDevice(this.session.device);
-        this.session.baseLayer = new XRWebGLLayer(this.session, this.gl);
-        this.scene = DemoUtils.createLitScene();
+function render(timestamp, frame) {
+    if (frame) {
+        // console.log({frame});
 
-        this.camera = new THREE.PerspectiveCamera();
-        this.camera.matrixAutoUpdate = false;
-
-        this.reticle = new Reticle(this.session, this.camera);
-
-        // ...
-
-        this.loadModels();
-        // this.updateCreditsInfo();
-
-        this.camera = new THREE.PerspectiveCamera();
-        this.camera.matrixAutoUpdate = false;
-
-        this.reticle = new Reticle(this.session, this.camera);
-        this.scene.add(this.reticle);
-
-        window.addEventListener('click', this.onClick);
-
-        this.frameOfRef = await this.session.requestFrameOfReference('eye-level');
-        this.session.requestAnimationFrame(this.onXRFrame);
-    }
-
-    loadModels() {
-        // https://github.com/sjcobb/webxr-chess-game/blob/master/chess/app.js#L265
-    }
-
-    onDocumentMouseDown(event) {
-        // https://github.com/sjcobb/webxr-chess-game/blob/master/chess/app.js#L362
-
-        event.preventDefault();
-
-        const tapPosition = new THREE.Vector2(
-            (event.clientX / window.innerWidth) * 2 - 1,
-            - (event.clientY / window.innerHeight) * 2 + 1
-        );
-
-        this.raycaster = this.raycaster || new THREE.Raycaster();
-        this.raycaster.setFromCamera(tapPosition, this.camera);
-
-        // new TWEEN.Tween(this.selectedPiece.position)
-
-    }
-
-    createChessBoard() {
-        // https://github.com/sjcobb/webxr-chess-game/blob/master/chess/app.js#L661
-    }
-
-    /**
-     * Called on the XRSession's requestAnimationFrame.
-     * Called with the time and XRPresentationFrame.
-     */
-    onXRFrame(time, frame) {
-        let session = frame.session;
-        let pose = frame.getDevicePose(this.frameOfRef);
-
-        this.gameStarted || this.reticle.update(this.frameOfRef);
-        if (this.reticle.visible && !this.stabilized) {
-            this.stabilized = true;
-            document.body.classList.add('stabilized');
+        const referenceSpace = Store.renderer.xr.getReferenceSpace();
+        const session = Store.renderer.xr.getSession();
+        if (hitTestSourceRequested === false) {
+            session.requestReferenceSpace('viewer').then( function ( referenceSpace ) {
+                session.requestHitTestSource( { space: referenceSpace } ).then( function ( source ) {
+                    hitTestSource = source;
+                });
+            });
+            session.addEventListener('end', function () {
+                hitTestSourceRequested = false;
+                hitTestSource = null;
+            });
+            hitTestSourceRequested = true;
         }
-
-        // Queue up the next frame
-        session.requestAnimationFrame(this.onXRFrame);
-
-        TWEEN.update();
-
-        // Bind the framebuffer to our baseLayer's framebuffer
-        this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, this.session.baseLayer.framebuffer);
-
-        if (pose) {
-            // Our XRFrame has an array of views. In the VR case, we'll have
-            // two views, one for each eye. In mobile AR, however, we only
-            // have one view.
-            for (let view of frame.views) {
-                const viewport = session.baseLayer.getViewport(view);
-                this.renderer.setSize(viewport.width, viewport.height);
-
-                // Set the view matrix and projection matrix from XRDevicePose
-                // and XRView onto our THREE.Camera.
-                this.camera.projectionMatrix.fromArray(view.projectionMatrix);
-                const viewMatrix = new THREE.Matrix4().fromArray(pose.getViewMatrix(view));
-                this.camera.matrix.getInverse(viewMatrix);
-                this.camera.updateMatrixWorld(true);
-
-                // Render our scene with our THREE.WebGLRenderer
-                this.renderer.render(this.scene, this.camera);
+        if (hitTestSource) {
+            const hitTestResults = frame.getHitTestResults(hitTestSource);
+            if ( hitTestResults.length ) {
+                const hit = hitTestResults[ 0 ];
+                reticle.visible = true;
+                reticle.matrix.fromArray(hit.getPose( referenceSpace ).transform.matrix);
+            } else {
+                reticle.visible = false;
             }
         }
     }
-};
-// window.app = new AppAR();
+    Store.renderer.render(Store.scene, Store.camera);
+}
+
+function onSelect() {
+    console.log('XR controller -> onSelect()...');
+    if ( reticle.visible ) {
+        const material = new THREE.MeshPhongMaterial( { color: 0xffffff * Math.random() } );
+        const mesh = new THREE.Mesh( geometry, material );
+        mesh.position.setFromMatrixPosition( reticle.matrix );
+        mesh.scale.y = Math.random() * 2 + 1;
+        Store.scene.add(mesh);
+    }
+}

@@ -332,6 +332,7 @@ button#btn-drums-1 {
 }
 
 #divider {
+    display: none;
     background-color: #00b140; /* green screen */
     background-color: #0047bb; /* blue screen */
     width: 20px;
@@ -342,6 +343,25 @@ button#btn-drums-1 {
     margin: 0 auto;
 }
 
+#ARButton {
+	position: absolute;
+	top: 50%;
+	bottom: auto;
+	left: calc(50% - 50px);
+	width: 100px;
+	height: 38px;
+    padding: 12px 6px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.1);
+    color: rgb(255, 255, 255);
+    font: 13px sans-serif;
+    text-align: center;
+    opacity: 0.5;
+    outline: none;
+    z-index: 999;
+    cursor: pointer;
+}
 
 @keyframes music-scroll {
     /* from {
