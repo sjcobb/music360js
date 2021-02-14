@@ -342,7 +342,10 @@ let animate = () => {
     // Store.renderer.setScissor(left, bottom, Math.floor(width / 2), height); 
     Store.renderer.setScissor(left, bottom, width, height);
     Store.renderer.setScissorTest(true);
-    Store.renderer.setClearColor(new THREE.Color(1, 1, 1));
+
+    // Store.renderer.setClearColor(new THREE.Color(1, 1, 1));
+    Store.renderer.setClearColor( 0x000000, 0 ); // default
+    
     Store.camera.aspect = width / height;
     Store.camera.updateProjectionMatrix();
 
@@ -778,9 +781,16 @@ if (Store.view.chordDetect === true) {
 ////////
 // XR //
 ////////
-let reticle;
 let hitTestSource = null;
 let hitTestSourceRequested = false;
+let reticle;
+reticle = new THREE.Mesh(
+    new THREE.RingGeometry( 0.15, 0.2, 32 ).rotateX( - Math.PI / 2 ),
+    new THREE.MeshBasicMaterial()
+);
+reticle.matrixAutoUpdate = false;
+reticle.visible = false;
+Store.scene.add(reticle);
 
 function render(timestamp, frame) {
     if (frame) {

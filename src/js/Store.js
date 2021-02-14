@@ -164,7 +164,7 @@ export default {
         // },
     },
     // renderer: new THREE.WebGLRenderer(),
-    renderer: new THREE.WebGLRenderer({ antialias: true }),
+    renderer: new THREE.WebGLRenderer({ alpha: true, antialias: true }),
     sampler: {
         strings: {},
         guitar: {},
@@ -198,6 +198,9 @@ export default {
         // posBehindY: 8,
         // posBehindZ: 1,
 
+        hideFloor: true,
+        floorTexture: false,
+
         posBehindX: -95, 
         posBehindY: 4,
         posBehindZ: 0,
@@ -213,7 +216,8 @@ export default {
         // TODO: fix splitScreen view
         splitScreen: false,
         stage: {
-            size: 'lg',
+            // size: 'lg',
+            size: 'sm',
         },
         xr: true
     },

@@ -88,7 +88,10 @@ export default class Physics {
         Store.world.add(groundBody);
 
         // if (this.useVisuals) this.helper.this.addVisual(groundBody, 'ground', false, true);
-        this.addVisual(groundBody, 'ground', false, true);
+
+        if (Store.view.hideFloor !== true) {
+            this.addVisual(groundBody, 'ground', false, true);
+        }
 
         // https://github.com/schteppe/cannon.js/issues/300
         // https://github.com/schteppe/cannon.js/blob/master/demos/bounce.html
@@ -482,11 +485,15 @@ export default class Physics {
                     // floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
                     // floorTexture.repeat.set(3, 3);
 
-                    // const floorMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 });
-                    // const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
-                    const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture } );
-                    floorMaterial.map.center.set(0.5, 0.5) 
-                    // floorMaterial.map.repeat = 1; // just black, no img
+                    let floorMaterial = new THREE.MeshLambertMaterial({ color: 0x888888 });
+
+                    if (Store.view.floorTexture === true) {
+                        // const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+                        floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture } );
+                        floorMaterial.map.center.set(0.5, 0.5) 
+                        // floorMaterial.map.repeat = 1; // just black, no img
+                    }
+
                     console.log({floorMaterial});
 
                     // NEW Ground for drum spinner, PLANE no longer used since infinite invisible contact not needed
@@ -494,12 +501,15 @@ export default class Physics {
 
                     // const boxGeometry = new THREE.BoxGeometry(25, 25, 0.5); // does not coincide with contact surface size
 
-                    material.color = new THREE.Color(Store.activeInstrColor);
+                    if (Store.view.xr !== true) {
+                        material.color = new THREE.Color(Store.activeInstrColor); 
+                    }
 
                     // material.color = new THREE.Color('#9F532A'); // red
 
                     // boxGeometry.scale.set(10, 10, 10); // not a function
 
+                    console.log({material});
                     mesh = new THREE.Mesh(boxGeometry, material); // v0.5
                     // mesh = new THREE.Mesh(boxGeometry, floorMaterial); // new earthquake asset
                     break;
