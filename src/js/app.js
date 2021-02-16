@@ -66,23 +66,17 @@ const createCamera = () => {
 
 //-----CAMERA 1------//
 Store.camera = createCamera();
-Store.camera.position.set(0, 16, 26); 
-Store.camera.lookAt(new THREE.Vector3(0, -2.5, 0)); // v0.5
+// Store.camera.position.set(0, 16, 26); 
+// Store.camera.lookAt(new THREE.Vector3(0, -2.5, 0)); // v0.5
 
-if (Store.view.cameraPositionBehind === true) {
-    Store.camera.position.set(Store.view.posBehindX, Store.view.posBehindY, Store.view.posBehindZ);
-    // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ));
-    Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ - 15));
-    // // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX - 200, 12, Store.view.posBehindZ)); // rear view
-}
+// Store.camera.position.set(Store.view.posBehindX, Store.view.posBehindY, Store.view.posBehindZ);
+// Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ - 15));
+
+Store.camera.position.set(0, 0, 0); 
+// Store.camera.lookAt(new THREE.Vector3(0, -2.5, 0)); // v0.5
 
 if (Store.cameraLookUp === true) {
     Store.camera.lookAt(new THREE.Vector3(Store.dropPosX - 5, 100, Store.view.posBehindZ));
-}
-
-if (Store.view.showStaff.treble === true && Store.view.showStaff.bass === true) {
-    Store.camera.position.z = 0;
-    Store.view.posBehindX -= 10;
 }
 
 console.log('Store.camera: ', Store.camera);
@@ -307,16 +301,15 @@ let animate = () => {
         const ticksMultiplier = 24;
 
         Store.ticks += (delta * ticksMultiplier); // Too fast, balls dropped too far left
-        if (Store.view.cameraPositionBehind === true) {
-            if (Store.view.cameraAutoStart === true) {
-                Store.camera.position.x = Store.view.posBehindX + (Store.ticks);
-
-                cameraTop.position.x = (Store.view.posBehindX + 30) + (Store.ticks);
-            }
-        } else {
-            Store.camera.position.x = (Store.ticks) - 35; // prev
-            // Store.camera.position.x = (Store.ticks) - 55; 
-        }
+        // if (Store.view.cameraPositionBehind === true) {
+        //     if (Store.view.cameraAutoStart === true) {
+        //         Store.camera.position.x = Store.view.posBehindX + (Store.ticks);
+        //         cameraTop.position.x = (Store.view.posBehindX + 30) + (Store.ticks);
+        //     }
+        // } else {
+        //     Store.camera.position.x = (Store.ticks) - 35; // prev
+        //     // Store.camera.position.x = (Store.ticks) - 55; 
+        // }
     }
 
     physics.updateBodies(Store.world);
@@ -343,9 +336,9 @@ let animate = () => {
     Store.renderer.setScissor(left, bottom, width, height);
     Store.renderer.setScissorTest(true);
 
-    // Store.renderer.setClearColor(new THREE.Color(1, 1, 1));
-    Store.renderer.setClearColor( 0x000000, 0 ); // default
-    
+    // Store.renderer.setClearColor(new THREE.Color(1, 1, 1)); // white background
+    Store.renderer.setClearColor( 0x000000, 0 ); // default, transparent background
+
     Store.camera.aspect = width / height;
     Store.camera.updateProjectionMatrix();
 
@@ -796,7 +789,9 @@ function render(timestamp, frame) {
     if (frame) {
         // console.log({frame});
 
+        // TODO: how to reorient camera and default placement of scene
         const referenceSpace = Store.renderer.xr.getReferenceSpace();
+
         const session = Store.renderer.xr.getSession();
         if (hitTestSourceRequested === false) {
             session.requestReferenceSpace('viewer').then( function ( referenceSpace ) {

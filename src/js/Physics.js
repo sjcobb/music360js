@@ -190,14 +190,14 @@ export default class Physics {
         let xRand = Math.random() * (15 - 1) + 1; //rdm b/w 1 and 15
         let xPos = xPosition; //TODO: remove xPosition param if not used
         
-        if (Store.view.autoScroll === true) {
-            if (options.type === 'drum') {
-                xPos = -(Store.ticks);
-            } else {
-                xPos = -(Store.ticks);
-                Store.InstrumentCounter++;
-            }
-        }
+        // if (Store.view.autoScroll === true) {
+        //     if (options.type === 'drum') {
+        //         xPos = -(Store.ticks);
+        //     } else {
+        //         xPos = -(Store.ticks);
+        //         Store.InstrumentCounter++;
+        //     }
+        // }
 
         // https://stackoverflow.com/questions/44630265/how-can-i-set-z-up-coordinate-system-in-three-js
         // const yPos = 20; // v0.4, v0.5
@@ -255,7 +255,10 @@ export default class Physics {
         // body.angularVelocity.z = options.size === 'xl' ? 8 : 24; // works
         // body.angularVelocity.z = options.size === 'xl' ? 8 : 26; // earthquake, prev
 
-        body.angularVelocity.z = options.size === 'xl' ? 8 : 0; 
+        // body.angularVelocity.z = options.size === 'xl' ? 8 : 0; 
+        
+        // body.angularVelocity.z = 8; // not enough for small balls
+        body.angularVelocity.z = 24;
 
         if (options.type === 'animation') {
             flamePhysics.create({x: -xPos});
@@ -307,18 +310,18 @@ export default class Physics {
                         
                         // // instrMaterial.map = Store.view.instrumentConfigArr[0].bubbleTexture;
 
-                        // setTimeout(() => {
-                        //     instrMaterial.map = Store.view.instrumentConfigArr[1].bubbleTexture;
-                        // }, 20);
+                        // // setTimeout(() => {
+                        // //     instrMaterial.map = Store.view.instrumentConfigArr[1].bubbleTexture;
+                        // // }, 20);
+
+                        // // setTimeout(() => {
+                        // //     instrMaterial.map = Store.view.instrumentConfigArr[6].bubbleTexture;
+                        // // }, 120);
 
                         // setTimeout(() => {
-                        //     instrMaterial.map = Store.view.instrumentConfigArr[6].bubbleTexture;
-                        // }, 120);
-
-                        setTimeout(() => {
-                            // Store.scene.remove(obj3D);
-                            Store.world.remove(body);
-                        }, 600);
+                        //     // Store.scene.remove(obj3D);
+                        //     Store.world.remove(body);
+                        // }, 600);
                     // }
                 } 
             } else if (Store.triggerOn === 'spinner') {

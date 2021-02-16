@@ -121,6 +121,33 @@
                     "durationTicks": 960,
                     "midi": 62,
                     "name": "D4",
+                    "ticks": 0,
+                    "time": 0,
+                    "velocity": 0.6062992125984252
+                },
+                {
+                    "duration": 0.6000000000000005,
+                    "durationTicks": 960,
+                    "midi": 62,
+                    "name": "D4",
+                    "ticks": 0,
+                    "time": 3,
+                    "velocity": 0.6062992125984252
+                },
+                {
+                    "duration": 0.6000000000000005,
+                    "durationTicks": 960,
+                    "midi": 62,
+                    "name": "D4",
+                    "ticks": 0,
+                    "time": 5,
+                    "velocity": 0.6062992125984252
+                },
+                {
+                    "duration": 0.6000000000000005,
+                    "durationTicks": 960,
+                    "midi": 62,
+                    "name": "D4",
                     "ticks": 12480,
                     "time": 7.8,
                     "velocity": 0.6062992125984252
