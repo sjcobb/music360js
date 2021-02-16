@@ -59,6 +59,13 @@ export default class Physics {
             sizeArr = [5000, 50, 5];
         }
 
+        if (Store.view.stage.size === 'xr') {
+            // posArr = [0, -6, -2];
+            // sizeArr = [8, 5000, 5];
+            posArr = [0, -6, -34];
+            sizeArr = [18, 10, 0.5];
+        }
+
         // FLOOR
         //TODO: add colored ground on contact here
         //http://schteppe.github.io/cannon.js/docs/classes/ContactMaterial.html
@@ -120,6 +127,7 @@ export default class Physics {
         }
 
         // console.log('addBody -> options: ', options);
+        // console.log({objSize});
 
         const trigger = new Trigger();
 
@@ -214,33 +222,24 @@ export default class Physics {
         // body.mass = 1; // feather light
         // body.mass = 8; // heavy
 
-        if (options.type === 'drum') {
-            // TODO: new drum machine paradigm - use rotating clock hand to hit drums
-            // https://codepen.io/danlong/pen/LJQYYN
-            // zPos += 10; // PREV: see Store.staffLineInitZ and Store.staffLineSecondZ
+        // if (options.type === 'drum') {
+        //     // TODO: new drum machine paradigm - use rotating clock hand to hit drums
+        //     // https://codepen.io/danlong/pen/LJQYYN
+        //     // zPos += 10; // PREV: see Store.staffLineInitZ and Store.staffLineSecondZ
 
-            // zPos -= 8; // TODO: is this still needed?
-        } else {
-            // zPos -= 3; // v0.4, v0.5
+        //     // zPos -= 8; // TODO: is this still needed?
+        // } else {
+        //     // zPos -= 3; // v0.4, v0.5
 
-            if (Store.view.showStaff.treble === true) {
-                zPos += 2;
-            }
-        }
+        //     if (Store.view.showStaff.treble === true) {
+        //         zPos += 2;
+        //     }
+        // }
 
-        if (Store.cameraCircularAnimation === true) {
-            Store.dropOffset = options.variation === 'snare' ? Store.dropOffset -= 0.8 : 0;
-            Store.dropOffset = options.variation === 'kick' ? Store.dropOffset -= 1.2 : 0;
-            Store.dropOffset = options.variation === 'hihat' ? Store.dropOffset -= 1.6 : 0;
-            // console.log('Store.dropOffset: ', Store.dropOffset); // DEBUG
-            // xPos += Store.dropOffset;
-            // zPos += Store.dropOffset;
+        xPos = options.originalPosition.z;
 
-            xPos = Store.dropCoordCircleInterval[index].px;
-            zPos = Store.dropCoordCircleInterval[index].py;
-        }
+        zPos = -30;
 
-        // zPos = options.originalPosition.z;
 
         body.position.set((sphere) ? -xPos : xPos, yPos, zPos);
 
@@ -257,8 +256,8 @@ export default class Physics {
 
         // body.angularVelocity.z = options.size === 'xl' ? 8 : 0; 
         
-        // body.angularVelocity.z = 8; // not enough for small balls
-        body.angularVelocity.z = 24;
+        // body.angularVelocity.z = 24; // for sideways spin
+        body.angularVelocity.x = 24; // USE
 
         if (options.type === 'animation') {
             flamePhysics.create({x: -xPos});

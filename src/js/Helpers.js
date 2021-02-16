@@ -187,12 +187,14 @@ export default class Helpers {
             
             //TODO: adjust textOffset position here
             // let textOffsetX = 0.0;
-            let textOffsetX = -5;
+            // let textOffsetX = -5; // PREV, ai, earthquake
 
             // let textOffsetY = 0.4; // v0.3, v0.4
             // let textOffsetY = -0.1; // move text up on ball
             // let textOffsetY = -0.033; // prev, move text up on ball
-            let textOffsetY = 0.2;
+            let textOffsetY = 0.2; // PREV, ai, earthquake
+
+            let textOffsetX = 125;
 
             // if (textW > 100) {
             //     // console.log(textData); //TODO: make fillEllipse wider or font (textH) smaller when multiple characters

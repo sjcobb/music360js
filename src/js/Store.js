@@ -198,7 +198,7 @@ export default {
         // posBehindY: 8,
         // posBehindZ: 1,
 
-        hideFloor: true,
+        hideFloor: false,
         floorTexture: false,
 
         posBehindX: -95, 
@@ -217,7 +217,8 @@ export default {
         splitScreen: false,
         stage: {
             // size: 'lg',
-            size: 'sm',
+            // size: 'sm',
+            size: 'xr',
         },
         xr: true
     },
