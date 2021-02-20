@@ -21,10 +21,8 @@ class ARButton {
 				// svg.style.right = '20px';
 				// svg.style.top = '20px';
 				svg.addEventListener( 'click', function () {
-
 					currentSession.end();
-
-				} );
+				});
 				overlay.appendChild( svg );
 
 				var path = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' );
@@ -44,7 +42,7 @@ class ARButton {
 
 			async function onSessionStarted( session ) {
 				console.log({session});
-				
+
 				session.addEventListener( 'end', onSessionEnded );
 
 				renderer.xr.setReferenceSpaceType( 'local' );
@@ -59,14 +57,10 @@ class ARButton {
 			}
 
 			function onSessionEnded( /*event*/ ) {
-
 				currentSession.removeEventListener( 'end', onSessionEnded );
-
 				button.textContent = 'START AR';
 				sessionInit.domOverlay.root.style.display = 'none';
-
 				currentSession = null;
-
 			}
 
 			//
@@ -80,29 +74,19 @@ class ARButton {
 			button.textContent = 'START AR';
 
 			button.onmouseenter = function () {
-
 				button.style.opacity = '1.0';
-
 			};
 
 			button.onmouseleave = function () {
-
 				button.style.opacity = '0.5';
-
 			};
 
 			button.onclick = function () {
-
 				if ( currentSession === null ) {
-
 					navigator.xr.requestSession( 'immersive-ar', sessionInit ).then( onSessionStarted );
-
 				} else {
-
 					currentSession.end();
-
 				}
-
 			};
 
 		}
@@ -123,15 +107,11 @@ class ARButton {
 		}
 
 		function showARNotSupported() {
-
 			disableButton();
-
 			button.textContent = 'AR NOT SUPPORTED';
-
 		}
 
 		function stylizeElement( element ) {
-
 			// element.style.position = 'absolute';
 			// element.style.bottom = '20px';
 			// element.style.padding = '12px 6px';
@@ -144,24 +124,16 @@ class ARButton {
 			// element.style.opacity = '0.5';
 			// element.style.outline = 'none';
 			// element.style.zIndex = '999';
-
 		}
 
 		if ( 'xr' in navigator ) {
-
 			button.id = 'ARButton';
 			button.style.display = 'none';
-
 			stylizeElement( button );
-
 			navigator.xr.isSessionSupported( 'immersive-ar' ).then( function ( supported ) {
-
 				supported ? showStartAR() : showARNotSupported();
-
 			} ).catch( showARNotSupported );
-
 			return button;
-
 		} else {
 
 			const message = document.createElement( 'a' );

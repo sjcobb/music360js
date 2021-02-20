@@ -96,6 +96,7 @@ console.log({cameraTop});
 // https://threejs.org/docs/#manual/en/introduction/How-to-create-VR-content
 // https://threejs.org/docs/#api/en/renderers/WebGLRenderer.xr
 
+// TODO: adjust window.innerWidth so scene isn't cut off on phone
 Store.renderer.setSize(window.innerWidth, window.innerHeight);
 
 if (Store.view.xr === true) {
@@ -113,7 +114,7 @@ Store.renderer.domElement.id = 'canvas-scene-primary';
 
 // update viewport on resize
 window.addEventListener('resize', function() {
-    var width = window.innerWidth;
+    var width = window.innerWidth + 2;
     var height = window.innerHeight;
     Store.renderer.setSize(width, height);
     Store.camera.aspect = width / height; // aspect ratio
