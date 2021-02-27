@@ -1,42 +1,48 @@
 {
-  "name": "music360js",
-  "version": "0.0.1",
-  "description": "https://www.youtube.com/channel/UCo_IXLTK8dtF2qOUCt4l47Q",
-  "main": "index.js",
-  "scripts": {
-    "start": "webpack-dev-server --mode development",
-    "build": "./node_modules/.bin/webpack --mode development",
-    "build-prod": "./node_modules/.bin/webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "NODE_ENV=development webpack-dev-server --open --hot --display-error-details"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sjcobb/ai-duet-3d.git"
-  },
-  "keywords": [
-    "music animation",
-    "data visualization"
-  ],
-  "author": "sjcobb",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sjcobb/music360js/issues"
-  },
-  "homepage": "https://github.com/sjcobb/music360js#readme",
-  "dependencies": {
-    "@tonaljs/midi": "^3.3.1",
-    "gulp": "^4.0.2",
-    "lodash": "^4.17.19",
-    "stats.js": "^0.17.0",
-    "three": "^0.105.2",
-    "tonal": "^2.2.2",
-    "tone": "^13.4.9",
-    "webmidi": "^2.5.1",
-    "webpack": "^4.34.0",
-    "webpack-dev-server": "^3.7.2"
-  },
-  "devDependencies": {
-    "webpack-cli": "^3.3.4"
-  }
+    "name": "music360js",
+    "version": "0.0.1",
+    "description": "https://www.youtube.com/channel/UCo_IXLTK8dtF2qOUCt4l47Q",
+    "main": "index.js",
+    "scripts": {
+        "start": "webpack serve",
+        "build": "webpack --mode production"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sjcobb/ai-duet-3d.git"
+    },
+    "keywords": [
+        "music animation",
+        "data visualization"
+    ],
+    "author": "sjcobb",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/sjcobb/music360js/issues"
+    },
+    "homepage": "https://github.com/sjcobb/music360js#readme",
+    "dependencies": {
+        "@tonaljs/midi": "^3.3.1",
+        "cannon-es": "^0.16.0",
+        "echarts": "^4.0.0",
+        "gulp": "^4.0.2",
+        "lodash": "^4.17.19",
+        "stats.js": "^0.17.0",
+        "three": "^0.105.2",
+        "tonal": "^2.2.2",
+        "tone": "^13.4.9",
+        "webmidi": "^2.5.1",
+        "webpack-cli": "^4.3.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.12.10",
+        "@babel/preset-env": "^7.12.11",
+        "babel-loader": "^8.2.2",
+        "file-loader": "^6.2.0",
+        "html-webpack-plugin": "^4.5.1",
+        "raw-loader": "^4.0.2",
+        "rimraf": "^3.0.2",
+        "webpack": "^5.14.0",
+        "webpack-dev-server": "^3.11.2"
+    }
 }

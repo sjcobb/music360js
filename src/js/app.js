@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 import Store from './Store.js';
 import InstrumentMappings from './InstrumentMappings.js';
 import { getInstrumentMappingTemplate, generateInstrMetadata, getInstrByInputNote } from './InstrumentMappings.js';
@@ -5,6 +6,13 @@ import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 import Light from './Light.js';
 import Physics from './Physics.js';
 import Stats from 'stats.js';
+
+import * as echarts from 'echarts/lib/echarts'
+// import 'echarts/lib/chart/line'
+// import 'echarts/lib/chart/bar'
+// import 'echarts/lib/component/tooltip'
+// import 'echarts/lib/component/title'
+// import 'echarts/lib/component/legend'
 
 /***
  *** SCENE SETUP ***
@@ -301,7 +309,10 @@ function updateDashboardData() {
 
 function createCharts(showGrid = false) {
 
-    Store.dashboard.chart = echarts.init(document.getElementById('chart'), 'shine');
+    const chartId = document.getElementById('chart');
+    console.log({chartId});
+
+    Store.dashboard.chart = echarts.init(chartId, 'shine');
     // Store.dashboard.chart = echarts.init(document.getElementById('chart'), 'dark');
     // Store.dashboard.chart = echarts.init(document.getElementById('chart'), 'vintage');
     // Store.dashboard.chart = echarts.init(document.getElementById('chart'), 'macarons');

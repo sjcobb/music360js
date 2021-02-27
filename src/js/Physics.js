@@ -1,3 +1,7 @@
+import * as THREE from 'three';
+import * as CANNON from 'cannon-es';
+// import { World } from 'cannon-es';
+
 import Store from './Store.js';
 // import Helpers from './Helpers.js';
 import Helpers from './Helpers.js';
@@ -26,6 +30,9 @@ export default class Physics {
     // Store.world = new CANNON.World();
 
     initPhysics() {
+        Store.world = new CANNON.World();
+        // Store.world = new World();
+
         this.fixedTimeStep = 1.0 / 60.0;
         this.damping = 0.01;
 
@@ -80,7 +87,7 @@ export default class Physics {
 
         // https://stackoverflow.com/a/35101095 - “Glueing together” two bodies in cannon.js
         groundBody.addShape(groundShape);
-        Store.world.add(groundBody);
+        // Store.world.add(groundBody);
 
         // if (this.useVisuals) this.helper.this.addVisual(groundBody, 'ground', false, true);
         this.addVisual(groundBody, 'ground', false, true);
@@ -220,7 +227,7 @@ export default class Physics {
             return;
         }
         
-        Store.world.add(body);
+        // Store.world.add(body);
 
         body.userData = {
             opts: options
@@ -629,7 +636,7 @@ export default class Physics {
         // Store.meshes.push(spinner);
         Store.bodies.push(Store.spinnerBody);
         Store.scene.add(spinner);
-        Store.world.addBody(Store.spinnerBody);
+        // Store.world.addBody(Store.spinnerBody);
     }
 
     updatePhysics() {

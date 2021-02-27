@@ -1,3 +1,5 @@
+import * as CANNON from 'cannon-es';
+import * as THREE from 'three';
 // import InstrumentMappings from './InstrumentMappings.js';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 
@@ -161,6 +163,7 @@ export default {
         },
     },
     world: new CANNON.World(),
+    // world: {},
 };
 
 /*** COLOR OPTIONS ***/
