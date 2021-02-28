@@ -2,10 +2,15 @@ import React, { Component } from "react";
 import { hot } from "react-hot-loader";
 import "./Dashboard.css";
 
+import Checkbox from '../Checkbox';
+import FormItem from '../FormItem';
+
 import * as Tone from 'tone'
 import { Chord } from "@tonaljs/tonal";
 import * as recordingFirstNotes from '../assets/recording/1.json';
 import Store from '../Store';
+
+import updateStatus from '../services/sceneCustomizer';
 
 class Dashboard extends Component {
 
@@ -41,30 +46,41 @@ class Dashboard extends Component {
         console.log('componentDidUpdate...');
     }
 
+    handleCheckboxChange(e) {
+        console.log(e);
+        console.log(this);
+        // const {checked} = e.target;
+
+        // this.setState({checked});
+        // this.props.onChange(checked);
+    }
+
     sceneConfigSection() {
         const sceneConfig = Store.view;
-
-        // for (const key in sceneConfig) {
-        //     if (Object.hasOwnProperty.call(sceneConfig, key)) {
-        //         const element = sceneConfig[key];
-        //         console.log(element);
-        //     }
-        // }
-
-        // this.sceneConfig = (
         return (
             <section className='sceneConfig'>
                 {
                     Object.entries(sceneConfig).map(([key, val]) => 
-                        <h2 key={key}>{key}: {val}</h2>
+                        <h3 key={key}>{key}: {val}</h3>
                     )
                 }
             </section>
         );
-        
+    }
+
+    changeStatus(itemId, completed) {
+        console.log(itemId);
+        console.log(completed);
+
+        // const updatedList = updateStatus(this.state.list, itemId, completed);
+
+        // this.setState({list: updatedList});
     }
 
     render() {
+
+        console.log(Checkbox);
+        
         // this.parseSceneConfig();
         
         const { title } = this.props;
@@ -80,9 +96,16 @@ class Dashboard extends Component {
         // {sceneSection.props.children}
         
         // return sceneSection;
+        let skyboxChecked = true;
+
+        const testFormItem = {
+            id: 'testId',
+            text: 'testLabel',
+            completed: true,
+        }
 
         return (
-            <div className={`app ${modeClass}`}>
+            <div className={`dashboard ${modeClass}`}>
                 <h1>Dashboard Title: {title}</h1>
                 <label className="checkbox">
                     <input 
@@ -92,6 +115,15 @@ class Dashboard extends Component {
                     {' '}Dark Mode
                 </label>
                 <p>{Store.view.activeInstrColor}</p>
+
+                {/* <Checkbox checked={true} onChange={this.handleCheckboxChange}/> */}
+
+                <ul className="form-list">
+                    {/* {items.map(item => ( */}
+                        <FormItem key={testFormItem.id} data={testFormItem} changeStatus={this.changeStatus} />
+                    {/* ))} */}
+                </ul>
+
                 {sceneSection}
             </div>
         );
