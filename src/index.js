@@ -4,4 +4,4 @@ import App from "./app/App.js";
 import Dashboard from "./dashboard/Dashboard.js";
 
 ReactDOM.render(<App />, document.getElementById("root"));
-ReactDOM.render(<Dashboard />, document.getElementById("dashboard"));
+ReactDOM.render(<Dashboard title="Default Scene" />, document.getElementById("dashboard"));

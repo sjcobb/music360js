@@ -4,6 +4,7 @@ import "./Dashboard.css";
 
 import Checkbox from '../Checkbox';
 import FormItem from '../FormItem';
+import InputBox from '../InputBox';
 
 import * as Tone from 'tone'
 import { Chord } from "@tonaljs/tonal";
@@ -44,6 +45,19 @@ class Dashboard extends Component {
     
     componentDidUpdate() {
         console.log('componentDidUpdate...');
+    }
+
+    handleInputChange(e) {
+        // console.log(e);
+        // console.log(this);
+        // const {checked} = e.target;
+
+        // this.setState({checked});
+        // this.props.onChange(checked);
+    }
+
+    handleKeyUp(e) {
+        console.log({e});
     }
 
     handleCheckboxChange(e) {
@@ -123,6 +137,9 @@ class Dashboard extends Component {
                         <FormItem key={testFormItem.id} data={testFormItem} changeStatus={this.changeStatus} />
                     {/* ))} */}
                 </ul>
+
+                <div className="input-container">Input 1: <InputBox value='' onChange={this.handleInputChange} onKeyUp={this.handleKeyUp} /></div>
+                {/* <div class="input-container">Input 2: <InputBox /></div> */}
 
                 {sceneSection}
             </div>
