@@ -118,6 +118,8 @@ class Dashboard extends Component {
             completed: true,
         }
 
+        const items = ['banana', 'apple', 'pear']
+
         return (
             <div className={`dashboard ${modeClass}`}>
                 <h1>Dashboard Title: {title}</h1>
@@ -132,16 +134,27 @@ class Dashboard extends Component {
 
                 {/* <Checkbox checked={true} onChange={this.handleCheckboxChange}/> */}
 
-                <ul className="form-list">
-                    {/* {items.map(item => ( */}
-                        <FormItem key={testFormItem.id} data={testFormItem} changeStatus={this.changeStatus} />
-                    {/* ))} */}
-                </ul>
+                {/* <ul className="form-list">
+                    {items.forEach(item => (
+                        <li>{item}</li>
+                    ))}
+                </ul> */}
 
-                <div className="input-container">Input 1: <InputBox value='' onChange={this.handleInputChange} onKeyUp={this.handleKeyUp} /></div>
+                <FormItem key={testFormItem.id} data={testFormItem} changeStatus={this.changeStatus} />
+
+                {/* <div className="input-container">Input 1: <InputBox value='' onChange={this.handleInputChange} onKeyUp={this.handleKeyUp} /></div> */}
                 {/* <div class="input-container">Input 2: <InputBox /></div> */}
 
                 {sceneSection}
+
+                <section className='formSection'>
+                    {
+                        Object.entries(Store.view).map(([key, defaultValue]) => 
+                            <InputBox value={defaultValue} onChange={this.handleInputChange} onKeyUp={this.handleKeyUp} />
+                        )
+                    }
+                </section>
+
             </div>
         );
     }
