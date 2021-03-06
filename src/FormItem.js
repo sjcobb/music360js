@@ -6,6 +6,7 @@ export default function FormItem(props) {
     const handleChange = (checked) => changeStatus(data.id, checked);
     const className = 'todo-item ui-state-default ' + (data.completed === true ? 'completed' : 'pending');
 
+    // TODO: parse Store.js object keys, if value is boolean - use checkbox, if string or number - text input
     return (
         <li className={className}>
             <div className="checkbox">
