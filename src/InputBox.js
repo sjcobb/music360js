@@ -9,6 +9,7 @@ class InputBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            // key: this.props.key,
             value: this.props.value
             // value: ''
         };
@@ -30,22 +31,26 @@ class InputBox extends Component {
     }
 
     handleKeyUp(e) {
-        console.log({e});
+        // console.log({e});
     }
 
     render() {
 
+        console.log(this.props);
         // const { value } = this.props;
 
         return (
-            <input autoFocus
-                type="text"
-                className="form-control input"
-                value={this.state.value}
-                onKeyUp={this.handleKeyUp}
-                onChange={this.handleChange}
-                placeholder="Add New"
-            />
+            <div>
+                <h3>{this.props.label}</h3>
+                <input autoFocus
+                    type="text"
+                    className="form-control input"
+                    value={this.state.value}
+                    onKeyUp={this.handleKeyUp}
+                    onChange={this.handleChange}
+                    placeholder="Add New"
+                />
+            </div>
         );
     }
 }

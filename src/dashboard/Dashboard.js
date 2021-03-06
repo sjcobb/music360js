@@ -26,7 +26,7 @@ class Dashboard extends Component {
     }
 
     handleChange(event) {
-        console.log({event});
+        // console.log({event});
         this.setState({ darkMode: !this.state.darkMode });
     }
       
@@ -57,12 +57,12 @@ class Dashboard extends Component {
     }
 
     handleKeyUp(e) {
-        console.log({e});
+        // console.log({e});
     }
 
     handleCheckboxChange(e) {
-        console.log(e);
-        console.log(this);
+        // console.log(e);
+        // console.log(this);
         // const {checked} = e.target;
 
         // this.setState({checked});
@@ -93,7 +93,7 @@ class Dashboard extends Component {
 
     render() {
 
-        console.log(Checkbox);
+        // console.log(Checkbox);
         
         // this.parseSceneConfig();
         
@@ -106,7 +106,7 @@ class Dashboard extends Component {
         let checked = this.state.darkMode ? "checked" : "unchecked";
 
         const sceneSection = this.sceneConfigSection();
-        console.log({sceneSection});
+        // console.log({sceneSection});
         // {sceneSection.props.children}
         
         // return sceneSection;
@@ -140,18 +140,25 @@ class Dashboard extends Component {
                     ))}
                 </ul> */}
 
-                <FormItem key={testFormItem.id} data={testFormItem} changeStatus={this.changeStatus} />
+                {/* <FormItem key={testFormItem.id} data={testFormItem} changeStatus={this.changeStatus} /> */}
 
                 {/* <div className="input-container">Input 1: <InputBox value='' onChange={this.handleInputChange} onKeyUp={this.handleKeyUp} /></div> */}
                 {/* <div class="input-container">Input 2: <InputBox /></div> */}
 
-                {sceneSection}
+                {/* {sceneSection} */}
 
                 <section className='formSection'>
                     {
-                        Object.entries(Store.view).map(([key, defaultValue]) => 
-                            <InputBox value={defaultValue} onChange={this.handleInputChange} onKeyUp={this.handleKeyUp} />
-                        )
+                        Object.entries(Store.view).map(([key, defaultValue]) => {
+                            console.log({key});
+                            console.log({defaultValue});
+                            
+                            if (defaultValue === true || defaultValue === false) {
+                                return <FormItem label={key} key={key} data={defaultValue} changeStatus={this.changeStatus} />
+                            } else {
+                                return <InputBox label={key} value={defaultValue} onChange={this.handleInputChange} onKeyUp={this.handleKeyUp} />
+                            }
+                        })
                     }
                 </section>
 

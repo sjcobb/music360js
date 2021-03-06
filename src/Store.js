@@ -84,7 +84,7 @@ export default {
         // songAutoStart: true,
         // showDashboard: true,
         // showLogoSprite: false,
-        // showStats: true,
+        showStats: true,
         // showStaff: {
         //     bass: true,
         //     treble: true,
