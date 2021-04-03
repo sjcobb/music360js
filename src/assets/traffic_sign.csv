@@ -1,0 +1,84 @@
+id,title,type
+sign0,Give way,Regulatory Signs
+sign1,Stop,Regulatory Signs
+sign2,No entry,Regulatory Signs
+sign3,One-way traffic,Regulatory Signs
+sign4,One-way traffic,Regulatory Signs
+sign5,No vehicles in both directions,Regulatory Signs
+sign6,No entry for cycles,Regulatory Signs
+sign7,No entry for goods vehicles,Regulatory Signs
+sign8,No entry for pedestrians,Regulatory Signs
+sign9,No entry for bullock carts,Regulatory Signs
+sign10,No entry for hand carts,Regulatory Signs
+sign11,No entry for motor vehicles,Regulatory Signs
+sign12,Height limit,Regulatory Signs
+sign13,Weight limit,Regulatory Signs
+sign14,Axle weight limit,Regulatory Signs
+sign15,Length limit,Regulatory Signs
+sign16,No left turn,Regulatory Signs
+sign17,No right turn,Regulatory Signs
+sign18,No overtaking,Regulatory Signs
+sign19,Maximum speed limit (50 km/h),Regulatory Signs
+sign20,Maximum speed limit (60 km/h),Regulatory Signs
+sign21,Maximum speed limit (70 km/h),Regulatory Signs
+sign22,Maximum speed limit (80 km/h),Regulatory Signs
+sign23,Maximum speed limit (90 km/h),Regulatory Signs
+sign24,Maximum speed limit (100 km/h),Regulatory Signs
+sign25,Maximum speed limit (110 km/h),Regulatory Signs
+sign26,Maximum speed limit (120 km/h),Regulatory Signs
+sign27,Horn prohibited,Regulatory Signs
+sign28,End of all restrictions,Regulatory Signs
+sign29,No parking,Regulatory Signs
+sign30,No stopping,Regulatory Signs
+sign31,Straight ahead,Regulatory Signs
+sign32,Turn left,Regulatory Signs
+sign33,Turn right,Regulatory Signs
+sign34,Turn left ahead,Regulatory Signs
+sign35,Turn right ahead,Regulatory Signs
+sign36,Turn left or straight ahead,Regulatory Signs
+sign37,Turn right or straight ahead,Regulatory Signs
+sign38,Keep left,Regulatory Signs
+sign39,Cycle track,Regulatory Signs
+sign40,Left curve,Warning Signs
+sign41,Right curve,Warning Signs
+sign42,Steep descent,Warning Signs
+sign43,Steep ascent,Warning Signs
+sign44,Narrow road,Warning Signs
+sign45,Narrow bridge,Warning Signs
+sign46,Unprotected quay,Warning Signs
+sign47,Uneven road,Warning Signs
+sign48,Road hump,Warning Signs
+sign49,Dip,Warning Signs
+sign50,Slippery road,Warning Signs
+sign51,Loose gravel,Warning Signs
+sign52,Falling rocks,Warning Signs
+sign53,Pedestrian crossing,Warning Signs
+sign54,School,Warning Signs
+sign55,Cyclists,Warning Signs
+sign56,Cattle,Warning Signs
+sign57,Roadworks,Warning Signs
+sign58,Traffic signals,Warning Signs
+sign59,Crossroads,Warning Signs
+sign60,Side road junction,Warning Signs
+sign61,Side road junction,Warning Signs
+sign62,Oblique side road junction,Warning Signs
+sign63,Oblique side road junction,Warning Signs
+sign64,T-junction,Warning Signs
+sign65,Y-junction,Warning Signs
+sign66,Staggered side road junction,Warning Signs
+sign67,Staggered side road junction,Warning Signs
+sign68,Roundabout,Warning Signs
+sign69,Guarded level crossing ahead,Warning Signs
+sign70,Unguarded level crossing ahead,Warning Signs
+sign71,Level crossing countdown marker,Warning Signs
+sign72,Level crossing countdown marker,Warning Signs
+sign73,Level crossing countdown marker,Warning Signs
+sign74,Level crossing countdown marker,Warning Signs
+sign75,Parking,Informatory Signs
+sign76,Bus stop,Informatory Signs
+sign77,First aid post,Informatory Signs
+sign78,Telephone,Informatory Signs
+sign79,Filling station,Informatory Signs
+sign80,Hotel,Informatory Signs
+sign81,Restaurant,Informatory Signs
+sign82,Refreshments,Informatory Signs

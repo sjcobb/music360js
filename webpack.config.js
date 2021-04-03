@@ -1,5 +1,10 @@
 const path = require("path");
 const webpack = require("webpack");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+const outputPath = path.join(__dirname, '../dist')
+// const publicPath = __DEV__ ?'/': 'https://mycdn.com/rnw/'
+const staticPath = path.join(__dirname, '../static')
 
 module.exports = {
   entry: "./src/index.js",
@@ -30,5 +35,22 @@ module.exports = {
     publicPath: "http://localhost:3000/dist/",
     hotOnly: true
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    // new CopyWebpackPlugin({
+    //   patterns: [{ from: path.resolve(__dirname, 'src/assets'), to: 'assets' }],
+    // }),
+    // new CopyWebpackPlugin([{from: 'src/assets/data/1.jpg', to: 'dist'}])
+    // new CopyWebpackPlugin([
+    //   { context: outputPath, from: '*.png', to: 'images/' },
+    //   { context: outputPath, from: staticPath, to: 'static/' },
+    // ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: path.resolve(__dirname, 'src/assets'), to: 'dist/assets' }
+        // { from: path.resolve(__dirname, 'src/assets'), to: 'temp' }
+        // { from: Path.resolve('./modules/web/static/favicon.ico'), to: './' },
+      ]
+    }),
+  ]
 };

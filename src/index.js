@@ -5,7 +5,7 @@ import Dashboard from "./dashboard/Dashboard.js";
 import Canvas from "./Canvas.js";
 
 ReactDOM.render(<App />, document.getElementById("root"));
-ReactDOM.render(<Dashboard title="Default Scene" />, document.getElementById("dashboard"));
+// ReactDOM.render(<Dashboard title="Default Scene" />, document.getElementById("dashboard"));
 
 ReactDOM.render(
   <React.StrictMode>

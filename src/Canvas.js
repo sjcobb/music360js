@@ -85,7 +85,7 @@ function Canvas() {
 
   return (
     <div className="App">
-      <h3>Draggable Rectangle on Canvas - <a href="http://www.cluemediator.com" target="_blank" rel="noopener noreferrer">Clue Mediator</a></h3>
+      <h3>Draggable Rectangle on Canvas</h3>
       <canvas
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
