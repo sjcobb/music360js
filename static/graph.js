@@ -204,37 +204,77 @@ if (paths !== undefined) {
 let circleFifthsId = document.getElementById('circle-of-fifths');
 var graphCircleFifths = echarts.init(circleFifthsId);
 
-const graphData = [
-    { name: "AnalyserNode", value: 1, category: 4, id: 0 },
-    { name: "AudioNode", value: 1, category: 4, id: 1 },
-    { name: "HTMLSpanElement", value: 1, category: 0, id: 200 },
+const nodes = [
+    { name: "C", value: 100, category: 0, id: 0, symbolSize: 60 },
+    { name: "G", value: 50, category: 0, id: 1 },
+    { name: "D", value: 5, category: 0, id: 2 },
+    { name: "Am", value: 30, category: 1, id: 3 },
+    { name: "Em", value: 15, category: 1, id: 4 },
+
+    // 
+
+    // { name: "AnalyserNode", value: 1, category: 4, id: 0 },
+    // { name: "AudioNode", value: 1, category: 4, id: 1 },
+    // { name: "HTMLSpanElement", value: 1, category: 0, id: 200 },
+
+    // 
+
+    // { category: 0, id: "1", label: {show: false}, name: "Napoleon", symbolSize: 2.6666666666666665, value: 4, x: -418.08344, y: 446.8853 },
 ];
 
+// https://echarts.apache.org/en/option.html#series-graph.categories
 const categories = [
-    {name: "HTMLElement", keyword: {}, base: "HTMLElement"},
-    {name: "WebGL", keyword: {}, base: "WebGLRenderingContext"},
-    {name: "SVG", keyword: {}, base: "SVGElement"},
-    {name: "CSS", keyword: {}, base: "CSSRule"},
-    {name: "Other", keyword: {}},
+    { name: "Major"},
+    { name: "Minor"},
+    // {name: "HTMLElement", keyword: {}, base: "HTMLElement"},
+    // {name: "WebGL", keyword: {}, base: "WebGLRenderingContext"},
+    // {name: "SVG", keyword: {}, base: "SVGElement"},
+    // {name: "CSS", keyword: {}, base: "CSSRule"},
+    // {name: "Other", keyword: {}},
 ];
 
 const edges = [
-    { source: 0, target: 1},
-    { source: 0, target: 2},
-    { source: 0, target: 3},
+    { source: 0, target: 1}, // C -> G
+    { source: 0, target: 3}, // C -> Am
+    { source: 1, target: 2}, // G -> D
+    { source: 1, target: 4}, // G -> Em
+    // { source: 3, target: 0}, // Am -> C
+    //
+
+    // { source: 0, target: 1},
+    // { source: 0, target: 2},
+    // { source: 0, target: 3},
 ];
 
 const option = {
     legend: {
-        data: ["HTMLElement", "WebGL", "SVG", "CSS", "Other"]
+        data: ["Major", "Minor"],
+        // data: ["HTMLElement", "WebGL", "SVG", "CSS", "Other"],
     },
+    // https://echarts.apache.org/en/option.html#series-graph.draggable
     series: [
         {
             type: "graph",
-            data: graphData,
+            layout: "force",
+            // layout: "circular",
+            // https://echarts.apache.org/en/option.html#series-graph.force
+            force: {
+                initLayout: 'circular',
+                // edgeLength: 5,
+                // gravity: 0.2,
+                // repulsion: 20,
+                gravity: 0.1,
+                edgeLength: 100,
+                repulsion: 200,
+            },
+            draggable: true,
+            symbolSize: 40,
+            label: {
+                show: true
+            },
+            data: nodes,
             categories: categories,
             edges: edges,
-            layout: "force",
         }
     ]
 };
