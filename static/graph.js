@@ -43,6 +43,9 @@ function Graph(v) {
     this.showGraph = showGraph;
     // this.toString = toString; 
 
+    this.hasPathTo = hasPathTo;
+    this.pathTo = pathTo;
+
     this.bfs = bfs;
     this.edgeTo = [];
 
@@ -96,6 +99,7 @@ function dfs(v) {
 
 // // // 
 
+// https://github.com/oreillymedia/data_structures_and_algorithms_using_javascript/blob/96a8d91efd91d8c7d15f559e72b5f9453e651600/Chapter11/Chap11-6.js#L101
 function bfs(s) {
     var queue = [];
     this.marked[s] = true;
@@ -119,6 +123,23 @@ function bfs(s) {
     }
 }
 
+function pathTo(v) {
+    var source = 0;
+    if (!this.hasPathTo(v)) {
+        return undefined;
+    }
+    var path = [];
+    for (var i = v; i != source; i = this.edgeTo[i]) {
+        path.push(i);
+    }
+    path.push(source);
+    return path;
+}
+
+function hasPathTo(v) {
+    return this.marked[v];
+}
+
 // // //
 
 const g = new Graph(5); 
@@ -135,11 +156,38 @@ g.showGraph();
 
 // // 
 
-// g.bfs(0); // 0, 1, 2, 3, 4
+g.bfs(0); // 0, 1, 2, 3, 4
 // g.bfs(1); // 1, 0, 3, 2, 4
 // g.bfs(2); // 2, 0, 4, 1, 3
 // g.bfs(3); // 3, 1, 0, 2, 4
-g.bfs(4); // 4, 2, 0, 1, 3
+// g.bfs(4); // 4, 2, 0, 1, 3
+
+// // //
+
+let pathString = '';
+
+// var vertex = 4;    // 0-2-4
+var vertex = 3;    // 0-1-3
+// var vertex = 2;    // 0-2
+// var vertex = 1;    // 0-1
+// var vertex = 0;    // 0
+
+var paths = g.pathTo(vertex); 
+// console.log(paths);
+
+if (paths !== undefined) {
+    while (paths.length > 0) {
+        if (paths.length > 1) { 
+            // putstr(paths.pop() + '-');
+            pathString += (paths.pop() + '-');
+        } else {
+            // putstr(paths.pop()); 
+           pathString += (paths.pop());
+        }
+    }
+    console.log(pathString); 
+}
+
 
 // // //
 
