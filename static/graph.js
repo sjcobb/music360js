@@ -189,7 +189,54 @@ if (paths !== undefined) {
 }
 
 
-// // //
+///////////////////
+// ECHARTS GRAPH //
+///////////////////
 
+// https://echarts.apache.org/en/option.html#series-graph.type
+
+// https://echarts.apache.org/en/option.html#series-graph.layout
+// - 'none' No any layout, use x, y provided in node as the position of node.
+// - 'circular' Adopt circular layout, see the example Les Miserables: https://echarts.apache.org/examples/en/editor.html?c=graph-circular-layout
+// - 'force' Adopt force-directed layout, see the example Force, the detail about configrations of layout are in graph.force: https://echarts.apache.org/examples/en/editor.html?c=graph-force2
+
+//
 let circleFifthsId = document.getElementById('circle-of-fifths');
+var graphCircleFifths = echarts.init(circleFifthsId);
 
+const graphData = [
+    { name: "AnalyserNode", value: 1, category: 4, id: 0 },
+    { name: "AudioNode", value: 1, category: 4, id: 1 },
+    { name: "HTMLSpanElement", value: 1, category: 0, id: 200 },
+];
+
+const categories = [
+    {name: "HTMLElement", keyword: {}, base: "HTMLElement"},
+    {name: "WebGL", keyword: {}, base: "WebGLRenderingContext"},
+    {name: "SVG", keyword: {}, base: "SVGElement"},
+    {name: "CSS", keyword: {}, base: "CSSRule"},
+    {name: "Other", keyword: {}},
+];
+
+const edges = [
+    { source: 0, target: 1},
+    { source: 0, target: 2},
+    { source: 0, target: 3},
+];
+
+const option = {
+    legend: {
+        data: ["HTMLElement", "WebGL", "SVG", "CSS", "Other"]
+    },
+    series: [
+        {
+            type: "graph",
+            data: graphData,
+            categories: categories,
+            edges: edges,
+            layout: "force",
+        }
+    ]
+};
+
+graphCircleFifths.setOption(option);
