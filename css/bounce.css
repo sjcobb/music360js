@@ -26,8 +26,8 @@ canvas.canvas-scene-primary {
 #controls-container {
     /* display: none; */
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 5px;
+    left: 100px;
     width: 200px;
     margin: 0;
     padding: 0;
@@ -81,7 +81,7 @@ button {
     cursor: pointer;
 }
 
-button#btn-drums-1,
+button#btn-start,
 .play {
     display: inline-block;
     margin: auto 3px 10px auto;
@@ -103,7 +103,7 @@ span.fa-headphones {
     padding: 0 5px 0 3px;
 }
 
-button#btn-drums-1:hover,
+button#btn-start:hover,
 .play:hover {
     /* background: #003366; */
     /* color: #fff; */
@@ -111,7 +111,7 @@ button#btn-drums-1:hover,
     color: #003366;
 }
 
-button#btn-drums-1 {
+button#btn-start {
     margin: auto 3px 10px auto;
 }
 

@@ -64,3 +64,7 @@ typings/
 .DS_Store
 .npmrc
 archive
+
+localhost+3-key.pem
+localhost+3.pem
+

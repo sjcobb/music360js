@@ -475,7 +475,7 @@ export default class Physics {
                     // https://github.com/sjcobb/ice-cavern/blob/master/js/scene.js#L73
                     ///////////
                     const floorTexture = Store.loader.load('assets/floor/earthquake-cracks-forming/frame_121.png');
-                    console.log({floorTexture});
+                    // console.log({floorTexture});
 
                     // https://threejs.org/docs/#api/en/textures/Texture.repeat
 
@@ -487,7 +487,7 @@ export default class Physics {
                     const floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture } );
                     floorMaterial.map.center.set(0.5, 0.5) 
                     // floorMaterial.map.repeat = 1; // just black, no img
-                    console.log({floorMaterial});
+                    // console.log({floorMaterial});
 
                     // NEW Ground for drum spinner, PLANE no longer used since infinite invisible contact not needed
                     const boxGeometry = new THREE.BoxGeometry(shape.halfExtents.x * 2, shape.halfExtents.y * 2, shape.halfExtents.z * 2);

@@ -28,9 +28,11 @@ button.addEventListener("click", function() {
     // bounceSynth.dispose();
 });
 
-let drumId = document.getElementById('btn-drums-1');
-drumId.onclick = () => {
-    console.log('#btn-drums-1 clicked... Tone.Transport started...')
+
+/* start all sounds */
+let buttonStartId = document.getElementById('btn-start');
+buttonStartId.onclick = () => {
+    console.log('... ... ... Tone.Transport STARTED ... ... ...');
     Tone.Transport.start();
     // Tone.Transport.start("+0.1", 0);
 };
@@ -90,12 +92,12 @@ toggleId.onclick = (el) => {
 //     addBody();
 // };
 
-// if (Store.view.songAutoStart === true || Store.uiHidden === true) {
-if (Store.uiHidden === true) {
+// if (Store.view.autoStartSong === true || Store.view.showSettingsUI === false) {
+if (Store.view.showSettingsUI === false) {
     controlsId.classList.toggle('hidden');
 }
 
-if (Store.view.songAutoStart === true) {
+if (Store.view.autoStartSong === true) {
     setTimeout(function() {
         Tone.Transport.start();
     }, Store.view.autoStartTime);
@@ -144,7 +146,7 @@ document.addEventListener("visibilitychange", function() {
 // }, 1000);
 
 /* nursery rhyme note analyzer video */
-// if (Store.view.songAutoStart == true) {
+// if (Store.view.autoStartSong == true) {
 //     setTimeout(function() {
 //         console.log('(UI - ALTERNATE VIEW) -> Store: ', Store);
     

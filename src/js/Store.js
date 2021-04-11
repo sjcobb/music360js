@@ -179,7 +179,6 @@ export default {
     triggerOn: 'contact', 
     // triggerOn: 'spinner', 
     // Transport: Tone.Transport, //TODO: add Transport here for logging ticks and position
-    uiHidden: false,
     ui: {
         machine: {
             currentSequence: []
@@ -189,19 +188,14 @@ export default {
         autoScroll: true,
         // autoStartTime: 6000,
         autoStartTime: 0,
+        autoStartSong: false,
         drumCircle: true,
         skybox: false,
         cameraPositionBehind: true,
         cameraAutoStart: true,
-        // posBehindX: -70,
-        // posBehindY: 8,
-        // posBehindZ: 1,
-
         posBehindX: -95, 
         posBehindY: 4,
         posBehindZ: 0,
-
-        songAutoStart: true,
         showDashboard: true,
         showLogoSprite: false,
         showStats: true,
@@ -209,6 +203,7 @@ export default {
             bass: true,
             treble: true,
         },
+        showSettingsUI: true,
         stage: {
             // size: 'lg',
         }
