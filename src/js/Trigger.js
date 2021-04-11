@@ -476,7 +476,7 @@ export default class Trigger {
 
             // console.log(Chord);
             const currentChord = Chord.detect(Store.dashboard.allPlayedNotes);
-            // console.log({currentChord});
+            console.log({currentChord});
 
             if (currentChord.length) {
                 const currentChordNoRoot = currentChord[0].slice(0, currentChord[0].length - 2);
@@ -488,7 +488,7 @@ export default class Trigger {
                 // const currentChordInfo = Chord.get(currentChordNoRoot);
                 const currentChordInfo = Chord.get(currentChordSplit[0]);
                 const currentChordDisplayName = currentChordInfo.name;
-                // console.log(currentChordDisplayName);
+                console.log(currentChordDisplayName);
                 
                 if (currentChordDisplayName) {
                     Store.dashboard.currentChordDisplayName = currentChordDisplayName;
