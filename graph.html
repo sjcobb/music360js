@@ -19,7 +19,9 @@
     <!-- only load if Store.view.showDashboard === true -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.6.0/echarts.min.js"></script>
     <script src="vendor/echarts-gl.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.1.0/theme/dark-blue.min.js" integrity="sha512-AWm1gUw5vg8G8eVtZGXLySa9WpCDfZFut0YzGxhcjqYUXwKbM1rzJVzkDt9JXlOOO2ECKEmw1WOIJpRXJu9LiQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.1.0/theme/tech-blue.min.js" integrity="sha512-FWrXjTgw7WWcpQg8ewc4xaHYrs4nZTf4Jfh0nlLYri/7K9Za4KEENi3/x4Uc+p+kOzXth+x+WzNKkYpF7gthiA==" crossorigin="anonymous"></script>
+        
     <!-- <script type="text/javascript" src="../tonejs-instruments/Tonejs-Instruments.js"></script> -->
     <script type="text/javascript" src="https://rawcdn.githack.com/sjcobb/tonejs-instruments/8ec9f43d6f07fdeb15e684df5a6c7efa2c3eedf6/Tonejs-Instruments.js"></script>
 </head>
@@ -40,10 +42,10 @@
     </div>
 
     <div id="dashboard-container" class="dashboard-container">
-        <div id="chart" class="echarts-entry" style="width: 350px; height: 350px;"></div>
-
-        <div id="circle-of-fifths" class="echarts-entry" style="width: 350px; height: 350px;"></div>
+        <!-- <div id="chart" class="echarts-entry" style="width: 350px; height: 350px;"></div> -->
     </div>
+
+    <div id="circle-of-fifths" class="echarts-entry" style="width: 800px; height: 800px;"></div>
 
     <!-- <div id="divider" class="divider"></div> -->
 
@@ -54,6 +56,7 @@
     <!-- <script src="dist/bundle.js"></script> -->
 
     <script src="static/graph.js"></script>
+    <script src="static/echarts_circle_of_fifths.js"></script>
 
 </body>
 

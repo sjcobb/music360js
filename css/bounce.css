@@ -342,6 +342,10 @@ button#btn-start {
     margin: 0 auto;
 }
 
+#circle-of-fifths {
+    margin: 0 auto;
+}
+
 
 @keyframes music-scroll {
     /* from {
