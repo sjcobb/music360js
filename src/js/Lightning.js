@@ -13,10 +13,7 @@ import Store from './Store.js';
 
 export default class Lightning {
 
-    constructor() {
-        // super();
-
-    }
+    constructor() {}
 
     init() {
         console.log('init Lightning...');
@@ -108,14 +105,18 @@ export default class Lightning {
         // Store.lightningStrike.rayParameters.destOffset.y += coneHeightHalf;
 
 
-        const lightningInitPos = {x: 0, y: 120, z: 0};
+        // const lightningInitPos = {x: 0, y: 120, z: 0};
+        const lightningInitPos = {x: 0, y: 30, z: 0};
         // lightningInitPos.y = Math.sin( 0.5 * time );
-        
+
         const lightningEndPos = {x: 0, y: 0, z: 0};
+
         Store.lightningStrike.rayParameters.sourceOffset.copy(lightningInitPos);
         Store.lightningStrike.rayParameters.sourceOffset.y -= 30;
         Store.lightningStrike.rayParameters.destOffset.copy(lightningEndPos);
         Store.lightningStrike.rayParameters.destOffset.y += 30;
         
+        Store.lightningStrike.update(time);
+        // https://github.com/mrdoob/three.js/blob/dev/examples/webgl_lightningstrike.html#L353
     }   
 }
