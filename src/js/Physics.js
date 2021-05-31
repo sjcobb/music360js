@@ -505,7 +505,7 @@ export default class Physics {
                     break;
 
                 case CANNON.Shape.types.CONVEXPOLYHEDRON:
-                    const geo = new THREE.Geometry();
+                    const geo = new THREE.BufferGeometry();
 
                     // Add vertices
                     shape.vertices.forEach(function(v) {
@@ -527,7 +527,7 @@ export default class Physics {
                     break;
 
                 case CANNON.Shape.types.HEIGHTFIELD:
-                    geometry = new THREE.Geometry();
+                    geometry = new THREE.BufferGeometry();
 
                     v0 = new CANNON.Vec3();
                     v1 = new CANNON.Vec3();
@@ -558,7 +558,7 @@ export default class Physics {
                     break;
 
                 case CANNON.Shape.types.TRIMESH:
-                    geometry = new THREE.Geometry();
+                    geometry = new THREE.BufferGeometry();
 
                     v0 = new CANNON.Vec3();
                     v1 = new CANNON.Vec3();

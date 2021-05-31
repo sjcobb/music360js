@@ -6,6 +6,7 @@ import Store from './Store.js';
 import InstrumentMappings from './InstrumentMappings.js';
 import { getInstrumentMappingTemplate, generateInstrMetadata, getInstrByInputNote } from './InstrumentMappings.js';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
+// import { Geometry } from '../../vendor/Three/deprecated/Geometry';
 import Light from './Light.js';
 import Physics from './Physics.js';
 
@@ -195,7 +196,7 @@ const globalSkyboxTheme = 'nightsky';
 // const globalSkyboxTheme = 'bluefreeze';
 // const globalSkyboxTheme = 'mercury';
 
-var skyboxGeometry = new THREE.CubeGeometry(1800, 1800, 1800);
+var skyboxGeometry = new THREE.BoxGeometry(1800, 1800, 1800);
 
 var cubeMaterials = [
     // new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(`assets/skybox/${globalSkyboxTheme}/ft.png`), side: THREE.DoubleSide }), //front side
@@ -214,6 +215,7 @@ if (Store.view.skybox === true) {
 }
 
 //-----MUSIC STAFF------//
+// https://discourse.threejs.org/t/three-geometry-will-be-removed-from-core-with-r125/22401/5
 function addStaffLines(color = 0x000000, offset, posXstart, posXend, posY, posZ, innerLinePadding, dashedLines = false, middleC = false) {
     const origOffset = offset;
     let staffLineMaterial;
@@ -224,7 +226,10 @@ function addStaffLines(color = 0x000000, offset, posXstart, posXend, posY, posZ,
             offset += 20;
         }
 
-        const staffLineGeo = new THREE.Geometry();
+        // const staffLineGeo = new THREE.Geometry();
+        const staffLineGeo = new THREE.BufferGeometry();
+        console.log('staffLineGeo: ', staffLineGeo); // ERR: app.js:246 Uncaught TypeError: Cannot read property 'push' of undefined
+
         const zCoord = (posZ + (innerLinePadding * i) + offset);
         staffLineGeo.vertices.push(
             new THREE.Vector3(posXstart, posY, zCoord),
@@ -263,11 +268,11 @@ function addStaffLines(color = 0x000000, offset, posXstart, posXend, posY, posZ,
 const staffLineLengthEnd = 8000;
 const lineYHeight = -0.95;
 if (Store.view.showStaff.treble === true) {
-    addStaffLines(0xffffff, -10, -1000, staffLineLengthEnd, lineYHeight, 0, 2);
-    addStaffLines(0xffffff, -20, -1000, staffLineLengthEnd, lineYHeight, 0, 2, true, true); // two dashed lines above treble clef
+    // addStaffLines(0xffffff, -10, -1000, staffLineLengthEnd, lineYHeight, 0, 2);
+    // addStaffLines(0xffffff, -20, -1000, staffLineLengthEnd, lineYHeight, 0, 2, true, true); // two dashed lines above treble clef
 }
 if (Store.view.showStaff.bass === true) {
-    addStaffLines(0xffffff, 2, -1000, staffLineLengthEnd, lineYHeight, 0, 2);
+    // addStaffLines(0xffffff, 2, -1000, staffLineLengthEnd, lineYHeight, 0, 2);
 }
 
 //-----ANIMATION------//
