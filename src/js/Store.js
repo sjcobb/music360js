@@ -130,6 +130,7 @@ export default {
     instrumentCounter: 0,
     // keysOnly: true,
     lastColor: '#000000',
+    lightningStrike: null,
     loader: new THREE.TextureLoader(),
     machineTrigger: false,
     meshes: [],
@@ -185,7 +186,7 @@ export default {
         }
     },
     view: {
-        autoScroll: true,
+        autoScroll: false,
         // autoStartTime: 6000,
         autoStartTime: 0,
         autoStartSong: false,

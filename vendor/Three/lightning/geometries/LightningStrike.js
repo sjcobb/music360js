@@ -5,8 +5,10 @@ import {
 	MathUtils,
 	Uint32BufferAttribute,
 	Vector3
-} from '../../../build/three.module.js';
-import { SimplexNoise } from '../math/SimplexNoise.js';
+// } from '../../../build/three.module.js';
+} from '../../r129/three.module';
+// import { SimplexNoise } from '../math/SimplexNoise.js';
+import { SimplexNoise } from '../../math/SimplexNoise';
 
 /**
  * @fileoverview LightningStrike object for creating lightning strikes and voltaic arcs.

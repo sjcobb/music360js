@@ -18,6 +18,7 @@ const config = {
             path.resolve(__dirname, 'node_modules/webmidi/webmidi.min.js'),
             path.resolve(__dirname, 'src/js/Fire.js'),
             path.resolve(__dirname, 'src/js/FireShader.js'),
+            path.resolve(__dirname, 'src/js/Lightning.js'),
             path.resolve(__dirname, 'src/js/Store.js'),
             path.resolve(__dirname, 'src/js/Helpers.js'),
             path.resolve(__dirname, 'src/js/Trigger.js'),

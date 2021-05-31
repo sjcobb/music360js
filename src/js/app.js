@@ -9,6 +9,7 @@ import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 // import { Geometry } from '../../vendor/Three/deprecated/Geometry';
 import Light from './Light.js';
 import Physics from './Physics.js';
+import Lightning from './Lightning.js';
 
 import Recording from './Recording.js';
 // import * as recordingFirstNotes from '../../assets/recording/1.json'
@@ -122,7 +123,8 @@ window.addEventListener('resize', function() {
 //////////////
 // https://threejs.org/examples/#misc_controls_fly
 Store.controls = new FlyControls(Store.camera);
-Store.controls.movementSpeed = 1; //prev: 10
+// Store.controls.movementSpeed = 1; // too slow
+Store.controls.movementSpeed = 10;
 Store.controls.domElement = Store.renderer.domElement;
 Store.controls.rollSpeed = Math.PI / 40;
 Store.controls.autoForward = false;
@@ -213,6 +215,10 @@ var skyboxCubeMesh = new THREE.Mesh(skyboxGeometry, cubeMaterial); //nightsky sk
 if (Store.view.skybox === true) {
     Store.scene.add(skyboxCubeMesh); //add nightsky skybox
 }
+
+//-----LIGHTNING------//
+const lightning = new Lightning();
+lightning.init();
 
 //-----MUSIC STAFF------//
 // https://discourse.threejs.org/t/three-geometry-will-be-removed-from-core-with-r125/22401/5
@@ -350,6 +356,11 @@ let animate = () => {
     // cameraTop.lookAt(new THREE.Vector3(0, 0, 0));
     // console.log('cameraTop: ', cameraTop);
     Store.renderer.render(Store.scene, cameraTop);
+
+    // // //
+
+    // lightning.update();
+    lightning.update(delta);
 
     // // //
 
