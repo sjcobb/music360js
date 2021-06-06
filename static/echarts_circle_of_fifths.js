@@ -1,12 +1,29 @@
-///////////////////
-// ECHARTS GRAPH //
-///////////////////
-// http://localhost:8082/graph.html
+////////////////////////////////////
+// ECHARTS CIRCLE OF FIFTHS - PIE //
+////////////////////////////////////
+// http://localhost:8082/circle-of-fifths.html
 
+// TODO:
+// - use tonal inside pie chart label formatter to directly map Tone.js MIDI output to ECharts compatible dataset 
+// - nested pie chart, outside major notes, inside minor notes
+// - make border size narrow so looks like circle of fifths poster
+// - interactive setInterval as song plays to update graph
+// - could radar chart be used? 
+//   - https://echarts.apache.org/examples/en/editor.html?c=radar
+// - could bar-polar-stack-radial be used?
+//   - https://echarts.apache.org/examples/en/editor.html?c=bar-polar-stack-radial
+
+
+// NOTES:
 // https://github.com/tonaljs/tonal
 // // import { Note, Interval, Scale } from "@tonaljs/tonal";
 // import * as Tonal from "../node_modules/@tonaljs/tonal/browser/tonal.min.js";
 // console.log(Tonal);
+
+import Recording from '../assets/recording/1.js';
+console.log({Recording});
+
+console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
 
 console.log(Tonal.Key.minorKey("Ab"));
 
@@ -23,25 +40,6 @@ let circleFifthsId = document.getElementById('circle-of-fifths');
 // var graphCircleFifths = echarts.init(circleFifthsId, 'dark-blue');
 var graphCircleFifths = echarts.init(circleFifthsId, 'tech-blue');
 
-// const nodes = [
-//     { name: "C", value: 100, category: 0, id: 0, symbolSize: 60, x: 0, y: 0, },
-//     // { name: "C", value: 100, category: 0, id: 0, symbolSize: 60, x: -1000, y: -1000, },
-//     // { name: "C#", value: 100, category: 0, id: 99, symbolSize: 60, x: 100, y: 100, },
-//     { name: "G", value: 50, category: 0, id: 1, x: 100, y: 100, },
-//     { name: "D", value: 5, category: 0, id: 2, x: 110, y: 90, },
-//     { name: "A", value: 5, category: 0, id: 3 },
-//     { name: "E", value: 5, category: 0, id: 4 },
-//     { name: "B", value: 5, category: 0, id: 5 },
-//     { name: "Gb", value: 5, category: 0, id: 6 },
-//     { name: "Db", value: 5, category: 0, id: 7 },
-//     { name: "Ab", value: 5, category: 0, id: 8 },
-//     { name: "Eb", value: 5, category: 0, id: 9 },
-//     { name: "Bb", value: 5, category: 0, id: 10 },
-//     { name: "F", value: 5, category: 0, id: 11, x: -10, y: 10 },
-
-//     // { name: "Am", value: 30, category: 1, id: 12 },
-//     // { name: "Em", value: 15, category: 1, id: 13 },
-// ];
 
 const nodes = [
     { name: "C", value: 100, category: 0, id: 0 },
@@ -96,50 +94,131 @@ const edges = [
     // { source: 0, target: 3},
 ];
 
-const option = {
-    legend: {
-        data: ["Major", "Minor"],
-        selected: {
+// const option = {
+//     legend: {
+//         data: ["Major", "Minor"],
+//         selected: {
 
-            'Major': true,
-            'Minor': false
-        }
+//             'Major': true,
+//             'Minor': false
+//         }
+//     },
+//     // https://echarts.apache.org/en/option.html#series-graph.draggable
+//     series: [
+//         {
+//             type: "graph",
+//             // layout: "force",
+//             layout: "circular",
+//             // https://echarts.apache.org/en/option.html#series-graph.force
+//             force: {
+//                 initLayout: 'circular',
+//                 // edgeLength: 5,
+//                 // gravity: 0.2,
+//                 // repulsion: 20,
+//                 gravity: 0.1,
+//                 edgeLength: 100,
+//                 repulsion: 200,
+//             },
+//             roam: true,
+//             draggable: true,
+//             symbolSize: 40,
+//             label: {
+//                 show: true
+//             },
+//             data: nodes,
+//             categories: categories,
+//             edges: edges,
+//         }
+//     ],
+//     toolbox: {
+//         show: true,
+//         feature: {
+//             saveAsImage: {
+//                 show: true,
+//             },
+//         }
+//     }
+// };
+
+const option = {
+    tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)'
     },
-    // https://echarts.apache.org/en/option.html#series-graph.draggable
+    legend: {
+        data: ['apple', 'grape', 'blueberry', 'raspberry', 'fig', 'lime', 'banana', 'watermelon', 'coconut', 'lemon']
+    },
     series: [
         {
-            type: "graph",
-            // layout: "force",
-            layout: "circular",
-            // https://echarts.apache.org/en/option.html#series-graph.force
-            force: {
-                initLayout: 'circular',
-                // edgeLength: 5,
-                // gravity: 0.2,
-                // repulsion: 20,
-                gravity: 0.1,
-                edgeLength: 100,
-                repulsion: 200,
-            },
-            roam: true,
-            draggable: true,
-            symbolSize: 40,
+            name: 'fruit',
+            type: 'pie',
+            selectedMode: 'single',
+            radius: [0, '30%'],
             label: {
-                show: true
+                position: 'inner',
+                fontSize: 14,
             },
-            data: nodes,
-            categories: categories,
-            edges: edges,
-        }
-    ],
-    toolbox: {
-        show: true,
-        feature: {
-            saveAsImage: {
-                show: true,
+            labelLine: {
+                show: false
             },
+            data: [
+                {value: 1548, name: 'blueberry'},
+                {value: 775, name: 'cherry'},
+                {value: 679, name: 'grape', selected: true}
+            ]
+        },
+        {
+            name: 'fruit',
+            type: 'pie',
+            radius: ['45%', '60%'],
+            labelLine: {
+                length: 30,
+            },
+            label: {
+                formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                backgroundColor: '#F6F8FC',
+                borderColor: '#8C8D8E',
+                borderWidth: 1,
+                borderRadius: 4,
+                
+                rich: {
+                    a: {
+                        color: '#6E7079',
+                        lineHeight: 22,
+                        align: 'center'
+                    },
+                    hr: {
+                        borderColor: '#8C8D8E',
+                        width: '100%',
+                        borderWidth: 1,
+                        height: 0
+                    },
+                    b: {
+                        color: '#4C5058',
+                        fontSize: 14,
+                        fontWeight: 'bold',
+                        lineHeight: 33
+                    },
+                    per: {
+                        color: '#fff',
+                        backgroundColor: '#4C5058',
+                        padding: [3, 4],
+                        borderRadius: 4
+                    }
+                }
+            },
+            data: [
+                {value: 1048, name: 'banana'},
+                {value: 335, name: 'apple'},
+                {value: 310, name: 'raspberry'},
+                {value: 251, name: 'watermelon'},
+                {value: 234, name: 'fig'},
+                {value: 147, name: 'coconut'},
+                {value: 135, name: 'lime'},
+                {value: 102, name: 'lemon'}
+            ]
         }
-    }
+    ]
 };
 
 graphCircleFifths.setOption(option);
