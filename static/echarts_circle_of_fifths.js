@@ -32,6 +32,14 @@ console.log({Recording});
 console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
 const toneMidiNotes = Recording.tracks[0].notes;
 
+const filteredNotes = toneMidiNotes.filter((note) => {
+    // console.log(note);
+    // note.name.slice(1, 0);
+
+    note.name = note.name.substr(0, 1);
+    console.log(note.name);
+});
+
 console.log(Tonal.Key.minorKey("Ab"));
 
 const exampleMidiNote = {
@@ -51,12 +59,26 @@ let circleFifthsId = document.getElementById('circle-of-fifths');
 // var graphCircleFifths = echarts.init(circleFifthsId, 'dark-blue');
 var graphCircleFifths = echarts.init(circleFifthsId, 'tech-blue');
 
-
+// https://echarts.apache.org/en/tutorial.html#Data%20Transform
+// https://echarts.apache.org/examples/en/editor.html?c=doc-example/data-transform-multiple-sort-bar
 
 const option = {
-    dataset: {
-        source: toneMidiNotes,
-    },
+    dataset: [
+        {
+            dimensions: ['duration', 'durationTicks', 'midi', 'name', 'ticks', 'time', 'velocity'],
+            source: toneMidiNotes,
+        },
+        // {
+        //     transform: {
+        //         type: 'sort',
+        //         config: [
+        //             // { dimension: 'name', order: 'desc' },
+        //             // { dimension: 'midi', order: 'desc' },
+        //             { dimension: 'midi', order: 'asc' },
+        //         ]
+        //     }
+        // },
+    ],
     tooltip: {
         textStyle: {
             color: 'white',
@@ -109,11 +131,9 @@ const option = {
             },
             encode: {
                 itemName: 'name',
+                // value: 'dimension',
                 value: 'midi',
                 tooltip: 'midi'
-                // itemName: 'product',
-                // value: '2012',
-                // tooltip: '2012'
             }
         },
         // {
