@@ -3,13 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>3D Sheet Music Animation</title>
+    <title>Interactive Circle of Fifths</title>
 
     <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Sawarabi+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
     <link rel="stylesheet" type="text/css" href="css/bounce.css">
+    <link rel="stylesheet" type="text/css" href="css/circle-of-fifths.css">
     
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tonaljs/tonal@4.6.0/dist/index.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@tonaljs/tonal/browser/tonal.min.js"></script>
 
     <!-- TODO: import THREE as module -->
@@ -30,9 +32,12 @@
 </head>
 
 <body>
-    <div id="circle-of-fifths" class="echarts-entry" style="width: 800px; height: 800px;"></div>
+    <div id="circle-of-fifths" class="echarts-entry" style="width: 600px; height: 600px;"></div>
+
+    <div id="circle-of-fifths-alt" class="echarts-entry" style="width: 600px; height: 600px;"></div>
 
     <script type="module" src="static/echarts_circle_of_fifths.js"></script>
+    <script type="module" src="static/echarts_radial-bar-stacked.js"></script>
 
 </body>
 

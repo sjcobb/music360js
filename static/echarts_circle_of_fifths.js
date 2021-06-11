@@ -12,7 +12,9 @@
 //   - https://echarts.apache.org/examples/en/editor.html?c=radar
 // - could bar-polar-stack-radial be used?
 //   - https://echarts.apache.org/examples/en/editor.html?c=bar-polar-stack-radial
-
+// - use bar-race approach to update circle colors as notes play
+//   - https://echarts.apache.org/examples/en/editor.html?c=bar-race
+//   - https://echarts.apache.org/examples/en/editor.html?c=bar-race-country
 
 // NOTES:
 // - starting point: https://echarts.apache.org/examples/en/editor.html?c=pie-nest
@@ -27,9 +29,9 @@
 // console.log(Tonal);
 
 import Recording from '../assets/recording/1.js';
-console.log({Recording});
+// console.log({Recording});
 
-console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
+// console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
 const toneMidiNotes = Recording.tracks[0].notes;
 
 const filteredNotes = toneMidiNotes.filter((note) => {
@@ -37,10 +39,10 @@ const filteredNotes = toneMidiNotes.filter((note) => {
     // note.name.slice(1, 0);
 
     note.name = note.name.substr(0, 1);
-    console.log(note.name);
+    // console.log(note.name);
 });
 
-console.log(Tonal.Key.minorKey("Ab"));
+// console.log(Tonal.Key.minorKey("Ab"));
 
 const exampleMidiNote = {
     duration: 0.11458333333333348,
@@ -51,7 +53,7 @@ const exampleMidiNote = {
     time: 3.7994791666666665,
     velocity: 0.4409448818897638,
 };
-console.log('exampleMidiNote: ', exampleMidiNote);
+// console.log('exampleMidiNote: ', exampleMidiNote);
 
 //
 let circleFifthsId = document.getElementById('circle-of-fifths');
