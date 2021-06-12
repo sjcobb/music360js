@@ -6,6 +6,7 @@
 // TODO:
 // - use tonal inside pie chart label formatter to directly map Tone.js MIDI output to ECharts compatible dataset 
 // - nested pie chart, outside major notes, inside minor notes
+//   - https://echarts.apache.org/examples/en/editor.html?c=pie-nest
 // - make border size narrow so looks like circle of fifths poster
 // - interactive setInterval as song plays to update graph
 // - could radar chart be used? 
@@ -22,7 +23,10 @@
 // https://echarts.apache.org/en/option.html#dataset.source
 //   - Row based key-value format (object array), where the keys indicate dimension names.
 // - https://echarts.apache.org/examples/en/editor.html?c=dataset-link
+// - https://randscullard.com/CircleOfFifths/
+// https://github.com/rulkens/MagicCircleOfFifths/blob/master/code/COFChord.java
 
+// TONAL:
 // https://github.com/tonaljs/tonal
 // // import { Note, Interval, Scale } from "@tonaljs/tonal";
 // // import { Note, Interval, Scale } from "tonal";
@@ -30,6 +34,56 @@
 
 // import { Note } from "../node_modules/@tonaljs/tonal/browser/tonal.min.js";
 // import { Note } from "../node_modules/@tonaljs/note";
+
+////////////
+// AUDIO //
+///////////
+console.log({Tone});
+
+Tone.Transport.bpm.value = 120;
+
+const synth = new Tone.Synth().toDestination();
+synth.triggerAttackRelease("C4", "8n");
+
+// Store.recording.parts[1] = recordingSecondNotes.tracks[0].notes;
+
+// // console.log({recordingNotes});
+// // console.log('Store.recording: ', Store.recording);
+
+// const recordingPart = new Tone.Part(function(time, datum){
+//     // console.log(time);
+//     // console.log(datum);
+//     const instrMapped = generateInstrMetadata(datum.name);
+//     instrMapped.color = '#FFFF00';
+//     instrMapped.duration = datum.duration;
+//     instrMapped.variation = 'piano';
+//     physics.addBody(true, Store.dropPosX, instrMapped, 0);
+
+// }, Store.recording.parts[0]);
+// recordingPart.start(0);
+
+// Tone.Transport.start();
+// Tone.Transport.stop();
+
+// // //
+// var allDrumsPart = new Tone.Part(function(time, instr) {
+//     physics.addBody(true, Store.dropPosX, instr);
+// }, [
+//     ["0:0:0", Store.instr.kickPrimary],
+//     ["0:1:0", Store.instr.kickPrimary],
+//     ["0:2:0", Store.instr.kickPrimary],
+//     // ["0:4:0", Store.instr.crashPrimary],
+//     // ["0:8:0", Store.instr.snarePrimary],
+//     // ["0:9:0", Store.instr.snarePrimary],
+//     // ["0:4:0", Store.instr.tomHigh],
+// ]);
+// allDrumsPart.loop = true;
+// // allDrumsPart.start("0:0:0");
+// // allDrumsPart.start("1:0:0");
+
+//////////////////
+// MIDI MAPPING //
+//////////////////
 
 console.log(Tonal);
 console.log(Tonal.Key.minorKey("Ab"));
@@ -88,12 +142,13 @@ const exampleMidiNote = {
 };
 console.log('exampleMidiNote: ', exampleMidiNote);
 
-//
-// let circleFifthsId = document.getElementById('circle-of-fifths');
+
+////////////////////////
+// DATASET BAR RADIAL //
+////////////////////////
+
 let circleFifthsId = document.getElementById('circle-of-fifths-alt');
-// var graphCircleFifths = echarts.init(circleFifthsId, 'vintage');
-// var graphCircleFifths = echarts.init(circleFifthsId, 'dark-blue');
-var graphCircleFifths = echarts.init(circleFifthsId, 'tech-blue');
+const graphCircleFifths = echarts.init(circleFifthsId, 'tech-blue');
 
 // https://echarts.apache.org/en/tutorial.html#Data%20Transform
 // https://echarts.apache.org/examples/en/editor.html?c=doc-example/data-transform-multiple-sort-bar
@@ -187,3 +242,291 @@ const option = {
 };
 
 graphCircleFifths.setOption(option);
+
+
+//////////////////
+// MAJOR CIRCLE //
+//////////////////
+
+let circleFifthsMajorId = document.getElementById('circle-of-fifths-major');
+const graphCircleFifthsMajor = echarts.init(circleFifthsMajorId, 'tech-blue');
+
+// https://echarts.apache.org/en/tutorial.html#Data%20Transform
+// https://echarts.apache.org/examples/en/editor.html?c=doc-example/data-transform-multiple-sort-bar
+
+//   Symbol       Unicode entity
+// ♭ Flat	       &#x266d;
+// ♮ Natural      &#x266e;
+// ♯ Sharp	       &#x266f;
+// 𝄫 Double flat  &#x1D12B;
+
+const majorOption = {
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {            // Use axis to trigger tooltip
+            type: 'shadow'        // 'shadow' as default; can also be 'line' or 'shadow'
+        },
+    },
+    legend: {
+        type: 'plain',
+        // type: 'scroll',
+        data: ['Octave 0', 'Octave 1', 'Octave 2', 'Octave 3', 'Octave 4', 'Octave 5', 'Octave 6', 'Octave 7', 'Octave 8'],
+    },
+    grid: {
+        // top: 90,
+        // // left: '3%',
+        // // right: '4%',
+        // // bottom: '3%',
+        // // containLabel: true,
+    },
+    polar: {
+        // https://echarts.apache.org/en/option.html#polar
+        center: ['50%', '55%%'], // position of chart relative to center of container
+        // center: ['50%', '50%'], 
+        // radius: '90%', 
+        // radius: ['70%', '80%'], // too narrow and too large gap in center
+        radius: ['60%', '85%'],
+    },
+    // yAxis: {
+    // angleAxis: {
+    radiusAxis: {
+        // https://echarts.apache.org/en/option.html#radiusAxis
+        type: 'value',
+        // boundaryGap: [0, 0], // no effect
+        axisTick: {
+            // https://echarts.apache.org/en/option.html#radiusAxis.axisTick
+            show: false,
+        }
+    },
+    // xAxis: {
+    // radiusAxis: {
+    angleAxis: {
+        // https://echarts.apache.org/en/option.html#angleAxis
+        type: 'category',
+        data: ['C', 'G', 'D', 'A', 'E', 'B', 'G♭', 'D♭', 'A♭', 'E♭', 'B♭', 'F'],
+        clockwise: true,
+        // startAngle: 90, // default
+        startAngle: 105,
+        // inverse: true,
+        // z: 10,
+        // boundaryGap: [0, 0], // no effect
+        // boundaryGap: false,
+    },
+    series: [
+        {
+            type: 'bar',
+            coordinateSystem: 'polar',
+            name: 'Octave 0',
+            stack: 'total',
+            // label: {
+            //     show: true
+            // },
+            // // data: [1, 3, 2, 4, 1, 3, 5, 2, 3, 2, 4, 1],
+            // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            data: [
+                1, 
+                1, 
+                1, 
+                {
+                    value: 1,
+                    itemStyle: {
+                        color: '#ffff00'
+                    }
+                },
+                1, 
+                1, 
+                1, 
+                1, 
+                1, 
+                {
+                    value: 1,
+                    itemStyle: {
+                        color: '#ffff00'
+                    }
+                },
+                1, 
+                1,
+            ],
+        },
+        {
+            type: 'bar',
+            coordinateSystem: 'polar',
+            name: 'Octave 1',
+            stack: 'total',
+            // data: [2, 1, 2, 3, 1, 2, 3, 5, 2, 1, 3, 2],
+            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        },
+        {
+            type: 'bar',
+            coordinateSystem: 'polar',
+            name: 'Octave 2',
+            stack: 'total',
+            // data: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        },
+        {
+            type: 'bar',
+            coordinateSystem: 'polar',
+            name: 'Octave 3',
+            stack: 'total',
+            // data: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            data: [
+                1, 
+                1, 
+                1, 
+                1,
+                {
+                    value: 1,
+                    itemStyle: {
+                        color: '#ffff00'
+                    }
+                }, 
+                1, 
+                1, 
+                1, 
+                1, 
+                1,
+                1, 
+                1,
+            ],
+        },
+        {
+            type: 'bar',
+            coordinateSystem: 'polar',
+            name: 'Octave 4',
+            stack: 'total',
+            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        },
+        {
+            type: 'bar',
+            coordinateSystem: 'polar',
+            name: 'Octave 5',
+            stack: 'total',
+            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        },
+        {
+            type: 'bar',
+            coordinateSystem: 'polar',
+            name: 'Octave 6',
+            stack: 'total',
+            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        },
+        {
+            type: 'bar',
+            coordinateSystem: 'polar',
+            name: 'Octave 7',
+            stack: 'total',
+            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        },
+        {
+            type: 'bar',
+            coordinateSystem: 'polar',
+            name: 'Octave 8',
+            stack: 'total',
+            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        },
+    ]
+};
+
+graphCircleFifthsMajor.setOption(majorOption);
+
+
+//////////////////
+// MINOR CIRCLE //
+//////////////////
+let circleFifthsMinorId = document.getElementById('circle-of-fifths-minor');
+const graphCircleFifthsMinor = echarts.init(circleFifthsMinorId, 'tech-blue');
+
+const minorOption = {
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {            // Use axis to trigger tooltip
+            type: 'shadow'        // 'shadow' as default; can also be 'line' or 'shadow'
+        },
+    },
+    legend: {
+        show: false,
+        data: ['Octave 0', 'Octave 1', 'Octave 2', 'Octave 3', 'Octave 4', 'Octave 5', 'Octave 6', 'Octave 7', 'Octave 8'],
+    },
+    grid: {
+        // left: '3%',
+        // right: '4%',
+        // bottom: '3%',
+        // containLabel: true,
+    },
+    polar: {
+        // https://echarts.apache.org/en/option.html#polar
+        center: ['50%', '55%'], // position of chart relative to center of container
+        // center: ['50%', '50%'],
+        // radius: '90%', 
+        // radius: ['70%', '80%'], // too narrow and too large gap in center
+        radius: ['25%', '40%'],
+    },
+    // yAxis: {
+    // angleAxis: {
+    radiusAxis: {
+        type: 'value',
+        axisTick: {
+            // https://echarts.apache.org/en/option.html#radiusAxis.axisTick
+            show: false,
+        },
+    },
+    // xAxis: {
+    // radiusAxis: {
+    angleAxis: {
+        type: 'category',
+        // data: ['C', 'G', 'D', 'A', 'E', 'B', 'G♭', 'D♭', 'A♭', 'E♭', 'B♭', 'F'],
+        // data: ['Am', 'Em', 'Bm', 'G♭m', 'D♭m', 'A♭m', 'E♭m', 'B♭m', 'Fm', 'Cm', 'Gm', 'Dm'],
+        data: ['Am', 'Em', 'Bm', 'F♯m', 'C♯m', 'G♯m', 'D♯m', 'B♭m', 'Fm', 'Cm', 'Gm', 'Dm'],
+        clockwise: true,
+        // startAngle: 90, // default
+        startAngle: 105,
+        // inverse: true,
+        // z: 10,
+    },
+    series: [
+        {
+            type: 'bar',
+            coordinateSystem: 'polar',
+            name: 'Octave 0',
+            stack: 'total',
+            label: {
+                show: true
+            },
+            data: [1, 3, 2, 4, 1, 3, 5, 2, 3, 2, 4, 1],
+        },
+        {
+            type: 'bar',
+            coordinateSystem: 'polar',
+            name: 'Octave 1',
+            stack: 'total',
+            label: {
+                show: true
+            },
+            data: [2, 1, 2, 3, 1, 2, 3, 5, 2, 1, 3, 2],
+        },
+        {
+            type: 'bar',
+            coordinateSystem: 'polar',
+            name: 'Octave 2',
+            stack: 'total',
+            label: {
+                show: true
+            },
+            data: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+        },
+        {
+            type: 'bar',
+            coordinateSystem: 'polar',
+            name: 'Octave 3',
+            stack: 'total',
+            label: {
+                show: true
+            },
+            data: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+        },
+    ]
+};
+
+graphCircleFifthsMinor.setOption(minorOption);

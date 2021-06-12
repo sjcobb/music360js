@@ -1,5 +1,17 @@
 
-.echarts-entry {
-    width: 50%;
+/* .echarts-entry {
+    display: block;
     float: left;
+    width: 100%;
+    max-width: 600px;
+} */
+
+.chart-container {
+    float: left;
+    width: 33%;
+    position: relative;
+}
+#circle-of-fifths-minor {
+    position: absolute;
+    top: 0;
 }
