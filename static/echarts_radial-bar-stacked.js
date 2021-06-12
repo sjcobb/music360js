@@ -1,7 +1,12 @@
-////////////////////////////////////
-// ECHARTS CIRCLE OF FIFTHS - PIE //
-////////////////////////////////////
-// http://localhost:8082/circle-of-fifths.html
+/*
+ *** ECHARTS CIRCLE OF FIFTHS - PIE *** 
+ // http://localhost:8082/circle-of-fifths.html
+*/
+
+import Recording from '../assets/recording/1.js';
+console.log({Recording});
+console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
+const toneMidiNotes = Recording.tracks[0].notes;
 
 // TODO:
 // - use tonal inside pie chart label formatter to directly map Tone.js MIDI output to ECharts compatible dataset 
@@ -35,64 +40,12 @@
 // import { Note } from "../node_modules/@tonaljs/tonal/browser/tonal.min.js";
 // import { Note } from "../node_modules/@tonaljs/note";
 
-////////////
-// AUDIO //
-///////////
-console.log({Tone});
-
-Tone.Transport.bpm.value = 120;
-
-const synth = new Tone.Synth().toDestination();
-synth.triggerAttackRelease("C4", "8n");
-
-// Store.recording.parts[1] = recordingSecondNotes.tracks[0].notes;
-
-// // console.log({recordingNotes});
-// // console.log('Store.recording: ', Store.recording);
-
-// const recordingPart = new Tone.Part(function(time, datum){
-//     // console.log(time);
-//     // console.log(datum);
-//     const instrMapped = generateInstrMetadata(datum.name);
-//     instrMapped.color = '#FFFF00';
-//     instrMapped.duration = datum.duration;
-//     instrMapped.variation = 'piano';
-//     physics.addBody(true, Store.dropPosX, instrMapped, 0);
-
-// }, Store.recording.parts[0]);
-// recordingPart.start(0);
-
-// Tone.Transport.start();
-// Tone.Transport.stop();
-
-// // //
-// var allDrumsPart = new Tone.Part(function(time, instr) {
-//     physics.addBody(true, Store.dropPosX, instr);
-// }, [
-//     ["0:0:0", Store.instr.kickPrimary],
-//     ["0:1:0", Store.instr.kickPrimary],
-//     ["0:2:0", Store.instr.kickPrimary],
-//     // ["0:4:0", Store.instr.crashPrimary],
-//     // ["0:8:0", Store.instr.snarePrimary],
-//     // ["0:9:0", Store.instr.snarePrimary],
-//     // ["0:4:0", Store.instr.tomHigh],
-// ]);
-// allDrumsPart.loop = true;
-// // allDrumsPart.start("0:0:0");
-// // allDrumsPart.start("1:0:0");
-
 //////////////////
 // MIDI MAPPING //
 //////////////////
 
 console.log(Tonal);
 console.log(Tonal.Key.minorKey("Ab"));
-
-import Recording from '../assets/recording/1.js';
-console.log({Recording});
-
-console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
-const toneMidiNotes = Recording.tracks[0].notes;
 
 let counter = 1;
 // const filteredNotes = toneMidiNotes.filter((note) => {
@@ -112,6 +65,18 @@ const filteredNotes = toneMidiNotes.map((note) => {
     // note.count = counter;
     counter++;
 
+    // name: the note name
+    // pc: the pitch class name
+    // letter: the note letter
+    // step: the letter number (0..6)
+    // acc: the note accidentals
+    // alt: the accidental number (..., -1 = 'b', 0 = '', 1 = '#', ...)
+    // oct: the octave (or null if not present)
+    // chroma: the note chroma (0..11)
+    // midi: the note midi or null if octave is not present
+    // freq: the note frequency in Hertzes, or null if the octave is note present
+
+    //
     // Note.name("fx4"); // => "F##4"
     // Note.pitchClass("Ab5"); // => "Ab"
     // Note.accidentals("Eb"); // => 'Eb'
@@ -124,6 +89,7 @@ const filteredNotes = toneMidiNotes.map((note) => {
     // Note.fromMidi(61.7); // => "D4"
     // [60, 61, 62].map(Note.fromMidi); // => ["C4", "Db4", "D4"]
     // Note.fromMidiSharps(61); // => "C#4"
+
 
     return note;
 });
@@ -142,6 +108,56 @@ const exampleMidiNote = {
 };
 console.log('exampleMidiNote: ', exampleMidiNote);
 
+////////////
+// AUDIO //
+///////////
+console.log({Tone});
+
+Tone.Transport.bpm.value = 120;
+
+const synth = new Tone.Synth().toDestination();
+const synthA = new Tone.FMSynth().toDestination();
+const synthB = new Tone.AMSynth().toDestination();
+
+// synth.triggerAttackRelease("C4", "8n");
+
+// // //
+
+// https://tonejs.github.io/docs/14.7.77/Part.html
+const recordingPart = new Tone.Part(function(time, datum){
+    // console.log(time);
+    // console.log(datum);
+
+    // // // const instrMapped = generateInstrMetadata(datum.name);
+    // // // instrMapped.color = '#FFFF00';
+    // // // instrMapped.duration = datum.duration;
+    // // // instrMapped.variation = 'piano';
+    // // // physics.addBody(true, Store.dropPosX, instrMapped, 0);
+
+    // // synth.triggerAttackRelease(datum.note, "8n", time, datum.velocity);
+    // synthA.triggerAttackRelease(datum.fullNote, "8n", time, datum.velocity);
+    updateCircleData(datum, time);
+}, toneMidiNotes);
+recordingPart.start(0);
+
+Tone.Transport.start();
+// Tone.Transport.stop();
+
+// // //
+// var allDrumsPart = new Tone.Part(function(time, instr) {
+//     physics.addBody(true, Store.dropPosX, instr);
+// }, [
+//     ["0:0:0", Store.instr.kickPrimary],
+//     ["0:1:0", Store.instr.kickPrimary],
+//     ["0:2:0", Store.instr.kickPrimary],
+//     // ["0:4:0", Store.instr.crashPrimary],
+//     // ["0:8:0", Store.instr.snarePrimary],
+//     // ["0:9:0", Store.instr.snarePrimary],
+//     // ["0:4:0", Store.instr.tomHigh],
+// ]);
+// allDrumsPart.loop = true;
+// // allDrumsPart.start("0:0:0");
+// // allDrumsPart.start("1:0:0");
 
 ////////////////////////
 // DATASET BAR RADIAL //
@@ -530,3 +546,41 @@ const minorOption = {
 };
 
 graphCircleFifthsMinor.setOption(minorOption);
+
+// // // 
+// https://echarts.apache.org/examples/en/editor.html?c=bar-race
+// https://echarts.apache.org/examples/en/editor.html?c=bar-race-country
+function updateCircleData(noteData, time) {
+    console.log('updateCircleData -> noteData: ', noteData);
+    console.log('updateCircleData -> time: ', time);
+
+    // var data = option.series[0].data;
+    // for (var i = 0; i < data.length; ++i) {
+    //     if (Math.random() > 0.9) {
+    //         data[i] += Math.round(Math.random() * 2000);
+    //     }
+    //     else {
+    //         data[i] += Math.round(Math.random() * 200);
+    //     }
+    // }
+    // myChart.setOption(option);
+
+    const currentOctavePlayed = majorOption.series[noteData.octave];
+    console.log({currentOctavePlayed});
+
+    const newOption = majorOption;
+    // myChart.setOption(newOption);
+
+    // TODO: include sharps and flats in MIDI data
+    // - map steps to appropriate note so can call currentOctavePlayed.data[step] and update itemStyle.color to yellow
+    // - update majorOption,
+
+    // A = step: 5
+    // B = step: 6
+    // C = step: 0
+    // D = step: 1
+    // E = step: 2
+    // F = step: 3
+    // G = step: 4
+
+}
