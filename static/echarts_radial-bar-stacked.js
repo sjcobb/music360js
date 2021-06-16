@@ -3,7 +3,9 @@
  // http://localhost:8082/circle-of-fifths.html
 */
 
-import Recording from '../assets/recording/1.js';
+// import Recording from '../assets/recording/1.js'; // c major scale
+import Recording from '../assets/recording/1_beethoven.js'; 
+
 console.log({Recording});
 console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
 const toneMidiNotes = Recording.tracks[0].notes;
@@ -498,18 +500,21 @@ graphCircleFifthsMinor.setOption(minorOption);
 function updateCircleData(noteData, time) {
     console.log('updateCircleData -> noteData: ', noteData);
     // console.log('updateCircleData -> time: ', time);
+    const newOption = majorOption;
 
     const currentOctavePlayed = majorOption.series[noteData.octave];
     // console.log({currentOctavePlayed});
+    // console.log('majorOption.series[noteData.octave]: ', majorOption.series[noteData.octave]);
     
-    const newOption = majorOption;
-    console.log({newOption});
-
     currentOctavePlayed.data.forEach((octaveData, index) => {
         if (octaveData.info.midi === noteData.midi) {
+            // TODO: why do fullNote and note not match (Gb vs. F#), only right side of circle is working :(
+            console.log('newOption.series[noteData.octave].data[index]: ', newOption.series[noteData.octave].data[index]);
             newOption.series[noteData.octave].data[index].itemStyle.color = noteActiveColor;
         }
     });
+
+    // TODO: use time to set newOption.series[noteData.octave].data[index].itemStyle.color back to noteInactiveColor
 
     graphCircleFifthsMajor.setOption(newOption);
 
