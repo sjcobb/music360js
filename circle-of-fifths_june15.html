@@ -28,12 +28,21 @@
 <body>
     
     <section class="dashboard">
+        <div class="chart-container">
+            <div id="circle-of-fifths" class="echarts-entry" style="width: 600px; height: 600px;"></div>
+        </div>
+
+        <div class="chart-container">
+            <div id="circle-of-fifths-alt" class="echarts-entry" style="width: 600px; height: 600px;"></div>
+        </div>
+
         <div id="container-circle-of-fifths-major" class="chart-container">
             <div id="circle-of-fifths-major" class="echarts-entry" style="width: 600px; height: 600px;"></div>
             <div id="circle-of-fifths-minor" class="echarts-entry" style="width: 600px; height: 600px;"></div>
         </div>
     </section>
     
+    <script type="module" src="static/echarts_circle_of_fifths.js"></script>
     <script type="module" src="static/echarts_radial-bar-stacked.js"></script>
 
 </body>

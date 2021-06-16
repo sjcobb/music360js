@@ -159,6 +159,107 @@ Tone.Transport.start();
 // // allDrumsPart.start("0:0:0");
 // // allDrumsPart.start("1:0:0");
 
+////////////////////////
+// DATASET BAR RADIAL //
+////////////////////////
+
+let circleFifthsId = document.getElementById('circle-of-fifths-alt');
+const graphCircleFifths = echarts.init(circleFifthsId, 'tech-blue');
+
+// https://echarts.apache.org/en/tutorial.html#Data%20Transform
+// https://echarts.apache.org/examples/en/editor.html?c=doc-example/data-transform-multiple-sort-bar
+
+const option = {
+    legend: {
+        show: true,
+    },
+    tooltip: {},
+    dataset: [
+        {
+            // dimensions: ['duration', 'durationTicks', 'midi', 'name', 'ticks', 'time', 'velocity'],
+            source: toneMidiNotes,
+        },
+    ],
+    angleAxis: {
+        // https://echarts.apache.org/en/option.html#angleAxis
+        type: 'category',
+        // data: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    },
+    radiusAxis: {
+    },
+    polar: {
+    },
+    series: [
+        {
+            type: 'bar', 
+            stack: 'all',
+            coordinateSystem: 'polar',
+            name: 'A',
+            encode: {
+                // https://echarts.apache.org/en/option.html#series-bar.encode
+                // radius: 'count',
+                radius: 'octave',
+                // angle: 'fullNote',
+                angle: 'name',
+                //
+                // radius: 3,
+                // angle: 2,
+                // // itemName: 'name',
+                // itemName: 'fullNote',
+                value: 'count',
+                // // value: 'midi',
+                // tooltip: 'midi'
+            },
+            // emphasis: {
+            //     focus: 'series'
+            // }
+        },
+        // {
+        //     type: 'bar', 
+        //     stack: 'all',
+        //     coordinateSystem: 'polar',
+        //     name: 'B',
+        //     encode: {
+        //         // https://echarts.apache.org/en/option.html#series-bar.encode
+        //         // radius: 'count',
+        //         // angle: 'octave',
+
+        //         radius: 'octave',
+        //         angle: 'name',
+        //     }
+        // },
+        // {
+        //     type: 'bar', 
+        //     stack: 'all',
+        //     coordinateSystem: 'polar',
+        //     name: 'B',
+        //     encode: {
+        //         // itemName: 'name',
+        //         itemName: 'fullNote',
+        //         value: 'count',
+        //         // value: 'midi',
+        //         tooltip: 'midi'
+        //     }
+        // },
+        // {
+        //     type: 'bar', 
+        //     stack: 'all',
+        //     coordinateSystem: 'polar',
+        //     name: 'C',
+        //     encode: {
+        //         // itemName: 'name',
+        //         itemName: 'fullNote',
+        //         value: 'count',
+        //         // value: 'midi',
+        //         tooltip: 'midi'
+        //     }
+        // }
+    ]
+};
+
+graphCircleFifths.setOption(option);
+
+
 //////////////////
 // MAJOR CIRCLE //
 //////////////////
@@ -168,26 +269,12 @@ const graphCircleFifthsMajor = echarts.init(circleFifthsMajorId, 'tech-blue');
 
 // https://echarts.apache.org/en/tutorial.html#Data%20Transform
 // https://echarts.apache.org/examples/en/editor.html?c=doc-example/data-transform-multiple-sort-bar
-//
+
 //   Symbol       Unicode entity
 // ♭ Flat	       &#x266d;
 // ♮ Natural      &#x266e;
 // ♯ Sharp	       &#x266f;
 // 𝄫 Double flat  &#x1D12B;
-
-const notesDataTemplate = {
-    value: 1,
-    itemStyle: {
-        color: '#99badd', // carolina blue
-        // color: '#ffff00', // yellow
-    }
-};
-const circleOfFifthsMajorOrderedNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'G♭', 'D♭', 'A♭', 'E♭', 'B♭', 'F'];
-const circleOfFifthsMinorOrderedNotes = ['Am', 'Em', 'Bm', 'F♯m', 'C♯m', 'G♯m', 'D♯m', 'B♭m', 'Fm', 'Cm', 'Gm', 'Dm'];
-
-function generateCircleNotes() {
-    
-}
 
 const majorOption = {
     tooltip: {
@@ -232,7 +319,7 @@ const majorOption = {
     angleAxis: {
         // https://echarts.apache.org/en/option.html#angleAxis
         type: 'category',
-        data: circleOfFifthsMajorOrderedNotes,
+        data: ['C', 'G', 'D', 'A', 'E', 'B', 'G♭', 'D♭', 'A♭', 'E♭', 'B♭', 'F'],
         clockwise: true,
         // startAngle: 90, // default
         startAngle: 105,
@@ -405,9 +492,9 @@ const minorOption = {
     // radiusAxis: {
     angleAxis: {
         type: 'category',
+        // data: ['C', 'G', 'D', 'A', 'E', 'B', 'G♭', 'D♭', 'A♭', 'E♭', 'B♭', 'F'],
         // data: ['Am', 'Em', 'Bm', 'G♭m', 'D♭m', 'A♭m', 'E♭m', 'B♭m', 'Fm', 'Cm', 'Gm', 'Dm'],
-        // data: ['Am', 'Em', 'Bm', 'F♯m', 'C♯m', 'G♯m', 'D♯m', 'B♭m', 'Fm', 'Cm', 'Gm', 'Dm'],\
-        data: circleOfFifthsMinorOrderedNotes,
+        data: ['Am', 'Em', 'Bm', 'F♯m', 'C♯m', 'G♯m', 'D♯m', 'B♭m', 'Fm', 'Cm', 'Gm', 'Dm'],
         clockwise: true,
         // startAngle: 90, // default
         startAngle: 105,
