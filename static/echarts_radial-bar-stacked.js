@@ -135,7 +135,7 @@ const recordingPart = new Tone.Part(function(time, datum){
     // // // physics.addBody(true, Store.dropPosX, instrMapped, 0);
 
     // // synth.triggerAttackRelease(datum.note, "8n", time, datum.velocity);
-    // synthA.triggerAttackRelease(datum.fullNote, "8n", time, datum.velocity);
+    synthA.triggerAttackRelease(datum.fullNote, "8n", time, datum.velocity);
     updateCircleData(datum, time);
 }, toneMidiNotes);
 recordingPart.start(0);
@@ -175,19 +175,43 @@ const graphCircleFifthsMajor = echarts.init(circleFifthsMajorId, 'tech-blue');
 // ♯ Sharp	       &#x266f;
 // 𝄫 Double flat  &#x1D12B;
 
-const notesDataTemplate = {
-    value: 1,
-    itemStyle: {
-        color: '#99badd', // carolina blue
-        // color: '#ffff00', // yellow
-    }
-};
+
 const circleOfFifthsMajorOrderedNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'G♭', 'D♭', 'A♭', 'E♭', 'B♭', 'F'];
 const circleOfFifthsMinorOrderedNotes = ['Am', 'Em', 'Bm', 'F♯m', 'C♯m', 'G♯m', 'D♯m', 'B♭m', 'Fm', 'Cm', 'Gm', 'Dm'];
+const noteInactiveColor =  '#99badd'; // carolina blue
+const noteActiveColor =  '#ffff00'; // yellow
 
-function generateCircleNotes() {
-    
+function generateCircleNotes(noteLetters, octave=4) {
+    const octaveNoteData = [];
+    // circleOfFifthsMajorOrderedNotes.forEach((note, index) => {
+    noteLetters.forEach((note, index) => {
+        const fullNote = note + octave;
+        // console.log('circleOfFifthsMajorOrderedNotes -> fullNote: ', fullNote);
+
+        const notesDataTemplate = {
+            value: 1,
+            itemStyle: {
+                color: noteInactiveColor,
+                // color: '#99badd', // carolina blue
+                // color: '#ffff00', // yellow
+            },
+            info: Tonal.Note.get(note + octave),
+        };
+        octaveNoteData.push(notesDataTemplate);
+    });
+    // console.log({octaveNoteData});
+    return octaveNoteData;
 }
+
+const fullCircleData = [];
+for (let i=0; i<=8; i++) {
+    const tempOctaveData = generateCircleNotes(circleOfFifthsMajorOrderedNotes, i);
+    fullCircleData.push(tempOctaveData);
+}
+console.log({fullCircleData});
+
+// const circleOfFifthsMajorData = generateCircleNotes(circleOfFifthsMajorOrderedNotes);
+// console.log({circleOfFifthsMajorData});
 
 const majorOption = {
     tooltip: {
@@ -252,108 +276,116 @@ const majorOption = {
             // },
             // // data: [1, 3, 2, 4, 1, 3, 5, 2, 3, 2, 4, 1],
             // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            data: [
-                1, 
-                1, 
-                1, 
-                {
-                    value: 1,
-                    itemStyle: {
-                        color: '#ffff00'
-                    }
-                },
-                1, 
-                1, 
-                1, 
-                1, 
-                1, 
-                {
-                    value: 1,
-                    itemStyle: {
-                        color: '#ffff00'
-                    }
-                },
-                1, 
-                1,
-            ],
+            // data: [
+            //     1, 
+            //     1, 
+            //     1, 
+            //     {
+            //         value: 1,
+            //         itemStyle: {
+            //             color: '#ffff00'
+            //         }
+            //     },
+            //     1, 
+            //     1, 
+            //     1, 
+            //     1, 
+            //     1, 
+            //     {
+            //         value: 1,
+            //         itemStyle: {
+            //             color: '#ffff00'
+            //         }
+            //     },
+            //     1, 
+            //     1,
+            // ],
+            data: fullCircleData[0],
         },
         {
             type: 'bar',
             coordinateSystem: 'polar',
             name: 'Octave 1',
             stack: 'total',
-            // data: [2, 1, 2, 3, 1, 2, 3, 5, 2, 1, 3, 2],
-            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            // // data: [2, 1, 2, 3, 1, 2, 3, 5, 2, 1, 3, 2],
+            // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            data: fullCircleData[1],
         },
         {
             type: 'bar',
             coordinateSystem: 'polar',
             name: 'Octave 2',
             stack: 'total',
-            // data: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            data: fullCircleData[2],
         },
         {
             type: 'bar',
             coordinateSystem: 'polar',
             name: 'Octave 3',
             stack: 'total',
-            // data: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            data: [
-                1, 
-                1, 
-                1, 
-                1,
-                {
-                    value: 1,
-                    itemStyle: {
-                        color: '#ffff00'
-                    }
-                }, 
-                1, 
-                1, 
-                1, 
-                1, 
-                1,
-                1, 
-                1,
-            ],
+            // // data: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            // // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            // data: [
+            //     1, 
+            //     1, 
+            //     1, 
+            //     1,
+            //     {
+            //         value: 1,
+            //         itemStyle: {
+            //             color: '#ffff00'
+            //         }
+            //     }, 
+            //     1, 
+            //     1, 
+            //     1, 
+            //     1, 
+            //     1,
+            //     1, 
+            //     1,
+            // ],
+            data: fullCircleData[3],
         },
         {
             type: 'bar',
             coordinateSystem: 'polar',
             name: 'Octave 4',
             stack: 'total',
-            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            data: fullCircleData[4],
         },
         {
             type: 'bar',
             coordinateSystem: 'polar',
             name: 'Octave 5',
             stack: 'total',
-            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            data: fullCircleData[5],
         },
         {
             type: 'bar',
             coordinateSystem: 'polar',
             name: 'Octave 6',
             stack: 'total',
-            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            data: fullCircleData[6],
         },
         {
             type: 'bar',
             coordinateSystem: 'polar',
             name: 'Octave 7',
             stack: 'total',
-            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            data: fullCircleData[7],
         },
         {
             type: 'bar',
             coordinateSystem: 'polar',
             name: 'Octave 8',
             stack: 'total',
-            data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            data: fullCircleData[8],
         },
     ]
 };
@@ -465,24 +497,21 @@ graphCircleFifthsMinor.setOption(minorOption);
 // https://echarts.apache.org/examples/en/editor.html?c=bar-race-country
 function updateCircleData(noteData, time) {
     console.log('updateCircleData -> noteData: ', noteData);
-    console.log('updateCircleData -> time: ', time);
-
-    // var data = option.series[0].data;
-    // for (var i = 0; i < data.length; ++i) {
-    //     if (Math.random() > 0.9) {
-    //         data[i] += Math.round(Math.random() * 2000);
-    //     }
-    //     else {
-    //         data[i] += Math.round(Math.random() * 200);
-    //     }
-    // }
-    // myChart.setOption(option);
+    // console.log('updateCircleData -> time: ', time);
 
     const currentOctavePlayed = majorOption.series[noteData.octave];
-    console.log({currentOctavePlayed});
-
+    // console.log({currentOctavePlayed});
+    
     const newOption = majorOption;
-    // myChart.setOption(newOption);
+    console.log({newOption});
+
+    currentOctavePlayed.data.forEach((octaveData, index) => {
+        if (octaveData.info.midi === noteData.midi) {
+            newOption.series[noteData.octave].data[index].itemStyle.color = noteActiveColor;
+        }
+    });
+
+    graphCircleFifthsMajor.setOption(newOption);
 
     // TODO: include sharps and flats in MIDI data
     // - map steps to appropriate note so can call currentOctavePlayed.data[step] and update itemStyle.color to yellow
