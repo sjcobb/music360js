@@ -4,7 +4,9 @@
 */
 
 // import Recording from '../assets/recording/1.js'; // c major scale
-import Recording from '../assets/recording/1_beethoven.js'; 
+// import Recording from '../assets/recording/1_beethoven.js'; 
+// import Recording from '../assets/recording/1_c7-g7_chords.js'; 
+import Recording from '../assets/recording/1_hmesh.js'; 
 
 console.log({Recording});
 console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
@@ -124,6 +126,49 @@ const synthB = new Tone.AMSynth().toDestination();
 // synth.triggerAttackRelease("C4", "8n");
 
 // // //
+// https://tonejs.github.io/examples/polySynth.html
+// https://tonejs.github.io/docs/13.8.25/PolySynth
+// TODO: PR with doc fix for PolySynth example -> https://github.com/Tonejs/Tone.js/blob/dev/examples/polySynth.html
+const polySynth = new Tone.PolySynth(Tone.Synth).toDestination();
+// const now = Tone.now()
+// polySynth.triggerAttack("D4", now);
+// polySynth.triggerAttack("F4", now + 0.5);
+
+// // const polySynth = new Tone.PolySynth(10, Tone.Synth, { // ERR Uncaught Error: DEPRECATED: The polyphony count is no longer the first argument.
+// // var polySynth = new Tone.PolySynth(6, Tone.Synth, {
+// const polySynth = new Tone.PolySynth(6, Tone.Synth, {
+//     // oscillator: {
+//     //     type: "triangle", // sine, square, sawtooth, triangle (default), custom
+//     //     // frequency: 440 ,
+//     //     // detune: 0 ,
+//     //     // phase: 0 ,
+//     //     // partials: [] ,
+//     //    partialCount: 0
+//     // },
+//     // // https://tonejs.github.io/docs/13.8.25/Envelope
+//     envelope: {
+//         attack: 0.02,
+//         decay: 0.1,
+//         sustain: 0.3,
+//         release: 1,
+//         // attack: 0.1,
+//         // decay: 0.2,
+//         // sustain: 1, // v0.5
+//         // sustain: 0.5, 
+//         // release: 0.8,
+//     },
+//     // // https://tonejs.github.io/docs/13.8.25/Filter#type
+//     // filter: {
+// 	// 	// type: "highpass", // lowpass, highpass, bandpass, lowshelf, highshelf, notch, allpass, peaking
+// 	// },
+// }).toMaster();
+
+// // polySynth.volume.value = -8; // v0.4, v0.5
+// polySynth.volume.value = -18;
+// // polySynth.set("detune", +1200); // octave = 12 semitones of 100 cents each
+// // polySynth.set("detune", +1200);
+
+// // //
 
 // https://tonejs.github.io/docs/14.7.77/Part.html
 const recordingPart = new Tone.Part(function(time, datum){
@@ -137,7 +182,9 @@ const recordingPart = new Tone.Part(function(time, datum){
     // // // physics.addBody(true, Store.dropPosX, instrMapped, 0);
 
     // // synth.triggerAttackRelease(datum.note, "8n", time, datum.velocity);
-    synthA.triggerAttackRelease(datum.fullNote, "8n", time, datum.velocity);
+    // synthA.triggerAttackRelease(datum.fullNote, "8n", time, datum.velocity); // TODO: fix chords ERR: Tone.min.js:1 Uncaught Error: Start time must be strictly greater than previous start time
+
+    polySynth.triggerAttackRelease(datum.fullNote, "8n", time, datum.velocity);
     updateCircleData(datum, time);
 }, toneMidiNotes);
 recordingPart.start(0);
@@ -178,10 +225,19 @@ const graphCircleFifthsMajor = echarts.init(circleFifthsMajorId, 'tech-blue');
 // 𝄫 Double flat  &#x1D12B;
 
 
-const circleOfFifthsMajorOrderedNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'G♭', 'D♭', 'A♭', 'E♭', 'B♭', 'F'];
-const circleOfFifthsMinorOrderedNotes = ['Am', 'Em', 'Bm', 'F♯m', 'C♯m', 'G♯m', 'D♯m', 'B♭m', 'Fm', 'Cm', 'Gm', 'Dm'];
+const circleOfFifthsMajorOrderedNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'Gb', 'Db', 'Ab', 'Eb', 'Bb', 'F'];
+// const circleOfFifthsMajorOrderedNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'G♭', 'D♭', 'A♭', 'E♭', 'B♭', 'F']; // undef ♭
+// const circleOfFifthsMajorOrderedNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F']; // undef ♯
+
+// const circleOfFifthsMinorOrderedNotes = ['Am', 'Em', 'Bm', 'F♯m', 'C♯m', 'G♯m', 'D♯m', 'B♭m', 'Fm', 'Cm', 'Gm', 'Dm']; // undef ♯ ♭
+const circleOfFifthsMinorOrderedNotes = ['Am', 'Em', 'Bm', 'F#m', 'C#m', 'G#m', 'D#m', 'Bbm', 'Fm', 'Cm', 'Gm', 'Dm'];
 const noteInactiveColor =  '#99badd'; // carolina blue
 const noteActiveColor =  '#ffff00'; // yellow
+
+// const debugNote = Tonal.Note.get('E♭'); // undef
+// const debugNote = Tonal.Note.get('Eb');
+const debugNote = Tonal.Note.get('E#');
+console.log('DEBUG NOTE -> -> -> ', debugNote);
 
 function generateCircleNotes(noteLetters, octave=4) {
     const octaveNoteData = [];
@@ -223,11 +279,14 @@ const majorOption = {
         },
     },
     legend: {
+        show: false,
         type: 'plain',
         // type: 'scroll',
         data: ['Octave 0', 'Octave 1', 'Octave 2', 'Octave 3', 'Octave 4', 'Octave 5', 'Octave 6', 'Octave 7', 'Octave 8'],
     },
     grid: {
+        // top: 0,
+        // containLabel: false,
         // top: 90,
         // // left: '3%',
         // // right: '4%',
@@ -236,11 +295,12 @@ const majorOption = {
     },
     polar: {
         // https://echarts.apache.org/en/option.html#polar
-        center: ['50%', '55%%'], // position of chart relative to center of container
-        // center: ['50%', '50%'], 
+        // center = position of chart relative to center of container
+        // center: ['50%', '55%%'], // needed when legend.show = true
+        center: ['50%', '50%'], 
         // radius: '90%', 
         // radius: ['70%', '80%'], // too narrow and too large gap in center
-        radius: ['60%', '85%'],
+        radius: ['60%', '85%'], 
     },
     // yAxis: {
     // angleAxis: {
@@ -392,6 +452,7 @@ const majorOption = {
     ]
 };
 
+console.log('INITIAL -> majorOption: ', majorOption);
 graphCircleFifthsMajor.setOption(majorOption);
 
 
@@ -420,8 +481,9 @@ const minorOption = {
     },
     polar: {
         // https://echarts.apache.org/en/option.html#polar
-        center: ['50%', '55%'], // position of chart relative to center of container
-        // center: ['50%', '50%'],
+        // center = position of chart relative to center of container
+        // center: ['50%', '55%'], // needed when legend.show = true
+        center: ['50%', '50%'],
         // radius: '90%', 
         // radius: ['70%', '80%'], // too narrow and too large gap in center
         radius: ['25%', '40%'],
@@ -502,6 +564,13 @@ function updateCircleData(noteData, time) {
     // console.log('updateCircleData -> time: ', time);
     const newOption = majorOption;
 
+    const millisecondsNoteDuration = noteData.duration * 1000; // or use noteData.durationTicks ???
+    // const millisecondsNoteDuration = noteData.durationTicks; // seems some notes are held too long
+    console.log('updateCircleData -> millisecondsNoteDuration: ', millisecondsNoteDuration);
+
+    // const millisecondsTransportTime = time * 1000;
+    // console.log('updateCircleData -> millisecondsTransportTime: ', millisecondsTransportTime);
+
     const currentOctavePlayed = majorOption.series[noteData.octave];
     // console.log({currentOctavePlayed});
     // console.log('majorOption.series[noteData.octave]: ', majorOption.series[noteData.octave]);
@@ -509,8 +578,16 @@ function updateCircleData(noteData, time) {
     currentOctavePlayed.data.forEach((octaveData, index) => {
         if (octaveData.info.midi === noteData.midi) {
             // TODO: why do fullNote and note not match (Gb vs. F#), only right side of circle is working :(
-            console.log('newOption.series[noteData.octave].data[index]: ', newOption.series[noteData.octave].data[index]);
+            // console.log('newOption.series[noteData.octave].data[index]: ', newOption.series[noteData.octave].data[index]);
             newOption.series[noteData.octave].data[index].itemStyle.color = noteActiveColor;
+
+            setTimeout(() => {
+                newOption.series[noteData.octave].data[index].itemStyle.color = noteInactiveColor;
+            }, millisecondsNoteDuration);
+            // }, 250);
+        } else {
+            // console.log('ELSE updateCircleData -> noteData.info: ', noteData.info);
+            // console.log('ELSE newOption.series[noteData.octave].data[index].info: ', newOption.series[noteData.octave].data[index].info);
         }
     });
 
