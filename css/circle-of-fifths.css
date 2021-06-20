@@ -6,6 +6,7 @@ section.dashboard {
     display: block;
     padding: 20px 15px;
     text-align: center;
+    position: relative;
 }
 
 .chart-container {
@@ -15,5 +16,10 @@ section.dashboard {
 
 #circle-of-fifths-minor {
     position: absolute;
-    top: 0;
+    top: 20px;
+}
+
+#circle-of-fifths-chords {
+    position: absolute;
+    top: 20px;
 }

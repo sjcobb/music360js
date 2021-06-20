@@ -44,6 +44,7 @@ const toneMidiNotes = Recording.tracks[0].notes;
 // import { Note } from "../node_modules/@tonaljs/tonal/browser/tonal.min.js";
 // import { Note } from "../node_modules/@tonaljs/note";
 
+
 //////////////////
 // MIDI MAPPING //
 //////////////////
@@ -110,6 +111,7 @@ const filteredNotes = toneMidiNotes.map((note) => {
 //     velocity: 0.4409448818897638,
 // };
 // // console.log('exampleMidiNote: ', exampleMidiNote);
+
 
 ////////////
 // AUDIO //
@@ -206,6 +208,7 @@ Tone.Transport.start();
 // allDrumsPart.loop = true;
 // // allDrumsPart.start("0:0:0");
 // // allDrumsPart.start("1:0:0");
+
 
 //////////////////
 // MAJOR CIRCLE //
@@ -620,55 +623,147 @@ const minorOption = {
 
 // graphCircleFifthsMinor.setOption(minorOption);
 
-// // // 
-// https://echarts.apache.org/examples/en/editor.html?c=bar-race
-// https://echarts.apache.org/examples/en/editor.html?c=bar-race-country
-function updateCircleData(noteData, time) {
-    // console.log('updateCircleData -> noteData: ', noteData);
-    // console.log('updateCircleData -> time: ', time);
-    const newOption = majorOption;
 
-    const millisecondsNoteDuration = noteData.duration * 1000; // or use noteData.durationTicks ???
-    // const millisecondsNoteDuration = noteData.durationTicks; // seems some notes are held too long
-    // console.log('updateCircleData -> millisecondsNoteDuration: ', millisecondsNoteDuration);
+//////////////////
+// CHORD CENTER //
+//////////////////
 
-    // const millisecondsTransportTime = time * 1000;
-    // console.log('updateCircleData -> millisecondsTransportTime: ', millisecondsTransportTime);
+let circleFifthsChordsId = document.getElementById('circle-of-fifths-chords');
+const graphCircleFifthsChords = echarts.init(circleFifthsChordsId, 'tech-blue');
 
-    const currentOctavePlayed = majorOption.series[noteData.octave];
-    // console.log({currentOctavePlayed});
-    // console.log('majorOption.series[noteData.octave]: ', majorOption.series[noteData.octave]);
-    
-    currentOctavePlayed.data.forEach((octaveData, index) => {
-        if (octaveData.info.midi === noteData.midi) {
-            // TODO: why do fullNote and note not match (Gb vs. F#), only right side of circle is working :(
-            // console.log('newOption.series[noteData.octave].data[index]: ', newOption.series[noteData.octave].data[index]);
-            newOption.series[noteData.octave].data[index].itemStyle.color = noteActiveColor;
+// https://echarts.apache.org/examples/en/editor.html?c=pie-doughnut
+const chordsOption = {
+    // tooltip: {
+    //     trigger: 'axis',
+    //     axisPointer: {            // Use axis to trigger tooltip
+    //         type: 'shadow'        // 'shadow' as default; can also be 'line' or 'shadow'
+    //     },
+    // },
+    // legend: {
+    //     show: false,
+    //     data: ['Octave 0', 'Octave 1', 'Octave 2', 'Octave 3', 'Octave 4', 'Octave 5', 'Octave 6', 'Octave 7', 'Octave 8'],
+    // },
+    grid: {
+        // left: '3%',
+        // right: '4%',
+        // bottom: '3%',
+        // containLabel: true,
+    },
+    series: [
+        {
+            // https://echarts.apache.org/en/option.html#series-pie.type
+            type: 'pie',
+            // name: 'Chord',
+            // radius: [0, '20%'],
+            // radius: ['35%', '40%'], // decent
+            radius: ['51%', '52%'],
+            // radius: ['60%', '85%'],
+            center: ['50%', '50%'],
+            label: {
+                show: true,
+                position: 'center',
+                //formatter: `{title|${totalFormatted}}\n\n{textMuted|${labelFormatter(config.interiorElement.label.text ? config.interiorElement.label.text : '', 30)}}`
+                // // https://echarts.apache.org/en/option.html#series-pie.label.formatter
+                // Model variation includes:
+                //     {a}: series name.
+                //     {b}: the name of a data item.
+                //     {c}: the value of a data item.
+                //     {d}: the percent.
+                //     {@xxx}: the value of a dimension named 'xxx', for example, {@product} refers the value of 'product' dimension.
+                //     {@[n]}: the value of a dimension at the index of n, for example, {@[3]} refers the value at dimensions[3].
+                // formatter: '{b}: {d}'
+                formatter: '{chordName|{b}}',
+                rich: {
+                    chordName: {
+                        color: '#000',
+                        // fontFamily: '"Open Sans", Verdana, sans-serif',
+                        fontFamily: 'Verdana, sans-serif',
+                        fontSize: 36,
+                        fontWeight: 'bold',
+                        lineHeight: 14
+                    },
+                }
+            },
+            data: [
+                {
+                    // // https://github.com/tonaljs/tonal/tree/master/packages/chord
+                    // Chord.getChord("maj7", "G4", "B4"); // =>
+                    //     // {
+                    //     //   empty: false,
+                    //     //   name: "G major seventh over B",
+                    //     //   symbol: "Gmaj7/B",
+                    //     //   tonic: "G4",
+                    //     //   root: "B4",
+                    //     //   rootDegree: 2,
+                    //     //   setNum: 2193,
+                    //     //   type: "major seventh",
+                    //     //   aliases: ["maj7", "Δ", "ma7", "M7", "Maj7"],
+                    //     //   chroma: "100010010001",
+                    //     //   intervals: ["3M", "5P", "7M", "8P"],
+                    //     //   normalized: "100010010001",
+                    //     //   notes: ["B4", "D5", "F#5", "G5"],
+                    //     //   quality: "Major",
+                    //     // }
+                    // name: 'Chord',
+                    name: 'Gmaj7',
+                    value: 1,
+                }
+            ],
+            // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            silent: true,
+        },
+        // {
+        //     type: 'pie',
+        //     center: piePosition,
+        //     radius: donutRadius,
+        //     label: {
+        //         fontSize: 10,
+        //         fontWeight: 'bold',
+        //         lineHeight: 12,
+        //         position: 'center',
+        //         formatter: `{title|${totalFormatted}}\n\n{textMuted|${labelFormatter(config.interiorElement.label.text ? config.interiorElement.label.text : '', 30)}}`
+        //     },
+        //     silent: silent
+        // }
+        // label: {
+        //     normal: {
+        //         show: showLabel,
+        //         formatter: (params: any) => {
+        //             const valueFormatted = styleFormatter(config, params.value[2], 'labelBold');
 
-            setTimeout(() => {
-                newOption.series[noteData.octave].data[index].itemStyle.color = noteInactiveColor;
-            }, millisecondsNoteDuration);
-            // }, 250);
-        }
-    });
+        //             const percentFormatted = styleFormatter(config, params.percent / 100, 'labelDefault');
+        //             const maxLength = 16;
+        //             const wrappedLabelName = labelFormatter(params.name, maxLength);
+        //             return `{textPercent|${percentFormatted}}\n{subTitle|${valueFormatted}}\n{textMuted|${wrappedLabelName}}`;
+        //         },
+        //         rich: {
+        //             subTitle: {
+        //                 color: '#000',
+        //                 fontFamily: '"Open Sans", Verdana, sans-serif',
+        //                 fontSize: 12,
+        //                 fontWeight: 'bold',
+        //                 lineHeight: 14
+        //             },
+        //             textPercent: {
+        //                 fontFamily: '"Open Sans", Verdana, sans-serif',
+        //                 fontSize: 10,
+        //                 fontWeight: 'normal',
+        //                 lineHeight: 12
+        //             },
+        //             textMuted: {
+        //                 color: '#bbbcbc',
+        //                 fontFamily: '"Open Sans", Verdana, sans-serif',
+        //                 fontSize: 10,
+        //                 fontWeight: 600,
+        //                 lineHeight: 12
+        //             }
+        //         }
+        //     }
+        // },
+    ]
+};
 
-    // TODO: use time to set newOption.series[noteData.octave].data[index].itemStyle.color back to noteInactiveColor
-
-    graphCircleFifthsMajor.setOption(newOption);
-
-    // TODO: include sharps and flats in MIDI data
-    // - map steps to appropriate note so can call currentOctavePlayed.data[step] and update itemStyle.color to yellow
-    // - update majorOption,
-
-    // A = step: 5
-    // B = step: 6
-    // C = step: 0
-    // D = step: 1
-    // E = step: 2
-    // F = step: 3
-    // G = step: 4
-
-}
+graphCircleFifthsChords.setOption(chordsOption);
 
 /*
 function updateChordDisplay() {
@@ -729,5 +824,58 @@ function updateChordDisplay() {
 
     }
 }
-
 */
+
+
+////////////
+// UPDATE //
+////////////
+
+// https://echarts.apache.org/examples/en/editor.html?c=bar-race
+// https://echarts.apache.org/examples/en/editor.html?c=bar-race-country
+function updateCircleData(noteData, time) {
+    // console.log('updateCircleData -> noteData: ', noteData);
+    // console.log('updateCircleData -> time: ', time);
+    const newOption = majorOption;
+
+    const millisecondsNoteDuration = noteData.duration * 1000; // or use noteData.durationTicks ???
+    // const millisecondsNoteDuration = noteData.durationTicks; // seems some notes are held too long
+    // console.log('updateCircleData -> millisecondsNoteDuration: ', millisecondsNoteDuration);
+
+    // const millisecondsTransportTime = time * 1000;
+    // console.log('updateCircleData -> millisecondsTransportTime: ', millisecondsTransportTime);
+
+    const currentOctavePlayed = majorOption.series[noteData.octave];
+    // console.log({currentOctavePlayed});
+    // console.log('majorOption.series[noteData.octave]: ', majorOption.series[noteData.octave]);
+    
+    currentOctavePlayed.data.forEach((octaveData, index) => {
+        if (octaveData.info.midi === noteData.midi) {
+            // TODO: why do fullNote and note not match (Gb vs. F#), only right side of circle is working :(
+            // console.log('newOption.series[noteData.octave].data[index]: ', newOption.series[noteData.octave].data[index]);
+            newOption.series[noteData.octave].data[index].itemStyle.color = noteActiveColor;
+
+            setTimeout(() => {
+                newOption.series[noteData.octave].data[index].itemStyle.color = noteInactiveColor;
+            }, millisecondsNoteDuration);
+            // }, 250);
+        }
+    });
+
+    // TODO: use time to set newOption.series[noteData.octave].data[index].itemStyle.color back to noteInactiveColor
+
+    graphCircleFifthsMajor.setOption(newOption);
+
+    // TODO: include sharps and flats in MIDI data
+    // - map steps to appropriate note so can call currentOctavePlayed.data[step] and update itemStyle.color to yellow
+    // - update majorOption,
+
+    // A = step: 5
+    // B = step: 6
+    // C = step: 0
+    // D = step: 1
+    // E = step: 2
+    // F = step: 3
+    // G = step: 4
+
+}
