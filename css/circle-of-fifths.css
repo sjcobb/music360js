@@ -1,16 +1,18 @@
+/*
+ *** CIRCLE OF FIFTHS STYLES ***
+*/
 
-/* .echarts-entry {
+section.dashboard {
     display: block;
-    float: left;
-    width: 100%;
-    max-width: 600px;
-} */
+    padding: 20px 15px;
+    text-align: center;
+}
 
 .chart-container {
-    float: left;
-    width: 33%;
-    position: relative;
+    display: inline-block;
+    margin: 0 auto;
 }
+
 #circle-of-fifths-minor {
     position: absolute;
     top: 0;
