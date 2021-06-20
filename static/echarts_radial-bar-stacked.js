@@ -8,8 +8,8 @@
 // import Recording from '../assets/recording/1_c7-g7_chords.js'; 
 import Recording from '../assets/recording/1_hmesh.js'; 
 
-console.log({Recording});
-console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
+// console.log({Recording});
+// console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
 const toneMidiNotes = Recording.tracks[0].notes;
 
 // TODO:
@@ -48,8 +48,8 @@ const toneMidiNotes = Recording.tracks[0].notes;
 // MIDI MAPPING //
 //////////////////
 
-console.log(Tonal);
-console.log(Tonal.Key.minorKey("Ab"));
+// console.log(Tonal);
+// console.log(Tonal.Key.minorKey("Ab"));
 
 let counter = 1;
 // const filteredNotes = toneMidiNotes.filter((note) => {
@@ -97,25 +97,24 @@ const filteredNotes = toneMidiNotes.map((note) => {
 
     return note;
 });
-console.log({filteredNotes});
+// console.log({filteredNotes});
+// console.log(Tonal.Key.minorKey("Ab"));
 
-console.log(Tonal.Key.minorKey("Ab"));
-
-const exampleMidiNote = {
-    duration: 0.11458333333333348,
-    durationTicks: 220,
-    midi: 35,
-    name: "B1",
-    ticks: 7295,
-    time: 3.7994791666666665,
-    velocity: 0.4409448818897638,
-};
-console.log('exampleMidiNote: ', exampleMidiNote);
+// const exampleMidiNote = {
+//     duration: 0.11458333333333348,
+//     durationTicks: 220,
+//     midi: 35,
+//     name: "B1",
+//     ticks: 7295,
+//     time: 3.7994791666666665,
+//     velocity: 0.4409448818897638,
+// };
+// // console.log('exampleMidiNote: ', exampleMidiNote);
 
 ////////////
 // AUDIO //
 ///////////
-console.log({Tone});
+// console.log({Tone});
 
 Tone.Transport.bpm.value = 120;
 
@@ -231,13 +230,16 @@ const circleOfFifthsMajorOrderedNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'Gb', 'Db
 
 // const circleOfFifthsMinorOrderedNotes = ['Am', 'Em', 'Bm', 'F♯m', 'C♯m', 'G♯m', 'D♯m', 'B♭m', 'Fm', 'Cm', 'Gm', 'Dm']; // undef ♯ ♭
 const circleOfFifthsMinorOrderedNotes = ['Am', 'Em', 'Bm', 'F#m', 'C#m', 'G#m', 'D#m', 'Bbm', 'Fm', 'Cm', 'Gm', 'Dm'];
-const noteInactiveColor =  '#99badd'; // carolina blue
-const noteActiveColor =  '#ffff00'; // yellow
 
-// const debugNote = Tonal.Note.get('E♭'); // undef
-// const debugNote = Tonal.Note.get('Eb');
-const debugNote = Tonal.Note.get('E#');
-console.log('DEBUG NOTE -> -> -> ', debugNote);
+// https://www.colorhexa.com/99badd
+// const noteInactiveColor =  '#99badd'; // carolina blue
+const noteInactiveColor =  '#d2e1f0'; // ltblue
+const noteActiveColor =  '#6093ca'; // dkblue
+// const noteActiveColor =  '#ffff00'; // yellow
+
+// // const debugNote = Tonal.Note.get('E♭'); // undef
+// // const debugNote = Tonal.Note.get('Eb');
+// const debugNote = Tonal.Note.get('E#');
 
 function generateCircleNotes(noteLetters, octave=4) {
     const octaveNoteData = [];
@@ -266,12 +268,26 @@ for (let i=0; i<=8; i++) {
     const tempOctaveData = generateCircleNotes(circleOfFifthsMajorOrderedNotes, i);
     fullCircleData.push(tempOctaveData);
 }
-console.log({fullCircleData});
+// console.log({fullCircleData});
 
 // const circleOfFifthsMajorData = generateCircleNotes(circleOfFifthsMajorOrderedNotes);
 // console.log({circleOfFifthsMajorData});
 
 const majorOption = {
+    title: {
+        show: false,
+        text: 'Circle of Fifths',
+        color: '#234468',
+        // textAlign: 'center',
+        left: 'center',
+        textStyle: {
+            // https://echarts.apache.org/en/option.html#title.textStyle
+            color: '#333',
+            fontFamily: 'Verdana',
+            fontWeight: 600,
+            fontSize: 16,
+        },
+    },
     tooltip: {
         trigger: 'axis',
         axisPointer: {            // Use axis to trigger tooltip
@@ -300,24 +316,27 @@ const majorOption = {
         center: ['50%', '50%'], 
         // radius: '90%', 
         // radius: ['70%', '80%'], // too narrow and too large gap in center
-        radius: ['60%', '85%'], 
+        // radius: ['60%', '85%'], // prev
+        radius: ['52%', '85%'], 
     },
     // yAxis: {
-    // angleAxis: {
     radiusAxis: {
         // https://echarts.apache.org/en/option.html#radiusAxis
         type: 'value',
+        show: false,
         // boundaryGap: [0, 0], // no effect
         axisTick: {
             // https://echarts.apache.org/en/option.html#radiusAxis.axisTick
             show: false,
-        }
+        },
+        // polarIndex: 1,
     },
     // xAxis: {
     // radiusAxis: {
     angleAxis: {
         // https://echarts.apache.org/en/option.html#angleAxis
         type: 'category',
+        show: true,
         data: circleOfFifthsMajorOrderedNotes,
         clockwise: true,
         // startAngle: 90, // default
@@ -326,6 +345,47 @@ const majorOption = {
         // z: 10,
         // boundaryGap: [0, 0], // no effect
         // boundaryGap: false,
+        // splitNumber: 5,
+        splitArea: {
+            show: false,
+        },
+        axisLine: {
+            show: false,
+        },
+        axisTick: {
+            show: false,
+        },
+        // nameGap: 100, // no effect
+        axisLabel: {
+            margin: 5,
+            color: '#234468',
+            fontFamily: 'Verdana',
+            fontWeight: 600,
+            fontSize: 16,
+            formatter: (value, index) => {
+                // console.log(value);
+                ['C', 'G', 'D', 'A', 'E', 'B', 'Gb', 'Db', 'Ab', 'Eb', 'Bb', 'F'];
+                ['C', 'G', 'D', 'A', 'E', 'B', 'G♭', 'D♭', 'A♭', 'E♭', 'B♭', 'F']; // undef ♭
+                ['C', 'G', 'D', 'A', 'E', 'B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F']; // undef ♯
+                switch (value) {
+                    case 'Gb':
+                        return 'G♭';
+                    case 'Db':
+                            return 'D♭';
+                    case 'Ab':
+                            return 'A♭';
+                    case 'Eb':
+                        return 'E♭';
+                    case 'Bb':
+                        return 'B♭';
+                    default:
+                        return value;
+                }
+                    
+
+
+            }
+        }
     },
     series: [
         {
@@ -333,6 +393,10 @@ const majorOption = {
             coordinateSystem: 'polar',
             name: 'Octave 0',
             stack: 'total',
+            // barGap: 0, // no effect
+            // barCategoryGap: 0,
+            barCategoryGap: 1,
+            // 
             // label: {
             //     show: true
             // },
@@ -489,9 +553,9 @@ const minorOption = {
         radius: ['25%', '40%'],
     },
     // yAxis: {
-    // angleAxis: {
     radiusAxis: {
         type: 'value',
+        show: false,
         axisTick: {
             // https://echarts.apache.org/en/option.html#radiusAxis.axisTick
             show: false,
@@ -554,19 +618,19 @@ const minorOption = {
     ]
 };
 
-graphCircleFifthsMinor.setOption(minorOption);
+// graphCircleFifthsMinor.setOption(minorOption);
 
 // // // 
 // https://echarts.apache.org/examples/en/editor.html?c=bar-race
 // https://echarts.apache.org/examples/en/editor.html?c=bar-race-country
 function updateCircleData(noteData, time) {
-    console.log('updateCircleData -> noteData: ', noteData);
+    // console.log('updateCircleData -> noteData: ', noteData);
     // console.log('updateCircleData -> time: ', time);
     const newOption = majorOption;
 
     const millisecondsNoteDuration = noteData.duration * 1000; // or use noteData.durationTicks ???
     // const millisecondsNoteDuration = noteData.durationTicks; // seems some notes are held too long
-    console.log('updateCircleData -> millisecondsNoteDuration: ', millisecondsNoteDuration);
+    // console.log('updateCircleData -> millisecondsNoteDuration: ', millisecondsNoteDuration);
 
     // const millisecondsTransportTime = time * 1000;
     // console.log('updateCircleData -> millisecondsTransportTime: ', millisecondsTransportTime);
@@ -585,9 +649,6 @@ function updateCircleData(noteData, time) {
                 newOption.series[noteData.octave].data[index].itemStyle.color = noteInactiveColor;
             }, millisecondsNoteDuration);
             // }, 250);
-        } else {
-            // console.log('ELSE updateCircleData -> noteData.info: ', noteData.info);
-            // console.log('ELSE newOption.series[noteData.octave].data[index].info: ', newOption.series[noteData.octave].data[index].info);
         }
     });
 
