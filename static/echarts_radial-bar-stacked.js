@@ -6,9 +6,10 @@
 // import Recording from '../assets/recording/1.js'; // c major scale
 // import Recording from '../assets/recording/1_beethoven.js'; 
 // import Recording from '../assets/recording/1_c7-g7_chords.js'; 
-import Recording from '../assets/recording/1_hmesh.js'; 
+// import Recording from '../assets/recording/1_hmesh.js'; 
 // import Recording from '../assets/recording/1_aintno.js'; 
 // import Recording from '../assets/recording/1_twinkle.js'; 
+import Recording from '../assets/recording/1_Bb_circle.js'; 
 
 // console.log({Recording});
 // console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
@@ -64,7 +65,7 @@ const filteredNotes = toneMidiNotes.map((note) => {
     // note.octave = note.name.substr(1, 1);
     // https://github.com/tonaljs/tonal/tree/master/packages/note
     
-    note.fullNote = Tonal.Note.fromMidi(note.midi);
+    note.fullNote = Tonal.Note.fromMidi(note.midi); // TODO: how to get flat notes instead of sharp
     note.info = Tonal.Note.get(note.fullNote);
     note.octave = note.info.oct;
 
@@ -190,7 +191,8 @@ const recordingPart = new Tone.Part(function(time, datum){
     polySynth.triggerAttackRelease(datum.fullNote, "8n", time, datum.velocity);
     updateCircleData(datum, time);
 }, toneMidiNotes);
-recordingPart.start(0);
+// recordingPart.start(0);
+recordingPart.start(3);
 
 Tone.Transport.start();
 // Tone.Transport.stop();
@@ -784,8 +786,10 @@ function updateChordDisplay(noteData, time) {
     // if ((time - lastTime) < 0.5) {
     // if ((time - lastTime) < 0.7) {
     // if ((time - lastTime) < 0.4) {
-    if ((time - lastTime) < 0.5) {
-        tempNotes.push(noteData.name);
+    // if ((time - lastTime) < 0.5) {
+    if ((time - lastTime) < 1.2) {
+        // tempNotes.push(noteData.name); // sharps
+        tempNotes.push(noteData.fullNote);  // flats
     } else {
         tempNotes = [];
     }
@@ -812,7 +816,7 @@ function updateChordDisplay(noteData, time) {
             let currentChordInfo = Tonal.Chord.get(currentChordSplit[0]);
             let currentChordDisplayName = currentChordInfo.name;
 
-            // console.log({currentChordInfo});
+            console.log({currentChordInfo});
             // console.log({currentChordDisplayName});
             
             if (currentChordDisplayName) {
@@ -820,9 +824,24 @@ function updateChordDisplay(noteData, time) {
 
                 // allPlayedNotes = allPlayedNotes.slice(4);
 
-                // chordsPlayed.push(currentChordInfo);
+                // chordsPlayed.push(currentChordInfo.symbol);
                 chordsPlayed.push(currentChordDisplayName);
                 console.log('chordsPlayed: ', chordsPlayed);
+
+                // TODO: look into using Chord.extended (chords names that are a superset of the given one)
+                // ex: Chord.extended("Cmaj7");
+                // // https://github.com/tonaljs/tonal/tree/master/packages/chord-type
+                // ChordType.get(name: string) => object
+                // Given a chord type name, return an object with the following properties:
+                // name: the chord type name
+                // aliases: a list of alternative names
+                // quality: Major | Minor | Augmented | Diminished | Unknown
+                // num: the pcset number
+                // chroma: the pcset chroma
+                // length: the number of notes
+                // intervals: the interval list
+                // console.log(Tonal.ChordType.get(currentChordDisplayName)); // unknown
+                // console.log(Tonal.ChordType.get(currentChordInfo.symbol)); // unknown
             }
             tempNotes = [];
         } else {
