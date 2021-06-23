@@ -7,6 +7,8 @@
 // import Recording from '../assets/recording/1_beethoven.js'; 
 // import Recording from '../assets/recording/1_c7-g7_chords.js'; 
 import Recording from '../assets/recording/1_hmesh.js'; 
+// import Recording from '../assets/recording/1_aintno.js'; 
+// import Recording from '../assets/recording/1_twinkle.js'; 
 
 // console.log({Recording});
 // console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
@@ -656,9 +658,13 @@ const chordsOption = {
             // name: 'Chord',
             // radius: [0, '20%'],
             // radius: ['35%', '40%'], // decent
-            radius: ['51%', '52%'],
+            // radius: ['51%', '52%'],
+            radius: ['51.5%', '52%'],
             // radius: ['60%', '85%'],
             center: ['50%', '50%'],
+            // https://echarts.apache.org/en/option.html#series-pie.animationDuration
+            animationDuration: 25, // default: 1000
+            animationEasing: 'linear', // default: 'cubicOut'
             label: {
                 show: true,
                 position: 'center',
@@ -678,16 +684,21 @@ const chordsOption = {
                         color: '#000',
                         // fontFamily: '"Open Sans", Verdana, sans-serif',
                         fontFamily: 'Verdana, sans-serif',
-                        fontSize: 36,
+                        fontSize: 32,
                         fontWeight: 'bold',
-                        lineHeight: 14
+                        lineHeight: 34
                     },
                 }
             },
             data: [
                 {
+                    // // name: 'Chord',
+                    // name: 'Gmaj7', // prev
+                    name: '',
+                    value: 1,
+                    //
                     // // https://github.com/tonaljs/tonal/tree/master/packages/chord
-                    // Chord.getChord("maj7", "G4", "B4"); // =>
+                    // Tonal.Chord.getChord("maj7", "G4", "B4"); // =>
                     //     // {
                     //     //   empty: false,
                     //     //   name: "G major seventh over B",
@@ -704,9 +715,6 @@ const chordsOption = {
                     //     //   notes: ["B4", "D5", "F#5", "G5"],
                     //     //   quality: "Major",
                     //     // }
-                    // name: 'Chord',
-                    name: 'Gmaj7',
-                    value: 1,
                 }
             ],
             // data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -762,47 +770,71 @@ const chordsOption = {
         // },
     ]
 };
-
+console.log('INITIAL -> chordsOption: ', chordsOption);
 graphCircleFifthsChords.setOption(chordsOption);
 
-/*
-function updateChordDisplay() {
-    if (Store.dashboard.allPlayedNotes.length % 4 === 0) {
+let allPlayedNotes = [];
+let chordsPlayed = [];
+let lastTime = 0;
+let tempNotes = [];
+function updateChordDisplay(noteData, time) {
+
+    const timeDifference = time - lastTime;
+    console.log({timeDifference});
+    // if ((time - lastTime) < 0.5) {
+    // if ((time - lastTime) < 0.7) {
+    // if ((time - lastTime) < 0.4) {
+    if ((time - lastTime) < 0.5) {
+        tempNotes.push(noteData.name);
+    } else {
+        tempNotes = [];
+    }
+    console.log('tempNotes: ', tempNotes);
+
+    // if (allPlayedNotes.length % 4 === 0) {
+    if (tempNotes.length > 2 && tempNotes.length < 10) {
         // console.log(Tonal);
-        // Tonal.ChordDetect.detect(Store.dashboard.allPlayedNotes);
+        // Tonal.ChordDetect.detect(allPlayedNotes);
 
         // console.log(Chord);
-        const currentChord = Chord.detect(Store.dashboard.allPlayedNotes);
-        console.log({currentChord});
+        // let currentChord = Tonal.Chord.detect(allPlayedNotes);
+        let currentChord = Tonal.Chord.detect(tempNotes);
+        // console.log({currentChord});
 
         if (currentChord.length) {
-            const currentChordNoRoot = currentChord[0].slice(0, currentChord[0].length - 2);
-            // console.log(currentChordNoRoot);
+            let currentChordNoRoot = currentChord[0].slice(0, currentChord[0].length - 2);
+            // console.log({currentChordNoRoot});
 
-            const currentChordSplit = currentChord[0].split('/');
-            // console.log({currentChordSplit});
+            let currentChordSplit = currentChord[0].split('/');
+            console.log({currentChordSplit});
 
-            // const currentChordInfo = Chord.get(currentChordNoRoot);
-            const currentChordInfo = Chord.get(currentChordSplit[0]);
-            const currentChordDisplayName = currentChordInfo.name;
-            console.log(currentChordDisplayName);
+            // const currentChordInfo = Tonal.Chord.get(currentChordNoRoot);
+            let currentChordInfo = Tonal.Chord.get(currentChordSplit[0]);
+            let currentChordDisplayName = currentChordInfo.name;
+
+            // console.log({currentChordInfo});
+            // console.log({currentChordDisplayName});
             
             if (currentChordDisplayName) {
-                Store.dashboard.currentChordDisplayName = currentChordDisplayName;
-                Store.dashboard.currentChordInfo = currentChordInfo;
+                currentChordInfo = currentChordInfo;
 
-                Store.dashboard.allPlayedNotes = Store.dashboard.allPlayedNotes.slice(4);
+                // allPlayedNotes = allPlayedNotes.slice(4);
 
-                Store.dashboard.chordsPlayed.push(currentChordInfo);
+                // chordsPlayed.push(currentChordInfo);
+                chordsPlayed.push(currentChordDisplayName);
+                console.log('chordsPlayed: ', chordsPlayed);
             }
+            tempNotes = [];
+        } else {
+            tempNotes = [];
         }
 
-        // console.log(Chord.getChord(currentChord[0]));
-        // console.log(Chord.getChord("maj7", "G4", "B4"));
+        // console.log(Tonal.Chord.getChord(currentChord[0]));
+        // console.log(Tonal.Chord.getChord("maj7", "G4", "B4"));
 
         // https://github.com/tonaljs/tonal/tree/master/packages/chord
         // ...
-        // Chord.getChord("maj7", "G4", "B4"); // =>
+        // Tonal.Chord.getChord("maj7", "G4", "B4"); // =>
         // {
         //   empty: false,
         //   name: "G major seventh over B",
@@ -820,11 +852,11 @@ function updateChordDisplay() {
         //   quality: "Major",
         // }
 
-        // Chord.reduced("Cmaj7"); // => ["C5", "CM"]
-
+        // Tonal.Chord.reduced("Cmaj7"); // => ["C5", "CM"]
     }
+
+    lastTime = time;
 }
-*/
 
 
 ////////////
@@ -836,7 +868,12 @@ function updateChordDisplay() {
 function updateCircleData(noteData, time) {
     // console.log('updateCircleData -> noteData: ', noteData);
     // console.log('updateCircleData -> time: ', time);
-    const newOption = majorOption;
+
+    updateChordDisplay(noteData, time);
+
+    // // //
+
+    const newMajorOption = majorOption;
 
     const millisecondsNoteDuration = noteData.duration * 1000; // or use noteData.durationTicks ???
     // const millisecondsNoteDuration = noteData.durationTicks; // seems some notes are held too long
@@ -852,19 +889,19 @@ function updateCircleData(noteData, time) {
     currentOctavePlayed.data.forEach((octaveData, index) => {
         if (octaveData.info.midi === noteData.midi) {
             // TODO: why do fullNote and note not match (Gb vs. F#), only right side of circle is working :(
-            // console.log('newOption.series[noteData.octave].data[index]: ', newOption.series[noteData.octave].data[index]);
-            newOption.series[noteData.octave].data[index].itemStyle.color = noteActiveColor;
+            // console.log('newMajorOption.series[noteData.octave].data[index]: ', newMajorOption.series[noteData.octave].data[index]);
+            newMajorOption.series[noteData.octave].data[index].itemStyle.color = noteActiveColor;
 
             setTimeout(() => {
-                newOption.series[noteData.octave].data[index].itemStyle.color = noteInactiveColor;
+                newMajorOption.series[noteData.octave].data[index].itemStyle.color = noteInactiveColor;
             }, millisecondsNoteDuration);
             // }, 250);
         }
     });
 
-    // TODO: use time to set newOption.series[noteData.octave].data[index].itemStyle.color back to noteInactiveColor
+    // TODO: use time to set newMajorOption.series[noteData.octave].data[index].itemStyle.color back to noteInactiveColor
 
-    graphCircleFifthsMajor.setOption(newOption);
+    graphCircleFifthsMajor.setOption(newMajorOption);
 
     // TODO: include sharps and flats in MIDI data
     // - map steps to appropriate note so can call currentOctavePlayed.data[step] and update itemStyle.color to yellow
@@ -878,4 +915,56 @@ function updateCircleData(noteData, time) {
     // F = step: 3
     // G = step: 4
 
+    allPlayedNotes.push(noteData.name);
+
+    // // //
+
+    const newChordsOption = chordsOption;
+    // newChordsOption.series[0].data[0].name = noteData.name; // "C3"
+    // // newChordsOption.series[0].data[0].name = noteData.fullNote; // "C3"
+    // // newChordsOption.series[0].data[0].value = 2;
+
+    if (chordsPlayed.length > 0) {
+        // console.log({chordsPlayed});
+        // newChordsOption.series[0].data[0].name = chordsPlayed[0];
+        // newChordsOption.series[0].data[0].name = chordsPlayed[chordsPlayed.length - 1];
+
+        const formattedChordLabel = labelFormatter(chordsPlayed[0], 14);
+        // console.log({formattedChordLabel});
+        // newChordsOption.series[0].data[0].name = chordsPlayed[0];
+        newChordsOption.series[0].data[0].name = formattedChordLabel;
+        chordsPlayed.pop();
+    }
+    
+    graphCircleFifthsChords.setOption(newChordsOption);
+
+    // updateChordDisplay(noteData, time);
+}
+
+// axisLabelFormatter(label: string, maxLength: number = 10, lineBreakStyle: string = 'endline') {
+function labelFormatter(label, maxLength, lineBreakStyle = 'endline') {
+    if (label.length <= maxLength) {
+        return label;
+    }
+
+    let lineBreakText = '\n';
+    if (lineBreakStyle === 'html') {
+        lineBreakText = '<br />';
+    }
+
+    let trunc;
+    let useIndex = maxLength;
+    // Find last space before maxLength
+    for (let i = 0; i <= maxLength; i++) {
+        if (label.charAt(i) === ' ') {
+            useIndex = i;
+        }
+    }
+    if (useIndex < maxLength) {
+        trunc = _.truncate(label.substring(useIndex + 1), { 'length': maxLength, 'separator': ' ' });
+        return `${label.substring(0, useIndex)}${lineBreakText}${trunc}`;
+    } else {
+        trunc = _.truncate(label.substring(maxLength), { 'length': maxLength, 'separator': ' ' });
+        return `${label.substring(0, maxLength)}${lineBreakText}${trunc}`;
+    }
 }
