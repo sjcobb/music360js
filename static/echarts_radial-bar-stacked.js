@@ -195,8 +195,9 @@ const recordingPart = new Tone.Part(function(time, datum){
 recordingPart.start(0);
 
 setTimeout(() => {
-    // Tone.Transport.start();
+    Tone.Transport.start();
 }, 3000);
+// }, 11000);
 
 // Tone.Transport.stop();
 
@@ -327,18 +328,17 @@ const majorOption = {
         // top: 0,
         // containLabel: false,
         // top: 90,
-        // // left: '3%',
-        // // right: '4%',
-        // // bottom: '3%',
-        // // containLabel: true,
+        // left: '10%',
+        // right: '10%',
+        // containLabel: true, // no effect
     },
     polar: {
         // https://echarts.apache.org/en/option.html#polar
         // center = position of chart relative to center of container
         // center: ['50%', '55%%'], // needed when legend.show = true
         center: ['50%', '50%'], 
-        // radius: ['52%', '85%'], // prev
-        radius: ['45%', '85%'],
+        // radius: ['45%', '85%'], // prev
+        radius: ['45%', '82%'],
     },
     // yAxis: {
     radiusAxis: {
@@ -386,7 +386,8 @@ const majorOption = {
             // fontFamily: 'Verdana',
             fontFamily: '"Roboto Condensed", Verdana, sans-serif',
             fontWeight: 600,
-            fontSize: 36,
+            // fontSize: 36, // prev
+            fontSize: 44,
             formatter: (value, index) => {
                 // console.log(value);
                 ['C', 'G', 'D', 'A', 'E', 'B', 'Gb', 'Db', 'Ab', 'Eb', 'Bb', 'F'];
@@ -702,13 +703,14 @@ const chordsOption = {
                 rich: {
                     chordName: {
                         // color: '#000',
-                        color: '#333',
+                        // color: '#333',
+                        color: '#FFFFE0', // ltyellow
                         // color: '#ffff00', // yellow
                         // fontFamily: '"Open Sans", Verdana, sans-serif',
                         // fontFamily: 'Verdana, sans-serif',
                         fontFamily: '"Roboto Condensed", Verdana, sans-serif',
-                        fontSize: 42,
-                        lineHeight: 42,
+                        fontSize: 50,
+                        lineHeight: 50,
                         fontWeight: 'bold',
                     },
                 }

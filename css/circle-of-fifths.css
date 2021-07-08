@@ -27,7 +27,7 @@ body {
 
 section.dashboard {
     display: block;
-    padding: 20px 15px;
+    padding: 20px 20px;
     text-align: center;
     position: relative;
 }
@@ -62,6 +62,6 @@ button:hover {
     cursor: pointer;
     background: #efefef;
 }
-/* button#start-song {
-    font-family: 'Roboto Condensed', Verdana, sans-serif;
-} */
+button#start-song {
+    display: none;
+}
