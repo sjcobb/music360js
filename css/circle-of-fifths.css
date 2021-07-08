@@ -2,6 +2,29 @@
  *** CIRCLE OF FIFTHS STYLES ***
 */
 
+@font-face {
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(../assets/fonts/Roboto_Condensed/RobotoCondensed-Light.ttf) format('truetype');
+    /* unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; */
+}
+/* https://stackoverflow.com/a/24990647/7639084 */
+@font-face {
+    font-family: 'MyWebFont';
+    src: url('webfont.eot'); /* IE9 Compat Modes */
+    src: url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+            url('webfont.woff') format('woff'), /* Modern Browsers */
+            url('webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+            url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+body {
+    background-color: #00b140; 
+    font-family: 'Roboto Condensed', serif, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
 section.dashboard {
     display: block;
     padding: 20px 15px;
@@ -23,3 +46,22 @@ section.dashboard {
     position: absolute;
     top: 20px;
 }
+
+#settings-container {
+    position: absolute;
+    left: 0;
+}
+
+button {
+    padding: 8px 10px 8px 10px;
+    background: #fff;
+    font: 12px "Roboto Condensed", Verdana, sans-serif;
+    border: none;
+}
+button:hover {
+    cursor: pointer;
+    background: #efefef;
+}
+/* button#start-song {
+    font-family: 'Roboto Condensed', Verdana, sans-serif;
+} */

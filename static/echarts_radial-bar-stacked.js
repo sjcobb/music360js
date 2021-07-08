@@ -192,9 +192,12 @@ const recordingPart = new Tone.Part(function(time, datum){
     updateCircleData(datum, time);
 }, toneMidiNotes);
 // recordingPart.start(0);
-recordingPart.start(3);
+recordingPart.start(0);
 
-Tone.Transport.start();
+setTimeout(() => {
+    // Tone.Transport.start();
+}, 3000);
+
 // Tone.Transport.stop();
 
 // // //
@@ -238,11 +241,23 @@ const circleOfFifthsMajorOrderedNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'Gb', 'Db
 // const circleOfFifthsMinorOrderedNotes = ['Am', 'Em', 'Bm', 'F♯m', 'C♯m', 'G♯m', 'D♯m', 'B♭m', 'Fm', 'Cm', 'Gm', 'Dm']; // undef ♯ ♭
 const circleOfFifthsMinorOrderedNotes = ['Am', 'Em', 'Bm', 'F#m', 'C#m', 'G#m', 'D#m', 'Bbm', 'Fm', 'Cm', 'Gm', 'Dm'];
 
+// COLOR PALETTE //
+// USE: https://www.canva.com/colors/color-palettes/streamers-and-confetti/
+// #6BCAE2 // Aquamarine
+// #AE4DAF // Orchid
+// #FDF493 // Yellow
+// #C1ECFD // Baby Blue
+//
+// https://www.canva.com/colors/color-palettes/thwarted-summer-shower/
+// https://www.canva.com/colors/color-palettes/in-the-blue/
 // https://www.colorhexa.com/99badd
-// const noteInactiveColor =  '#99badd'; // carolina blue
-const noteInactiveColor =  '#d2e1f0'; // ltblue
-const noteActiveColor =  '#6093ca'; // dkblue
-// const noteActiveColor =  '#ffff00'; // yellow
+// // const noteInactiveColor =  '#99badd'; // carolina blue
+// // const noteInactiveColor =  '#d2e1f0'; // ltblue
+// const noteInactiveColor =  '#FFFFE0'; // ltyellow
+// const noteActiveColor =  '#6093ca'; // dkblue
+// // const noteActiveColor =  '#ffff00'; // yellow
+const noteInactiveColor =  '#C1ECFD'; // Baby Blue
+const noteActiveColor =  '#AE4DAF'; // Orchid
 
 // // const debugNote = Tonal.Note.get('E♭'); // undef
 // // const debugNote = Tonal.Note.get('Eb');
@@ -284,13 +299,14 @@ const majorOption = {
     title: {
         show: false,
         text: 'Circle of Fifths',
-        color: '#234468',
+        // color: '#234468',
         // textAlign: 'center',
         left: 'center',
         textStyle: {
             // https://echarts.apache.org/en/option.html#title.textStyle
             color: '#333',
-            fontFamily: 'Verdana',
+            // fontFamily: '"Open Sans", Verdana, sans-serif',
+            fontFamily: '"Roboto Condensed", Verdana, sans-serif',
             fontWeight: 600,
             fontSize: 16,
         },
@@ -321,10 +337,8 @@ const majorOption = {
         // center = position of chart relative to center of container
         // center: ['50%', '55%%'], // needed when legend.show = true
         center: ['50%', '50%'], 
-        // radius: '90%', 
-        // radius: ['70%', '80%'], // too narrow and too large gap in center
-        // radius: ['60%', '85%'], // prev
-        radius: ['52%', '85%'], 
+        // radius: ['52%', '85%'], // prev
+        radius: ['45%', '85%'],
     },
     // yAxis: {
     radiusAxis: {
@@ -352,7 +366,8 @@ const majorOption = {
         // z: 10,
         // boundaryGap: [0, 0], // no effect
         // boundaryGap: false,
-        // splitNumber: 5,
+        // splitNumber: 0, // default = 5
+        // interval: 0,
         splitArea: {
             show: false,
         },
@@ -364,11 +379,14 @@ const majorOption = {
         },
         // nameGap: 100, // no effect
         axisLabel: {
-            margin: 8,
+            interval: 0,
+            margin: 10,
             color: '#234468',
-            fontFamily: 'Verdana',
+            color: '#ffffff',
+            // fontFamily: 'Verdana',
+            fontFamily: '"Roboto Condensed", Verdana, sans-serif',
             fontWeight: 600,
-            fontSize: 22,
+            fontSize: 36,
             formatter: (value, index) => {
                 // console.log(value);
                 ['C', 'G', 'D', 'A', 'E', 'B', 'Gb', 'Db', 'Ab', 'Eb', 'Bb', 'F'];
@@ -555,7 +573,6 @@ const minorOption = {
         // center = position of chart relative to center of container
         // center: ['50%', '55%'], // needed when legend.show = true
         center: ['50%', '50%'],
-        // radius: '90%', 
         // radius: ['70%', '80%'], // too narrow and too large gap in center
         radius: ['25%', '40%'],
     },
@@ -653,16 +670,17 @@ const chordsOption = {
         // bottom: '3%',
         // containLabel: true,
     },
+    // https://www.rapidtables.com/web/color/Yellow_Color.html
+    // color: ['#ffff00'], // yellow
+    color: ['#FFFFE0'], // ltyellow
     series: [
         {
             // https://echarts.apache.org/en/option.html#series-pie.type
             type: 'pie',
             // name: 'Chord',
-            // radius: [0, '20%'],
-            // radius: ['35%', '40%'], // decent
-            // radius: ['51%', '52%'],
-            radius: ['51.5%', '52%'],
-            // radius: ['60%', '85%'],
+            // radius: ['51.5%', '52%'], // prev
+            // radius: ['44.5%', '45%'],
+            radius: ['43%', '44%'],
             center: ['50%', '50%'],
             // https://echarts.apache.org/en/option.html#series-pie.animationDuration
             animationDuration: 25, // default: 1000
@@ -683,12 +701,15 @@ const chordsOption = {
                 formatter: '{chordName|{b}}',
                 rich: {
                     chordName: {
-                        color: '#000',
+                        // color: '#000',
+                        color: '#333',
+                        // color: '#ffff00', // yellow
                         // fontFamily: '"Open Sans", Verdana, sans-serif',
-                        fontFamily: 'Verdana, sans-serif',
-                        fontSize: 32,
+                        // fontFamily: 'Verdana, sans-serif',
+                        fontFamily: '"Roboto Condensed", Verdana, sans-serif',
+                        fontSize: 42,
+                        lineHeight: 42,
                         fontWeight: 'bold',
-                        lineHeight: 34
                     },
                 }
             },
@@ -782,18 +803,16 @@ let tempNotes = [];
 function updateChordDisplay(noteData, time) {
 
     const timeDifference = time - lastTime;
-    console.log({timeDifference});
-    // if ((time - lastTime) < 0.5) {
-    // if ((time - lastTime) < 0.7) {
-    // if ((time - lastTime) < 0.4) {
-    // if ((time - lastTime) < 0.5) {
-    if ((time - lastTime) < 1.2) {
+    // console.log({timeDifference});
+    // if ((time - lastTime) < 1.2) { // too long
+    // if ((time - lastTime) < 0.8) { // too short
+    if ((time - lastTime) < 1.0) { 
         // tempNotes.push(noteData.name); // sharps
         tempNotes.push(noteData.fullNote);  // flats
     } else {
         tempNotes = [];
     }
-    console.log('tempNotes: ', tempNotes);
+    // console.log('tempNotes: ', tempNotes);
 
     // if (allPlayedNotes.length % 4 === 0) {
     if (tempNotes.length > 2 && tempNotes.length < 10) {
@@ -810,13 +829,13 @@ function updateChordDisplay(noteData, time) {
             // console.log({currentChordNoRoot});
 
             let currentChordSplit = currentChord[0].split('/');
-            console.log({currentChordSplit});
+            // console.log({currentChordSplit});
 
             // const currentChordInfo = Tonal.Chord.get(currentChordNoRoot);
             let currentChordInfo = Tonal.Chord.get(currentChordSplit[0]);
             let currentChordDisplayName = currentChordInfo.name;
 
-            console.log({currentChordInfo});
+            // console.log({currentChordInfo});
             // console.log({currentChordDisplayName});
             
             if (currentChordDisplayName) {
@@ -826,7 +845,7 @@ function updateChordDisplay(noteData, time) {
 
                 // chordsPlayed.push(currentChordInfo.symbol);
                 chordsPlayed.push(currentChordDisplayName);
-                console.log('chordsPlayed: ', chordsPlayed);
+                // console.log('chordsPlayed: ', chordsPlayed);
 
                 // TODO: look into using Chord.extended (chords names that are a superset of the given one)
                 // ex: Chord.extended("Cmaj7");
@@ -986,4 +1005,14 @@ function labelFormatter(label, maxLength, lineBreakStyle = 'endline') {
         trunc = _.truncate(label.substring(maxLength), { 'length': maxLength, 'separator': ' ' });
         return `${label.substring(0, maxLength)}${lineBreakText}${trunc}`;
     }
+}
+
+///////////////////
+// UI - SETTINGS //
+///////////////////
+
+const elemStartSong = document.getElementById('start-song');
+// elemStartSong.style.color = '#ffffff';
+elemStartSong.onclick = () => {
+    Tone.Transport.start();
 }

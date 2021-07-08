@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <title>Interactive Circle of Fifths</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Sawarabi+Gothic&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <!-- <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Sawarabi+Gothic&display=swap" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /> -->
 
-    <!-- <link rel="stylesheet" type="text/css" href="css/bounce.css"> -->
     <link rel="stylesheet" type="text/css" href="css/circle-of-fifths.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
@@ -30,10 +29,13 @@
 <body>
     
     <section class="dashboard">
-        <div id="container-circle-of-fifths-major" class="chart-container">
-            <div id="circle-of-fifths-major" class="echarts-entry" style="width: 600px; height: 600px;"></div>
-            <div id="circle-of-fifths-minor" class="echarts-entry" style="width: 600px; height: 600px;"></div>
-            <div id="circle-of-fifths-chords" class="echarts-entry" style="width: 600px; height: 600px;"></div>
+        <div id="settings-container" class="container">
+            <button id="start-song">Play</button>
+        </div>
+        <div id="circle-of-fifths-container" class="chart-container container">
+            <div id="circle-of-fifths-major" class="echarts-entry" style="width: 800px; height: 800px;"></div>
+            <div id="circle-of-fifths-minor" class="echarts-entry" style="width: 800px; height: 800px;"></div>
+            <div id="circle-of-fifths-chords" class="echarts-entry" style="width: 800px; height: 800px;"></div>
         </div>
     </section>
     
