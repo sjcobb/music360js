@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Circle of Fifths</title>
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Sawarabi+Gothic&display=swap" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/circle-of-fifths.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.26/Tone.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tonaljs/tonal/browser/tonal.min.js"></script>
+
+    <!-- TODO: import THREE as module -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/104/three.min.js"></script> -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.1.1/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.1.0/theme/dark-blue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.1.0/theme/tech-blue.min.js"></script>
+</head>
+
+<body>
+    
+    <section class="dashboard">
+        <div id="settings-container" class="container">
+            <button id="start-song">Play</button>
+        </div>
+        <div id="circle-of-fifths-container" class="chart-container container">
+            <div id="music-staff-lines" class="echarts-entry" style="width: 800px; height: 800px;"></div>
+        </div>
+    </section>
+    
+    <script type="module" src="static/echarts_staff-line.js"></script>
+    <!-- <script type="module" src="static/echarts_staff-line-circle-order.js"></script> -->
+
+</body>
+
+</html>
