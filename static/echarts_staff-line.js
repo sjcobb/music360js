@@ -241,8 +241,8 @@ function generateCircleNotes(noteLetters, octave=4) {
         // console.log('circleOfFifthsMajorOrderedNotes -> fullNote: ', fullNote);
 
         const notesDataTemplate = {
-            // value: 1,
-            value: 0,
+            value: 1,
+            // value: 0,
             itemStyle: {
                 color: noteInactiveColor,
                 // color: '#99badd', // carolina blue
@@ -480,11 +480,11 @@ function updateCircleData(noteData, time) {
     
     currentOctavePlayed.data.forEach((octaveData, index) => {
         if (octaveData.info.midi === noteData.midi) {
-            newMajorOption.series[noteData.octave].data[index].value = 1;
+            // newMajorOption.series[noteData.octave].data[index].value = 1;
             newMajorOption.series[noteData.octave].data[index].itemStyle.color = noteActiveColor;
 
             setTimeout(() => {
-                newMajorOption.series[noteData.octave].data[index].value = 0;
+                // newMajorOption.series[noteData.octave].data[index].value = 0;
                 newMajorOption.series[noteData.octave].data[index].itemStyle.color = noteInactiveColor;
             }, millisecondsNoteDuration);
             // }, 250);
