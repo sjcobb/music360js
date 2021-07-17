@@ -9,7 +9,8 @@
 // import Recording from '../assets/recording/1_hmesh.js'; 
 // import Recording from '../assets/recording/1_aintno.js'; 
 // import Recording from '../assets/recording/1_twinkle.js'; 
-import Recording from '../assets/recording/1_Bb_circle.js'; 
+// import Recording from '../assets/recording/1_Bb_circle.js'; 
+import Recording from '../assets/recording/1_all_notes.js'; 
 
 // console.log({Recording});
 // console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
@@ -167,10 +168,10 @@ const recordingPart = new Tone.Part(function(time, datum){
 // recordingPart.start(0);
 recordingPart.start(0);
 
-setTimeout(() => {
-    Tone.Transport.start();
-}, 3000);
-// }, 11000);
+// setTimeout(() => {
+//     Tone.Transport.start();
+// }, 3000);
+// // }, 11000);
 
 // Tone.Transport.stop();
 

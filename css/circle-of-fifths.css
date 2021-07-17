@@ -55,5 +55,5 @@ button:hover {
     background: #efefef;
 }
 button#start-song {
-    display: none;
+    /* display: none; */
 }
