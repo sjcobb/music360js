@@ -10,15 +10,7 @@
     src: url(../assets/fonts/Roboto_Condensed/RobotoCondensed-Light.ttf) format('truetype');
     /* unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; */
 }
-/* https://stackoverflow.com/a/24990647/7639084 */
-@font-face {
-    font-family: 'MyWebFont';
-    src: url('webfont.eot'); /* IE9 Compat Modes */
-    src: url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-            url('webfont.woff') format('woff'), /* Modern Browsers */
-            url('webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
-            url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
-}
+
 body {
     background-color: #00b140; 
     font-family: 'Roboto Condensed', serif, Verdana, sans-serif;
