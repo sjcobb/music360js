@@ -181,19 +181,21 @@ export default class Helpers {
             // ctx.font = "normal " + (textH) + "px Geneva"; 
             // ctx.font = "bold " + (textH) + "px Geneva"; 
             ctx.font = "normal " + (textH) + "px Verdana"; 
-            // ctx.fillStyle = "#000000"; //PREV (text color)
-            ctx.fillStyle = "#ffffff"; // text color
+            ctx.fillStyle = "#000000"; //PREV (text color)
+            // ctx.fillStyle = "#ffffff"; // text color
             var textW = ctx.measureText(textData).width;
             
             //TODO: adjust textOffset position here
             // let textOffsetX = 0.0;
-            let textOffsetX = -5; // orig
-            // let textOffsetX = -150; // mess up text
+            // let textOffsetX = -5; // jazzhands
+            let textOffsetX = 120;
 
+            // let textOffsetY = 0.0;
             // let textOffsetY = 0.4; // v0.3, v0.4
             // let textOffsetY = -0.1; // move text up on ball
             // let textOffsetY = -0.033; // prev, move text up on ball
-            let textOffsetY = 0.2;
+            // let textOffsetY = 0.2; // jazzhands
+            let textOffsetY = 0.7;
 
             // if (textW > 100) {
             //     // console.log(textData); //TODO: make fillEllipse wider or font (textH) smaller when multiple characters

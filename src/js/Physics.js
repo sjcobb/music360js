@@ -284,14 +284,25 @@ export default class Physics {
         options.mesh = new THREE.Sprite(instrMaterial);
         options.mesh.scale.set(2, 2, 2);
     
-        const noteLetterMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
-        const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, options.color, 512);
+        // const noteLetterMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
+        // const noteLetterMaterial = new THREE.MeshLambertMaterial({color: 0x0000ff, transparent: true, opacity: 0.5});
+        // const noteLetterMaterial = new THREE.MeshLambertMaterial({color: 0xffffff, transparent: true});
+        const noteLetterMaterial = new THREE.MeshLambertMaterial({color: 0xffffff, transparent: false, opacity: 0.5});
+
+        // const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, options.color, 512); // instrMapped.color (#191970 midnight blue)
+        const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, '#ffffff', 512);
         // const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, options.color, 256); // makes text huge
         noteLetterMaterial.map = noteLetterTexture;
-        const sphereGeo = new THREE.SphereGeometry(0.5, 8, 8);
 
-        // const noteLetterMesh = new THREE.Mesh(testGeo, noteLetterMaterial);
-        const noteLetterMesh = new THREE.Mesh(sphereGeo, noteLetterMaterial);
+        const sphereGeo = new THREE.SphereGeometry(0.5, 8, 8);
+        // const sphereGeo = new THREE.SphereGeometry(0.5, 8, 1); // diamond
+        const boxGeo = new THREE.BoxGeometry(1, 1, 0.05);
+
+        // https://stackoverflow.com/questions/15994944/transparent-objects-in-threejs/15995475#15995475
+        // noteLetterMaterial.depthWrite = false;
+        // noteLetterMaterial.transparent = true;
+        const noteLetterMesh = new THREE.Mesh(boxGeo, noteLetterMaterial);
+        // const noteLetterMesh = new THREE.Mesh(sphereGeo, noteLetterMaterial); // prev
         noteLetterMesh.scale.set(1.35, 1.35, 1.35);
 
         const groupedMeshes = new THREE.Object3D();
