@@ -269,46 +269,11 @@ export default class Physics {
         let obj3D;
 
         obj3D = new THREE.Object3D();
-        // obj3D.rotation.set(0, -1.5, 0);
-
-        // const sphereGeo = new THREE.SphereGeometry(0.75, 8, 8);
         
-        // if (Store.view.showInstrSprite === true) {
-        //     instrMaterial = options.material.clone();
-        //     options.mesh = new THREE.Sprite(instrMaterial);
-        //     options.mesh.scale.set(2, 2, 2);
-        // } else {
-        //     // // this.addVisual(body, (sphere) ? 'sphere' : 'box', true, false, options); // PREV
+        const sphereGeoAlt = new THREE.SphereGeometry(0.5, 18, 18);
 
-        //     // const fillStyleMapping = options.color;
-        //     // let stripedVariation = false;
-        //     // const poolTexture = helpers.ballTexture(options.ballDesc, stripedVariation, fillStyleMapping, 512);
-        //     // const poolBallMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
-        //     // poolBallMaterial.map = poolTexture;
-        //     // const sphereGeo = new THREE.SphereGeometry(0.5, 8, 8); // first value = radius
-        //     // sphereGeo.name = 'sphereGeo';
-        //     // options.mesh = new THREE.Mesh(sphereGeo, poolBallMaterial);
-        //     // options.mesh.scale.set(1.35, 1.35, 1.35);
-            
-        //     // // const o = {x: 0, y: 0, z: 0};
-        //     // // const q = {x: 0, y: 0, z: 0, w: 1};
-        //     // // options.mesh.quaternion.set(q.x, q.y, q.z, q.w); // no effect
-
-        //     // // body.rotation.set(0, -1.5, 0); // err: Cannot read property 'set' of undefined
-        //     // // options.mesh.rotation.set(0, -1.5, 0); // no effect
-        //     // // options.mesh.rotation.set(-1.5, 0, 0);
-
-        //     // // obj3D.rotation.set(0, -1.5, 0); // balls disappears
-
-        //     options.mesh = this.shape2Mesh(body, true, true, options);
-
-        //     // console.log({body});
-        //     // console.log({options});
-        // }
-
-        // console.log({options});
-        
         instrMaterial = options.material.clone();
+        // options.mesh = new THREE.Sprite(sphereGeoAlt, instrMaterial);
         options.mesh = new THREE.Sprite(instrMaterial);
         options.mesh.scale.set(2, 2, 2);
     
@@ -317,69 +282,67 @@ export default class Physics {
         // const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, options.color, 256); // makes text huge
         noteLetterMaterial.map = noteLetterTexture;
         const sphereGeo = new THREE.SphereGeometry(0.5, 8, 8);
-        // sphereGeo.name = 'sphereGeo';
-        // sphereGeo.rotation.set(new THREE.Vector3(0, 0, Math.PI / 2)); // ERR: Cannot read property 'set' of undefined
+        // const sphereGeo = new THREE.Geometry(0.5, 8, 8);
 
+        // // options.mesh.updateMatrix();
+        // // sphereGeo.merge(options.mesh.geometry, options.mesh.matrix);
+
+        // // sphereGeoAlt.updateMatrix();
+        // sphereGeo.merge(sphereGeoAlt);
+
+        // // sphereGeo.updateMatrix();
+        // // const testGeo = new THREE.CylinderGeometry(1, 1, 50, 16);
+        // const testGeo = new THREE.Geometry(); 
+        // // testGeo.merge(sphereGeo.geometry, sphereGeo.matrix); // ERR: THREE.Geometry.merge(): geometry not an instance of THREE.Geometry
+        // testGeo.merge(sphereGeo, sphereGeo.matrix)
+
+        // // //
+        // https://stackoverflow.com/questions/30245990/how-to-merge-two-geometries-or-meshes-using-three-js-r71/30246157#30246157
+        // var ballGeo = new THREE.SphereGeometry(10,35,35);
+        // var material = new THREE.MeshPhongMaterial({color: 0xF7FE2E}); 
+        // var ball = new THREE.Mesh(ballGeo, material);
+
+        // var pendulumGeo = new THREE.CylinderGeometry(1, 1, 50, 16);
+        // ball.updateMatrix();
+        // pendulumGeo.merge(ball.geometry, ball.matrix);
+
+        // var pendulum = new THREE.Mesh(pendulumGeo, material);
+        // scene.add(pendulum);
+        // // //
+
+        // options.mesh.updateMatrix();
+        // const testGeo = new THREE.Geometry(); 
+        // // testGeo.merge(options.mesh.geometry, options.mesh.matrix)
+        // testGeo.merge(sphereGeo, sphereGeo.matrix)
+
+        // const noteLetterMesh = new THREE.Mesh(testGeo, noteLetterMaterial);
         const noteLetterMesh = new THREE.Mesh(sphereGeo, noteLetterMaterial);
-
-        // let testIndex = 0;
-        // var o = body.shapeOffsets[testIndex];
-        // var q = body.shapeOrientations[testIndex++];
-        // noteLetterMesh.position.set(o.x, o.y, o.z);
-        // noteLetterMesh.quaternion.set(q.x, q.y, q.z, q.w); // no effect
-
-        // noteLetterMesh.rotation.set(0, -1.5, 0); 
-        // // noteLetterMesh.rotation.set(5.0, -1.5, 0); // ?
-        // noteLetterMesh.rotation.set(0, 0, 0); // 
-        // // noteLetterMesh.rotation.set(new THREE.Vector3(0, 0, Math.PI / 2)); // no effect
-        // noteLetterMesh.rotation.set(new THREE.Vector3(Math.PI / 2, 0, 0)); // no effect
-        // noteLetterMesh.rotation.set(new THREE.Vector3(0, Math.PI / 2, 0)); // no effect
-        // noteLetterMesh.rotateX(Math.PI / 2); // no effect
-        // body.rotateX(Math.PI / 2); // ERR: body.rotateX is not a function
-
         noteLetterMesh.scale.set(1.35, 1.35, 1.35);
-        // noteLetterMesh.rotation.set(new THREE.Vector3(0, 0, Math.PI / 2)); // 1.57
-        // noteLetterMesh.rotation.set(new THREE.Vector3(5, 20, 20)); // no effect
-        // console.log(noteLetterMesh.rotation);
 
-        // https://stackoverflow.com/questions/39560851/handling-proper-rotation-of-cannon-body-based-on-quaternion/39569667#39569667
-        // const noteLetterAxis = new CANNON.Vec3(1, 0, 0);
-        // const noteLetterAngle = Math.PI / 3; // 1.046
-        const noteLetterAxis = new CANNON.Vec3(0, 1, 0);
-        // const noteLetterAngle = -1.4; // rotated little too far right
-        const noteLetterAngle = -1.6;
-        // const noteLetterAngle = -1.8; // rotated little too far left
-        body.quaternion.setFromAxisAngle(noteLetterAxis, noteLetterAngle);
-        // body.initQuaternion: n {x: 0, y: 0, z: 0, w: 1}
-        // console.log(body);
+        const pendulumGeo = new THREE.CylinderGeometry(1, 1, 5, 16);
+        // noteLetterMesh.updateMatrix();
+        pendulumGeo.merge(noteLetterMesh.geometry, noteLetterMesh.matrix);
 
-        // body2mesh: https://gist.github.com/duhaime/6a74b9603dc7700183d43a2485b02f0f
-        // http://schteppe.github.io/cannon.js/demos/bunny.html
-        // // https://stackoverflow.com/questions/35100011/glueing-together-two-bodies-in-cannon-js/35101095#35101095
-        // var body = new CANNON.Body({ mass: 1 });
-        // var shapeA = new CANNON.Box(new CANNON.Vec3(1,1,1));
-        // body.addShape(shapeA, new CANNON.Vec3(2,0,0), new CANNON.Quaternion());
-        // var shapeB = new CANNON.Box(new CANNON.Vec3(1,1,1));
-        // body.addShape(shapeB, new CANNON.Vec3(-2,0,0), new CANNON.Quaternion());
+        const combinedMaterial = new THREE.MeshPhongMaterial({color: 0xF7FE2E}); 
+        const combinedMesh = new THREE.Mesh(pendulumGeo, combinedMaterial);
 
-        // const bodyAlt = body;
-        // bodyAlt.threemesh = noteLetterMesh;
-        // bodyAlt.addShape(bodyAlt);
-
-        body.threemesh = noteLetterMesh;
+        body.threemesh = combinedMesh;
+        // body.threemesh = pendulumGeo;
+        // body.threemesh = noteLetterMesh;
         // body.threemesh = options.mesh;
 
-        // ERR: three.min.js:529 THREE.Object3D.add: object not an instance of THREE.Object3D.
-
-        obj3D.add(noteLetterMesh);
+        obj3D.add(combinedMesh);
+        // obj3D.add(pendulumGeo);
+        // obj3D.add(noteLetterMesh);
         // obj3D.add(options.mesh);
-
-        // obj3D.rotation.set(new THREE.Vector3(0, 0, Math.PI / 2)); // hidden
-        // obj3D.rotation.set(0, -1.5, 0); // hidden
-        // obj3D.rotation.set(0, 0, -0.5); // messes up drop point
 
         Store.scene.add(obj3D);
         // console.log(obj3D);
+
+        // https://stackoverflow.com/questions/39560851/handling-proper-rotation-of-cannon-body-based-on-quaternion/39569667#39569667
+        const noteLetterAxis = new CANNON.Vec3(0, 1, 0);
+        const noteLetterAngle = -1.6;
+        body.quaternion.setFromAxisAngle(noteLetterAxis, noteLetterAngle);
         Store.world.add(body);
 
         ////////////////////////
