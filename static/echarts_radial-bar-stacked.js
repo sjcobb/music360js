@@ -9,11 +9,19 @@
 // import Recording from '../assets/recording/1_hmesh.js'; 
 // import Recording from '../assets/recording/1_aintno.js'; 
 // import Recording from '../assets/recording/1_twinkle.js'; 
-import Recording from '../assets/recording/1_Bb_circle.js'; 
+// import Recording from '../assets/recording/1_Bb_circle.js'; 
+import Recording from '../assets/recording/1_all_notes.js'; 
+// import Recording from '../assets/recording/1_autumnleaves_auto.js';
+// import Recording from '../assets/recording/1_autumnleaves_right-hand.js';
+// import Recording from '../assets/recording/1_autumnleaves_right-left-merged.js';
+// import Recording from '../assets/recording/1_autumnleaves_right-left-merged-03.js';
 
-// console.log({Recording});
-// console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
+console.log({Recording});
+console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
 const toneMidiNotes = Recording.tracks[0].notes;
+// const toneMidiNotes = Recording.tracks[1].notes;
+// const toneMidiNotes = Recording.tracks[3].notes;
+console.log({toneMidiNotes});
 
 // TODO:
 // - use tonal inside pie chart label formatter to directly map Tone.js MIDI output to ECharts compatible dataset 
@@ -194,10 +202,10 @@ const recordingPart = new Tone.Part(function(time, datum){
 // recordingPart.start(0);
 recordingPart.start(0);
 
-setTimeout(() => {
-    Tone.Transport.start();
-}, 3000);
-// }, 11000);
+// setTimeout(() => {
+//     Tone.Transport.start();
+// }, 3000);
+// // }, 11000);
 
 // Tone.Transport.stop();
 
@@ -1017,4 +1025,9 @@ const elemStartSong = document.getElementById('start-song');
 // elemStartSong.style.color = '#ffffff';
 elemStartSong.onclick = () => {
     Tone.Transport.start();
+}
+
+const elemStopSong = document.getElementById('stop-song');
+elemStopSong.onclick = () => {
+    Tone.Transport.stop();
 }

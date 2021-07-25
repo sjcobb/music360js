@@ -11,10 +11,14 @@
 // import Recording from '../assets/recording/1_twinkle.js'; 
 // import Recording from '../assets/recording/1_Bb_circle.js'; 
 import Recording from '../assets/recording/1_all_notes.js'; 
+// import Recording from '../assets/recording/1_autumnleaves_auto.js';
 
 // console.log({Recording});
 // console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
+
 const toneMidiNotes = Recording.tracks[0].notes;
+// const toneMidiNotes = Recording.tracks[6].notes;
+console.log({toneMidiNotes});
 
 // TODO: look into visualMap type 'piecewise' 
 // - https://echarts.apache.org/examples/en/editor.html?c=area-pieces

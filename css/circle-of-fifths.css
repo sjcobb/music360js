@@ -42,6 +42,7 @@ section.dashboard {
 #settings-container {
     position: absolute;
     left: 0;
+    z-index: 10;
 }
 
 button {
