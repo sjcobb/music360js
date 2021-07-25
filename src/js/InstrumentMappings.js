@@ -115,7 +115,8 @@ export function generateInstrMetadata(note) {
 
     if (instrMapped.material == null) {
         instrMapped.material = new THREE.SpriteMaterial({
-            map: Store.loader.load('assets/bubble/bubble_pop_one/1.png'),
+            // map: Store.loader.load('assets/bubble/bubble_pop_one/1.png'),
+            map: Store.loader.load('assets/textures/leaves/leaf_800.png'),
             transparent: true,
         });
     }

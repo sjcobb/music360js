@@ -209,7 +209,7 @@ export default {
         
         showCameraTop: false, // TODO: add configurable cameraTop
         showDashboard: false,
-        showInstrSprite: false, // bubble
+        showInstrSprite: true, // bubble
         showLogoSprite: false,
         showStats: true,
         showStaff: {
