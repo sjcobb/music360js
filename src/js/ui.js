@@ -98,7 +98,7 @@ if (Store.uiHidden === true) {
 if (Store.view.songAutoStart === true) {
     setTimeout(function() {
         Tone.Transport.start();
-    }, Store.autoStartTime);
+    }, Store.view.songAutoStartTime);
     // }, 9000);
 } else {
     controlsId.classList.toggle('show');
@@ -121,8 +121,8 @@ document.addEventListener("visibilitychange", function() {
 //     Store.camera.position.set(0, 12, 30);
 //     Store.camera.lookAt(new THREE.Vector3(0, 1, 10));
 //     // Store.camera.lookAt(new THREE.Vector3(-1, 1, 10));
-// // }, Store.autoStartTime + 32000); //Store.autoStartTime = 9000
-// // }, Store.autoStartTime + 46000); 
+// // }, Store.view.songAutoStartTime + 32000); //Store.view.songAutoStartTime = 9000
+// // }, Store.view.songAutoStartTime + 46000); 
 // // }, 33000);
 // }, 1000);
 

@@ -187,7 +187,8 @@ export default class Helpers {
             
             //TODO: adjust textOffset position here
             // let textOffsetX = 0.0;
-            let textOffsetX = -5;
+            let textOffsetX = -5; // orig
+            // let textOffsetX = -150; // mess up text
 
             // let textOffsetY = 0.4; // v0.3, v0.4
             // let textOffsetY = -0.1; // move text up on ball

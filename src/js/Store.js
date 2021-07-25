@@ -23,8 +23,6 @@ export default {
         enabled: false,
     },
     autoScroll: true,
-    // autoStartTime: 4500,
-    autoStartTime: 12000,
     // bpm: 120,
     // bpm: 140,
     bpm: 160,
@@ -206,6 +204,8 @@ export default {
         // posBehindZ: 0, // prev
         
         songAutoStart: true,
+        songAutoStartTime: 1000,
+        // songAutoStartTime: 12000,
         
         showCameraTop: false, // TODO: add configurable cameraTop
         showDashboard: false,
