@@ -238,6 +238,36 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             variation: 'tom-high',
             originalPosition: { x: 0, y: 0, z: 0 }
         },
+        sphereChordD1: {
+            ballDesc: 'D',
+            color: '#680896',
+            keyInput: '?',
+            note: 'D',
+            chord: ['D1', 'F1', 'A1'],
+            octave: 1,
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: 18 }
+        },
+        sphereChordE1: {
+            ballDesc: 'E',
+            color: '#FF001F',
+            keyInput: '?',
+            note: 'E',
+            chord: ['E1', 'G1', 'B1'],
+            octave: 1,
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: 17 }
+        },
+        sphereChordF2: {
+            ballDesc: 'F',
+            color: '#006CFA',
+            keyInput: '?',
+            note: 'F',
+            octave: 1,
+            chord: ['F1', 'A1', 'C2'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: 16 }
+        },
         sphereChordG1: {
             ballDesc: 'G',
             color: '#4B0AA1', //V - dkblue
@@ -609,6 +639,36 @@ export function getInstrumentMappingTemplate(movement = 'physics') {
             chord: ['A6', 'C7', 'E7'],
             type: 'chord',
             originalPosition: { x: 0, y: 0, z: -21 }
+        },
+        sphereChordB6: {
+            ballDesc: 'B',
+            color: '#FF872B',
+            keyInput: '?',
+            note: 'B',
+            octave: 6,
+            chord: ['B6', 'D7', 'F7'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -22 }
+        },
+        sphereChordC7: {
+            ballDesc: 'C',
+            color: '#0018F9', //I - blue
+            keyInput: '?',
+            note: 'C',
+            octave: 7,
+            chord: ['C7', 'E7', 'G7'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -23 }
+        },
+        sphereChordD7: {
+            ballDesc: 'D',
+            color: '#680896',
+            keyInput: '?',
+            note: 'D',
+            octave: 7,
+            chord: ['D7', 'F7', 'A7'],
+            type: 'chord',
+            originalPosition: { x: 0, y: 0, z: -24 }
         },
         // Db2, Eb2, Gb2, Ab2, Bb2, Db3, Eb3, Gb3, Ab3, Bb3
     };
