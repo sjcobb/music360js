@@ -117,6 +117,7 @@ export function generateInstrMetadata(note) {
         instrMapped.material = new THREE.SpriteMaterial({
             // map: Store.loader.load('assets/bubble/bubble_pop_one/1.png'),
             // http://clipart-library.com/free/fall-leaves-png-transparent.html
+            // http://clipart-library.com/clipart/kc85GM5Mi.htm
             map: Store.loader.load('assets/textures/leaves/leaf_800.png'),
             transparent: true,
         });

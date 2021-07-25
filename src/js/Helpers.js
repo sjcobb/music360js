@@ -120,45 +120,23 @@ export default class Helpers {
         var w = canvas.width;
         var h = canvas.height;
 
-        // base color is white
-        ctx.save();
-        ctx.fillStyle = "#FFFFFF"; //TODO: make white circle bigger
-        ctx.fillRect(0, 0, w, h);
-        ctx.restore();
-
-        // do the strip/full
-        ctx.save();
-        ctx.translate(w / 2, h / 2)
-        var rectH = striped ? h / 2 : h;
-        ctx.fillStyle = fillStyle;
-        ctx.fillRect(-w / 2, -rectH / 2, w, rectH);
-        ctx.restore();
+        // // white base color
+        // ctx.save();
+        // ctx.fillStyle = "#FFFFFF"; //TODO: make white circle bigger
+        // ctx.fillRect(0, 0, w, h);
+        // ctx.restore();
 
         if (textData) {
             // console.log({textData});
-
-            // do white circle around textData
-            ctx.save();
-            ctx.translate(w / 4, h / 2);
-            ctx.fillStyle = "#FFFFFF";
-            // var radiusW = 1.0 * w / 4; //128
-            // var radiusH = 1.5 * h / 4; //192
-            var radiusW = 1.1 * w / 4;
-            var radiusH = 1.7 * h / 4;
-            radiusW += 10;
-            radiusH += 30;
-            // console.log('ball white circle: ', radiusW, ' x ', radiusH);
-
-            // // xtx.fillEllipse(-radiusW / 2, -radiusH / 2, radiusW, radiusH);
-            // this.fillEllipse(-radiusW / 2, -radiusH / 2, radiusW, radiusH, ctx); //PREV
-            ctx.restore();
 
             // draw text data
             ctx.save();
             ctx.translate(w / 4, h / 2);
             
             // let textH = w / 4; // 128
-            let textH = 160; // prev
+            // let textH = 160; // prev
+            let textH = 300; // prev
+
             if (textData.length > 2) {
                 textH = textH / 2.5; // ex: 808
             } else if (textData.length === 2) {
@@ -171,31 +149,25 @@ export default class Helpers {
             }
             // textH = textH / textData.length; // kind of works, but "Cr" too small
 
-            // https://www.w3schools.com/cssref/css_websafe_fonts.asp
-            // https://www.w3.org/TR/css-fonts-3/#generic-font-families
-            // // ctx.font = "bold " + textH + "px Helvetica"; //128px
-            // // ctx.font = "bold " + (textH - 2) + "px Tahoma";
-            
-            // ctx.font = "bolder " + textH + "px Arial"; // ORIG
-            // ctx.font = "bold " + (textH - 6) + "px Geneva"; 
-            // ctx.font = "normal " + (textH) + "px Geneva"; 
-            // ctx.font = "bold " + (textH) + "px Geneva"; 
-            ctx.font = "normal " + (textH) + "px Verdana"; 
-            ctx.fillStyle = "#000000"; //PREV (text color)
-            // ctx.fillStyle = "#ffffff"; // text color
+            // ctx.font = "bold " + (textH) + "px Geneva";
+            // ctx.font = "normal " + (textH) + "px Verdana";
+            ctx.font = "bolder " + (textH) + "px Verdana"; 
+            // ctx.fillStyle = "#000000"; // black text color
+            ctx.fillStyle = "#ffffff"; // white text color
             var textW = ctx.measureText(textData).width;
             
             //TODO: adjust textOffset position here
             // let textOffsetX = 0.0;
             // let textOffsetX = -5; // jazzhands
-            let textOffsetX = 120;
+            let textOffsetX = 70;
+            // let textOffsetX = 120; // too far right
 
             // let textOffsetY = 0.0;
             // let textOffsetY = 0.4; // v0.3, v0.4
             // let textOffsetY = -0.1; // move text up on ball
             // let textOffsetY = -0.033; // prev, move text up on ball
             // let textOffsetY = 0.2; // jazzhands
-            let textOffsetY = 0.7;
+            let textOffsetY = 0.5;
 
             // if (textW > 100) {
             //     // console.log(textData); //TODO: make fillEllipse wider or font (textH) smaller when multiple characters

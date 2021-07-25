@@ -170,7 +170,8 @@ export default class Physics {
 
         // https://schteppe.github.io/cannon.js/docs/classes/Body.html
         // const body = new CANNON.Body({ mass: 5, material: material }); // v0.3, v0.4
-        const body = new CANNON.Body({ mass: 550, material: material }); // beethoven
+        // const body = new CANNON.Body({ mass: 550, material: material }); // beethoven, rain rain
+        const body = new CANNON.Body({ mass: 0.001, material: material }); // no effect?
         
         this.shapes = {};
         // this.shapes.sphere = new CANNON.Sphere(0.5);
@@ -281,19 +282,34 @@ export default class Physics {
         
         instrMaterial = options.material.clone();
         // options.mesh = new THREE.Sprite(sphereGeoAlt, instrMaterial);
-        options.mesh = new THREE.Sprite(instrMaterial);
-        options.mesh.scale.set(2, 2, 2);
-    
+
+        const imageTextureSprite = new THREE.Sprite(instrMaterial);
+        options.mesh = imageTextureSprite;
+        
+        // options.mesh.scale.set(2, 2, 2);
+        options.mesh.scale.set(2.2, 1.7, 2);
+        
+        // https://threejsfundamentals.org/threejs/lessons/threejs-materials.html
         // const noteLetterMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
         // const noteLetterMaterial = new THREE.MeshLambertMaterial({color: 0x0000ff, transparent: true, opacity: 0.5});
         // const noteLetterMaterial = new THREE.MeshLambertMaterial({color: 0xffffff, transparent: true});
-        const noteLetterMaterial = new THREE.MeshLambertMaterial({color: 0xffffff, transparent: false, opacity: 0.5});
+        // const noteLetterMaterial = new THREE.MeshLambertMaterial({color: 0xffffff, transparent: false, opacity: 0.5});
+        // const noteLetterMaterial = new THREE.MeshLambertMaterial({side: THREE.FrontSide, transparent: true, opacity: 0.5});
+        // const noteLetterMaterial = new THREE.MeshLambertMaterial({side: THREE.BackSide, transparent: true, opacity: 0.9});
+        const noteLetterMaterial = new THREE.MeshLambertMaterial({color: 0xffffff, side: THREE.FrontSide, transparent: true, opacity: 0.9});
+
 
         // const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, options.color, 512); // instrMapped.color (#191970 midnight blue)
-        const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, '#ffffff', 512);
+        const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, '#efefef', 512);
         // const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, options.color, 256); // makes text huge
         noteLetterMaterial.map = noteLetterTexture;
 
+        const noteLetterSpriteMaterial = new THREE.SpriteMaterial({
+            map: noteLetterTexture,
+            transparent: true,
+        });
+        const noteLetterSprite = new THREE.Sprite(noteLetterSpriteMaterial);
+        
         const sphereGeo = new THREE.SphereGeometry(0.5, 8, 8);
         // const sphereGeo = new THREE.SphereGeometry(0.5, 8, 1); // diamond
         const boxGeo = new THREE.BoxGeometry(1, 1, 0.05);
@@ -306,7 +322,8 @@ export default class Physics {
         noteLetterMesh.scale.set(1.35, 1.35, 1.35);
 
         const groupedMeshes = new THREE.Object3D();
-        groupedMeshes.add(noteLetterMesh);
+        // groupedMeshes.add(noteLetterMesh);
+        groupedMeshes.add(noteLetterSprite);
         groupedMeshes.add(options.mesh);
 
         body.threemesh = groupedMeshes;
