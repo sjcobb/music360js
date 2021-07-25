@@ -260,6 +260,15 @@ export default class Physics {
         ///////////////////////////////
         // BODY VISUAL CUSTOMIZATION //
         ///////////////////////////////
+        // Grouping meshes research:
+        // https://jsfiddle.net/0dso41pg/
+        // http://stemkoski.github.io/Three.js/Labeled-Geometry.html
+        // http://stemkoski.github.io/Three.js/Sprite-Text-Labels.html
+        // https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Sprite-Text-Labels.html
+        // https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Labeled-Geometry.html
+        // https://stackoverflow.com/questions/30245990/how-to-merge-two-geometries-or-meshes-using-three-js-r71/30246157#30246157
+        // CORRECT: https://stackoverflow.com/questions/30274904/merging-textured-meshes-in-three-js/30276613#30276613
+
         body.userData = {
             opts: options
         };
@@ -270,8 +279,6 @@ export default class Physics {
 
         obj3D = new THREE.Object3D();
         
-        const sphereGeoAlt = new THREE.SphereGeometry(0.5, 18, 18);
-
         instrMaterial = options.material.clone();
         // options.mesh = new THREE.Sprite(sphereGeoAlt, instrMaterial);
         options.mesh = new THREE.Sprite(instrMaterial);
@@ -282,77 +289,20 @@ export default class Physics {
         // const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, options.color, 256); // makes text huge
         noteLetterMaterial.map = noteLetterTexture;
         const sphereGeo = new THREE.SphereGeometry(0.5, 8, 8);
-        // const sphereGeo = new THREE.Geometry(0.5, 8, 8);
-
-        // // options.mesh.updateMatrix();
-        // // sphereGeo.merge(options.mesh.geometry, options.mesh.matrix);
-
-        // // sphereGeoAlt.updateMatrix();
-        // sphereGeo.merge(sphereGeoAlt);
-
-        // // sphereGeo.updateMatrix();
-        // // const testGeo = new THREE.CylinderGeometry(1, 1, 50, 16);
-        // const testGeo = new THREE.Geometry(); 
-        // // testGeo.merge(sphereGeo.geometry, sphereGeo.matrix); // ERR: THREE.Geometry.merge(): geometry not an instance of THREE.Geometry
-        // testGeo.merge(sphereGeo, sphereGeo.matrix)
-
-        // // //
-        // https://stackoverflow.com/questions/30245990/how-to-merge-two-geometries-or-meshes-using-three-js-r71/30246157#30246157
-        // var ballGeo = new THREE.SphereGeometry(10,35,35);
-        // var material = new THREE.MeshPhongMaterial({color: 0xF7FE2E}); 
-        // var ball = new THREE.Mesh(ballGeo, material);
-
-        // var pendulumGeo = new THREE.CylinderGeometry(1, 1, 50, 16);
-        // ball.updateMatrix();
-        // pendulumGeo.merge(ball.geometry, ball.matrix);
-
-        // var pendulum = new THREE.Mesh(pendulumGeo, material);
-        // scene.add(pendulum);
-        // // //
-
-        // options.mesh.updateMatrix();
-        // const testGeo = new THREE.Geometry(); 
-        // // testGeo.merge(options.mesh.geometry, options.mesh.matrix)
-        // testGeo.merge(sphereGeo, sphereGeo.matrix)
 
         // const noteLetterMesh = new THREE.Mesh(testGeo, noteLetterMaterial);
         const noteLetterMesh = new THREE.Mesh(sphereGeo, noteLetterMaterial);
         noteLetterMesh.scale.set(1.35, 1.35, 1.35);
-
-        const pendulumGeo = new THREE.CylinderGeometry(1, 1, 12, 2);
-        // noteLetterMesh.updateMatrix();
-        pendulumGeo.merge(noteLetterMesh.geometry, noteLetterMesh.matrix);
-
-        // const combinedMaterial = new THREE.MeshPhongMaterial({color: 0xF7FE2E}); // too shiny
-        const combinedMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff }); // white
-        // const combinedMaterial = noteLetterMaterial; // double notes
-        // const combinedMaterial = instrMaterial; // ERR: Cannot read property 'x' of undefined
-
-        // https://jsfiddle.net/0dso41pg/
-        // http://stemkoski.github.io/Three.js/Labeled-Geometry.html
-        // http://stemkoski.github.io/Three.js/Sprite-Text-Labels.html
-        // https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Sprite-Text-Labels.html
-        // https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Labeled-Geometry.html
-        // https://stackoverflow.com/questions/30274904/merging-textured-meshes-in-three-js/30276613#30276613
-
-        const leafTexture = new THREE.TextureLoader().load('assets/textures/leaves/leaf_800.png');
-        combinedMaterial.map = leafTexture;
-
-        const combinedMesh = new THREE.Mesh(pendulumGeo, combinedMaterial);
 
         const groupedMeshes = new THREE.Object3D();
         groupedMeshes.add(noteLetterMesh);
         groupedMeshes.add(options.mesh);
 
         body.threemesh = groupedMeshes;
-        // body.threemesh = combinedMesh;
-        // body.threemesh = pendulumGeo;
         // body.threemesh = noteLetterMesh;
         // body.threemesh = options.mesh;
 
         obj3D.add(groupedMeshes);
-        // obj3D.add(combinedMesh);
-        // obj3D.add(pendulumGeo);
         // obj3D.add(noteLetterMesh);
         // obj3D.add(options.mesh);
 
