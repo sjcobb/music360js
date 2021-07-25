@@ -343,8 +343,12 @@ export default class Physics {
         // console.log(noteLetterMesh.rotation);
 
         // https://stackoverflow.com/questions/39560851/handling-proper-rotation-of-cannon-body-based-on-quaternion/39569667#39569667
-        var noteLetterAxis = new CANNON.Vec3(1, 0, 0);
-        var noteLetterAngle = Math.PI / 3;
+        // const noteLetterAxis = new CANNON.Vec3(1, 0, 0);
+        // const noteLetterAngle = Math.PI / 3; // 1.046
+        const noteLetterAxis = new CANNON.Vec3(0, 1, 0);
+        // const noteLetterAngle = -1.4; // rotated little too far right
+        const noteLetterAngle = -1.6;
+        // const noteLetterAngle = -1.8; // rotated little too far left
         body.quaternion.setFromAxisAngle(noteLetterAxis, noteLetterAngle);
         // body.initQuaternion: n {x: 0, y: 0, z: 0, w: 1}
         console.log(body);
