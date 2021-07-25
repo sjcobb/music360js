@@ -323,15 +323,35 @@ export default class Physics {
         // noteLetterMesh.updateMatrix();
         pendulumGeo.merge(noteLetterMesh.geometry, noteLetterMesh.matrix);
 
-        const combinedMaterial = new THREE.MeshPhongMaterial({color: 0xF7FE2E}); 
+        // const combinedMaterial = new THREE.MeshPhongMaterial({color: 0xF7FE2E}); // too shiny
+        const combinedMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff }); // white
+        // const combinedMaterial = noteLetterMaterial; // double notes
+        // const combinedMaterial = instrMaterial; // ERR: Cannot read property 'x' of undefined
+
+        // https://jsfiddle.net/0dso41pg/
+        // http://stemkoski.github.io/Three.js/Labeled-Geometry.html
+        // http://stemkoski.github.io/Three.js/Sprite-Text-Labels.html
+        // https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Sprite-Text-Labels.html
+        // https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Labeled-Geometry.html
+        // https://stackoverflow.com/questions/30274904/merging-textured-meshes-in-three-js/30276613#30276613
+
+        const leafTexture = new THREE.TextureLoader().load('assets/textures/leaves/leaf_800.png');
+        combinedMaterial.map = leafTexture;
+
         const combinedMesh = new THREE.Mesh(pendulumGeo, combinedMaterial);
 
-        body.threemesh = combinedMesh;
+        const groupedMeshes = new THREE.Object3D();
+        groupedMeshes.add(noteLetterMesh);
+        groupedMeshes.add(options.mesh);
+
+        body.threemesh = groupedMeshes;
+        // body.threemesh = combinedMesh;
         // body.threemesh = pendulumGeo;
         // body.threemesh = noteLetterMesh;
         // body.threemesh = options.mesh;
 
-        obj3D.add(combinedMesh);
+        obj3D.add(groupedMeshes);
+        // obj3D.add(combinedMesh);
         // obj3D.add(pendulumGeo);
         // obj3D.add(noteLetterMesh);
         // obj3D.add(options.mesh);
