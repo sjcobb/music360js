@@ -351,7 +351,20 @@ export default class Physics {
         // const noteLetterAngle = -1.8; // rotated little too far left
         body.quaternion.setFromAxisAngle(noteLetterAxis, noteLetterAngle);
         // body.initQuaternion: n {x: 0, y: 0, z: 0, w: 1}
-        console.log(body);
+        // console.log(body);
+
+        // body2mesh: https://gist.github.com/duhaime/6a74b9603dc7700183d43a2485b02f0f
+        // http://schteppe.github.io/cannon.js/demos/bunny.html
+        // // https://stackoverflow.com/questions/35100011/glueing-together-two-bodies-in-cannon-js/35101095#35101095
+        // var body = new CANNON.Body({ mass: 1 });
+        // var shapeA = new CANNON.Box(new CANNON.Vec3(1,1,1));
+        // body.addShape(shapeA, new CANNON.Vec3(2,0,0), new CANNON.Quaternion());
+        // var shapeB = new CANNON.Box(new CANNON.Vec3(1,1,1));
+        // body.addShape(shapeB, new CANNON.Vec3(-2,0,0), new CANNON.Quaternion());
+
+        // const bodyAlt = body;
+        // bodyAlt.threemesh = noteLetterMesh;
+        // bodyAlt.addShape(bodyAlt);
 
         body.threemesh = noteLetterMesh;
         // body.threemesh = options.mesh;
