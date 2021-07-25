@@ -319,7 +319,7 @@ export default class Physics {
         const noteLetterMesh = new THREE.Mesh(sphereGeo, noteLetterMaterial);
         noteLetterMesh.scale.set(1.35, 1.35, 1.35);
 
-        const pendulumGeo = new THREE.CylinderGeometry(1, 1, 5, 16);
+        const pendulumGeo = new THREE.CylinderGeometry(1, 1, 12, 2);
         // noteLetterMesh.updateMatrix();
         pendulumGeo.merge(noteLetterMesh.geometry, noteLetterMesh.matrix);
 
