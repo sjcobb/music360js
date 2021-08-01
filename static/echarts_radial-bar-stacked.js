@@ -10,11 +10,12 @@
 // import Recording from '../assets/recording/1_aintno.js'; 
 // import Recording from '../assets/recording/1_twinkle.js'; 
 // import Recording from '../assets/recording/1_Bb_circle.js'; 
-import Recording from '../assets/recording/1_all_notes.js'; 
+// import Recording from '../assets/recording/1_all_notes.js'; 
 // import Recording from '../assets/recording/1_autumnleaves_auto.js';
 // import Recording from '../assets/recording/1_autumnleaves_right-hand.js';
 // import Recording from '../assets/recording/1_autumnleaves_right-left-merged.js';
 // import Recording from '../assets/recording/1_autumnleaves_right-left-merged-03.js';
+import Recording from '../assets/recording/1_autumnleaves_record.js'; 
 
 console.log({Recording});
 console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
