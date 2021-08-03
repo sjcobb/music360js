@@ -180,8 +180,7 @@ export default class Helpers {
 
             const textPosX = -textW / 2 + textOffsetX;
             const textPosY = textOffsetY * textH / 2;
-
-            console.log('textPosX: ', textPosX, ', ', 'textPosY: ', textPosY);
+            // console.log('textPosX: ', textPosX, ', ', 'textPosY: ', textPosY);
             // console.log({textPosX});
             // console.log({textPosY});
 
