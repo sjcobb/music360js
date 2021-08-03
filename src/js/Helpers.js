@@ -143,7 +143,8 @@ export default class Helpers {
                 // TODO: how to make just # sign smaller than note letter
                 // console.log({textData});
                 // textH = textH / 1.2; // prev, too big
-                textH = textH / 1.5; // ex: G#
+                textH = textH / 1.2;
+                // textH = textH / 1.5; // ex: G#
             } else {
                 // textH = textH / 1.2;
             }
@@ -179,6 +180,8 @@ export default class Helpers {
 
             const textPosX = -textW / 2 + textOffsetX;
             const textPosY = textOffsetY * textH / 2;
+
+            console.log('textPosX: ', textPosX, ', ', 'textPosY: ', textPosY);
             // console.log({textPosX});
             // console.log({textPosY});
 

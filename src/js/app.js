@@ -71,9 +71,11 @@ Store.camera.lookAt(new THREE.Vector3(0, -2.5, 0)); // v0.5
 if (Store.view.cameraPositionBehind === true) {
     Store.camera.position.set(Store.view.posBehindX, Store.view.posBehindY, Store.view.posBehindZ);
     // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ)); // beethoven
-    Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 6, Store.view.posBehindZ)); // beethoven
-    // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ - 15)); // slightly to left
-    // // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX - 200, 12, Store.view.posBehindZ)); // rear view
+    // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 6, Store.view.posBehindZ)); // beethoven
+    // // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ - 15)); // slightly to left
+    // // // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX - 200, 12, Store.view.posBehindZ)); // rear view
+    // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 6, 0));
+    Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, -20, 0));
 }
 
 if (Store.cameraLookUp === true) {

@@ -171,7 +171,8 @@ export default class Physics {
         // https://schteppe.github.io/cannon.js/docs/classes/Body.html
         // const body = new CANNON.Body({ mass: 5, material: material }); // v0.3, v0.4
         // const body = new CANNON.Body({ mass: 550, material: material }); // beethoven, rain rain
-        const body = new CANNON.Body({ mass: 0.001, material: material }); // no effect?
+        const body = new CANNON.Body({ mass: 100, material: material }); // no effect?
+        // const body = new CANNON.Body({ mass: 0.001, material: material }); // no effect?
         
         this.shapes = {};
         // this.shapes.sphere = new CANNON.Sphere(0.5);
@@ -287,7 +288,8 @@ export default class Physics {
         options.mesh = imageTextureSprite;
         
         // options.mesh.scale.set(2, 2, 2);
-        options.mesh.scale.set(2.2, 1.7, 2);
+        // options.mesh.scale.set(2.2, 1.7, 2);
+        options.mesh.scale.set(5.5, 4.0, 3.5);
         
         // https://threejsfundamentals.org/threejs/lessons/threejs-materials.html
         // const noteLetterMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
@@ -298,8 +300,8 @@ export default class Physics {
         // const noteLetterMaterial = new THREE.MeshLambertMaterial({side: THREE.BackSide, transparent: true, opacity: 0.9});
         const noteLetterMaterial = new THREE.MeshLambertMaterial({color: 0xffffff, side: THREE.FrontSide, transparent: true, opacity: 0.9});
 
-
         // const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, options.color, 512); // instrMapped.color (#191970 midnight blue)
+        // const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, '#efefef', 1800);
         const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, '#efefef', 512);
         // const noteLetterTexture = helpers.ballTexture(options.ballDesc, false, options.color, 256); // makes text huge
         noteLetterMaterial.map = noteLetterTexture;
@@ -309,17 +311,20 @@ export default class Physics {
             transparent: true,
         });
         const noteLetterSprite = new THREE.Sprite(noteLetterSpriteMaterial);
+        // noteLetterSprite.scale.set(2.35, 2.35, 2.35);
+        noteLetterSprite.scale.set(2.65, 2.65, 2.65);
         
-        const sphereGeo = new THREE.SphereGeometry(0.5, 8, 8);
-        // const sphereGeo = new THREE.SphereGeometry(0.5, 8, 1); // diamond
-        const boxGeo = new THREE.BoxGeometry(1, 1, 0.05);
-
-        // https://stackoverflow.com/questions/15994944/transparent-objects-in-threejs/15995475#15995475
-        // noteLetterMaterial.depthWrite = false;
-        // noteLetterMaterial.transparent = true;
-        const noteLetterMesh = new THREE.Mesh(boxGeo, noteLetterMaterial);
-        // const noteLetterMesh = new THREE.Mesh(sphereGeo, noteLetterMaterial); // prev
-        noteLetterMesh.scale.set(1.35, 1.35, 1.35);
+        // const sphereGeo = new THREE.SphereGeometry(0.5, 8, 8);
+        // // const sphereGeo = new THREE.SphereGeometry(0.5, 8, 1); // diamond
+        // const boxGeo = new THREE.BoxGeometry(1, 1, 0.05);
+        // // https://stackoverflow.com/questions/15994944/transparent-objects-in-threejs/15995475#15995475
+        // // noteLetterMaterial.depthWrite = false;
+        // // noteLetterMaterial.transparent = true;
+        // const noteLetterMesh = new THREE.Mesh(boxGeo, noteLetterMaterial);
+        // // const noteLetterMesh = new THREE.Mesh(sphereGeo, noteLetterMaterial); // prev
+        // noteLetterMesh.scale.set(1.35, 1.35, 1.35);
+        // // noteLetterMesh.position.x -= 1000; // no effect
+        // // console.log(noteLetterMesh.position.x);
 
         const groupedMeshes = new THREE.Object3D();
         // groupedMeshes.add(noteLetterMesh);
@@ -390,16 +395,16 @@ export default class Physics {
                         //     instrMaterial.map = Store.view.instrumentConfigArr[6].bubbleTexture;
                         // }, 120);
 
-                        setTimeout(() => {
-                            // // Store.scene.remove(obj3D);
-                            Store.world.remove(body); // freezes (a minor improv)
-                        }, 2000);
-                        // }, 600); // beethoven 
+                        // setTimeout(() => {
+                        //     // // Store.scene.remove(obj3D);
+                        //     Store.world.remove(body); // freezes (a minor improv)
+                        // }, 2000);
+                        // // }, 600); // beethoven 
 
-                        setTimeout(() => {
-                            Store.scene.remove(obj3D);
-                        }, 2000);
-                        // // }, 700);
+                        // setTimeout(() => {
+                        //     Store.scene.remove(obj3D);
+                        // }, 2000);
+                        // // // }, 700);
                     // }
                 } 
             } else if (Store.triggerOn === 'spinner') {

@@ -197,11 +197,13 @@ export default {
         // posBehindZ: 1,
 
         
-        posBehindX: -95, // a minor
-        // posBehindX: -105,
-        posBehindY: 4,
-        posBehindZ: -5,
-        // posBehindZ: 0, // prev
+        // posBehindX: -95, // a minor
+        // posBehindY: 4,  // a minor
+        // posBehindZ: -5,  // a minor
+
+        posBehindX: -120,
+        posBehindY: 40,
+        posBehindZ: -20, 
         
         songAutoStart: true,
         songAutoStartTime: 1000,
