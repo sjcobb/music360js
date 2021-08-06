@@ -396,6 +396,7 @@ export default class Physics {
                     // console.log('MISS roundedHitMetric', roundedHitMetric);
                 }
                 bodyCollideCount++;
+                // console.log(bodyCollideCount);
             }
 
             if (Store.triggerOn === 'contact') {
@@ -418,17 +419,24 @@ export default class Physics {
                             // Store.world.remove(body); 
                         }, 10);
                         
-                        setTimeout(() => {
-                            instrMaterial.map = Store.instrumentConfigArr[2].texture;
-                        }, 20);
+                        // setTimeout(() => {
+                        //     instrMaterial.map = Store.instrumentConfigArr[2].texture;
+                        // }, 20);
 
-                        setTimeout(() => {
-                            instrMaterial.map = Store.instrumentConfigArr[3].texture;
-                        }, 30);
+                        // setTimeout(() => {
+                        //     instrMaterial.map = Store.instrumentConfigArr[3].texture;
+                        // }, 30);
 
-                        setTimeout(() => {
-                            instrMaterial.map = Store.instrumentConfigArr[2].texture;
-                        }, 40);
+                        // setTimeout(() => {
+                        //     instrMaterial.map = Store.instrumentConfigArr[2].texture;
+                        // }, 40);
+
+                        // setTimeout(() => {
+                        //     Store.world.remove(body); // freezes
+                        //     Store.scene.remove(obj3D); // disappears completely
+                        // }, 50);
+
+                        // // //
 
                         // setTimeout(() => {
                         //     // TODO: leave disappearing animation when second leaf hits it
@@ -439,11 +447,6 @@ export default class Physics {
                         //     // // Store.scene.remove(obj3D);
                         //     // Store.world.remove(body); // freezes (a minor improv)
                         // }, 200);
-
-                        setTimeout(() => {
-                            Store.world.remove(body); // freezes
-                            Store.scene.remove(obj3D); // disappears completely
-                        }, 50);
                     }
 
                     // if (options.material != null) {
@@ -469,7 +472,24 @@ export default class Physics {
                         // }, 2000);
                         // // // }, 700);
                     // }
-                } 
+                } else if (bodyCollideCount > 1) {
+                    setTimeout(() => {
+                        instrMaterial.map = Store.instrumentConfigArr[2].texture;
+                    }, 0);
+
+                    setTimeout(() => {
+                        instrMaterial.map = Store.instrumentConfigArr[3].texture;
+                    }, 10);
+
+                    setTimeout(() => {
+                        instrMaterial.map = Store.instrumentConfigArr[2].texture;
+                    }, 20);
+
+                    setTimeout(() => {
+                        Store.world.remove(body); // freezes
+                        Store.scene.remove(obj3D); // disappears completely
+                    }, 30);
+                }
             } else if (Store.triggerOn === 'spinner') {
                 if (spinnerCollideCount === 1 && notePlayed !== true) { // 0.3
                     trigger.triggerNote(body);
