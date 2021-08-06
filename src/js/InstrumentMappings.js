@@ -82,6 +82,9 @@ export function generateInstrMetadata(note) {
     let tonalNote = isNaN(note) ? note : Tonal.Note.fromMidi(note);
     // let tonalFreq = Tonal.Note.midiToFreq(note);
     
+    const noteMidiNum = Tonal.Note.midi(tonalNote);
+    // console.log({noteMidiNum});
+
     // console.log('(generateInstrMetadata) -> tonalNote: ', tonalNote);
 
     // console.log({tonalNote});
@@ -106,6 +109,8 @@ export function generateInstrMetadata(note) {
     if (instrMapped !== undefined) {
         instrMapped.color = '#64b5f6'; // human blue
         // instrMapped.color = '#FFFF00'; // yellow
+
+        instrMapped.originalPosition.z = (noteMidiNum - 70); // TODO: add descriptive Store var for flipping note drop positions
     }
 
     if (instrMapped === undefined) {
