@@ -436,6 +436,10 @@ export default class Physics {
                         //     Store.scene.remove(obj3D); // disappears completely
                         // }, 50);
 
+                        // setTimeout(() => {
+                        //     Store.world.remove(body); // freezes
+                        //     Store.scene.remove(obj3D); // disappears completely
+                        // }, 5000);
                         // // //
 
                         // setTimeout(() => {
@@ -479,16 +483,20 @@ export default class Physics {
 
                     setTimeout(() => {
                         instrMaterial.map = Store.instrumentConfigArr[3].texture;
-                    }, 10);
+                    }, 50);
 
                     setTimeout(() => {
-                        instrMaterial.map = Store.instrumentConfigArr[2].texture;
-                    }, 20);
+                        instrMaterial.map = Store.instrumentConfigArr[4].texture;
+                    }, 70);
+
+                    setTimeout(() => {
+                        instrMaterial.map = Store.instrumentConfigArr[5].texture;
+                    }, 90);
 
                     setTimeout(() => {
                         Store.world.remove(body); // freezes
                         Store.scene.remove(obj3D); // disappears completely
-                    }, 30);
+                    }, 100);
                 }
             } else if (Store.triggerOn === 'spinner') {
                 if (spinnerCollideCount === 1 && notePlayed !== true) { // 0.3

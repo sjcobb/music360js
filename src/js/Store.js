@@ -135,14 +135,26 @@ export default {
             texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_fallen_75.png', function (texture) {}),
         },
         {
-            texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_empty_75.png', function (texture) {}),
+            texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_fallen_50.png', function (texture) {}),
         },
         {
-            texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_disappear_178.png', function (texture) {}),
+            texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_fallen_30.png', function (texture) {}),
+        },
+        {
+            texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_fallen_10.png', function (texture) {}),
+        },
+        {
+            texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_empty_10.png', function (texture) {}),
         },
         // {
-        //     texture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/4.png', function (texture) {}),
+        //     texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_empty_75.png', function (texture) {}),
         // },
+        // {
+        //     texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_disappear_178.png', function (texture) {}),
+        // },
+        // // {
+        // //     texture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/4.png', function (texture) {}),
+        // // },
     ],
     // keysOnly: true,
     lastColor: '#000000',
