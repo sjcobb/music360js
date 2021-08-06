@@ -71,11 +71,14 @@ export default class Physics {
         const groundShape = new CANNON.Box(new CANNON.Vec3(...sizeArr));
 
         // http://schteppe.github.io/cannon.js/docs/classes/Material.html
-        const tempMaterial = new CANNON.Material({ restitution: 1, friction: 1 });
-        // const tempMaterial = new CANNON.Material();
-        // console.log({tempMaterial});
+        // https://github.com/schteppe/cannon.js/issues/297
+        // http://schteppe.github.io/cannon.js/demos/singleBodyOnPlane.html
+        // const tempMaterial = new CANNON.Material({ restitution: 0.01, friction: 100 }); // no effect
+        const tempMaterial = new CANNON.Material({ restitution: 1, friction: 1 }); // prev
+        // const tempMaterial = new CANNON.ContactMaterial({ restitution: 0, friction: 10, contactEquationRelaxation: 1000, frictionEquationStiffness: 1 }); // no effect
 
         const groundBody = new CANNON.Body({ mass: 0, material: tempMaterial });
+        // const groundBody = new CANNON.Body({ mass: 10, material: tempMaterial }); // ground falls forever
 
         groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
         // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0.5, 0, 0), -Math.PI / 2); // invisible giant hill
@@ -110,7 +113,8 @@ export default class Physics {
         } else {
             // objSize = 0.5; // v0.3
             // objSize = 0.65; // too big for D maj chord
-            objSize = 0.50;
+            // objSize = 0.50;
+            objSize = 0.001;
         }
 
         // console.log('addBody -> options: ', options);       
@@ -150,7 +154,10 @@ export default class Physics {
                 // const minRestitution = 0.285;
                 // sphereRestitution = sphereRestitution < minRestitution ? minRestitution : sphereRestitution;
                 
-                sphereRestitution = 10;
+                
+                // sphereRestitution = 100;
+                sphereRestitution = 0.001;
+                // sphereRestitution = 0.1; // too bouncy
 
                 // console.log({sphereRestitution});
 
@@ -165,16 +172,24 @@ export default class Physics {
             }
         }
         // console.log({sphereRestitution});
-        const material = new CANNON.Material({ restitution: sphereRestitution, friction: -100 }); 
-        // const material = new CANNON.Material({ restitution: sphereRestitution, friction: 1 }); 
+
+        // https://github.com/schteppe/cannon.js/issues/297
+        // const material = new CANNON.Material({ restitution: sphereRestitution, friction: 1000 }); 
+        // const material = new CANNON.Material({ restitution: sphereRestitution, friction: 0.1 }); 
+        const material = new CANNON.Material({ restitution: 0, friction: 10, contactEquationRelaxation: 1000, frictionEquationStiffness: 1 }); 
 
         // https://schteppe.github.io/cannon.js/docs/classes/Body.html
         // const body = new CANNON.Body({ mass: 5, material: material }); // v0.3, v0.4
         // const body = new CANNON.Body({ mass: 550, material: material }); // beethoven, rain rain
 
-        const body = new CANNON.Body({ mass: 50000, material: material }); 
-        // const body = new CANNON.Body({ mass: 50, material: material }); 
-        
+        // const body = new CANNON.Body({ mass: 0, material: material }); // do not move from top drop point
+        const body = new CANNON.Body({ mass: 0.1, material: material }); 
+        // const body = new CANNON.Body({ mass: 5000, material: material }); 
+        // const body = new CANNON.Body({ material: material, angularDamping: 0, mass: 5000 }); // no effect
+        // const body = new CANNON.Body({ mass: 0.1, material: material }); 
+        // const tempMaterial = new CANNON.ContactMaterial({ restitution: 0, friction: 10, contactEquationRelaxation: 1000, frictionEquationStiffness: 1 });
+        // body.velocity.y = 0; // no effect
+
         this.shapes = {};
         // this.shapes.sphere = new CANNON.Sphere(0.5);
         this.shapes.sphere = new CANNON.Sphere(objSize);
@@ -201,7 +216,8 @@ export default class Physics {
         // https://stackoverflow.com/questions/44630265/how-can-i-set-z-up-coordinate-system-in-three-js
 
         // const yPos = 38; // prev, low drop point
-        const yPos = 70; 
+        // const yPos = 70; // too high?
+        const yPos = 60;
 
         /*** Randomized Y drop point ***/
         // const y = Math.random() * (10 - 5) + 5; //rdm b/w 5 and 10
@@ -243,7 +259,9 @@ export default class Physics {
 
         body.position.set((sphere) ? -xPos : xPos, yPos, zPos);
 
-        body.linearDamping = Store.damping; // 0.01
+        // body.linearDamping = Store.damping; // 0.01
+        // body.linearDamping = 0.5; // slow fall
+        body.linearDamping = 0.7; // slower fall
         // body.linearDamping = 0.01; // v0.2, v0.3
 
         // // // IMPORTANT - rotation spped // // //
@@ -389,8 +407,31 @@ export default class Physics {
                     if (options.material != null) {
                         // https://github.com/sjcobb/music360js/blob/bubble-pop/src/js/Store.js#L276
                         setTimeout(() => {
-                            noteLetterSpriteMaterial.map = Store.instrumentConfigArr[1].texture;
-                        }, 500);
+                            // console.log(Store.instrumentConfigArr[1].texture);
+                            noteLetterSpriteMaterial.map = Store.instrumentConfigArr[1].texture; // hides letter
+
+                            // instrMaterial = options.material.clone();
+                            // // options.mesh = new THREE.Sprite(sphereGeoAlt, instrMaterial);
+                            // const imageTextureSprite = new THREE.Sprite(instrMaterial);
+                            instrMaterial.map = Store.instrumentConfigArr[1].texture;
+
+                            // Store.world.remove(body); 
+                        }, 10);
+                        // }, 500);
+
+                        // setTimeout(() => {
+                        //     // TODO: leave disappearing animation
+                        //     // noteLetterSpriteMaterial.map = Store.instrumentConfigArr[2].texture;
+                        // }, 800);
+
+                        setTimeout(() => {
+                            // // Store.scene.remove(obj3D);
+                            Store.world.remove(body); // freezes (a minor improv)
+                        }, 200);
+
+                        setTimeout(() => {
+                            Store.scene.remove(obj3D);
+                        }, 1000);
                     }
 
                     // if (options.material != null) {
