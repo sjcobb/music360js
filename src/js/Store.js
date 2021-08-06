@@ -134,6 +134,12 @@ export default {
         {
             texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_fallen_75.png', function (texture) {}),
         },
+        {
+            texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_empty_75.png', function (texture) {}),
+        },
+        {
+            texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_disappear_178.png', function (texture) {}),
+        },
         // {
         //     texture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/4.png', function (texture) {}),
         // },

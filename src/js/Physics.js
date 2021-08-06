@@ -417,21 +417,33 @@ export default class Physics {
 
                             // Store.world.remove(body); 
                         }, 10);
-                        // }, 500);
+                        
+                        setTimeout(() => {
+                            instrMaterial.map = Store.instrumentConfigArr[2].texture;
+                        }, 20);
+
+                        setTimeout(() => {
+                            instrMaterial.map = Store.instrumentConfigArr[3].texture;
+                        }, 30);
+
+                        setTimeout(() => {
+                            instrMaterial.map = Store.instrumentConfigArr[2].texture;
+                        }, 40);
 
                         // setTimeout(() => {
-                        //     // TODO: leave disappearing animation
+                        //     // TODO: leave disappearing animation when second leaf hits it
                         //     // noteLetterSpriteMaterial.map = Store.instrumentConfigArr[2].texture;
                         // }, 800);
 
-                        setTimeout(() => {
-                            // // Store.scene.remove(obj3D);
-                            Store.world.remove(body); // freezes (a minor improv)
-                        }, 200);
+                        // setTimeout(() => {
+                        //     // // Store.scene.remove(obj3D);
+                        //     // Store.world.remove(body); // freezes (a minor improv)
+                        // }, 200);
 
                         setTimeout(() => {
-                            Store.scene.remove(obj3D);
-                        }, 1000);
+                            Store.world.remove(body); // freezes
+                            Store.scene.remove(obj3D); // disappears completely
+                        }, 50);
                     }
 
                     // if (options.material != null) {
