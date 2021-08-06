@@ -57,7 +57,7 @@ export default class Physics {
             // posArr = [0, -6, -2];
             // sizeArr = [5000, 50, 5];
             posArr = [0, -6, -2];
-            sizeArr = [12000, 50, 5];
+            sizeArr = [12000, 70, 5];
         }
 
         // FLOOR
@@ -77,7 +77,7 @@ export default class Physics {
 
         const groundBody = new CANNON.Body({ mass: 0, material: tempMaterial });
 
-        groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2); //PREV
+        groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
         // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0.5, 0, 0), -Math.PI / 2); // invisible giant hill
 
         // groundBody.position.set(0, -6, 0);
@@ -142,16 +142,15 @@ export default class Physics {
                 // // sphereRestitution = options.duration * 0.65; // v0.5
                 // // sphereRestitution = options.duration * 1.5; // too bouncy
 
-                // // sphereRestitution = options.duration * 1.40;
-
                 // sphereRestitution = options.duration * 1.44; // earthquake
 
-                // sphereRestitution = options.duration * 0.48; // prev
-                sphereRestitution = options.duration * 0.41; 
+                // sphereRestitution = options.duration * 0.50;
 
-                // const minRestitution = 0.3; //prev
-                const minRestitution = 0.125;
-                sphereRestitution = sphereRestitution < minRestitution ? minRestitution : sphereRestitution;
+                // // const minRestitution = 0.125;//prev
+                // const minRestitution = 0.285;
+                // sphereRestitution = sphereRestitution < minRestitution ? minRestitution : sphereRestitution;
+                
+                sphereRestitution = 10;
 
                 // console.log({sphereRestitution});
 
@@ -164,15 +163,17 @@ export default class Physics {
                 //     // sphereRestitution = 0.225;
                 // }
             }
-            // console.log({sphereRestitution});
         }
-        const material = new CANNON.Material({ restitution: sphereRestitution, friction: 1 }); 
+        // console.log({sphereRestitution});
+        const material = new CANNON.Material({ restitution: sphereRestitution, friction: -100 }); 
+        // const material = new CANNON.Material({ restitution: sphereRestitution, friction: 1 }); 
 
         // https://schteppe.github.io/cannon.js/docs/classes/Body.html
         // const body = new CANNON.Body({ mass: 5, material: material }); // v0.3, v0.4
         // const body = new CANNON.Body({ mass: 550, material: material }); // beethoven, rain rain
-        const body = new CANNON.Body({ mass: 100, material: material }); // no effect?
-        // const body = new CANNON.Body({ mass: 0.001, material: material }); // no effect?
+
+        const body = new CANNON.Body({ mass: 50000, material: material }); 
+        // const body = new CANNON.Body({ mass: 50, material: material }); 
         
         this.shapes = {};
         // this.shapes.sphere = new CANNON.Sphere(0.5);
@@ -198,10 +199,9 @@ export default class Physics {
         }
 
         // https://stackoverflow.com/questions/44630265/how-can-i-set-z-up-coordinate-system-in-three-js
-        // const yPos = 20; // v0.4, v0.5
-        // const yPos = 1;
-        // const yPos = 30; // beethoven
-        const yPos = 38;
+
+        // const yPos = 38; // prev, low drop point
+        const yPos = 70; 
 
         /*** Randomized Y drop point ***/
         // const y = Math.random() * (10 - 5) + 5; //rdm b/w 5 and 10
@@ -251,7 +251,9 @@ export default class Physics {
         // body.angularVelocity.z = options.size === 'xl' ? 8 : 18; // earthquake
         // body.angularVelocity.z = options.size === 'xl' ? 8 : 26; // very large
 
-        body.angularVelocity.z = options.size === 'xl' ? 8 : 0; 
+        // body.angularVelocity.z = options.size === 'xl' ? 8 : 0;
+
+        // body.angularVelocity.x = 24;
 
         if (options.type === 'animation') {
             flamePhysics.create({x: -xPos});
@@ -343,9 +345,10 @@ export default class Physics {
         // console.log(obj3D);
 
         // https://stackoverflow.com/questions/39560851/handling-proper-rotation-of-cannon-body-based-on-quaternion/39569667#39569667
-        const noteLetterAxis = new CANNON.Vec3(0, 1, 0);
-        const noteLetterAngle = -1.6;
-        body.quaternion.setFromAxisAngle(noteLetterAxis, noteLetterAngle);
+        // const noteLetterAxis = new CANNON.Vec3(0, 1, 0);
+        // const noteLetterAngle = -1.6;
+        // //body.quaternion.setFromAxisAngle(noteLetterAxis, noteLetterAngle); // fixes rotated label issue
+        // console.log(body);
         Store.world.add(body);
 
         ////////////////////////
@@ -382,6 +385,13 @@ export default class Physics {
                     // console.log({body});
                     trigger.triggerNote(body);
                     notePlayed = true;
+
+                    if (options.material != null) {
+                        // https://github.com/sjcobb/music360js/blob/bubble-pop/src/js/Store.js#L276
+                        setTimeout(() => {
+                            noteLetterSpriteMaterial.map = Store.instrumentConfigArr[1].texture;
+                        }, 500);
+                    }
 
                     // if (options.material != null) {
                         

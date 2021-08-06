@@ -75,7 +75,8 @@ if (Store.view.cameraPositionBehind === true) {
     // // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 1, Store.view.posBehindZ - 15)); // slightly to left
     // // // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX - 200, 12, Store.view.posBehindZ)); // rear view
     // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 6, 0));
-    Store.camera.lookAt(new THREE.Vector3(0, -30, 10));
+    // Store.camera.lookAt(new THREE.Vector3(0, -30, 10)); /// prev (autoScroll true)
+    Store.camera.lookAt(new THREE.Vector3(0, 5, -10));
 }
 
 if (Store.cameraLookUp === true) {
@@ -312,9 +313,7 @@ let animate = () => {
                 }
             }
         } else {
-            Store.camera.position.x = (Store.ticks) - 35; // prev
-            // Store.camera.position.x = (Store.ticks) - 55; 
-
+            Store.camera.position.x = (Store.ticks) - 35;
             Store.lightObj.position.x = (Store.camera.position.x);
             Store.lightPrimary.position.x = (Store.camera.position.x);
         }

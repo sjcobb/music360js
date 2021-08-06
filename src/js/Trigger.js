@@ -242,7 +242,7 @@ Store.polySynth = new Tone.PolySynth(10, Tone.Synth, {
 	// },
 }).toMaster();
 Store.polySynth.volume.value = -18;
-Store.polySynth.set("detune", -1200);
+// Store.polySynth.set("detune", -1200);
 
 // // //
 
@@ -467,9 +467,9 @@ export default class Trigger {
             //     // Store.polySynthAlt.triggerAttackRelease(combinedNote, noteLength);
             //     // Store.sampler.strings.triggerAttackRelease(combinedNote, noteLength); 
             } else {
-                // Store.polySynth.triggerAttackRelease(combinedNote, noteLength);
+                Store.polySynth.triggerAttackRelease(combinedNote, noteLength);
                 // Store.sampler.strings.triggerAttackRelease(combinedNote, noteLength); 
-                Store.sampler.guitar.triggerAttackRelease(combinedNote, noteLength);
+                // Store.sampler.guitar.triggerAttackRelease(combinedNote, noteLength);
             }
         } else {
             bounceSynth.triggerAttackRelease(combinedNote, "8n");

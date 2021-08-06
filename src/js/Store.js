@@ -22,7 +22,7 @@ export default {
     ai: {
         enabled: false,
     },
-    autoScroll: true,
+    autoScroll: false,
     // bpm: 120,
     // bpm: 140,
     bpm: 160,
@@ -127,6 +127,17 @@ export default {
     inputMidi: false,
     instr: {},
     instrumentCounter: 0,
+    instrumentConfigArr: [
+        {
+            texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_75.png', function (texture) {}),
+        },
+        {
+            texture: new THREE.TextureLoader().load('assets/textures/leaves/leaf_fallen_75.png', function (texture) {}),
+        },
+        // {
+        //     texture: new THREE.TextureLoader().load('assets/bubble/bubble_pop_one/4.png', function (texture) {}),
+        // },
+    ],
     // keysOnly: true,
     lastColor: '#000000',
     // lightPrimary: new THREE.SpotLight(0xffffff, 1),
@@ -201,9 +212,12 @@ export default {
         // posBehindY: 4,  // a minor
         // posBehindZ: -5,  // a minor
 
-        posBehindX: -140, // back - front
-        posBehindY: 40, // higher
-        posBehindZ: -30, // left - right
+        // posBehindX: -140, // prev (autoScroll true)
+        // posBehindY: 40,
+
+        posBehindX: -55, // back - front
+        posBehindY: 25, // higher
+        posBehindZ: -45, // left - right
         
         songAutoStart: true,
         songAutoStartTime: 1000,
