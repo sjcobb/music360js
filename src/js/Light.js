@@ -33,7 +33,8 @@ export default class Light {
             specular: 0x070707,
             shininess: 100
         });
-        let box = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+        // let box = new THREE.BoxGeometry(0.2, 0.2, 0.2); // prev (visible dot)
+        let box = new THREE.BoxGeometry(0.002, 0.002, 0.002);
         let currentShape, currentMesh;
         currentShape = box;
         currentMesh = phong;
