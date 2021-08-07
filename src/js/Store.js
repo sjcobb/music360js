@@ -234,8 +234,8 @@ export default {
         // posBehindY: 40,
 
         posBehindX: -55, // back - front
-        posBehindY: 60, // higher
-        posBehindZ: -65, // left - right
+        posBehindY: 40, // higher
+        posBehindZ: -85, // left - right
         
         songAutoStart: true,
         songAutoStartTime: 1000,

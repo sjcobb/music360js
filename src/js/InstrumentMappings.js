@@ -125,15 +125,15 @@ export function generateInstrMetadata(note, midi) {
         instrMapped.color = '#64b5f6'; // human blue
         // instrMapped.color = '#FFFF00'; // yellow
 
-        // midiNumPos = midiNumPos * 2.5; // too far apart
-        midiNumPos = midiNumPos * 1.8;
+        // midiNumPos = midiNumPos * 1.5; // too far apart
+        midiNumPos = midiNumPos * 1.9; 
 
         // const noteHorizShift = -70; // prev
         const noteHorizShift = -100; 
 
         // TODO: add descriptive Store var for flipping note drop positions
         instrMapped.originalPosition.z = (midiNumPos + noteHorizShift); 
-        console.log(tonalNote, ' - z: ', instrMapped.originalPosition.z);
+        // console.log(tonalNote, ' - z: ', instrMapped.originalPosition.z);
     }
 
     if (instrMapped === undefined) {

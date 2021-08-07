@@ -140,8 +140,8 @@ export default class Physics {
 
                 const minDuration = 0.50;
 
-                // options.duration = options.duration < minDuration ? minDuration : options.duration;
-                options.duration = options.duration > maxDuration ? maxDuration : options.duration;
+                // // options.duration = options.duration < minDuration ? minDuration : options.duration;
+                // options.duration = options.duration > maxDuration ? maxDuration : options.duration;
 
                 // // sphereRestitution = options.duration * 0.65; // v0.5
                 // // sphereRestitution = options.duration * 1.5; // too bouncy
@@ -309,7 +309,8 @@ export default class Physics {
         
         // options.mesh.scale.set(2, 2, 2);
         // options.mesh.scale.set(2.2, 1.7, 2);
-        options.mesh.scale.set(5.5, 4.0, 3.5);
+        // options.mesh.scale.set(5.5, 4.0, 3.5); // decent
+        options.mesh.scale.set(6, 4.2, 3.8);
         
         // https://threejsfundamentals.org/threejs/lessons/threejs-materials.html
         // const noteLetterMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
@@ -407,6 +408,11 @@ export default class Physics {
 
                     if (options.material != null) {
                         // https://github.com/sjcobb/music360js/blob/bubble-pop/src/js/Store.js#L276
+
+                        // const hideTimer = (options.duration * 100);
+                        const hideTimer = (options.duration * 1000);
+                        console.log(hideTimer);
+
                         setTimeout(() => {
                             // console.log(Store.instrumentConfigArr[1].texture);
                             noteLetterSpriteMaterial.map = Store.instrumentConfigArr[1].texture; // hides letter
@@ -419,84 +425,50 @@ export default class Physics {
                             // Store.world.remove(body); 
                         }, 10);
                         
-                        // setTimeout(() => {
-                        //     instrMaterial.map = Store.instrumentConfigArr[2].texture;
-                        // }, 20);
-
-                        // setTimeout(() => {
-                        //     instrMaterial.map = Store.instrumentConfigArr[3].texture;
-                        // }, 30);
-
-                        // setTimeout(() => {
-                        //     instrMaterial.map = Store.instrumentConfigArr[2].texture;
-                        // }, 40);
-
-                        // setTimeout(() => {
-                        //     Store.world.remove(body); // freezes
-                        //     Store.scene.remove(obj3D); // disappears completely
-                        // }, 50);
-
-                        // setTimeout(() => {
-                        //     Store.world.remove(body); // freezes
-                        //     Store.scene.remove(obj3D); // disappears completely
-                        // }, 5000);
-                        // // //
-
-                        // setTimeout(() => {
-                        //     // TODO: leave disappearing animation when second leaf hits it
-                        //     // noteLetterSpriteMaterial.map = Store.instrumentConfigArr[2].texture;
-                        // }, 800);
-
-                        // setTimeout(() => {
-                        //     // // Store.scene.remove(obj3D);
-                        //     // Store.world.remove(body); // freezes (a minor improv)
-                        // }, 200);
+                        setTimeout(() => {
+                            instrMaterial.map = Store.instrumentConfigArr[2].texture;
+                        }, hideTimer + 20);
+    
+                        setTimeout(() => {
+                            instrMaterial.map = Store.instrumentConfigArr[3].texture;
+                        }, hideTimer + 40);
+    
+                        setTimeout(() => {
+                            instrMaterial.map = Store.instrumentConfigArr[4].texture;
+                        }, hideTimer + 60);
+    
+                        setTimeout(() => {
+                            instrMaterial.map = Store.instrumentConfigArr[5].texture;
+                        }, hideTimer + 80);
+    
+                        setTimeout(() => {
+                            Store.world.remove(body); // freezes
+                            Store.scene.remove(obj3D); // disappears completely
+                        }, hideTimer + 100);
+                        
                     }
 
-                    // if (options.material != null) {
-                        
-                        // // instrMaterial.map = Store.view.instrumentConfigArr[0].bubbleTexture;
-
-                        // setTimeout(() => {
-                        //     instrMaterial.map = Store.view.instrumentConfigArr[1].bubbleTexture;
-                        // }, 20);
-
-                        // setTimeout(() => {
-                        //     instrMaterial.map = Store.view.instrumentConfigArr[6].bubbleTexture;
-                        // }, 120);
-
-                        // setTimeout(() => {
-                        //     // // Store.scene.remove(obj3D);
-                        //     Store.world.remove(body); // freezes (a minor improv)
-                        // }, 2000);
-                        // // }, 600); // beethoven 
-
-                        // setTimeout(() => {
-                        //     Store.scene.remove(obj3D);
-                        // }, 2000);
-                        // // // }, 700);
-                    // }
                 } else if (bodyCollideCount > 1) {
-                    setTimeout(() => {
-                        instrMaterial.map = Store.instrumentConfigArr[2].texture;
-                    }, 0);
+                    // setTimeout(() => {
+                    //     instrMaterial.map = Store.instrumentConfigArr[2].texture;
+                    // }, 0);
 
-                    setTimeout(() => {
-                        instrMaterial.map = Store.instrumentConfigArr[3].texture;
-                    }, 50);
+                    // setTimeout(() => {
+                    //     instrMaterial.map = Store.instrumentConfigArr[3].texture;
+                    // }, 50);
 
-                    setTimeout(() => {
-                        instrMaterial.map = Store.instrumentConfigArr[4].texture;
-                    }, 70);
+                    // setTimeout(() => {
+                    //     instrMaterial.map = Store.instrumentConfigArr[4].texture;
+                    // }, 70);
 
-                    setTimeout(() => {
-                        instrMaterial.map = Store.instrumentConfigArr[5].texture;
-                    }, 90);
+                    // setTimeout(() => {
+                    //     instrMaterial.map = Store.instrumentConfigArr[5].texture;
+                    // }, 90);
 
-                    setTimeout(() => {
-                        Store.world.remove(body); // freezes
-                        Store.scene.remove(obj3D); // disappears completely
-                    }, 100);
+                    // setTimeout(() => {
+                    //     Store.world.remove(body); // freezes
+                    //     Store.scene.remove(obj3D); // disappears completely
+                    // }, 100);
                 }
             } else if (Store.triggerOn === 'spinner') {
                 if (spinnerCollideCount === 1 && notePlayed !== true) { // 0.3

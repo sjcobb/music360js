@@ -142,8 +142,9 @@ export default class Helpers {
             } else if (textData.length === 2) {
                 // TODO: how to make just # sign smaller than note letter
                 // console.log({textData});
-                // textH = textH / 1.2; // prev, too big
-                textH = textH / 1.2;
+
+                // textH = textH / 1.2; // prev, slightly small
+                textH = textH / 1.1;
                 // textH = textH / 1.5; // ex: G#
             } else {
                 // textH = textH / 1.2;
@@ -168,7 +169,7 @@ export default class Helpers {
             // let textOffsetY = -0.1; // move text up on ball
             // let textOffsetY = -0.033; // prev, move text up on ball
             // let textOffsetY = 0.2; // jazzhands
-            let textOffsetY = 0.5;
+            let textOffsetY = 0.55;
 
             // if (textW > 100) {
             //     // console.log(textData); //TODO: make fillEllipse wider or font (textH) smaller when multiple characters
