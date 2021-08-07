@@ -507,7 +507,7 @@ const recordingPart = new Tone.Part(function(time, datum){
     // console.log(time);
     // console.log(datum);
 
-    const instrMapped = generateInstrMetadata(datum.name);
+    const instrMapped = generateInstrMetadata(datum.name, datum.midi);
 
     instrMapped.color = '#191970';    // midnight blue
     // instrMapped.color = '#008b8b';;
@@ -551,7 +551,7 @@ const recordingSecondPart = new Tone.Part(function(time, datum){
     // console.log(time);
     // console.log(datum);
 
-    const instrMapped = generateInstrMetadata(datum.name);
+    const instrMapped = generateInstrMetadata(datum.name, datum.midi);
 
     // instrMapped.color = '#0000cd';
     // instrMapped.color = '#003366'; 

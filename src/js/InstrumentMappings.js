@@ -3,7 +3,8 @@
  */
 /*jshint esversion: 6 */
 
-import * as Tonal from "tonal";
+// import * as Tonal from "tonal";
+import { Note } from "@tonaljs/tonal";
 import * as THREE from 'three';
 import Store from './Store.js';
 
@@ -75,14 +76,18 @@ export default class InstrumentMappings {
     // }
 }
 
-export function generateInstrMetadata(note) {
+export function generateInstrMetadata(note, midi) {
     // console.log('(generateInstrMetadata) -> note: ', note);
+    // console.log('(generateInstrMetadata) -> midi: ', midi);
     
-    // let tonalNote = note.isInteger() ? Tonal.Note.fromMidi(note) : note;
-    let tonalNote = isNaN(note) ? note : Tonal.Note.fromMidi(note);
-    // let tonalFreq = Tonal.Note.midiToFreq(note);
-    
-    const noteMidiNum = Tonal.Note.midi(tonalNote);
+    // https://github.com/tonaljs/tonal/tree/master/packages/note
+
+    // // let tonalNote = note.isInteger() ? Note.fromMidi(note) : note;
+    // let tonalNote = isNaN(note) ? note : Note.fromMidi(note);
+    // // let tonalFreq = Note.midiToFreq(note);
+    let tonalNote = Note.fromMidi(midi)
+    const noteMidiNum = midi;
+    // const noteMidiNum = Note.midi(tonalNote);
     // console.log({noteMidiNum});
 
     // console.log('(generateInstrMetadata) -> tonalNote: ', tonalNote);
@@ -94,6 +99,16 @@ export function generateInstrMetadata(note) {
     // console.log({baseNote});
     const instrMapped = getInstrByInputNote(baseNote);
 
+    // // note.fullNote = Note.fromMidi(note.midi); // TODO: how to get flat notes instead of sharp
+    // // note.info = Note.get(note.fullNote);
+    // // note.octave = note.info.oct;
+    instrMapped.noteInfo = Note.get(tonalNote);
+    // instrMapped.noteInfo = Note.get('C4');
+    // instrMapped.noteInfo = Note.name("fx4"); // => "F##4"
+
+    instrMapped.noteInfo.noteFlat = Note.fromMidi(midi); 
+    instrMapped.noteInfo.noteSharp = Note.fromMidiSharps(midi);
+
     if (tonalNote.length === 3) {
         // console.log('(generateInstrMetadata) -> tonalNote condition...');
         // console.log({baseNote});
@@ -103,7 +118,7 @@ export function generateInstrMetadata(note) {
         // instrMapped.ballDesc = tonalNote;
     }
 
-    // console.log('(generateInstrMetadata) -> instrMapped: ', instrMapped);
+    console.log('(generateInstrMetadata) -> instrMapped: ', instrMapped);
     // TODO: best way to set color for machine, human, reg keyboard???
     // if (instrMapped.color) {
     if (instrMapped !== undefined) {
