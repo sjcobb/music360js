@@ -86,7 +86,7 @@ export function generateInstrMetadata(note, midi) {
     // let tonalNote = isNaN(note) ? note : Note.fromMidi(note);
     // // let tonalFreq = Note.midiToFreq(note);
     let tonalNote = Note.fromMidi(midi)
-    const noteMidiNum = midi;
+    let midiNumPos = midi;
     // const noteMidiNum = Note.midi(tonalNote);
     // console.log({noteMidiNum});
 
@@ -118,14 +118,22 @@ export function generateInstrMetadata(note, midi) {
         // instrMapped.ballDesc = tonalNote;
     }
 
-    console.log('(generateInstrMetadata) -> instrMapped: ', instrMapped);
+    // console.log('(generateInstrMetadata) -> instrMapped: ', instrMapped);
     // TODO: best way to set color for machine, human, reg keyboard???
     // if (instrMapped.color) {
     if (instrMapped !== undefined) {
         instrMapped.color = '#64b5f6'; // human blue
         // instrMapped.color = '#FFFF00'; // yellow
 
-        instrMapped.originalPosition.z = (noteMidiNum - 70); // TODO: add descriptive Store var for flipping note drop positions
+        // midiNumPos = midiNumPos * 2.5; // too far apart
+        midiNumPos = midiNumPos * 1.8;
+
+        // const noteHorizShift = -70; // prev
+        const noteHorizShift = -100; 
+
+        // TODO: add descriptive Store var for flipping note drop positions
+        instrMapped.originalPosition.z = (midiNumPos + noteHorizShift); 
+        console.log(tonalNote, ' - z: ', instrMapped.originalPosition.z);
     }
 
     if (instrMapped === undefined) {
