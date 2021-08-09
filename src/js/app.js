@@ -76,7 +76,7 @@ if (Store.view.cameraPositionBehind === true) {
     // // // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX - 200, 12, Store.view.posBehindZ)); // rear view
     // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 6, 0));
     // Store.camera.lookAt(new THREE.Vector3(0, -30, 10)); /// prev (autoScroll true)
-    Store.camera.lookAt(new THREE.Vector3(0, 25, -10));
+    Store.camera.lookAt(new THREE.Vector3(0, 28, -10));
 }
 
 if (Store.cameraLookUp === true) {
