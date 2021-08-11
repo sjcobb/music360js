@@ -10,14 +10,6 @@
     src: url(../assets/fonts/Roboto_Condensed/RobotoCondensed-Light.ttf) format('truetype');
     /* unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; */
 }
-@font-face {
-    font-family: 'Roboto Condensed Bold';
-    font-style: normal;
-    /* font-weight: 300; */
-    font-display: swap;
-    src: url(../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf) format('truetype');
-    /* unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; */
-}
 
 body {
     background-color: #00b140; 
@@ -43,10 +35,6 @@ section.dashboard {
     top: 100px;
     margin: 0;
     padding: 0;
-    opacity: 0;
-    animation: fade-in 2s;
-    animation-delay: 1s;
-    animation-fill-mode: forwards;
 }
 
 .echarts-entry {
@@ -244,40 +232,11 @@ aside#key-interval-numbers ul li .interval-wrapper {
 }
 aside#key-interval-numbers ul li .interval-wrapper h3 {
     display: inline-block;
-    background: #444;
     margin: 0;
-    padding: 10px 25px 6px 25px;
+    padding: 0;
     position: relative;
-    bottom: 60px;
-    color: #fff;
-    /* font: 24px/1 "Roboto Condensed", Verdana, sans-serif; */
-    font: 24px/1.2 "Roboto Condensed Bold", "Roboto Condensed", Verdana, sans-serif;
-    /* transform: scale(1, 1); */
-    /* opacity: 0;
-    transition: opacity 2s ease-in; */
-    /* opacity: 1; */
-    animation: fade-in 2s;
-    animation-delay: 1s;
-    animation-fill-mode: forwards;
-}
-@keyframes fade-in {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-aside#key-interval-numbers ul li:nth-child(1) .interval-wrapper h3 {
-    bottom: 70px; /* IV */
-}
-aside#key-interval-numbers ul li:nth-child(2) .interval-wrapper h3 {
-    bottom: 80px; /* I */
-}
-aside#key-interval-numbers ul li:nth-child(6) .interval-wrapper h3 {
-    left: -10px;
-    bottom: 50px; /* iii */
-}
-aside#key-interval-numbers ul li:nth-child(7) .interval-wrapper h3 {
-    left: -10px;
-    bottom: 30px; /* VII */
-    padding-right: 20px;
+    bottom: 50px;
+    transform: scale(1, 1);
 }
 
 /* @-webkit-keyframes ripples {

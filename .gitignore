@@ -63,7 +63,7 @@ typings/
 ### CUSTOM ###
 .DS_Store
 .npmrc
-archive
+/archive
 
 localhost+3-key.pem
 localhost+3.pem

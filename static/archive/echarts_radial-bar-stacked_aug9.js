@@ -205,9 +205,10 @@ recordingPart.start(0);
 
 setTimeout(() => {
     Tone.Transport.start();
-}, 6000); 
-// }, 5000); // prev (pre fade-in CSS delay)
-
+}, 5000);
+// }, 4250); // not fast enough
+// }, 3000);
+// }, 11000);
 
 // Tone.Transport.stop();
 
@@ -391,31 +392,18 @@ const majorOption = {
         axisLabel: {
             interval: 0,
             margin: 10,
-            // color: '#234468',
+            color: '#234468',
             color: '#ffffff',
+            // fontFamily: 'Verdana',
             fontFamily: '"Roboto Condensed", Verdana, sans-serif',
             fontWeight: 600,
+            // fontSize: 36, // prev
             fontSize: 44,
             formatter: (value, index) => {
                 // // console.log(value);
                 // ['C', 'G', 'D', 'A', 'E', 'B', 'Gb', 'Db', 'Ab', 'Eb', 'Bb', 'F'];
                 // ['C', 'G', 'D', 'A', 'E', 'B', 'G♭', 'D♭', 'A♭', 'E♭', 'B♭', 'F']; // undef ♭
                 // ['C', 'G', 'D', 'A', 'E', 'B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F']; // undef ♯
-                // formatter: '{chordName|{b}}',
-                // rich: {
-                //     chordName: {
-                //         // color: '#000',
-                //         // color: '#333',
-                //         color: '#FFFFE0', // ltyellow
-                //         // color: '#ffff00', // yellow
-                //         // fontFamily: '"Open Sans", Verdana, sans-serif',
-                //         // fontFamily: 'Verdana, sans-serif',
-                //         fontFamily: '"Roboto Condensed", Verdana, sans-serif',
-                //         fontSize: 50,
-                //         lineHeight: 50,
-                //         fontWeight: 'bold',
-                //     },
-                // }
                 switch (value) {
                     case 'Gb':
                         return 'G♭';
@@ -574,13 +562,9 @@ const majorOption = {
     ]
 };
 
-setTimeout(() => {
-    console.log('INITIAL -> majorOption: ', majorOption);
-    graphCircleFifthsMajor.setOption(majorOption);
+console.log('INITIAL -> majorOption: ', majorOption);
+graphCircleFifthsMajor.setOption(majorOption);
 
-    console.log('INITIAL -> chordsOption: ', chordsOption);
-    graphCircleFifthsChords.setOption(chordsOption);
-}, 500);
 
 //////////////////
 // MINOR CIRCLE //
@@ -831,33 +815,29 @@ const chordsOption = {
         // },
     ]
 };
-// console.log('INITIAL -> chordsOption: ', chordsOption);
-// graphCircleFifthsChords.setOption(chordsOption);
+console.log('INITIAL -> chordsOption: ', chordsOption);
+graphCircleFifthsChords.setOption(chordsOption);
 
 let allPlayedNotes = [];
 let chordsPlayed = [];
 let lastTime = 0;
 let tempNotes = [];
 function updateChordDisplay(noteData, time) {
-    // console.log(time);
+
     const timeDifference = time - lastTime;
-    console.log(timeDifference);
+    // console.log({timeDifference});
     // if ((time - lastTime) < 1.2) { // too long
     // if ((time - lastTime) < 0.8) { // too short
-    // if ((time - lastTime) < 0.2) { // too short
-    // if ((time - lastTime) < 0.5) {  
-    if ((timeDifference) > 0.002 && timeDifference < 2.0) {  
+    if ((time - lastTime) < 1.0) { 
         // tempNotes.push(noteData.name); // sharps
         tempNotes.push(noteData.fullNote);  // flats
     } else {
-        // tempNotes = [];
+        tempNotes = [];
     }
-    console.log('tempNotes: ', tempNotes);
+    // console.log('tempNotes: ', tempNotes);
 
     // if (allPlayedNotes.length % 4 === 0) {
-    // if (tempNotes.length > 2 && tempNotes.length < 10) {
-    // if (tempNotes.length > 3 && tempNotes.length < 10) {
-    if (tempNotes.length > 1 && tempNotes.length < 10) {
+    if (tempNotes.length > 2 && tempNotes.length < 10) {
         // console.log(Tonal);
         // Tonal.ChordDetect.detect(allPlayedNotes);
 
@@ -906,7 +886,7 @@ function updateChordDisplay(noteData, time) {
             }
             tempNotes = [];
         } else {
-            // tempNotes = [];
+            tempNotes = [];
         }
 
         // console.log(Tonal.Chord.getChord(currentChord[0]));
@@ -933,10 +913,6 @@ function updateChordDisplay(noteData, time) {
         // }
 
         // Tonal.Chord.reduced("Cmaj7"); // => ["C5", "CM"]
-    }
-
-    if (tempNotes.length > 10) {
-        tempNotes = [];
     }
 
     lastTime = time;
