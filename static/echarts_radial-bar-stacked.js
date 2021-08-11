@@ -846,19 +846,23 @@ function updateChordDisplay(noteData, time) {
     // if ((time - lastTime) < 0.8) { // too short
     // if ((time - lastTime) < 0.2) { // too short
     // if ((time - lastTime) < 0.5) {  
-    if ((timeDifference) > 0.002 && timeDifference < 2.0) {  
-        // tempNotes.push(noteData.name); // sharps
+    // if ((timeDifference) > 0.007 && timeDifference < 2.0) {  // terrible, almost no chords show
+    // if ((timeDifference) > 0.002 && timeDifference < 2.0) {  // okay
+    if ((timeDifference) > 0.002 && timeDifference < 2.0) {
+        // tempNotes.push(noteData.name); // sharps 
         tempNotes.push(noteData.fullNote);  // flats
     } else {
         // tempNotes = [];
     }
-    console.log('tempNotes: ', tempNotes);
+    // console.log('tempNotes: ', tempNotes);
 
     // if (allPlayedNotes.length % 4 === 0) {
     // if (tempNotes.length > 2 && tempNotes.length < 10) {
     // if (tempNotes.length > 3 && tempNotes.length < 10) {
-    if (tempNotes.length > 1 && tempNotes.length < 10) {
-        // console.log(Tonal);
+    // if (tempNotes.length > 1 && tempNotes.length < 10) { // prev
+    if (tempNotes.length > 2 && tempNotes.length < 10) { 
+        console.log('tempNotes: ', tempNotes);
+
         // Tonal.ChordDetect.detect(allPlayedNotes);
 
         // console.log(Chord);
@@ -878,7 +882,7 @@ function updateChordDisplay(noteData, time) {
             let currentChordDisplayName = currentChordInfo.name;
 
             // console.log({currentChordInfo});
-            // console.log({currentChordDisplayName});
+            console.log({currentChordDisplayName});
             
             if (currentChordDisplayName) {
                 currentChordInfo = currentChordInfo;
@@ -935,7 +939,8 @@ function updateChordDisplay(noteData, time) {
         // Tonal.Chord.reduced("Cmaj7"); // => ["C5", "CM"]
     }
 
-    if (tempNotes.length > 10) {
+    // if (tempNotes.length > 10) {
+    if (tempNotes.length > 5) {
         tempNotes = [];
     }
 
