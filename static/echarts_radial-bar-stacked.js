@@ -17,12 +17,12 @@
 // import Recording from '../assets/recording/1_autumnleaves_right-left-merged-03.js';
 import Recording from '../assets/recording/1_autumnleaves_record.js'; 
 
-console.log({Recording});
-console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
+// console.log({Recording});
+// console.log('Recording.tracks[0].notes: ', Recording.tracks[0].notes);
 const toneMidiNotes = Recording.tracks[0].notes;
 // const toneMidiNotes = Recording.tracks[1].notes;
 // const toneMidiNotes = Recording.tracks[3].notes;
-console.log({toneMidiNotes});
+// console.log({toneMidiNotes});
 
 // TODO:
 // - use tonal inside pie chart label formatter to directly map Tone.js MIDI output to ECharts compatible dataset 
@@ -841,14 +841,17 @@ let tempNotes = [];
 function updateChordDisplay(noteData, time) {
     // console.log(time);
     const timeDifference = time - lastTime;
-    console.log(timeDifference);
+    // console.log(timeDifference);
     // if ((time - lastTime) < 1.2) { // too long
     // if ((time - lastTime) < 0.8) { // too short
     // if ((time - lastTime) < 0.2) { // too short
     // if ((time - lastTime) < 0.5) {  
     // if ((timeDifference) > 0.007 && timeDifference < 2.0) {  // terrible, almost no chords show
     // if ((timeDifference) > 0.002 && timeDifference < 2.0) {  // okay
-    if ((timeDifference) > 0.002 && timeDifference < 2.0) {
+    // if ((timeDifference) > 0.0025 && timeDifference < 2.0) { // hmm
+    // if ((timeDifference) > 0.001 && timeDifference < 1.0) { // good
+    // if ((timeDifference) > 0 && timeDifference < 0.65) {
+    if ((timeDifference) > 0.001 && timeDifference < 1) {
         // tempNotes.push(noteData.name); // sharps 
         tempNotes.push(noteData.fullNote);  // flats
     } else {
@@ -889,6 +892,19 @@ function updateChordDisplay(noteData, time) {
 
                 // allPlayedNotes = allPlayedNotes.slice(4);
 
+                if (currentChordDisplayName === "A minor augmented") {
+                    currentChordDisplayName = "F major";
+                }
+
+                if (currentChordDisplayName === "E") {
+                    currentChordDisplayName = "D major";
+                }
+
+                if (currentChordDisplayName === "G minor augmented" || currentChordDisplayName === "G minor seventh") {
+                    currentChordDisplayName = "Bb major";
+                }
+
+
                 // chordsPlayed.push(currentChordInfo.symbol);
                 chordsPlayed.push(currentChordDisplayName);
                 // console.log('chordsPlayed: ', chordsPlayed);
@@ -907,8 +923,10 @@ function updateChordDisplay(noteData, time) {
                 // intervals: the interval list
                 // console.log(Tonal.ChordType.get(currentChordDisplayName)); // unknown
                 // console.log(Tonal.ChordType.get(currentChordInfo.symbol)); // unknown
+            } else {
+                tempNotes = [];
             }
-            tempNotes = [];
+            // tempNotes = [];
         } else {
             // tempNotes = [];
         }
@@ -937,10 +955,12 @@ function updateChordDisplay(noteData, time) {
         // }
 
         // Tonal.Chord.reduced("Cmaj7"); // => ["C5", "CM"]
+    } else {
+        // tempNotes = []; // no chords show
     }
 
     // if (tempNotes.length > 10) {
-    if (tempNotes.length > 5) {
+    if (tempNotes.length > 4) {
         tempNotes = [];
     }
 
