@@ -126,7 +126,8 @@ export function generateInstrMetadata(note, midi) {
         // instrMapped.color = '#FFFF00'; // yellow
 
         // midiNumPos = midiNumPos * 1.5; // too far apart
-        midiNumPos = midiNumPos * 1.9; 
+        // midiNumPos = midiNumPos * 1.9; // really too far apart
+        midiNumPos = midiNumPos * 1.5;
 
         // const noteHorizShift = -70; // prev
         const noteHorizShift = -100; 

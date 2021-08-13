@@ -217,7 +217,8 @@ export default class Physics {
 
         // const yPos = 38; // prev, low drop point
         // const yPos = 70; // too high?
-        const yPos = 60;
+        // const yPos = 60; // too high
+        const yPos = 44;
 
         /*** Randomized Y drop point ***/
         // const y = Math.random() * (10 - 5) + 5; //rdm b/w 5 and 10
@@ -254,15 +255,15 @@ export default class Physics {
             xPos = Store.dropCoordCircleInterval[index].px;
             zPos = Store.dropCoordCircleInterval[index].py;
         }
-
         // zPos = options.originalPosition.z;
 
         body.position.set((sphere) ? -xPos : xPos, yPos, zPos);
 
         // body.linearDamping = Store.damping; // 0.01
-        // body.linearDamping = 0.5; // slow fall
-        body.linearDamping = 0.7; // slower fall
         // body.linearDamping = 0.01; // v0.2, v0.3
+        // body.linearDamping = 0.5; // slow fall
+        // body.linearDamping = 0.7; // slower fall (too slow)
+        body.linearDamping = 0.3;
 
         // // // IMPORTANT - rotation spped // // //
         // body.angularVelocity.z = 10; // prev
@@ -310,7 +311,8 @@ export default class Physics {
         // options.mesh.scale.set(2, 2, 2);
         // options.mesh.scale.set(2.2, 1.7, 2);
         // options.mesh.scale.set(5.5, 4.0, 3.5); // decent
-        options.mesh.scale.set(6, 4.2, 3.8);
+        // options.mesh.scale.set(6, 4.2, 3.8); // prev
+        options.mesh.scale.set(8, 5, 0); 
         
         // https://threejsfundamentals.org/threejs/lessons/threejs-materials.html
         // const noteLetterMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff });
@@ -333,8 +335,9 @@ export default class Physics {
         });
         const noteLetterSprite = new THREE.Sprite(noteLetterSpriteMaterial);
         // noteLetterSprite.scale.set(2.35, 2.35, 2.35);
-        noteLetterSprite.scale.set(2.65, 2.65, 2.65);
-        
+        // noteLetterSprite.scale.set(2.65, 2.65, 2.65); // prev
+        noteLetterSprite.scale.set(3.75, 3.75, 3.75);
+
         // const sphereGeo = new THREE.SphereGeometry(0.5, 8, 8);
         // // const sphereGeo = new THREE.SphereGeometry(0.5, 8, 1); // diamond
         // const boxGeo = new THREE.BoxGeometry(1, 1, 0.05);
@@ -411,7 +414,7 @@ export default class Physics {
 
                         // const hideTimer = (options.duration * 100);
                         const hideTimer = (options.duration * 1000);
-                        console.log(hideTimer);
+                        // console.log(hideTimer);
 
                         setTimeout(() => {
                             // console.log(Store.instrumentConfigArr[1].texture);

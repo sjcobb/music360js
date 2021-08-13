@@ -76,7 +76,9 @@ if (Store.view.cameraPositionBehind === true) {
     // // // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX - 200, 12, Store.view.posBehindZ)); // rear view
     // Store.camera.lookAt(new THREE.Vector3(Store.dropPosX, 6, 0));
     // Store.camera.lookAt(new THREE.Vector3(0, -30, 10)); /// prev (autoScroll true)
-    Store.camera.lookAt(new THREE.Vector3(0, 28, -10));
+    // Store.camera.lookAt(new THREE.Vector3(0, 28, -10)); // prev (too far left)
+    Store.camera.lookAt(new THREE.Vector3(0, 18, -20));
+    // TODO (autumn-leaves): left-most notes are too far apart (aka too far right), right-most notes are too close (aka too far left)
 }
 
 if (Store.cameraLookUp === true) {
@@ -128,7 +130,7 @@ window.addEventListener('resize', function() {
 //////////////
 // https://threejs.org/examples/#misc_controls_fly
 Store.controls = new FlyControls(Store.camera);
-Store.controls.movementSpeed = 1; //prev: 10
+Store.controls.movementSpeed = 10; //prev: 10
 Store.controls.domElement = Store.renderer.domElement;
 Store.controls.rollSpeed = Math.PI / 40;
 Store.controls.autoForward = false;
@@ -144,8 +146,8 @@ Store.loader = new THREE.TextureLoader();
 // BACKGROUND //
 ////////////////
 // // Store.scene.background = new THREE.Color( 0xff0000 ); // red
-Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
-// Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
+// Store.scene.background = new THREE.Color( 0x00b140 ); // green screen
+Store.scene.background = new THREE.Color( 0x0047bb ); // blue screen
 
 const light = new Light();
 light.addLights(Store.renderer);

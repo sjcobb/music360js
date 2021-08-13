@@ -153,7 +153,9 @@ export default class Helpers {
 
             // ctx.font = "bold " + (textH) + "px Geneva";
             // ctx.font = "normal " + (textH) + "px Verdana";
-            ctx.font = "bolder " + (textH) + "px Verdana"; 
+            // ctx.font = "bolder " + (textH) + "px Verdana"; 
+            // ctx.font = "normal " + (textH) + "px Verdana";
+            ctx.font = "bold " + (textH) + "px Geneva";
             // ctx.fillStyle = "#000000"; // black text color
             ctx.fillStyle = "#ffffff"; // white text color
             var textW = ctx.measureText(textData).width;
@@ -161,7 +163,8 @@ export default class Helpers {
             //TODO: adjust textOffset position here
             // let textOffsetX = 0.0;
             // let textOffsetX = -5; // jazzhands
-            let textOffsetX = 70;
+            // let textOffsetX = 70; // prev
+            let textOffsetX = 80; 
             // let textOffsetX = 120; // too far right
 
             // let textOffsetY = 0.0;

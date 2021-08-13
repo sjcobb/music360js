@@ -233,9 +233,13 @@ export default {
         // posBehindX: -140, // prev (autoScroll true)
         // posBehindY: 40,
 
-        posBehindX: -55, // back - front
+        // posBehindX: -55, // back - front
+        // posBehindY: 40, // higher
+        // posBehindZ: -85, // too far left
+
+        posBehindX: -65, // back - front
         posBehindY: 40, // higher
-        posBehindZ: -85, // left - right
+        posBehindZ: -60, // left - right
         
         songAutoStart: true,
         songAutoStartTime: 1000,
