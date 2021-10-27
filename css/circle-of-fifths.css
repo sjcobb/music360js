@@ -247,12 +247,15 @@ aside#key-interval-numbers ul li .interval-wrapper h3 {
     display: inline-block;
     background: #444;
     margin: 0;
-    padding: 10px 25px 6px 25px;
+    /* padding: 10px 25px 6px 25px; */
+    padding: 6px 25px 2px 25px;
     position: relative;
     bottom: 60px;
     color: #fff;
     /* font: 24px/1 "Roboto Condensed", Verdana, sans-serif; */
     font: 24px/1.2 "Roboto Condensed Bold", "Roboto Condensed", Verdana, sans-serif;
+    font-size: 36px;
+    letter-spacing: 2.5px;
     /* transform: scale(1, 1); */
     /* opacity: 0;
     transition: opacity 2s ease-in; */
@@ -266,18 +269,18 @@ aside#key-interval-numbers ul li .interval-wrapper h3 {
     to   { opacity: 1; }
 }
 aside#key-interval-numbers ul li:nth-child(1) .interval-wrapper h3 {
-    bottom: 70px; /* IV */
+    bottom: 90px; /* IV */
 }
 aside#key-interval-numbers ul li:nth-child(2) .interval-wrapper h3 {
-    bottom: 80px; /* I */
+    bottom: 100px; /* I */
 }
 aside#key-interval-numbers ul li:nth-child(6) .interval-wrapper h3 {
     left: -10px;
-    bottom: 50px; /* iii */
+    bottom: 70px; /* iii */
 }
 aside#key-interval-numbers ul li:nth-child(7) .interval-wrapper h3 {
     left: -10px;
-    bottom: 30px; /* VII */
+    bottom: 50px; /* VII */
     padding-right: 20px;
 }
 

@@ -896,14 +896,13 @@ function updateChordDisplay(noteData, time) {
                     currentChordDisplayName = "F major";
                 }
 
-                if (currentChordDisplayName === "E") {
+                if (currentChordDisplayName === "E" || currentChordDisplayName === "E ") {
                     currentChordDisplayName = "D major";
                 }
 
-                if (currentChordDisplayName === "G minor augmented" || currentChordDisplayName === "G minor seventh") {
+                if (currentChordDisplayName === "G minor augmented" || currentChordDisplayName === "G minor seventh" || currentChordDisplayName === "G minor ninth") {
                     currentChordDisplayName = "Bb major";
                 }
-
 
                 // chordsPlayed.push(currentChordInfo.symbol);
                 chordsPlayed.push(currentChordDisplayName);
